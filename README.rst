@@ -21,7 +21,14 @@ Some reasons for using ``trackhub`` to manage your track hubs:
 * `extensible`: provides a framework for working with hub components, allowing
   new functionality to be easily added
 
+
 Full documentation, including a full in-depth tutorial, can be found at
 http://packages.python.org/trackhub.
+
+
+**Note:** ``trackhub`` is still under active development and should be considered an
+alpha version.  Please open an issue on github
+(https://github.com/daler/trackhub/issues) if you run into problems.
+
 
 Copyright 2012 Ryan Dale; BSD 2-clause license.
