@@ -4,5 +4,5 @@ from genomes_file import GenomesFile
 from genome import Genome
 from trackdb import TrackDb
 from track import Track, SubGroupDefinition, CompositeTrack, \
-    ViewTrack
+    ViewTrack, SuperTrack
 from version import version as __version__
