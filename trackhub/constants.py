@@ -164,6 +164,16 @@ track_typespecific_fields = {
             "on|off; if off then don't display query names",
             set(['on', 'off'])),
     ]),
+    
+    'vcfTabix': OrderedDict((i.param, i) for i in [
+        Parameter(
+            'maxWindowToDraw',
+            """
+            Forces track to dense mode, summary mode, when a threshold
+            number of bases is displayed in the window""",
+            int),
+        ]),
+
 }
 
 
