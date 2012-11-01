@@ -6,7 +6,7 @@ from base import HubComponent
 import hub, trackdb, genomes_file, genome
 import constants
 
-TRACKTYPES = ['bigWig', 'bam', 'bigBed', None]
+TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
 
 
 class ParameterError(Exception):
