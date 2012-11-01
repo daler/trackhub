@@ -428,3 +428,43 @@ class ViewTrack(BaseTrack):
             for line in str(subtrack).splitlines(False):
                 s.append('        ' + line)
         return '\n'.join(s)
+
+
+class SuperTrack(BaseTrack):
+    def __init__(self, *args, **kwargs):
+        """
+        Represents a Super track. Subclasses :class:`Track`, and adds some
+        extras.
+
+        Super tracks are container tracks (Folders) that group tracks. They are used to
+        turn control visuzualtion of a set of related data.
+
+        Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
+        add this supertrack to it with that instance's :meth:`add_tracks`
+        method.
+        """
+        super(SuperTrack, self).__init__(*args, **kwargs)
+        self.subtracks = []
+
+    def add_track(self, subtrack):
+        """
+        Add a child :class:`SubTrack`
+        """
+        self.add_child(subtrack)
+        self.subtracks.append(subtrack)
+
+    def __str__(self):
+
+        s = []
+
+        s.append(super(SuperTrack, self).__str__())
+        s.append('superTrack on')
+
+        # Removed subtracks for Supertrack because composite tracks can be within the supertrack. 
+        # This is also the recommendation from UCSC
+        for subtrack in self.subtracks:
+            s.append("")
+            for line in str(subtrack).splitlines(False):
+                s.append(line)
+        return '\n'.join(s)
+

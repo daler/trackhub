@@ -14,6 +14,7 @@ API documentation
     trackhub.GenomesFile
     trackhub.Genome
     trackhub.TrackDb
+    trackhub.SuperTrack
     trackhub.CompositeTrack
     trackhub.ViewTrack
     trackhub.Track

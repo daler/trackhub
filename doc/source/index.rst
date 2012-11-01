@@ -15,7 +15,7 @@ hubs for the UCSC Genome Browser.
 The existing framework for creating a track hub consists of writing a text file
 as detailed in the `trackDb.txt README <http://genome-source.cse.ucsc.edu/gitweb/?p=kent.git;a=blob;f=src/hg/makeDb/trackDb/README;hb=HEAD>`_
 (and, more recently, in the development `track database definition page
-<http://hgwdev.cse.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html>`_).
+<http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html>`_).
 
 This can get extremely tedious, especially when trying to create and upload
 track hubs as part of an automated pipeline.  :mod:`trackhub` tries to ease

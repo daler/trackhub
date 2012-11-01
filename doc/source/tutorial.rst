@@ -138,6 +138,124 @@ Do the same check:
 Now we need to create objects representing stanzas in the :class:`TrackDb`
 object, which makes up the bulk of the rest of the tutorial....
 
+Grouping Tracks in supertracks
+______________________________
+Before we get into more complicated grouping strucutre of tracks,
+lets discuss supertracks::
+
+     SUPERTRACK STANZA
+     - Defines a group of tracks to vizualize as a block
+     - Doesn't contain any params like a track, including
+       bigDataUlr
+
+     TRACK A STANZA
+     - Defines params for this track, including bigDataUrl
+     - Refers to supertrack as parent, can have different
+       type than other track stanzas
+
+     TRACK B STANZA
+     - Defines params for this track, including bigDataUrl
+     - Refers to supertrack as parent, can have different
+       type than other track stanzas
+
+A supertrack acts as a container level to group tracks that should
+be vizualized together. Connections between supertracks and tracks
+will be created in much the same way as adding a ``track`` to
+the parent ``trackdb`` -- for example,
+``supertrack.add_track(track)`` to add the child ``track`` to the 
+parent ``supertrack``.
+
+Creating a supertrack
+_____________________
+So lets create a supertrack:
+
+.. testcode::
+    
+    from trackhub import SuperTrack
+
+    supertrack = SuperTrack(
+        name="supertrack",
+        short_label="my super",
+        long_label="An example supertrack")
+
+    #make sure it looks OK
+    print supertrack
+
+.. testoutput::
+    :options: +REPORT_NDIFF
+
+    track supertrack
+    shortLabel my super
+    longLabel An example supertrack
+    superTrack on
+
+After the supertrack has been created, we can incrementally
+add additional tracks.
+
+Create two new :class:`Track` instances and add them to the ``supertrack``. 
+Each instance represents a stanza in the ``supertrack``: 
+
+.. testcode::
+    
+    from trackhub import Track
+    import os
+
+    URLBASE = 'http://example.com/mytrackhubs'
+    GENOME = 'dm3'
+
+    track1 = Track(
+        name="track1Track",
+        url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
+        tracktype='bigWig',
+        short_label='track1',
+        long_label='my track #1',
+        # add other params here...
+        color='128,0,0')
+
+    track2 = Track(
+        name="track2Track",
+        url=os.path.join(URLBASE, GENOME, 'track1.bigBed'),
+        tracktype='bigBed 3',
+        short_label='track2',
+        long_label='my track #2',
+        # add other params here...
+        color='128,0,0')
+
+    supertrack.add_track(track1)
+    supertrack.add_track(track2)
+
+    #make sure it looks OK
+    print supertrack
+
+.. testoutput::
+    :options: +REPORT_NDIFF
+
+    track supertrack
+    shortLabel my super
+    longLabel An example supertrack
+    superTrack on
+
+    track track1Track
+    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
+    shortLabel track1
+    longLabel my track #1
+    type bigWig
+    color 128,0,0
+    parent supertrack
+
+    track track2Track
+    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
+    shortLabel track2
+    longLabel my track #2
+    type bigBed 3
+    color 128,0,0
+    parent supertrack
+
+Note that children stanzas of a ``supertrack`` are not indented
+further, like we will see for composites, to allow
+for easier readability. Next onto composites, views and subtracks.
+
+
 General structure of composites, views, and subtracks
 -----------------------------------------------------
 OK, we're about to get into the somewhat complicated stuff. So it may be
