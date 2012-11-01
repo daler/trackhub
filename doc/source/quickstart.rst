@@ -84,7 +84,7 @@ existence. But here, we're just creating them longhand for clarity:
 
     track1 = Track(
         name="track1Track",
-        url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
+        url=os.path.join(URLBASE, GENOME, 'track1.bigBed'),
         tracktype='bigBed 3',
         short_label='track1',
         long_label='my track #1',
@@ -93,7 +93,7 @@ existence. But here, we're just creating them longhand for clarity:
 
     track2 = Track(
         name="track2Track",
-        url=os.path.join(URLBASE, GENOME, 'track2.bigWig'),
+        url=os.path.join(URLBASE, GENOME, 'track2.bigBed'),
         tracktype='bigBed 3',
         short_label='track2',
         long_label='my track #2',
@@ -183,14 +183,14 @@ And the trackDb file:
     :options: +NORMALIZE_WHITESPACE
 
     track track1Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
+    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
     shortLabel track1
     longLabel my track #1
     type bigBed 3
     color 128,0,0
 
     track track2Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigWig
+    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
     shortLabel track2
     longLabel my track #2
     type bigBed 3
