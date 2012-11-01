@@ -171,7 +171,7 @@ So lets create a supertrack:
 
 .. testcode::
     
-    from trackHub import SuperTrack
+    from trackhub import SuperTrack
 
     supertrack = SuperTrack(
         name="supertrack",
@@ -184,7 +184,7 @@ So lets create a supertrack:
 .. testoutput::
     :options: +REPORT_NDIFF
 
-    track mysuper
+    track supertrack
     shortLabel my super
     longLabel An example supertrack
     superTrack on
@@ -197,6 +197,12 @@ Each instance represents a stanza in the ``supertrack``:
 
 .. testcode::
     
+    from trackhub import Track
+    import os
+
+    URLBASE = 'http://example.com/mytrackhubs'
+    GENOME = 'dm3'
+
     track1 = Track(
         name="track1Track",
         url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
@@ -206,7 +212,7 @@ Each instance represents a stanza in the ``supertrack``:
         # add other params here...
         color='128,0,0')
 
-     track2 = Track(
+    track2 = Track(
         name="track2Track",
         url=os.path.join(URLBASE, GENOME, 'track1.bigBed'),
         tracktype='bigBed 3',
@@ -215,15 +221,16 @@ Each instance represents a stanza in the ``supertrack``:
         # add other params here...
         color='128,0,0')
 
-        supertrack.add_track(track1)
-        supertrack.add_track(track2)
+    supertrack.add_track(track1)
+    supertrack.add_track(track2)
 
-        #make sure it looks OK
+    #make sure it looks OK
+    print supertrack
 
 .. testoutput::
     :options: +REPORT_NDIFF
 
-    track mysuper
+    track supertrack
     shortLabel my super
     longLabel An example supertrack
     superTrack on
@@ -234,7 +241,7 @@ Each instance represents a stanza in the ``supertrack``:
     longLabel my track #1
     type bigWig
     color 128,0,0
-    parent mysuper
+    parent supertrack
 
     track track2Track
     bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
@@ -242,7 +249,7 @@ Each instance represents a stanza in the ``supertrack``:
     longLabel my track #2
     type bigBed 3
     color 128,0,0
-    parent mysuper
+    parent supertrack
 
 Note that children stanzas of a ``supertrack`` are not indented
 further, like we will see for composites, to allow

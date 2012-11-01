@@ -216,7 +216,7 @@ Printing the ``trackdb`` again reflects the updates:
     :options: +NORMALIZE_WHITESPACE
 
     track track1Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
+    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
     shortLabel track1
     longLabel my track #1
     type bigBed 3
@@ -224,7 +224,7 @@ Printing the ``trackdb`` again reflects the updates:
     color 128,0,0
 
     track track2Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigWig
+    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
     shortLabel track2
     longLabel my track #2
     type bigBed 3
