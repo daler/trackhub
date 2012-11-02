@@ -166,12 +166,7 @@ track_typespecific_fields = {
     ]),
     
     'vcfTabix': OrderedDict((i.param, i) for i in [
-        Parameter(
-            'maxWindowToDraw',
-            """
-            Forces track to dense mode, summary mode, when a threshold
-            number of bases is displayed in the window""",
-            int),
+        # No Special Configuration for vcfTabix, uses maxWindowToDraw
         ]),
 
 }
@@ -251,8 +246,8 @@ track_fields = OrderedDict((i.param, i) for i in [
     Parameter(
         'maxWindowToDraw',
         """
-        a (large) positive number; if winEnd-winStart is larger, don't draw
-        items""",
+        a (large) positive number; if winEnd-winStart is larger than threshold
+        forces track to dense mode""",
         int),
 
     Parameter(
