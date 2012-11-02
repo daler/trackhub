@@ -35,6 +35,16 @@ track_typespecific_fields = {
 
     'bigBed': OrderedDict((i.param, i) for i in [
         Parameter(
+            'colorByStrand',
+            """
+            red, green, blue  red, green, blue values 0 to 255;
+            specifies plus and minus strand color, first rgb is plus
+            strand, second rgb is minus strand
+            """,
+            # NOTE: BED 6 or higher
+            validate.RGBList),
+
+       Parameter(
             'denseCoverage',
             """
             in dense mode, do a density plot based on max coverage seen under
@@ -44,12 +54,89 @@ track_typespecific_fields = {
             int),
 
         Parameter(
-            'nonBedFieldsLabel',
+            'exonArrow',
             """
-            text heading string printed on item details page before display of
-            non-bed type fields.  Default is 'Non-BED fields:'""",
-            str),
+            on|off; shows arrows on blocks allowing user to navigate to next
+            block for an item outside the image currently displayed (Default: on)
+            """,
+            # NOTE: BED 10 or higher
+            set(['on', 'off']),
+
+        Parameter(
+            'scoreFilter',
+            ' default score filter value for a track which excludes scores below threshold',
+            # TODO: Verify documentation confusion, possiblely could be using range
+            int),
+
+        Parameter(
+            'scoreFilterLimits',
+            """
+            low[:high]; range that score is filter between, score value N imples N:1000 
+            (Default 0:1000)
+            """,
+            str,)
+
+        Parameter(
+            'itemRgb',
+            'on|off; activates item coloring based on ninth field (Default: off)',
+            # NOTE: BED 9 or higher
+            set(['on', 'off'])),
+
+        Parameter(
+            'maxItems',
+            """
+            integer defining threshold of items to display in full mode and number of
+            lines to display in pack mode. (Default: 250, can't be larger than 100,000)
+            """,
+            # TODO: Improve verification to check that values is less than 100,000
+            int),
+        
+        Parameter(
+            'minGrayLevel',
+            """
+            1-9; specifies the lightest shade to be used
+            """,
+            # TODO: Need to look up better verification for range
+            int),
+
+        Parameter(
+            'noScoreFilter',
+            """
+            on|off; turns off filter on score configuration options in UI (Default: off) 
+            """,
+            # TODO: Add additional verification that checks that type has + or .
+            set(['on', 'off'])),
+
+
+        Parameter(
+            'spectrum',
+            'use score to shade color items',
+            # NOTE: BED 5 or higher
+            'on'),
+        
+        Parameter(
+            'scoreMax',
+            'defines upper score limit that will receive graded scoring',
+            # NOTE: BED 5 or higher, used with spectrum
+            int),
+
+        Parameter(
+            'scoreMin',
+            'defines lower score limit that will recieve graded scoring',
+            # NOTE: BED 5 or higher, used with spectrum
+            int),
+        
+        Parameter(
+            'thickDrawItem',
+            """
+            on|off; draw portions of items thicker to differentiate from
+            other regions (Default: off)
+            """,
+            # NOTE: BED 8 or higher
+            set(['on', 'off']),
+
     ]),
+    
     'bigWig': OrderedDict((i.param, i) for i in [
         Parameter(
             'autoScale',
@@ -69,6 +156,13 @@ track_typespecific_fields = {
             'graphType',
             "bar or points; default bar",
             set(['bar', 'points'])),
+        Parameter(
+            'maxWindowToQuery',
+            """
+            a (large) positive number; if winEnd-winStart is larger, don't query
+            items
+            """,
+            int),
 
         Parameter(
             'viewLimits',
@@ -119,8 +213,7 @@ track_typespecific_fields = {
             'spanList',
             'sets spans to just be the first span in table',
             str),
-    ]
-    ),
+    ]),
 
     'bam':  OrderedDict((i.param, i) for i in [
         Parameter(
@@ -203,7 +296,7 @@ composite_track_fields = OrderedDict((i.param, i) for i in [
     Parameter(
         'dimensions',
         "dimensionX=factor1 dimensionY=factor2 dimA=rep dimB=prot",
-        #TODO: better verification
+        # TODO: better verification
         str),
 
     Parameter(
@@ -225,23 +318,119 @@ view_track_fields = OrderedDict((i.param, i) for i in [
 ])
 
 track_fields = OrderedDict((i.param, i) for i in [
+    
+    # Common Settings
     Parameter(
         'visibility',
-        'default visibility',
+        'hide|dense|squish|pack|full;default visibility for this track (Default: hide)',
         set(['hide', 'dense', 'squish', 'pack', 'full'])
     ),
+    
+    Parameter(
+        'html',
+        """
+        optional file containg description of a track in HTML and is path is relative
+        to the path of trackDb file track is in. 
+        """,
+        str),
+
+    # Common Optional Settings
+    Parameter(
+        'boxedCfg',
+        """
+        on|off; places configuration controls within a box, much like multi-view controls
+        have (Default: off)""",
+        set(['on', 'off'])),
 
     Parameter(
-        'onlyVisibility',
-        'only this visibility and "hide" are possible for this track',
-        set(['hide', 'dense', 'squish', 'pack', 'full'])
-    ),
+        'color',
+        'red, green, blue values 0 to 255; specifies primary color for items',
+        validate.RGB),
+
     Parameter(
-        'maxWindowToQuery',
+        'altColor',
+        'red, green, blue values 0 to 255; specifies secondary color for items',
+        validate.RGB),
+
+    Parameter(
+        'chromosomes',
         """
-        a (large) positive number; if winEnd-winStart is larger, don't query
-        items (only bigWig at the moment)""",
-        int),
+        chr1, chr3; only these chroms have data for this track, the system displays
+        message that there is no data on other chroms
+        """,
+        validate.CSV),
+    
+    Parameter(
+        'dataVersion',
+        """
+        display a version statment for this track on configruation and details pages, 
+        supports limited HTML
+        """,
+        str),
+
+    Paremeter(
+        'directUrl',
+        """
+        url;
+        link image to alternative detials page using these fields in order:
+        item name, chromosome name, chromosome start position, chromosome end position, track name, database name;
+        """,
+        # TODO: better verification and information
+        str),
+    
+    Parameter(
+        'otherDb',
+        'declare the other species/assembly used in the pariwise alingments',
+        # TODO: determine if functionaitly works for bigBed
+        str),
+
+    Parameter(
+        'pennantIcon',
+        """
+        icon [html [tip]]; Displays icon next to track in "parade" of tracks
+        found in hgTracks config. Html is an optional page describing the icon 
+        and path can be relative to the track or absolute. Tip is an optional "quoted string"
+        that is seen when the user hovers over the icon.
+        """,
+        str),
+ 
+    Parameter(
+        'priority',
+        """
+        used to order this track within its track group and within the browser image,
+        tracks of the same priority are sorted alphabetically by short label.
+        (Default: 0)
+        """,
+        float),
+
+    Parameter(
+        'url',
+        'url; place an external link on the details page',
+        # TODO: improved verification and information on coding
+        str),
+
+    Parameter(
+        'url2',
+        'url; place an additional external link on the details page',
+        # TODO: improved verification and information on coding
+        str),
+
+    Parameter(
+        'urlLabell',
+        """
+        used with url setting and provides text for link (Default: "outside link:")
+        """,
+        str),
+
+    Parameter(
+        'url2Label',
+        """
+        used with url2 setting and provides text for link (Default: "outside linl:")
+        """,
+        str),
+
+    
+    # Across datatype Settings
 
     Parameter(
         'maxWindowToDraw',
@@ -250,108 +439,6 @@ track_fields = OrderedDict((i.param, i) for i in [
         forces track to dense mode""",
         int),
 
-    Parameter(
-        'group',
-        """
-        any "name" from the grp table; e.g.: map, genes, rna, regulation,
-        compGeno, varRep;  used to specify which group of track controls to
-        place this track into""",
-        str),
-
-    Parameter(
-        'useScore',
-        'use score to shade color items',
-        "1"),
-
-    Parameter(
-        'spectrum',
-        'same effect as useScore',
-        'on'),
-
-    Parameter(
-        'thickDrawItem',
-        """
-        keep width of bed item at least this many pixels wide even at great
-        zoom levels""",
-        int),
-
-    Parameter(
-        'color',
-        'specifies primary color for items. red, green, blue values 0 to 255',
-        validate.RGB),
-
-    Parameter(
-        'altColor',
-        'specifies secondary color for items',
-        validate.RGB),
-
-    Parameter(
-        'colorByStrand',
-        """
-        specifies plus and minus strand color as above; first rgb is plus
-        strand, second rgb is minus strand. this has no effect for elements
-        w/out strand.""",
-        validate.RGBList),
-
-    Parameter(
-        'priority',
-        """
-        used to order this track within this track group. if no priority
-        line, hgTrackDb sets priority to 100""",
-        float),
-
-    Parameter(
-        'chromosomes',
-        """
-        only these chroms have data for this track, this track is not shown
-        on other chroms""",
-        validate.CSV),
-
-    Parameter(
-        'metadata',
-        """
-        Purely informational.  Gives additional information about a track
-        which will be displayed in hgTrackUi and hgc. Especially useful for
-        subtracks (see below)""",
-        validate.key_val),
-
-    Parameter(
-        'boxedCfg',
-        """
-        puts a box around setting controls, much like multi-view controls
-        'have.""",
-        'on'),
-
-    Parameter(
-        'scoreFilter',
-        'default score filter value for a track',
-        int),
-
-    Parameter(
-        'scoreFilterLimits',
-        """
-        min:max range that score can take. (default 0:1000.  Single value
-        N implies N:1000)""",
-        str),
-
-    Parameter(
-        'scoreFilterByRange',
-        """
-        Filter using both upper and lower bounds. (when used, set default
-        bounds by 'scoreFilter N:M')""",
-        'on'),
-
-    Parameter(
-        'scoreFilterMax',
-        "deprecated.  Use scoreFilterLimits.",
-        int),
-
-    Parameter(
-        'noScoreFilter',
-        """
-        to turn off Ui options for bed 5+ tracks, I don't know what the . is
-        for, but it always appears to be used.""",
-        "."),
 
     Parameter(
         'table',
@@ -385,14 +472,5 @@ track_fields = OrderedDict((i.param, i) for i in [
         (hgTrackUi) page.""",
         set(['on', 'off'])),
 
-    Parameter(
-        'pennantIcon',
-        """
-        icon [url [hint]]. Displays icon next to track in "parade" of tracks
-        found in hgTracks config MAY at some point appear in search tracks and
-        next to title in hgTrackUi icon is required and must be in
-        htdocs/images.  Url is optional and can be relative to the cgi-bin or
-        absolute.  Hint is optional text for a toolTip.  Enclose in quotes for
-        readability.""",
-        str),
+
 ])
