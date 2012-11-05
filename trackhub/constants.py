@@ -296,44 +296,97 @@ track_typespecific_fields = {
     'bam':  OrderedDict((i.param, i) for i in [
         Parameter(
             'bamColorMode',
-            'coloring method; default is strand',
+            """
+            strand|gray|tag|off; coloring method (Default: strand)
+            """,
             set(['strand', 'gray', 'tag', 'off'])),
+
         Parameter(
             'bamGrayMode',
-            'grayscale metric; default aliQual',
+            """
+            aliQual|baseQual|unpaired; grayscale metric (Default: aliQual)
+            """,
+            # NOTE: bamColorMode gray
             set(['aliQual', 'baseQual', 'unpaired'])),
+        
+        Parameter(
+            'aliQualRange',
+            'min:max; shade alignment quals within this range (Default: 0:99)',
+            validate.ColSV2),
+        
+        Parameter(
+            'baseQualRange',
+            'min:max; shade base quals within this range (Default: 0:40)',
+            validate.ColSV2),
+ 
         Parameter(
             'bamColorTag',
-            'optional tag for rgb color; default is YC',
+            'optional tag for rgb color (Default: YC)',
+            # NOTE: bamColorMode tag
             str),
+
+        Parameter(
+            'noColorTag',
+            """
+            placeholder, e.g. "."; if present don't offer option of setting
+            color tag in track confiuration page""",
+            str),
+ 
         Parameter(
             'bamSkipPrintQualScore',
             """
             skip printing qual score in bam item details page; use "." to skip
             printing""",
             '.'),
+
+        Parameter(
+            'indelDoubleInsert',
+            """
+            on|off; highlight alignment gaps in targer and query sequency
+            with = (Default: 0ff)
+            """,
+            set(['on','off'])),
+
+        Parameter(
+            'indelQueryInsert',
+            """
+            on|off; highlight inserts in query sequence with 
+            orange or purple vertical lines (Default: off)
+            """,
+            set(['on','off'])),
+
+        Parameter(
+            'indelPolyA',
+            """
+            on|off; highlight pply-a tail with a vertical green line
+            (Default: off)
+            """,
+            set(['on','off'])),
+
         Parameter(
             'minAliQual',
-            'display only items with qualscore or better; default 0',
+            'display only items above threshold quality score (Default: 0)',
             int),
+
         Parameter(
-            'aliQualRange',
-            'min:max; shade alignment quals within this range; default 0:99',
-            validate.ColSV2),
-        Parameter(
-            'baseQualRange',
-            'min:max; shade base quals within this range; default 0:40',
-            validate.ColSV2),
-        Parameter(
-            'noColorTag',
+            'pairEndsByName',
             """
-            placeholder, e.g. "."; if present don't offer option of setting
-            color tag in hgTrackUi""",
-            str),
+            if data has paired-end tags joined by name; use "."
+            """,
+            '.'),
+
+        Parameter(
+            'pairSearchRange',
+            """
+            search range to join pairs of tags (Default: 20000)
+            """,
+            int),
+      
         Parameter(
             'showNames',
-            "on|off; if off then don't display query names",
+            "on|off; if off then don't display query namesi (Default: on)",
             set(['on', 'off'])),
+
     ]),
     
     'vcfTabix': OrderedDict((i.param, i) for i in [
