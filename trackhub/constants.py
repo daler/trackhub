@@ -201,24 +201,40 @@ track_typespecific_fields = {
     ]),
     
     'bigWig': OrderedDict((i.param, i) for i in [
+        
+        Parameter(
+            'alwaysZero',
+            """
+            on|off; when autoScale is on, this setting
+            ensures that y=0 is in the view (Default: off)
+            """,
+            set(['on','off']),
+
         Parameter(
             'autoScale',
-            "auto y-axis scaling",
+            """
+            on|off; auto y-axis scaling to ensure that
+            highest score in the current widow will
+            peak at the top of the window (Default: off)
+            """,
             set(['on', 'off'])),
+
         Parameter(
-            'gridDefault',
-            "draw y=0.0 line",
-            set(['on', 'off'])),
+            'graphTypeDefault',
+            """
+            points|bars; signal can be graphed as points
+            or bars (Default: bars)
+            """,
+            set(['points','bars']),
 
         Parameter(
             'maxHeightPixels',
-            "max:default:min; default is 128:128:11",
+            """
+            max:default:min; amount of vertical viewing space 
+            (Default: 100:16:8)
+            """,
             validate.ColSV3),
-
-        Parameter(
-            'graphType',
-            "bar or points; default bar",
-            set(['bar', 'points'])),
+ 
         Parameter(
             'maxWindowToQuery',
             """
@@ -226,56 +242,55 @@ track_typespecific_fields = {
             items
             """,
             int),
+ 
+        Parameter(
+            'smoothingWindow',
+            """
+            off|1-16; smoothing of graph using surrouding data,
+            the numeric number determines how much surrounding data
+            to use (Default: off_
+            """,
+            validate.off_or_int),
+
+        Parameter(
+            'transformFunc',
+            'NONE|LOG; change representation scale (Default: NONE)',
+            set(['NONE', 'LOG'])),
 
         Parameter(
             'viewLimits',
-            "default is from the type line limits; lower:upper.",
+            "lower:upper; set default viewing range",
+            # NOTE: autoScale must be off for this to work
             validate.ColSV2),
 
         Parameter(
             'viewLimitsMax',
             'lower:upper; unenforced -- suggested bounds of viewLimits',
             validate.ColSV2),
-
-        Parameter(
-            'yLineMark',
-            'float; draw line here',
-            float),
-
-        Parameter(
-            'yLineOnOff',
-            'on|off; draw y line',
-            set(['on', 'off'])),
-
-        Parameter(
-            'alwaysZero',
-            'on|off; always show zero values',
-            set(['on', 'off'])),
-
+        
         Parameter(
             'windowingFunction',
-            'maximum|mean|minimum',
-            set(['maximum', 'mean', 'minimum'])),
+            """
+            mean|mean+whiskers|maximum|minimum; how to summarize signal
+            data 
+            """,
+            set(['maximum', 'mean', 'mean+whiskers', 'minimum'])),
+      
+        Parameter(
+            'yLineMark',
+            'float; position on y-axis to draw line across (Default: 0.0)',
+            float),
+        
+        Parameter(
+            'yLineOnOff',
+            'on|off; draw y linei at some fixed position set by yLineMark (Default: off)',
+            set(['on', 'off'])),
 
         Parameter(
-            'smoothingWindow',
-            'off or 2-16; default off',
-            validate.off_or_int),
+            'gridDefault',
+            "on|off; draw y=0.0 line (Default: off)",
+            set(['on', 'off'])),
 
-        Parameter(
-            'transformFunc',
-            'NONE|LOG; default NONE',
-            set(['NONE', 'LOG'])),
-
-        Parameter(
-            'wigColorBy',
-            'use colors in bed for wiggle in overlapping regions',
-            str),
-
-        Parameter(
-            'spanList',
-            'sets spans to just be the first span in table',
-            str),
     ]),
 
     'bam':  OrderedDict((i.param, i) for i in [
