@@ -60,7 +60,7 @@ track_typespecific_fields = {
             block for an item outside the image currently displayed (Default: on)
             """,
             # NOTE: BED 10 or higher
-            set(['on', 'off']),
+            set(['on', 'off'])),
 
         Parameter(
             'scoreFilter',
@@ -74,7 +74,7 @@ track_typespecific_fields = {
             low[:high]; range that score is filter between, score value N imples N:1000 
             (Default 0:1000)
             """,
-            str,)
+            str),
 
         Parameter(
             'itemRgb',
@@ -133,7 +133,7 @@ track_typespecific_fields = {
             other regions (Default: off)
             """,
             # NOTE: BED 8 or higher
-            set(['on', 'off']),
+            set(['on', 'off'])),
 
         # Less frequent used options
 
@@ -197,7 +197,6 @@ track_typespecific_fields = {
             # NOTE: BED 5 or higher
             int),
 
-
     ]),
     
     'bigWig': OrderedDict((i.param, i) for i in [
@@ -208,7 +207,7 @@ track_typespecific_fields = {
             on|off; when autoScale is on, this setting
             ensures that y=0 is in the view (Default: off)
             """,
-            set(['on','off']),
+            set(['on','off'])),
 
         Parameter(
             'autoScale',
@@ -225,7 +224,7 @@ track_typespecific_fields = {
             points|bars; signal can be graphed as points
             or bars (Default: bars)
             """,
-            set(['points','bars']),
+            set(['points','bars'])),
 
         Parameter(
             'maxHeightPixels',
@@ -499,7 +498,7 @@ track_fields = OrderedDict((i.param, i) for i in [
         """,
         str),
 
-    Paremeter(
+    Parameter(
         'directUrl',
         """
         url;
