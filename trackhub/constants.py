@@ -135,6 +135,69 @@ track_typespecific_fields = {
             # NOTE: BED 8 or higher
             set(['on', 'off']),
 
+        # Less frequent used options
+
+        Parameter(
+            'bedNameLabel',
+            """
+            specifies an alternate label for the item name
+            """,
+            str),
+
+        Parameter(
+            'exonArrowDense',
+            """
+            on|off; display exon arrows even when the 
+            track is in dense mode (Default: off)
+            """,
+            # NOTE: BED 10 or higher
+            set(['on','off'])),
+
+        Parameter(
+            'itemImagePath',
+            """
+            path suffix; specifies a URL or relative path to track
+            that displays image on item details page
+            """,
+            str),
+
+        Parameter(
+            'itemBigImagePath',
+            """
+            path suffix; specifies a URL or relative path to track
+            that provides link to bigger image if itemImagePath
+            is specified
+            """,
+            str),
+
+        Parameter(
+            'nextExonText',
+            """
+            specifies an alternate label, when mousing over
+            next exon arrows
+            """,
+            # NOTE: BED 10 or higher
+            str),
+
+        Parameter(
+            'prevExonText',
+            """
+            specifies an alternate label, when mousing over
+            previous exon arrows
+            """,
+            # NOTE: BED 10 or higher
+            str),
+
+        Parameter(
+            'showTopScores',
+            """
+            integer specifying a list of top-scoring items
+            in genomic region on the item details page
+            """,
+            # NOTE: BED 5 or higher
+            int),
+
+
     ]),
     
     'bigWig': OrderedDict((i.param, i) for i in [
@@ -441,35 +504,12 @@ track_fields = OrderedDict((i.param, i) for i in [
 
 
     Parameter(
-        'table',
-        """
-        mySQL table name. Allows multiple tracks to use the same mySQL
-        table.  If omitted the mySQL table name is the same as the track name.
-        Note that there must be at least one track associated with the table
-        where the track name is the same as the table name, or the table
-        browser will have difficulties.""",
-        str),
-
-    Parameter(
         'configurable',
         """
-        Default: on for all track types that allow configuration.  If set to
+        on|off; on for all track types that allow configuration.  If set to
         off, configuration is blocked.  This setting is most useful in
-        composites where some subtracks should be configurable and others
-        not.""",
-        set(['on', 'off'])),
-
-    Parameter(
-        'configureByPopup',
-        """
-        Default: on for most tracks, off for snp, conservation and multiz
-        tracks.  If value is off, hgTracks does not use a modal dialog for
-        hgTrackUi, but instead always forces user to hgTrackUi page; this is
-        useful for very complicated config pages like dbSnp or multiz which do
-        not work well in a modal dialogs, and snp tracks which use javascript
-        that is not compatible with modal dialogs. This setting also turns off
-        individual subtrack configuration in the composite configuration
-        (hgTrackUi) page.""",
+        composites and views where some subtracks should be configurable and others
+        not. (Default: on)""",
         set(['on', 'off'])),
 
 
