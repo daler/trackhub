@@ -8,7 +8,7 @@ Preliminaries
 ~~~~~~~~~~~~~
 
 It's a good idea to read the `track hub help
-<http://hgwdev.cse.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ so you know
+<http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ so you know
 some of the terminology.
 
 In order to create the structure of a track hub, no data files are necessary
