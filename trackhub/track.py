@@ -437,7 +437,7 @@ class SuperTrack(BaseTrack):
         extras.
 
         Super tracks are container tracks (Folders) that group tracks. They are used to
-        turn control visuzualtion of a set of related data.
+        control visuzualtion of a set of related data.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this supertrack to it with that instance's :meth:`add_tracks`
@@ -467,4 +467,43 @@ class SuperTrack(BaseTrack):
             for line in str(subtrack).splitlines(False):
                 s.append(line)
         return '\n'.join(s)
+
+class AggregateTrack(BaseTrack):
+    def __init__(self, aggregate, *args, **kwargs):
+        """
+        Represents an Aggregate or Overlay track. Subclasses :class:`Track`, adds some
+        extras.
+
+        Aggregate tracks allow closley related tracks to be viewed as a single track.
+        
+        Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
+        add this supertrack to it with that instance's :meth:`add_tracks`
+        method.
+        """
+
+        self.aggregate = aggregate
+        kwargs['aggregate']= aggregate
+        super(AggregateTrack, self).__init__(*args, **kwargs)
+        self.specific_params.update(constants.aggregate_track_fields)
+        self.subtracks = []
+
+    def add_subtrack(self, subtrack):
+        """
+        Add a child :class:`SubTrack`.
+        """
+        self.add_child(subtrack)
+        self.subtracks.append(subtrack)
+
+    def __str__(self):
+
+        s = []
+
+        s.append(super(AggregateTrack, self).__str__())
+        s.append('container mutiWig')
+        
+        for subtrack in self.subtracks:
+            s.append("")
+            for line in str(subtrack).splitlines(False):
+                s.append('    ' + line)
+        return "\n".join(s)
 
