@@ -76,6 +76,7 @@ Easy enough:
     genome = Genome('dm3')
     trackdb = TrackDb()
 
+.. _connecting-the-components:
 
 Connecting the components
 -------------------------
@@ -143,20 +144,20 @@ ______________________________
 Before we get into more complicated grouping strucutre of tracks,
 lets discuss supertracks::
 
-     SUPERTRACK STANZA
-     - Defines a group of tracks to vizualize as a block
-     - Doesn't contain any params like a track, including
+    SUPERTRACK STANZA
+    - Defines a group of tracks to vizualize as a block
+    - Doesn't contain any params like a track, including
        bigDataUlr
 
-     TRACK A STANZA
-     - Defines params for this track, including bigDataUrl
-     - Refers to supertrack as parent, can have different
+    TRACK A STANZA
+    - Defines params for this track, including bigDataUrl
+    - Refers to supertrack as parent, can have different
        type than other track stanzas
 
-     TRACK B STANZA
-     - Defines params for this track, including bigDataUrl
-     - Refers to supertrack as parent, can have different
-       type than other track stanzas
+    TRACK B STANZA
+    - Defines params for this track, including bigDataUrl
+    - Refers to supertrack as parent, can have different
+      type than other track stanzas
 
 A supertrack acts as a container level to group tracks that should
 be vizualized together. Connections between supertracks and tracks
@@ -214,7 +215,7 @@ Each instance represents a stanza in the ``supertrack``:
 
     track2 = Track(
         name="track2Track",
-        url=os.path.join(URLBASE, GENOME, 'track1.bigBed'),
+        url=os.path.join(URLBASE, GENOME, 'track2.bigBed'),
         tracktype='bigBed 3',
         short_label='track2',
         long_label='my track #2',
@@ -244,7 +245,7 @@ Each instance represents a stanza in the ``supertrack``:
     parent supertrack
 
     track track2Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
+    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
     shortLabel track2
     longLabel my track #2
     type bigBed 3
@@ -377,7 +378,7 @@ parameters.  This is same method can be used for all classes derived from
 
 
 Subgroups
-~~~~~~~~~
+---------
 Composite tracks use the concept of subgroups to slice-and-dice tracks
 according to various definitions.  In :mod:`trackhub`, you create these via
 :class:`SubGroupDefinition` objects.
@@ -953,3 +954,147 @@ for more info on this).
 
 Now you can paste the hub's :attr:`Hub.url` into the UCSC genome browser track
 hub page to load your new hub.
+
+
+Group related tracks into an aggregate track
+____________________________________________
+To group related tracks and view as a single track we utilize
+an aggregate::
+
+
+    AGGREGATE TRACK STANZA
+    - Defines a group of tracks to vizualize as a single
+      track
+    - defines top-level params
+
+        TRACK A STANZA
+        - Defines params for this track, including bigDataUrl
+        - Refers to aggregate as parent
+
+        TRACK B STANZA
+        - Defines params for this track, including bigDataUrl
+        - Refers to aggregate as parent
+
+Connections between aggregate tracks, and subtracks
+will be created in much the same way -- for example,
+``aggregate.add_subtrack(subtrack)`` to add the child ``subtrack`` to the parent ``aggregate`` track.
+
+Creating an aggregate track
+___________________________
+So lets create an aggregate:
+
+.. testcode::
+    
+    from trackhub import AggregateTrack
+
+    aggregate = AggregateTrack(
+        name="aggregate",
+        tracktype='bigWig',
+        short_label="my aggregate",
+        long_label="An example aggregate",
+        aggregate='transparentOverlay')
+
+    #make sure it looks OK
+    print aggregate
+
+.. testoutput::
+    :options: +REPORT_NDIFF
+
+    track aggregate
+    shortLabel my aggregate
+    longLabel An example aggregate
+    type bigWig
+    aggregate transparentOverlay
+    container mutiWig
+
+After the aggregate track has been created, we can incrementally add additional
+parameters.  This is same method can be used for all classes derived from
+:class:`Track`:
+
+.. testcode::
+
+    aggregate.add_params(showSubtrackColorOnUi='on')
+
+    print aggregate
+
+.. testoutput::
+    :options: +REPORT_NDIFF
+
+    track aggregate
+    shortLabel my aggregate
+    longLabel An example aggregate
+    type bigWig
+    aggregate transparentOverlay
+    showSubtrackColorOnUi on
+    container mutiWig
+
+
+After the aggregate track has been created, we can incrementally
+add additional tracks, just like :class:`CompositeTrack`, :class:`ViewTrack`.
+
+Create two new :class:`Track` instances and add them to the ``aggregate``. 
+Each instance represents a stanza in the ``aggregate``: 
+
+.. testcode::
+    
+    from trackhub import Track
+    import os
+
+    URLBASE = 'http://example.com/mytrackhubs'
+    GENOME = 'dm3'
+
+    track1 = Track(
+        name="track1Track",
+        url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
+        tracktype='bigWig',
+        short_label='track1',
+        long_label='my track #1',
+        # add other params here...
+        color='120,235,204')
+
+    track2 = Track(
+        name="track2Track",
+        url=os.path.join(URLBASE, GENOME, 'track2.bigWig'),
+        tracktype='bigWig',
+        short_label='track2',
+        long_label='my track #2',
+        # add other params here...
+        color='255,128,128')
+
+    aggregate.add_subtrack(track1)
+    aggregate.add_subtrack(track2)
+
+    #make sure it looks OK
+    print aggregate
+
+.. testoutput::
+    :options: +REPORT_NDIFF
+
+
+    track aggregate
+    shortLabel my aggregate
+    longLabel An example aggregate
+    type bigWig
+    aggregate transparentOverlay
+    showSubtrackColorOnUi on
+    container mutiWig
+
+        track track1Track
+        bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
+        shortLabel track1
+        longLabel my track #1
+        type bigWig
+        color 120,235,204
+        parent aggregate
+
+        track track2Track
+        bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigWig
+        shortLabel track2
+        longLabel my track #2
+        type bigWig
+        color 255,128,128
+        parent aggregate
+
+The new ``aggregate`` track can be added to ``trackDb.txt``
+like other track objects. To see how to connect the components,
+see :ref:`connecting-the-components`.
