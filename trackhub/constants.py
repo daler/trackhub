@@ -447,6 +447,24 @@ view_track_fields = OrderedDict((i.param, i) for i in [
         set(['on', 'off'])),
 ])
 
+aggregate_track_fields = OrderedDict((i.param, i) for i in [
+    Parameter(
+        'aggregate',
+        """
+        transparentOverlay|solidOverlay|none; declares aggregate method
+        """,
+        set(['transparentOverlay', 'solidOverlay', 'none'])),
+
+    Parameter(
+        'showSubtrackColorOnUi',
+        """
+        on|off; show color associated with each track on the
+        configuration page (Default: off)
+        """,
+        set(['on', 'off'])),
+
+])
+
 track_fields = OrderedDict((i.param, i) for i in [
     
     # Common Settings

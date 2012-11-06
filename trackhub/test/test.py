@@ -1,6 +1,6 @@
 from nose.tools import assert_raises
 from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
-    TrackDb, ViewTrack
+    TrackDb, ViewTrack, SuperTrack, AggregateTrack
 import os
 
 
