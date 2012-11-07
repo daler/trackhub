@@ -44,7 +44,7 @@ track_typespecific_fields = {
             # NOTE: BED 6 or higher
             validate.RGBList),
 
-       Parameter(
+        Parameter(
             'denseCoverage',
             """
             in dense mode, do a density plot based on max coverage seen under
@@ -57,40 +57,47 @@ track_typespecific_fields = {
             'exonArrow',
             """
             on|off; shows arrows on blocks allowing user to navigate to next
-            block for an item outside the image currently displayed (Default: on)
+            block for an item outside the image currently displayed (Default:
+            on)
             """,
             # NOTE: BED 10 or higher
             set(['on', 'off'])),
 
         Parameter(
             'scoreFilter',
-            ' default score filter value for a track which excludes scores below threshold',
-            # TODO: Verify documentation confusion, possiblely could be using range
+            """default score filter value for a track which excludes scores
+            below threshold""",
+            # TODO: Verify documentation confusion, possibly could be using
+            # range
             int),
 
         Parameter(
             'scoreFilterLimits',
             """
-            low[:high]; range that score is filter between, score value N imples N:1000 
-            (Default 0:1000)
+            low[:high]; range that score is filtered between, score value
+            N imples N:1000 (Default 0:1000)
             """,
             str),
 
         Parameter(
             'itemRgb',
-            'on|off; activates item coloring based on ninth field (Default: off)',
+            """
+            on|off; activates item coloring based on ninth field (Default: off)
+            """,
             # NOTE: BED 9 or higher
             set(['on', 'off'])),
 
         Parameter(
             'maxItems',
             """
-            integer defining threshold of items to display in full mode and number of
-            lines to display in pack mode. (Default: 250, can't be larger than 100,000)
+            integer defining threshold of items to display in full mode and
+            number of lines to display in pack mode. (Default: 250, can't be
+            larger than 100,000)
             """,
-            # TODO: Improve verification to check that values is less than 100,000
+            # TODO: Improve verification to check that values is less than
+            # 100,000
             int),
-        
+
         Parameter(
             'minGrayLevel',
             """
@@ -102,9 +109,11 @@ track_typespecific_fields = {
         Parameter(
             'noScoreFilter',
             """
-            on|off; turns off filter on score configuration options in UI (Default: off) 
+            on|off; turns off filter on score configuration options in UI
+            (Default: off)
             """,
-            # TODO: Add additional verification that checks that type has + or .
+            # TODO: Add additional verification that checks that type has + or
+            # .
             set(['on', 'off'])),
 
 
@@ -113,7 +122,7 @@ track_typespecific_fields = {
             'use score to shade color items',
             # NOTE: BED 5 or higher
             'on'),
-        
+
         Parameter(
             'scoreMax',
             'defines upper score limit that will receive graded scoring',
@@ -122,10 +131,10 @@ track_typespecific_fields = {
 
         Parameter(
             'scoreMin',
-            'defines lower score limit that will recieve graded scoring',
+            'defines lower score limit that will receive graded scoring',
             # NOTE: BED 5 or higher, used with spectrum
             int),
-        
+
         Parameter(
             'thickDrawItem',
             """
@@ -147,11 +156,11 @@ track_typespecific_fields = {
         Parameter(
             'exonArrowDense',
             """
-            on|off; display exon arrows even when the 
+            on|off; display exon arrows even when the
             track is in dense mode (Default: off)
             """,
             # NOTE: BED 10 or higher
-            set(['on','off'])),
+            set(['on', 'off'])),
 
         Parameter(
             'itemImagePath',
@@ -198,16 +207,16 @@ track_typespecific_fields = {
             int),
 
     ]),
-    
+
     'bigWig': OrderedDict((i.param, i) for i in [
-        
+
         Parameter(
             'alwaysZero',
             """
             on|off; when autoScale is on, this setting
             ensures that y=0 is in the view (Default: off)
             """,
-            set(['on','off'])),
+            set(['on', 'off'])),
 
         Parameter(
             'autoScale',
@@ -224,28 +233,28 @@ track_typespecific_fields = {
             points|bars; signal can be graphed as points
             or bars (Default: bars)
             """,
-            set(['points','bars'])),
+            set(['points', 'bars'])),
 
         Parameter(
             'maxHeightPixels',
             """
-            max:default:min; amount of vertical viewing space 
+            max:default:min; amount of vertical viewing space
             (Default: 100:16:8)
             """,
             validate.ColSV3),
- 
+
         Parameter(
             'maxWindowToQuery',
             """
-            a (large) positive number; if winEnd-winStart is larger, don't query
-            items
+            a (large) positive number; if winEnd-winStart is larger, don't
+            query items
             """,
             int),
- 
+
         Parameter(
             'smoothingWindow',
             """
-            off|1-16; smoothing of graph using surrouding data,
+            off|1-16; smoothing of graph using surrounding data,
             the numeric number determines how much surrounding data
             to use (Default: off_
             """,
@@ -266,23 +275,24 @@ track_typespecific_fields = {
             'viewLimitsMax',
             'lower:upper; unenforced -- suggested bounds of viewLimits',
             validate.ColSV2),
-        
+
         Parameter(
             'windowingFunction',
             """
             mean|mean+whiskers|maximum|minimum; how to summarize signal
-            data 
+            data
             """,
             set(['maximum', 'mean', 'mean+whiskers', 'minimum'])),
-      
+
         Parameter(
             'yLineMark',
             'float; position on y-axis to draw line across (Default: 0.0)',
             float),
-        
+
         Parameter(
             'yLineOnOff',
-            'on|off; draw y linei at some fixed position set by yLineMark (Default: off)',
+            """on|off; draw y line at some fixed position set by yLineMark
+            (Default: off)""",
             set(['on', 'off'])),
 
         Parameter(
@@ -307,17 +317,17 @@ track_typespecific_fields = {
             """,
             # NOTE: bamColorMode gray
             set(['aliQual', 'baseQual', 'unpaired'])),
-        
+
         Parameter(
             'aliQualRange',
             'min:max; shade alignment quals within this range (Default: 0:99)',
             validate.ColSV2),
-        
+
         Parameter(
             'baseQualRange',
             'min:max; shade base quals within this range (Default: 0:40)',
             validate.ColSV2),
- 
+
         Parameter(
             'bamColorTag',
             'optional tag for rgb color (Default: YC)',
@@ -328,9 +338,9 @@ track_typespecific_fields = {
             'noColorTag',
             """
             placeholder, e.g. "."; if present don't offer option of setting
-            color tag in track confiuration page""",
+            color tag in track configuration page""",
             str),
- 
+
         Parameter(
             'bamSkipPrintQualScore',
             """
@@ -341,26 +351,26 @@ track_typespecific_fields = {
         Parameter(
             'indelDoubleInsert',
             """
-            on|off; highlight alignment gaps in targer and query sequency
+            on|off; highlight alignment gaps in target and query sequence
             with = (Default: 0ff)
             """,
-            set(['on','off'])),
+            set(['on', 'off'])),
 
         Parameter(
             'indelQueryInsert',
             """
-            on|off; highlight inserts in query sequence with 
+            on|off; highlight inserts in query sequence with
             orange or purple vertical lines (Default: off)
             """,
-            set(['on','off'])),
+            set(['on', 'off'])),
 
         Parameter(
             'indelPolyA',
             """
-            on|off; highlight pply-a tail with a vertical green line
+            on|off; highlight poly-a tail with a vertical green line
             (Default: off)
             """,
-            set(['on','off'])),
+            set(['on', 'off'])),
 
         Parameter(
             'minAliQual',
@@ -380,17 +390,19 @@ track_typespecific_fields = {
             search range to join pairs of tags (Default: 20000)
             """,
             int),
-      
+
         Parameter(
             'showNames',
-            "on|off; if off then don't display query namesi (Default: on)",
+            "on|off; if off then don't display query names (Default: on)",
             set(['on', 'off'])),
 
     ]),
-    
+
     'vcfTabix': OrderedDict((i.param, i) for i in [
         # No Special Configuration for vcfTabix, uses maxWindowToDraw
-        ]),
+
+    ]
+    ),
 
 }
 
@@ -412,7 +424,7 @@ composite_track_fields = OrderedDict((i.param, i) for i in [
     Parameter(
         "filterComposite",
         """
-        ABC dimensions are represented by filter-like drop-downs.  can be "on",
+        ABC dimensions are represented by filter-like drop-downs.  Can be "on",
         or something like dimB=onlyOne in order to allow only a single
         selection for that dimension, overriding the default of dimB=multi""",
         str),
@@ -466,19 +478,20 @@ aggregate_track_fields = OrderedDict((i.param, i) for i in [
 ])
 
 track_fields = OrderedDict((i.param, i) for i in [
-    
+
     # Common Settings
     Parameter(
         'visibility',
-        'hide|dense|squish|pack|full;default visibility for this track (Default: hide)',
+        """hide|dense|squish|pack|full;default visibility for this track
+        (Default: hide)""",
         set(['hide', 'dense', 'squish', 'pack', 'full'])
     ),
-    
+
     Parameter(
         'html',
         """
-        optional file containg description of a track in HTML and is path is relative
-        to the path of trackDb file track is in. 
+        optional file containing description of a track in HTML and is path is
+        relative to the path of trackDb file track is in.
         """,
         str),
 
@@ -486,8 +499,8 @@ track_fields = OrderedDict((i.param, i) for i in [
     Parameter(
         'boxedCfg',
         """
-        on|off; places configuration controls within a box, much like multi-view controls
-        have (Default: off)""",
+        on|off; places configuration controls within a box, much like
+        multi-view controls have (Default: off)""",
         set(['on', 'off'])),
 
     Parameter(
@@ -497,22 +510,24 @@ track_fields = OrderedDict((i.param, i) for i in [
 
     Parameter(
         'altColor',
-        'red, green, blue values 0 to 255; specifies secondary color for items',
+        """
+        red, green, blue values 0 to 255; specifies secondary color for
+        items""",
         validate.RGB),
 
     Parameter(
         'chromosomes',
         """
-        chr1, chr3; only these chroms have data for this track, the system displays
-        message that there is no data on other chroms
+        chr1, chr3; only these chroms have data for this track, the system
+        displays message that there is no data on other chroms
         """,
         validate.CSV),
-    
+
     Parameter(
         'dataVersion',
         """
-        display a version statment for this track on configruation and details pages, 
-        supports limited HTML
+        display a version statement for this track on configuration and details
+        pages, supports limited HTML
         """,
         str),
 
@@ -520,34 +535,35 @@ track_fields = OrderedDict((i.param, i) for i in [
         'directUrl',
         """
         url;
-        link image to alternative detials page using these fields in order:
-        item name, chromosome name, chromosome start position, chromosome end position, track name, database name;
+        link image to alternative details page using these fields in order:
+        item name, chromosome name, chromosome start position, chromosome end
+        position, track name, database name;
         """,
         # TODO: better verification and information
         str),
-    
+
     Parameter(
         'otherDb',
-        'declare the other species/assembly used in the pariwise alingments',
-        # TODO: determine if functionaitly works for bigBed
+        'declare the other species/assembly used in the pairwise alignments',
+        # TODO: determine if functionality works for bigBed
         str),
 
     Parameter(
         'pennantIcon',
         """
         icon [html [tip]]; Displays icon next to track in "parade" of tracks
-        found in hgTracks config. Html is an optional page describing the icon 
-        and path can be relative to the track or absolute. Tip is an optional "quoted string"
-        that is seen when the user hovers over the icon.
+        found in hgTracks config. Html is an optional page describing the icon
+        and path can be relative to the track or absolute. Tip is an optional
+        "quoted string" that is seen when the user hovers over the icon.
         """,
         str),
- 
+
     Parameter(
         'priority',
         """
-        used to order this track within its track group and within the browser image,
-        tracks of the same priority are sorted alphabetically by short label.
-        (Default: 0)
+        used to order this track within its track group and within the browser
+        image, tracks of the same priority are sorted alphabetically by short
+        label.  (Default: 0)
         """,
         float),
 
@@ -566,18 +582,20 @@ track_fields = OrderedDict((i.param, i) for i in [
     Parameter(
         'urlLabell',
         """
-        used with url setting and provides text for link (Default: "outside link:")
+        used with url setting and provides text for link (Default: "outside
+        link:")
         """,
         str),
 
     Parameter(
         'url2Label',
         """
-        used with url2 setting and provides text for link (Default: "outside linl:")
+        used with url2 setting and provides text for link (Default: "outside
+        link")
         """,
         str),
 
-    
+
     # Across datatype Settings
 
     Parameter(
@@ -593,8 +611,8 @@ track_fields = OrderedDict((i.param, i) for i in [
         """
         on|off; on for all track types that allow configuration.  If set to
         off, configuration is blocked.  This setting is most useful in
-        composites and views where some subtracks should be configurable and others
-        not. (Default: on)""",
+        composites and views where some subtracks should be configurable and
+        others not. (Default: on)""",
         set(['on', 'off'])),
 
 

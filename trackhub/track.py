@@ -3,7 +3,10 @@ import os
 from collections import OrderedDict
 from validate import ValidationError
 from base import HubComponent
-import hub, trackdb, genomes_file, genome
+import hub
+import trackdb
+import genomes_file
+import genome
 import constants
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
@@ -160,7 +163,6 @@ class BaseTrack(HubComponent):
     @remote_fn.setter
     def remote_fn(self, fn):
         self._remote_fn = fn
-
 
     @property
     def tracktype(self):
@@ -438,8 +440,8 @@ class SuperTrack(BaseTrack):
         Represents a Super track. Subclasses :class:`Track`, and adds some
         extras.
 
-        Super tracks are container tracks (Folders) that group tracks. They are used to
-        control visuzualtion of a set of related data.
+        Super tracks are container tracks (Folders) that group tracks. They are
+        used to control visualization of a set of related data.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this supertrack to it with that instance's :meth:`add_tracks`
@@ -462,29 +464,31 @@ class SuperTrack(BaseTrack):
         s.append(super(SuperTrack, self).__str__())
         s.append('superTrack on')
 
-        # Removed subtracks for Supertrack because composite tracks can be within the supertrack. 
-        # This is also the recommendation from UCSC
+        # Removed subtracks for Supertrack because composite tracks can be
+        # within the supertrack.  This is also the recommendation from UCSC
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
                 s.append(line)
         return '\n'.join(s)
 
+
 class AggregateTrack(BaseTrack):
     def __init__(self, aggregate, *args, **kwargs):
         """
-        Represents an Aggregate or Overlay track. Subclasses :class:`Track`, adds some
-        extras.
+        Represents an Aggregate or Overlay track. Subclasses :class:`Track`,
+        adds some extras.
 
-        Aggregate tracks allow closley related tracks to be viewed as a single track.
-        
+        Aggregate tracks allow closley related tracks to be viewed as a single
+        track.
+
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this supertrack to it with that instance's :meth:`add_tracks`
         method.
         """
 
         self.aggregate = aggregate
-        kwargs['aggregate']= aggregate
+        kwargs['aggregate'] = aggregate
         super(AggregateTrack, self).__init__(*args, **kwargs)
         self.specific_params.update(constants.aggregate_track_fields)
         self.subtracks = []
@@ -508,4 +512,3 @@ class AggregateTrack(BaseTrack):
             for line in str(subtrack).splitlines(False):
                 s.append('    ' + line)
         return "\n".join(s)
-
