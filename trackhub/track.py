@@ -176,6 +176,8 @@ class BaseTrack(HubComponent):
         if tracktype is not None:
             if 'bed' in tracktype.lower():
                 tracktype = 'bigBed'
+            elif 'wig' in tracktype.lower():
+                tracktype = 'bigWig'
         self.params.update(constants.track_typespecific_fields[tracktype])
 
     def add_trackdb(self, trackdb):

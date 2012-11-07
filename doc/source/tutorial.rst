@@ -207,7 +207,7 @@ Each instance represents a stanza in the ``supertrack``:
     track1 = Track(
         name="track1Track",
         url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
-        tracktype='bigWig',
+        tracktype='bigWig 0 1000',
         short_label='track1',
         long_label='my track #1',
         # add other params here...
@@ -240,7 +240,7 @@ Each instance represents a stanza in the ``supertrack``:
     bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
     shortLabel track1
     longLabel my track #1
-    type bigWig
+    type bigWig 0 1000
     color 128,0,0
     parent supertrack
 
@@ -484,7 +484,7 @@ look familiar, but a notable difference is the addition of the `view` kwarg:
         name="signalViewTrack",
         view="Signal",
         visibility="full",
-        tracktype="bigWig",
+        tracktype="bigWig 0 10000",
         short_label="signal",
         long_label="Signal")
 
@@ -530,7 +530,7 @@ indented, too):
         track signalViewTrack
         shortLabel signal
         longLabel Signal
-        type bigWig
+        type bigWig 0 10000
         visibility full
         parent mycomposite
         view Signal
@@ -575,7 +575,7 @@ print ``composite`` to make sure the changes show up:
         track signalViewTrack
         shortLabel signal
         longLabel Signal
-        type bigWig
+        type bigWig 0 10000
         visibility full
         configurable on
         parent mycomposite
@@ -714,7 +714,7 @@ appropriate :class:`ViewTrack` we've already constructed:
         basename = os.path.basename(bw)
         track = Track(
             name='signal%s' % num,
-            tracktype='bigWig',
+            tracktype='bigWig 0 ' + num,
             url=url_base + basename,
             local_fn=bw,
             remote_fn=upload_base + basename,
@@ -799,7 +799,7 @@ connection, allowing us to print *everything*:
         track signalViewTrack
         shortLabel signal
         longLabel Signal
-        type bigWig
+        type bigWig 0 10000
         visibility full
         configurable on
         parent mycomposite
@@ -809,7 +809,7 @@ connection, allowing us to print *everything*:
                 bigDataUrl http://example.com/trackhubs/dm3/sine-dm3-1000.bedgraph.bw
                 shortLabel signal 1000
                 longLabel signal 1000
-                type bigWig
+                type bigWig 0 1000
                 subGroups frequency=lo celltype=a view=Signal
                 parent signalViewTrack
 
@@ -817,7 +817,7 @@ connection, allowing us to print *everything*:
                 bigDataUrl http://example.com/trackhubs/dm3/sine-dm3-10000.bedgraph.bw
                 shortLabel signal 10000
                 longLabel signal 10000
-                type bigWig
+                type bigWig 0 10000
                 subGroups frequency=hi celltype=b view=Signal
                 parent signalViewTrack
 
@@ -989,7 +989,7 @@ So lets create an aggregate:
 
     aggregate = AggregateTrack(
         name="aggregate",
-        tracktype='bigWig',
+        tracktype='bigWig 0 2000',
         short_label="my aggregate",
         long_label="An example aggregate",
         aggregate='transparentOverlay')
@@ -1003,7 +1003,7 @@ So lets create an aggregate:
     track aggregate
     shortLabel my aggregate
     longLabel An example aggregate
-    type bigWig
+    type bigWig 0 2000
     aggregate transparentOverlay
     container mutiWig
 
@@ -1023,7 +1023,7 @@ parameters.  This is same method can be used for all classes derived from
     track aggregate
     shortLabel my aggregate
     longLabel An example aggregate
-    type bigWig
+    type bigWig 0 2000
     aggregate transparentOverlay
     showSubtrackColorOnUi on
     container mutiWig
@@ -1046,7 +1046,7 @@ Each instance represents a stanza in the ``aggregate``:
     track1 = Track(
         name="track1Track",
         url=os.path.join(URLBASE, GENOME, 'track1.bigWig'),
-        tracktype='bigWig',
+        tracktype='bigWig 0 1400',
         short_label='track1',
         long_label='my track #1',
         # add other params here...
@@ -1055,7 +1055,7 @@ Each instance represents a stanza in the ``aggregate``:
     track2 = Track(
         name="track2Track",
         url=os.path.join(URLBASE, GENOME, 'track2.bigWig'),
-        tracktype='bigWig',
+        tracktype='bigWig 0 1700',
         short_label='track2',
         long_label='my track #2',
         # add other params here...
@@ -1074,7 +1074,7 @@ Each instance represents a stanza in the ``aggregate``:
     track aggregate
     shortLabel my aggregate
     longLabel An example aggregate
-    type bigWig
+    type bigWig 0 2000
     aggregate transparentOverlay
     showSubtrackColorOnUi on
     container mutiWig
@@ -1083,7 +1083,7 @@ Each instance represents a stanza in the ``aggregate``:
         bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
         shortLabel track1
         longLabel my track #1
-        type bigWig
+        type bigWig 0 1400
         color 120,235,204
         parent aggregate
 
@@ -1091,7 +1091,7 @@ Each instance represents a stanza in the ``aggregate``:
         bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigWig
         shortLabel track2
         longLabel my track #2
-        type bigWig
+        type bigWig 0 1700
         color 255,128,128
         parent aggregate
 
