@@ -1005,7 +1005,7 @@ So lets create an aggregate:
     longLabel An example aggregate
     type bigWig 0 2000
     aggregate transparentOverlay
-    container mutiWig
+    container multiWig
 
 After the aggregate track has been created, we can incrementally add additional
 parameters.  This is same method can be used for all classes derived from
@@ -1026,7 +1026,7 @@ parameters.  This is same method can be used for all classes derived from
     type bigWig 0 2000
     aggregate transparentOverlay
     showSubtrackColorOnUi on
-    container mutiWig
+    container multiWig
 
 
 After the aggregate track has been created, we can incrementally
@@ -1077,7 +1077,7 @@ Each instance represents a stanza in the ``aggregate``:
     type bigWig 0 2000
     aggregate transparentOverlay
     showSubtrackColorOnUi on
-    container mutiWig
+    container multiWig
 
         track track1Track
         bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigWig
