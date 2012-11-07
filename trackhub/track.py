@@ -501,8 +501,8 @@ class AggregateTrack(BaseTrack):
         s = []
 
         s.append(super(AggregateTrack, self).__str__())
-        s.append('container mutiWig')
-        
+        s.append('container multiWig')
+
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
