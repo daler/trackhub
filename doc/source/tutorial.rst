@@ -154,7 +154,7 @@ object, which makes up the bulk of the rest of the tutorial....
 
 Grouping Tracks in supertracks
 ______________________________
-Before we get into more complicated grouping strucutre of tracks,
+Before we get into more complicated grouping structure of tracks,
 lets discuss supertracks::
 
     SUPERTRACK STANZA
@@ -173,7 +173,7 @@ lets discuss supertracks::
       type than other track stanzas
 
 A supertrack acts as a container level to group tracks that should
-be vizualized together. Connections between supertracks and tracks
+be visualized together. Connections between supertracks and tracks
 will be created in much the same way as adding a ``track`` to
 the parent ``trackdb`` -- for example,
 ``supertrack.add_track(track)`` to add the child ``track`` to the 
