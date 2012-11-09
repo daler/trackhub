@@ -86,7 +86,7 @@ class BaseTrack(HubComponent):
     specific_params = OrderedDict()
 
     def __init__(self, name, tracktype=None, short_label="",
-                 long_label="", subgroups=None, local_fn=None, remote_fn=None,
+                 long_label=None, subgroups=None, local_fn=None, remote_fn=None,
                  **kwargs):
         """
         Represents a single track stanza.
@@ -99,7 +99,9 @@ class BaseTrack(HubComponent):
 
         :param short_label: String; used for the left-hand side track label
 
-        :param long_label: String; used for the longer middle labels
+        :param long_label:
+            String; used for the longer middle labels; if None will copy
+            short_label
 
         :param subgroups:
 
@@ -120,6 +122,8 @@ class BaseTrack(HubComponent):
         self.name = name
         self.tracktype = tracktype
         self.short_label = short_label
+        if long_label is None:
+            long_label = short_label
         self.long_label = long_label
 
         self._local_fn = local_fn

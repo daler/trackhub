@@ -19,7 +19,7 @@ class Hub(HubComponent):
     ]
     )
 
-    def __init__(self, hub, short_label="", long_label="",
+    def __init__(self, hub, short_label="", long_label=None,
                  genomes_file=None, genomes_filename=None, email="",
                  url=None):
         """
@@ -33,6 +33,8 @@ class Hub(HubComponent):
         self._remote_dir = None
         self.hub = hub
         self.short_label = short_label
+        if not long_label:
+            long_label = short_label
         self.long_label = long_label
         self.email = email
 
