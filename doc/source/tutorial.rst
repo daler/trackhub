@@ -136,6 +136,19 @@ Do the same check:
 
     assert trackdb is hub.genomes_file.genomes[0].trackdb
 
+There is also a convenience function to set up a connected set of hub components:
+
+.. testcode::
+
+    from trackhub import default_hub
+    hub, genomes_file, genome, trackdb = default_hub(
+        hub_name='example_hub',
+        short_label='example hub',
+        long_label='an example hub for testing',
+        email='none@example.com',
+        genome='dm3')
+
+
 Now we need to create objects representing stanzas in the :class:`TrackDb`
 object, which makes up the bulk of the rest of the tutorial....
 
