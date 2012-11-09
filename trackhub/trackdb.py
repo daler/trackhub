@@ -1,11 +1,14 @@
 import os
-from collections import OrderedDict
 from validate import ValidationError
 from base import HubComponent
 from genomes_file import GenomesFile
 from genome import Genome
 import track as _track
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 class TrackDb(HubComponent):
     def __init__(self, tracks=None):

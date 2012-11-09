@@ -12,10 +12,14 @@ long_description = """
 Create and manage UCSC track hubs from Python
 """
 
+install_requires = []
+if (sys.version_info[0] == 2) and (sys.version_info[1] < 7):
+    install_requires.append('ordereddict')
+
 setup(
         name="trackhub",
         version=version,
-        install_requires=[],
+        install_requires=install_requires,
         packages=['trackhub',
                   'trackhub.test',
                   'trackhub.test.data',

@@ -1,6 +1,9 @@
 import inspect
 import sys
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 
 class HubComponent(object):

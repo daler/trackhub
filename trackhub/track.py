@@ -1,6 +1,5 @@
 import sys
 import os
-from collections import OrderedDict
 from validate import ValidationError
 from base import HubComponent
 import hub
@@ -8,6 +7,12 @@ import trackdb
 import genomes_file
 import genome
 import constants
+
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
+
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
 

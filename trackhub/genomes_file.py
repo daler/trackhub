@@ -1,5 +1,8 @@
 import os
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 from validate import ValidationError
 from hub import Hub
 from base import HubComponent

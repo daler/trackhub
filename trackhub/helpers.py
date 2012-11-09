@@ -1,10 +1,15 @@
 import os
+import sys
 import json
 import base
 from hub import Hub
 
 _here = __file__
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
 
 def auto_track_url(track):
     """
