@@ -166,7 +166,7 @@ class BaseTrack(HubComponent):
         if self.trackdb:
                 return os.path.join(
                     os.path.dirname(self.trackdb.remote_fn),
-                    self.name + '.' + self.tracktype.replace(' ', ''))
+                    self.name + '.' + self.tracktype.split(' ')[0])
         return None
 
     @remote_fn.setter
