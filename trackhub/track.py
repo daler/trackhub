@@ -283,12 +283,9 @@ class Track(BaseTrack):
             return self._url
         if self.remote_fn is None:
             return None
-        return os.path.join(
-            os.path.dirname(self.hub.url),
-            os.path.relpath(
-                self.remote_fn,
-                os.path.dirname(self.hub.remote_fn)
-            )
+        return os.path.relpath(
+            self.remote_fn,
+            start=os.path.dirname(self.trackdb.remote_fn)
         )
 
     @url.setter
