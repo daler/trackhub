@@ -97,11 +97,11 @@ class TrackDb(HubComponent):
         """
         if isinstance(track, _track.BaseTrack):
             self.add_child(track)
+            self._tracks.append(track)
         else:
             for t in track:
                 self.add_child(t)
-
-        self._tracks.extend(self.children)
+                self._tracks.append(t)
 
     @property
     def tracks(self):
