@@ -129,6 +129,7 @@ class BaseTrack(HubComponent):
         self._local_fn = local_fn
         self._remote_fn = remote_fn
 
+        self.subgroups = {}
         self.add_subgroups(subgroups)
 
         kwargs['track'] = name
@@ -216,7 +217,7 @@ class BaseTrack(HubComponent):
         if subgroups is None:
             subgroups = {}
         assert isinstance(subgroups, dict)
-        self.subgroups = subgroups
+        self.subgroups.update(subgroups)
 
     def __str__(self):
         s = []
