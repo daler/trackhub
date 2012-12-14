@@ -450,6 +450,11 @@ composite_track_fields = OrderedDict((i.param, i) for i in [
         'sort order for composite, e.g., cellType=+ factor=-',
         str),
 
+    Parameter(
+        'centerLabelsDense',
+        'show subtrack labels even in dense view',
+        set(['on', 'off'])),
+
 ])
 
 view_track_fields = OrderedDict((i.param, i) for i in [
