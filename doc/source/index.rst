@@ -49,3 +49,4 @@ Contents:
     filenames
     autodocs
     developers
+    changelog
