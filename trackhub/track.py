@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 from validate import ValidationError
 from base import HubComponent
 import hub
@@ -16,6 +17,10 @@ except ImportError:
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
 
+def _check_name(name):
+    regex = re.compile('[^a-zA-Z0-9-_]')
+    if regex.search(name):
+        raise ValueError('Non-alphanumeric character in name "%s"' % name)
 
 class ParameterError(Exception):
     pass
@@ -119,6 +124,7 @@ class BaseTrack(HubComponent):
             String; path to upload the file to, over rsync and ssh.
         """
         HubComponent.__init__(self)
+        _check_name(name)
         self.name = name
         self.tracktype = tracktype
         if short_label is None:
