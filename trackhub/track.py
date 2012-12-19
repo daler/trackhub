@@ -140,9 +140,9 @@ class BaseTrack(HubComponent):
         self.subgroups = {}
         self.add_subgroups(subgroups)
 
+        # Convert pythonic strings to UCSC versions
         kwargs['track'] = name
         kwargs['type'] = tracktype
-
         kwargs['longLabel'] = kwargs.get('longLabel', long_label)
         kwargs['shortLabel'] = kwargs.get('shortLabel', short_label)
 
@@ -172,6 +172,10 @@ class BaseTrack(HubComponent):
     def remote_fn(self):
         if self._remote_fn is not None:
             return self._remote_fn
+        # If remote_fn hasn't been assigned then make one automatically based
+        # on the track name and the trackhub's remote_fn (which, by the way,
+        # acts similarly, deferring up to the genomes_file.remote_fn . . . and
+        # so on up to the hub's remote_fn)
         if self.trackdb:
                 return os.path.join(
                     os.path.dirname(self.trackdb.remote_fn),
@@ -201,9 +205,22 @@ class BaseTrack(HubComponent):
         self.params.update(constants.track_typespecific_fields[tracktype])
 
     def add_trackdb(self, trackdb):
+        """
+        Attach this track to a parent TrackDb object.
+        """
         self.add_parent(trackdb)
 
     def add_params(self, **kw):
+        """
+        Add [possibly many] parameters to the track.
+
+        Parameters will be checked against known UCSC parameters and their
+        supported formats.
+
+        E.g.,
+
+        add_params(color='128,0,0', visibility='dense')
+
         for k, v in kw.items():
             if (k not in self.params) and (k not in self.specific_params):
                 raise ParameterError('"%s" is not a valid parameter for %s'
@@ -217,11 +234,27 @@ class BaseTrack(HubComponent):
         self.kwargs = self._orig_kwargs.copy()
 
     def remove_params(self, *args):
+        """
+        Remove [possibly many] parameters from the track.
+
+        E.g.,
+
+        remove_params('color', 'visibility')
+        """
         for a in args:
             self._orig_kwargs.pop(a)
         self.kwargs = self._orig_kwargs.copy()
 
     def add_subgroups(self, subgroups):
+        """
+        Update the subgroups for this track.
+
+        :param subgroups:
+            Dictionary of subgroups, e.g., {'celltype': 'K562', 'treatment':
+                'a'}.  Each key must match a SubGroupDefinition name in the
+                composite's subgroups list.  Each value must match a key in
+                that SubGroupDefinition.mapping dictionary.
+        """
         if subgroups is None:
             subgroups = {}
         assert isinstance(subgroups, dict)
@@ -338,6 +371,12 @@ class CompositeTrack(BaseTrack):
         self.views = []
 
     def add_subgroups(self, subgroups):
+        """
+        Add a list of SubGroupDefinition objects to this composite.
+
+        :param subgroups:
+            List of SubGroupDefinition objects.
+        """
         if subgroups is None:
             subgroups = {}
         _subgroups = {}
@@ -354,6 +393,13 @@ class CompositeTrack(BaseTrack):
         self.subtracks.append(subtrack)
 
     def add_view(self, view):
+        """
+        Add a ViewTrack object to this composite.
+
+        :param view:
+            A ViewTrack object.
+        """
+
         self.add_child(view)
         self.views.append(view)
 
@@ -420,6 +466,12 @@ class ViewTrack(BaseTrack):
             raise ValueError('not sure if Views can have subgroups?')
 
     def add_tracks(self, subtracks):
+        """
+        Add tracks to this view.
+
+        :param subtracks:
+            A single Track instance or an iterable of them.
+        """
         if isinstance(subtracks, Track):
             subtracks = [subtracks]
         for subtrack in subtracks:
@@ -467,7 +519,7 @@ class SuperTrack(BaseTrack):
 
     def add_track(self, subtrack):
         """
-        Add a child :class:`SubTrack`
+        Add a child :class:`SubTrack` to this supertrack.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
@@ -510,7 +562,7 @@ class AggregateTrack(BaseTrack):
 
     def add_subtrack(self, subtrack):
         """
-        Add a child :class:`SubTrack`.
+        Add a child :class:`SubTrack` to this aggregrate.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
