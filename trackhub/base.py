@@ -73,19 +73,24 @@ class HubComponent(object):
 
         return self.parent.root(cls, level - 1)
 
-    def leaves(self, cls, level=0):
+    def leaves(self, cls, level=0, intermediate=False):
         """
         Returns an iterator of the HubComponent leaves that are of class `cls`.
+
+        If `intermediate` is True, then return any intermediate classes as
+        well.
         """
-        if len(self.children) == 0:
+        if intermediate:
             if isinstance(self, cls):
                 yield self, level
-                raise StopIteration
+        elif len(self.children) == 0:
+            if isinstance(self, cls):
+                yield self, level
             else:
                 raise StopIteration
 
         for child in self.children:
-            for leaf, _level in child.leaves(cls, level + 1):
+            for leaf, _level in child.leaves(cls, level + 1, intermediate=intermediate):
                     yield leaf, _level
 
     def render(self):

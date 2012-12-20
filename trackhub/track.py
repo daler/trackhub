@@ -17,10 +17,12 @@ except ImportError:
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
 
+
 def _check_name(name):
     regex = re.compile('[^a-zA-Z0-9-_]')
     if regex.search(name):
         raise ValueError('Non-alphanumeric character in name "%s"' % name)
+
 
 class ParameterError(Exception):
     pass
@@ -92,7 +94,7 @@ class BaseTrack(HubComponent):
 
     def __init__(self, name, tracktype=None, short_label=None,
                  long_label=None, subgroups=None, local_fn=None,
-                 remote_fn=None, **kwargs):
+                 remote_fn=None, html_string=None, **kwargs):
         """
         Represents a single track stanza.
 
@@ -136,7 +138,7 @@ class BaseTrack(HubComponent):
 
         self._local_fn = local_fn
         self._remote_fn = remote_fn
-
+        self.html_string = html_string
         self.subgroups = {}
         self.add_subgroups(subgroups)
 
@@ -149,6 +151,14 @@ class BaseTrack(HubComponent):
         self.kwargs = kwargs
 
         self._orig_kwargs = kwargs.copy()
+
+    @property
+    def _html(self):
+        if not self.html_string:
+            return None
+        _html = HTMLDoc(self.html_string)
+        _html.add_parent(self)
+        return _html
 
     @property
     def trackdb(self):
@@ -221,6 +231,7 @@ class BaseTrack(HubComponent):
 
         add_params(color='128,0,0', visibility='dense')
 
+        """
         for k, v in kw.items():
             if (k not in self.params) and (k not in self.specific_params):
                 raise ParameterError('"%s" is not a valid parameter for %s'
@@ -296,7 +307,8 @@ class BaseTrack(HubComponent):
         return '\n'.join(s)
 
     def _render(self):
-        pass
+        if self._html:
+            self._html.render()
 
     def _str_subgroups(self):
         """
@@ -311,6 +323,15 @@ class BaseTrack(HubComponent):
     def validate(self):
         pass
         #assert self.tracktype in TRACKTYPES
+
+    @property
+    def html_fn(self):
+        if self.remote_fn and self.trackdb:
+            return os.path.join(
+                os.path.dirname(self.trackdb.remote_fn),
+                self.name + '.html')
+        else:
+            return None
 
 
 class Track(BaseTrack):

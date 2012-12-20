@@ -1,7 +1,8 @@
+import tempfile
 import os
 from fabric.api import local, settings, run, abort, cd, env, hide, put
 from fabric.contrib.console import confirm
-
+import track
 
 def upload_file(host, user, local_fn, remote_fn, port=22,
                 rsync_options='-azvr --progress', run_local=False):
@@ -55,7 +56,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
             **kwargs)
     )
 
-    # And finally the trackDB file:
+    # then the trackDB file:
     for g in hub.genomes_file.genomes:
         results.extend(
             upload_file(
@@ -64,6 +65,16 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
                 **kwargs
             )
         )
+    # and finally any HTML files:
+    for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
+        print repr(t)
+        if t._html:
+            results.extend(
+                upload_file(
+                    local_fn=t._html.local_fn,
+                    remote_fn=t._html.remote_fn,
+                    **kwargs)
+            )
     return results
 
 
@@ -76,4 +87,5 @@ def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
     if track.tracktype == 'bam':
         kwargs['local_fn'] += '.bai'
         results.extend(upload_file(**kwargs))
+
     return results
