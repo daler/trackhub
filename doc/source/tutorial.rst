@@ -932,6 +932,13 @@ If you're interested, you can check to see which files were created:
     rendered file: example_hub.genomes.txt (created by: <trackhub.genomes_file.GenomesFile object at 0x...>)
     rendered file: dm3/trackDb.txt (created by: <trackhub.trackdb.TrackDb object at 0x...>)
 
+
+HTML documentation for tracks
+-----------------------------
+See :ref:`htmldocs` for more info on how to easily add documentation to your
+tracks kwarg to tracks by simply providing some content via the `html_string`
+kwarg when creating any subclass of :class:`BaseTrack`.
+
 Uploading
 ---------
 So far we've seen how to use :mod:`trackhub` to create the text files that
