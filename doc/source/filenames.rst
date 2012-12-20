@@ -151,6 +151,17 @@ Providing a :class:`BaseTrack` subclass (typically :class:`CompositeTrack`)
 with an `html_string` will trigger an automatic creation of an HTML file that
 will be displayed on the bottom of the configuration page.
 
+You can also directly set the `html_string` after the object has been created.
+The following will trigger, at render time, the creation of an HTML file whose
+contents will be automatically shown at the bottom of the track configuration
+page::
+
+    composite_track.html_string = """
+    <h2>Description</h2>
+    <p>This track shows...it was created by...</p>
+    """
+
+
 While the docs at
 http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html#commonSettings
 say that an `html` parameter is needed if you want to supply documentation, it
@@ -160,7 +171,7 @@ the same directory as the `trackDb.txt`.
 HTML files are created at render time.  If you don't want to use any of this
 automatic filename handling, simply write your own HTML file, upload it
 wherever you'd like, and manually specify the `html` kwarg to point to that
-file (relative to `trackDb.txt` when creating a track.
+file (relative to `trackDb.txt`) when creating a track.
 
 
 ================================ ============================================================== =================================================
@@ -168,5 +179,4 @@ Attribute                        Default value                                  
 ================================ ============================================================== =================================================
 :attr:`HTMLDoc.local_fn`         :file:`[dirname(TrackDb.local_fn)]/[Track.name].html`          :file:`/data/hg19/sample_1.html`
 :attr:`HTMLDoc.remote_fn`        :file:`[dirname(TrackDb.remote_fn)]/[Track.name].html`         :file:`/var/www/hubs/hg19/sample_1.html`
-:attr:`Track.url`                :file:`[dirname(TrackDb.url)]/[Track.name].html`               :file:`http://example.com/hubs/hg19/sample_1.bam`
 ================================ ============================================================== =================================================
