@@ -579,3 +579,62 @@ class AggregateTrack(BaseTrack):
             for line in str(subtrack).splitlines(False):
                 s.append('    ' + line)
         return "\n".join(s)
+
+
+class HTMLDoc(HubComponent):
+    def __init__(self, contents):
+        """
+        Represents and HTML file used for documentation.
+
+        Handles local/remote/url filenames when connected to a Track and
+        CompositeTrack
+        """
+        self.contents = contents
+        self._local_fn = None
+        self._remote_fn = None
+        super(HTMLDoc, self).__init__()
+
+    def validate(self):
+        return
+
+    @property
+    def local_fn(self):
+        if (self.trackdb is None) or (self.track is None):
+            return None
+        return os.path.join(
+            os.path.dirname(self.trackdb.local_fn),
+            self.track.name + '.html')
+
+    @property
+    def remote_fn(self):
+        if (self.trackdb is None) or (self.track is None):
+            return None
+        return os.path.join(
+            os.path.dirname(self.trackdb.remote_fn),
+            self.track.name + '.html')
+
+    @property
+    def trackdb(self):
+        obj, level = self.root(cls=trackdb.TrackDb)
+        return obj
+
+    @property
+    def track(self):
+        obj, level = self.root(cls=BaseTrack)
+        return obj
+
+    def _render(self):
+        if not self.trackdb:
+            raise ValueError("HTMLDoc object must be connected to a "
+                             "BaseTrack subclass instance and a TrackDb "
+                             "instance")
+        dirname = os.path.dirname(self.local_fn)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+        fout = open(self.local_fn, 'w')
+        fout.write(str(self))
+        fout.close()
+        return fout.name
+
+    def __str__(self):
+        return self.contents
