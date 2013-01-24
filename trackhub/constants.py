@@ -400,6 +400,33 @@ track_typespecific_fields = {
             "on|off; if off then don't display query names (Default: on)",
             set(['on', 'off'])),
 
+
+        # Undocumented stuff, found from
+        # https://lists.soe.ucsc.edu/pipermail/genome/2012-June/029615.html
+        #
+        # Uploading BAM files directly showed indels, but not when the same
+        # file was included in a track hub.
+        #
+        # Currently not supported for bigBed
+        Parameter(
+            'baseColorUseSequence',
+            'for BAM, try "lfExtra"; <extFile {seqTable} <extFile> / hgPcrResult / lfExtra / nameIsSequence / seq1Seq2 / ss >',
+            set(['extFile', 'hgPcrResult', 'lfExtra', 'nameIsSequence', 'seq1Seq2', 'ss'])),
+
+        Parameter(
+            'baseColorDefault',
+            '<diffBases/diffCodons/itemBases/itemCodons/genomicCodons>',
+            set(['diffBases', 'diffCodons', 'itemBases', 'itemCodons', 'genomicCodons'])),
+
+        Parameter(
+            'showDiffBasesAllScales',
+            '.',
+            set(['.'])),
+
+
+
+
+
     ]),
 
     'vcfTabix': OrderedDict((i.param, i) for i in [
