@@ -86,6 +86,7 @@ def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
     results = upload_file(**kwargs)
     if track.tracktype == 'bam':
         kwargs['local_fn'] += '.bai'
+        kwargs['remote_fn'] += '.bai'
         results.extend(upload_file(**kwargs))
 
     return results
