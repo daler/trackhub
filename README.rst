@@ -25,10 +25,60 @@ Some reasons for using ``trackhub`` to manage your track hubs:
 Full documentation, including a full in-depth tutorial, can be found at
 http://packages.python.org/trackhub.
 
+Here's an example of creating a hub, and uploading the hub and files to
+a remote server.  This hub will show all the bigWig files in the current
+directory, and any of them that have "control" in the filename will be colored
+gray in the hub::
+
+    from trackhub imoprt Track, default_hub, CompositeTrack, ViewTrack
+    from trackhub.upload import upload_hub, upload_track
+
+    hub, genomes_file, genome, trackdb = default_hub(
+        hub_name="myhub",
+        genome="hg19",
+        short_label="example hub",
+        long_label="My example hub",
+        email="none@example.com")
+
+    # publicly accessible hub
+    hub.url = "http://example.com/hubs/my_example_hub.txt"
+
+    # hub's location on remote host, for rsync
+    hub.remote_fn = "/var/www/data/hubs/my_example_hub.txt"
+
+    # Make tracks for all bigWigs in current dir
+    import glob, os
+    for fn in glob.glob('*.bigwig'):
+        label = fn.replace('.bigwig', '')
+        track = Track(
+            name=label,
+            short_label=label,
+            long_label=lable,
+            local_fn=fn,
+            tracktype='bigWig',
+            )
+        trackdb.add_tracks(track)
+
+    # post-creation adjustments...make control samples gray
+    for track in trackdb.tracks:
+        if 'control' in track.name:
+            track.add_params(color="100,100,100")
+
+    # render the hub to text files
+    hub.render()
+
+    # Upload using rsync.
+    kwargs = dict(host='www.example.com', user='me')
+    upload_hub(hub=hub, **kwargs)
+    for track, level in hub.leaves(Track):
+        upload_track(track=track, **kwargs)
+
 
 **Note:** ``trackhub`` is still under active development and should be considered an
 alpha version.  Please open an issue on github
 (https://github.com/daler/trackhub/issues) if you run into problems.
+
+
 
 
 Copyright 2012 Ryan Dale; BSD 2-clause license.
