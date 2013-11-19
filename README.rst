@@ -32,7 +32,7 @@ gray in the hub
 
 .. code-block:: python
 
-    from trackhub imoprt Track, default_hub, CompositeTrack, ViewTrack
+    from trackhub imoprt Track, default_hub
     from trackhub.upload import upload_hub, upload_track
 
     hub, genomes_file, genome, trackdb = default_hub(
@@ -42,16 +42,20 @@ gray in the hub
         long_label="My example hub",
         email="none@example.com")
 
-    # publicly accessible hub
+    # publicly accessible hub URL
     hub.url = "http://example.com/hubs/my_example_hub.txt"
 
-    # hub's location on remote host, for rsync
+    # hub's location on remote host, for use with rsync
     hub.remote_fn = "/var/www/data/hubs/my_example_hub.txt"
 
     # Make tracks for all bigWigs in current dir
     import glob, os
     for fn in glob.glob('*.bigwig'):
         label = fn.replace('.bigwig', '')
+
+        # Parameters are checked for valid values, see 
+        # http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html
+        # for what's available
         track = Track(
             name=label,
             short_label=label,
@@ -61,15 +65,16 @@ gray in the hub
             )
         trackdb.add_tracks(track)
 
-    # post-creation adjustments...make control samples gray
+    # Demonstrate some post-creation adjustments...here, just make control
+    # samples gray
     for track in trackdb.tracks:
         if 'control' in track.name:
             track.add_params(color="100,100,100")
 
-    # render the hub to text files
+    # Render the hub to text files
     hub.render()
 
-    # Upload using rsync.
+    # Upload the hub files and all the bigwig files using rsync.
     kwargs = dict(host='www.example.com', user='me')
     upload_hub(hub=hub, **kwargs)
     for track, level in hub.leaves(Track):
