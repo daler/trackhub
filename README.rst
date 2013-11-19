@@ -59,7 +59,8 @@ gray in the hub
         track = Track(
             name=label,
             short_label=label,
-            long_label=lable,
+            long_label=label,
+            autoScale='off',
             local_fn=fn,
             tracktype='bigWig',
             )
