@@ -28,7 +28,9 @@ http://packages.python.org/trackhub.
 Here's an example of creating a hub, and uploading the hub and files to
 a remote server.  This hub will show all the bigWig files in the current
 directory, and any of them that have "control" in the filename will be colored
-gray in the hub::
+gray in the hub
+
+.. code-block:: python
 
     from trackhub imoprt Track, default_hub, CompositeTrack, ViewTrack
     from trackhub.upload import upload_hub, upload_track
