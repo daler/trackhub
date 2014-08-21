@@ -3,6 +3,18 @@ import os
 from fabric.api import local, settings, run, abort, cd, env, hide, put
 from fabric.contrib.console import confirm
 import track
+import boto
+from boto.s3.key import Key
+
+
+def upload_s3(local_fn, remote_fn, **kwargs):
+    s3 = boto.connect_s3()
+    bucket = s3.get_bucket("sauron-yeo")
+    k = Key(bucket)
+    k.key = remote_fn
+    k.set_contents_from_filename(local_fn)
+    k.make_public()
+    return ["done"]
 
 def upload_file(host, user, local_fn, remote_fn, port=22,
                 rsync_options='-azvr --progress', run_local=False):
@@ -33,12 +45,13 @@ def upload_file(host, user, local_fn, remote_fn, port=22,
 
 
 def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
-               run_local=False):
+               run_local=False, run_s3=False):
     kwargs = dict(host=host, user=user, port=port, rsync_options=rsync_options,
                   run_local=run_local)
     print kwargs
     results = []
-
+    if run_s3:
+        upload_file = upload_s3
     # First the hub file:
     results.extend(
         upload_file(
@@ -79,7 +92,11 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
 
 
 def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
-                 run_local=False):
+                 run_local=False, run_s3=False):
+
+    if run_s3:
+        upload_file = upload_s3
+
     kwargs = dict(host=host, user=user, local_fn=track.local_fn,
                   remote_fn=track.remote_fn, rsync_options=rsync_options,
                   run_local=run_local)
