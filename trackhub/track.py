@@ -19,7 +19,7 @@ TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
 
 
 def _check_name(name):
-    regex = re.compile('[^a-zA-Z0-9-_]')
+    regex = re.compile('[^a-zA-Z0-9-_.]')
     if regex.search(name):
         raise ValueError('Non-alphanumeric character in name "%s"' % name)
 
