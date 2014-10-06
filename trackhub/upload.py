@@ -16,6 +16,7 @@ def upload_s3(local_fn, remote_fn, **kwargs):
     k.make_public()
     return ["done"]
 
+
 def upload_file(host, user, local_fn, remote_fn, port=22,
                 rsync_options='-azvr --progress', run_local=False):
     results = []
@@ -95,12 +96,13 @@ def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
                  run_local=False, run_s3=False):
 
     if run_s3:
-        upload_file = upload_s3
-
+        cur_upload_file = upload_s3
+    else:
+        cur_upload_file = upload_file
     kwargs = dict(host=host, user=user, local_fn=track.local_fn,
                   remote_fn=track.remote_fn, rsync_options=rsync_options,
                   run_local=run_local)
-    results = upload_file(**kwargs)
+    results = cur_upload_file(**kwargs)
     if track.tracktype == 'bam':
         kwargs['local_fn'] += '.bai'
         kwargs['remote_fn'] += '.bai'
