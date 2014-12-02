@@ -52,10 +52,12 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
     print kwargs
     results = []
     if run_s3:
-        upload_file = upload_s3
+        cur_upload_file = upload_s3
+    else:
+        cur_upload_file = upload_file
     # First the hub file:
     results.extend(
-        upload_file(
+        cur_upload_file(
             local_fn=hub.local_fn,
             remote_fn=hub.remote_fn,
             **kwargs)
@@ -64,7 +66,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
     # Then the genomes file:
     print hub.genomes_file.local_fn
     results.extend(
-        upload_file(
+        cur_upload_file(
             local_fn=hub.genomes_file.local_fn,
             remote_fn=hub.genomes_file.remote_fn,
             **kwargs)
@@ -73,7 +75,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
     # then the trackDB file:
     for g in hub.genomes_file.genomes:
         results.extend(
-            upload_file(
+            cur_upload_file(
                 local_fn=g.trackdb.local_fn,
                 remote_fn=g.trackdb.remote_fn,
                 **kwargs
@@ -84,7 +86,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
         print repr(t)
         if t._html:
             results.extend(
-                upload_file(
+                cur_upload_file(
                     local_fn=t._html.local_fn,
                     remote_fn=t._html.remote_fn,
                     **kwargs)
