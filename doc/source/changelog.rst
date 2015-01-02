@@ -1,9 +1,14 @@
 Changelog
 =========
-
-Version 0.1 (Oct 30 2012)
--------------------------
-Initial release
+Version 0.1.2 (Jan 2 2015)
+--------------------------
+- always use the remote filename of a BAM when uploading the corresponding .bai
+- add support for BAM parameters `baseColorUseSequence`, `baseColorDefault`,
+  and `showDiffBasesAllScales`
+- add `fabric` as a dependency upon install
+- better example in the README
+- use local path of trackdb to be relative to the hub local filename (thanks
+  Jakob Goldman)
 
 Version 0.1.1 (Dec 19 2012)
 ---------------------------
@@ -18,3 +23,7 @@ Version 0.1.1 (Dec 19 2012)
 - improvements to automatic track URL handling
 - better support for adding single tracks
 - subgroups incrementally updated rather than replaced
+
+Version 0.1 (Oct 30 2012)
+-------------------------
+Initial release
