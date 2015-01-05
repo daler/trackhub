@@ -89,4 +89,8 @@ def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
         kwargs['remote_fn'] += '.bai'
         results.extend(upload_file(**kwargs))
 
+    if track.tracktype == 'vcfTabix':
+        kwargs['local_fn'] += '.tbi'
+        kwargs['remote_fn'] += '.tbi'
+        results.extend(upload_file(**kwargs))
     return results
