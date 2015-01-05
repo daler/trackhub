@@ -21,12 +21,20 @@ class TestComponents(object):
         ]
 
     def CONNECT(self):
+        """
+        Connect the components together. The default setup creates the objects
+        but does not connect them.
+        """
         self.hub.add_genomes_file(self.genomes_file)
         self.genomes_file.add_genome(self.genome)
         self.genome.add_trackdb(self.trackdb)
         self.trackdb.add_tracks(self.tracks)
 
     def DISCONNECT(self):
+        """
+        Re-run the setup, which results in unconnected components. Run
+        CONNECT() to connect them up.
+        """
         self.setup()
 
     def test_self_connection(self):
@@ -160,15 +168,15 @@ class TestComponents(object):
         for track in self.tracks:
             assert track.local_fn is None
 
+        # remote_fn is relative to the hub's remote_fn
         assert self.tracks[0].remote_fn == 'dm3/track1.bam'
         assert self.tracks[1].remote_fn == 'dm3/track2.bigWig'
 
         self.hub.remote_fn = '/var/www/hubs/hub.txt'
         self.hub.url = 'http://example.com/hubs/hub.txt'
 
-        print self.tracks[0].remote_fn
-        print self.hub.remote_fn
-        assert self.tracks[0].url == 'http://example.com/hubs/dm3/track1.bam'
+        # URL is relative to the trackDb
+        assert self.tracks[0].url == 'track1.bam'
 
 
     def test_track_creation(self):
