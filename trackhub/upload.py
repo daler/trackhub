@@ -4,14 +4,25 @@ from fabric.api import local, settings, run, abort, cd, env, hide, put
 from fabric.contrib.console import confirm
 import track
 
+
 def upload_file(host, user, local_fn, remote_fn, port=22,
-                rsync_options='-azvr --progress', run_local=False):
+                rsync_options='-azvrL --progress', run_local=False,
+                symlink=False, symlink_dir='staging'):
     results = []
+    if symlink:
+        symlink_dest = os.path.join(symlink_dir, remote_fn)
+        os.system('mkdir -p %s' % (os.path.dirname(symlink_dest)))
+        remote_dir = os.path.dirname(remote_fn)
+        os.system('ln -sf %s %s' % (os.path.abspath(local_fn), symlink_dest))
+        local_fn = symlink_dest
+
     if run_local:
         if not os.path.exists(os.path.dirname(remote_fn)):
-            results.append(local('mkdir -p %s' % os.path.dirname(remote_fn)))
+            remote_dir = os.path.dirname(remote_fn)
+            if remote_dir:
+                results.append(local('mkdir -p %s' % remote_dir))
 
-        results.append(local('rsync -avr --progress %(local_fn)s %(remote_fn)s' % locals()))
+        results.append(local('rsync -avrL --progress %(local_fn)s %(remote_fn)s' % locals()))
         return results
     env.host_string = host
     env.user = user
@@ -32,10 +43,10 @@ def upload_file(host, user, local_fn, remote_fn, port=22,
     return results
 
 
-def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
-               run_local=False):
+def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
+               run_local=False, symlink=False, symlink_dir='staging'):
     kwargs = dict(host=host, user=user, port=port, rsync_options=rsync_options,
-                  run_local=run_local)
+                  run_local=run_local, symlink=symlink, symlink_dir=symlink_dir)
     print kwargs
     results = []
 
@@ -78,7 +89,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvr --progress',
     return results
 
 
-def upload_track(host, user, track, port=22, rsync_options='-azvr --progress',
+def upload_track(host, user, track, port=22, rsync_options='-azvrL --progress',
                  run_local=False):
     kwargs = dict(host=host, user=user, local_fn=track.local_fn,
                   remote_fn=track.remote_fn, rsync_options=rsync_options,
