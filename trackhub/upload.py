@@ -24,7 +24,7 @@ def upload_file(host, user, local_fn, remote_fn, port=22,
             if remote_dir:
                 results.append(local('mkdir -p %s' % remote_dir))
 
-        results.append(local('rsync -avrL --progress %(local_fn)s %(remote_fn)s' % locals()))
+        results.append(local('rsync %(rsync_options)s %(local_fn)s %(remote_fn)s' % locals()))
         return results
     env.host_string = host
     env.user = user
