@@ -1,7 +1,8 @@
 import tempfile
 import os
-from fabric.api import local, settings, run, abort, cd, env, hide, put
+from fabric.api import local, settings, run, abort, cd, env, hide, puts
 from fabric.contrib.console import confirm
+from fabric.colors import green, yellow
 import track
 
 
@@ -9,6 +10,7 @@ def upload_file(host, user, local_fn, remote_fn, port=22,
                 rsync_options='-azvrL --progress', run_local=False,
                 symlink=False, symlink_dir='staging'):
     results = []
+    puts('\n\n' + green(local_fn) + ' -> ' +  yellow(remote_fn))
     if symlink:
         symlink_dest = os.path.join(symlink_dir, remote_fn)
         os.system('mkdir -p %s' % (os.path.dirname(symlink_dest)))
