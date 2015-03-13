@@ -256,6 +256,17 @@ track_typespecific_fields = {
             int),
 
         Parameter(
+            'negateValues',
+            """
+            Negate the values in the wiggle, meaning that positive values
+            become negative and vice-versa. This is useful for wiggles
+            representing transcription or other activities on the Crick strand.
+            Be aware that wiggles with negative values are drawn in altColor
+            not color as positive values are.
+            """,
+            set(['on'])),
+
+        Parameter(
             'smoothingWindow',
             """
             off|1-16; smoothing of graph using surrounding data,
