@@ -32,7 +32,7 @@ gray in the hub
 
 .. code-block:: python
 
-    from trackhub imoprt Track, default_hub
+    from trackhub import Track, default_hub
     from trackhub.upload import upload_hub, upload_track
 
     hub, genomes_file, genome, trackdb = default_hub(
@@ -80,11 +80,6 @@ gray in the hub
     upload_hub(hub=hub, **kwargs)
     for track, level in hub.leaves(Track):
         upload_track(track=track, **kwargs)
-
-
-**Note:** ``trackhub`` is still under active development and should be considered an
-alpha version.  Please open an issue on github
-(https://github.com/daler/trackhub/issues) if you run into problems.
 
 
 

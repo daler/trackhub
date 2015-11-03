@@ -605,7 +605,7 @@ class AggregateTrack(BaseTrack):
 class HTMLDoc(HubComponent):
     def __init__(self, contents):
         """
-        Represents and HTML file used for documentation.
+        Represents an HTML file used for documentation.
 
         Handles local/remote/url filenames when connected to a Track and
         CompositeTrack
