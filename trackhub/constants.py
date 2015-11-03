@@ -202,7 +202,7 @@ track_typespecific_fields = {
             str),
 
         Parameter(
-            'showTopScores',
+            'showTopScorers',
             """
             integer specifying a list of top-scoring items
             in genomic region on the item details page
