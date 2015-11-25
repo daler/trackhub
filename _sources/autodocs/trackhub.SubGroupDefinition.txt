@@ -1,0 +1,20 @@
+trackhub.SubGroupDefinition
+===========================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: SubGroupDefinition
+
+.. autoclass:: SubGroupDefinition
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~SubGroupDefinition.__init__
+    
+    .. automethod:: __init__ 

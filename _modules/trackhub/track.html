@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>trackhub.track &mdash; trackhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="trackhub 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for trackhub.track</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">validate</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">base</span> <span class="kn">import</span> <span class="n">HubComponent</span>
+<span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">import</span> <span class="nn">trackdb</span>
+<span class="kn">import</span> <span class="nn">genomes_file</span>
+<span class="kn">import</span> <span class="nn">genome</span>
+<span class="kn">import</span> <span class="nn">constants</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ordereddict</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+
+<span class="n">TRACKTYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;bigWig&#39;</span><span class="p">,</span> <span class="s">&#39;bam&#39;</span><span class="p">,</span> <span class="s">&#39;bigBed&#39;</span><span class="p">,</span> <span class="s">&#39;vcfTabix&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;[^a-zA-Z0-9-_]&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Non-alphanumeric character in name &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ParameterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="SubGroupDefinition"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition">[docs]</a><span class="k">class</span> <span class="nc">SubGroupDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="SubGroupDefinition.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a subgroup line in a composite track.</span>
+
+<span class="sd">        Instances of this class are provided to a composite track in order to</span>
+<span class="sd">        define options for the subtracks&#39; groups.</span>
+
+<span class="sd">        :param name:</span>
+<span class="sd">            String; name for the subgroup (e.g., &quot;celltype&quot;).</span>
+
+<span class="sd">        :param label:</span>
+<span class="sd">            String; the label that will be displayed (e.g., &quot;Cell_Type&quot;)</span>
+
+<span class="sd">        :param mapping:</span>
+<span class="sd">            Dictionary of {tag: title}, where `tag` will be how subtracks</span>
+<span class="sd">            access this group and `title` is how it will be displayed in the</span>
+<span class="sd">            browser, e.g.::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                  &quot;ES&quot;: &quot;Embryonic stem cell&quot;,</span>
+<span class="sd">                 &quot;MEF&quot;: &quot;Mouse embryonic fibroblast&quot;</span>
+<span class="sd">                }</span>
+
+<span class="sd">            Upon appending this SubGroupDefinition to a composite track, the</span>
+<span class="sd">            options for the subtracks&#39; subgroups are required to come from the</span>
+<span class="sd">            keys in the mapping.  Continuing the example, &quot;celltype=ES&quot; would</span>
+<span class="sd">            be a valid subgroup for a subtrack, but &quot;celltype=other&quot; would not</span>
+<span class="sd">            since it&#39;s not in the mapping dict above.</span>
+
+<span class="sd">        :param default:</span>
+<span class="sd">            String; value to be used by subtracks if they don&#39;t explicitly</span>
+<span class="sd">            define this subgroup. Continuing the example, if a subtrack didn&#39;t</span>
+<span class="sd">            specify the &quot;celltype&quot; subgroup, then by default a &quot;celltype=none&quot;</span>
+<span class="sd">            value will be added.  This is necessary because subtracks must</span>
+<span class="sd">            define a value for all groups.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">mapping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+</div>
+<span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
+
+    <span class="c"># Dictionary where keys are parameter names (e.g., &quot;color&quot;) and values are</span>
+    <span class="c"># Parameter objects.  These are defined in the constants module.</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">)</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">)</span>
+
+    <span class="c"># For a plain &#39;ol Track, there&#39;s nothing specific.  But CompositeTracks and</span>
+    <span class="c"># ViewTracks can have addtional specific parameters (e.g., filterComposite</span>
+    <span class="c"># for CompositeTracks) that need to be handled separately.  Make some space</span>
+    <span class="c"># for that here.</span>
+    <span class="n">specific_params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">long_label</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">subgroups</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">local_fn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">remote_fn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">html_string</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a single track stanza.</span>
+
+<span class="sd">        :param name: String; name of the track</span>
+
+<span class="sd">        :param tracktype: String; type of the track (e.g., &quot;bam&quot;)</span>
+
+<span class="sd">        :param url: String; full URL for the track (i.e., bigDataUrl)</span>
+
+<span class="sd">        :param short_label: String; used for the left-hand side track label</span>
+
+<span class="sd">        :param long_label:</span>
+<span class="sd">            String; used for the longer middle labels; if None will copy</span>
+<span class="sd">            short_label</span>
+
+<span class="sd">        :param subgroups:</span>
+
+<span class="sd">            A dictionary of `{name: tag}` where each `name` is the name of</span>
+<span class="sd">            a SubGroupDefinition in a parent :class:`CompositeTrack` and each</span>
+<span class="sd">            `tag` is a key in the SubGroupDefinition.mapping dictionary.  They</span>
+<span class="sd">            end up looking like this in the string representation::</span>
+
+<span class="sd">                subGroups view=aln celltype=ES</span>
+
+<span class="sd">        :param local_fn:</span>
+<span class="sd">            String; Local path to the file (used for uploading)</span>
+
+<span class="sd">        :param remote_fn:</span>
+<span class="sd">            String; path to upload the file to, over rsync and ssh.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">HubComponent</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">=</span> <span class="n">tracktype</span>
+        <span class="k">if</span> <span class="n">short_label</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">short_label</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">short_label</span> <span class="o">=</span> <span class="n">short_label</span>
+        <span class="k">if</span> <span class="n">long_label</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">long_label</span> <span class="o">=</span> <span class="n">short_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">long_label</span> <span class="o">=</span> <span class="n">long_label</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_fn</span> <span class="o">=</span> <span class="n">local_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remote_fn</span> <span class="o">=</span> <span class="n">remote_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span> <span class="o">=</span> <span class="n">html_string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_subgroups</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
+
+        <span class="c"># Convert pythonic strings to UCSC versions</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;track&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tracktype</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;longLabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;longLabel&#39;</span><span class="p">,</span> <span class="n">long_label</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;shortLabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;shortLabel&#39;</span><span class="p">,</span> <span class="n">short_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="n">_html</span> <span class="o">=</span> <span class="n">HTMLDoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">)</span>
+        <span class="n">_html</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_html</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">trackdb</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">Hub</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_local_fn</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="nd">@local_fn.setter</span>
+    <span class="k">def</span> <span class="nf">local_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_fn</span> <span class="o">=</span> <span class="n">fn</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">remote_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remote_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remote_fn</span>
+        <span class="c"># If remote_fn hasn&#39;t been assigned then make one automatically based</span>
+        <span class="c"># on the track name and the trackhub&#39;s remote_fn (which, by the way,</span>
+        <span class="c"># acts similarly, deferring up to the genomes_file.remote_fn . . . and</span>
+        <span class="c"># so on up to the hub&#39;s remote_fn)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">remote_fn</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="nd">@remote_fn.setter</span>
+    <span class="k">def</span> <span class="nf">remote_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remote_fn</span> <span class="o">=</span> <span class="n">fn</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tracktype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tracktype</span>
+
+    <span class="nd">@tracktype.setter</span>
+    <span class="k">def</span> <span class="nf">tracktype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracktype</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        When setting the track type, the valid parameters for this track type</span>
+<span class="sd">        need to be set as well.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tracktype</span> <span class="o">=</span> <span class="n">tracktype</span>
+        <span class="k">if</span> <span class="n">tracktype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;bed&#39;</span> <span class="ow">in</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">tracktype</span> <span class="o">=</span> <span class="s">&#39;bigBed&#39;</span>
+            <span class="k">elif</span> <span class="s">&#39;wig&#39;</span> <span class="ow">in</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">tracktype</span> <span class="o">=</span> <span class="s">&#39;bigWig&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_typespecific_fields</span><span class="p">[</span><span class="n">tracktype</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach this track to a parent TrackDb object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add [possibly many] parameters to the track.</span>
+
+<span class="sd">        Parameters will be checked against known UCSC parameters and their</span>
+<span class="sd">        supported formats.</span>
+
+<span class="sd">        E.g.,</span>
+
+<span class="sd">        add_params(color=&#39;128,0,0&#39;, visibility=&#39;dense&#39;)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span><span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; is not a valid parameter for </span><span class="si">%s</span><span class="s">&#39;</span>
+                                     <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">remove_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove [possibly many] parameters from the track.</span>
+
+<span class="sd">        E.g.,</span>
+
+<span class="sd">        remove_params(&#39;color&#39;, &#39;visibility&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the subgroups for this track.</span>
+
+<span class="sd">        :param subgroups:</span>
+<span class="sd">            Dictionary of subgroups, e.g., {&#39;celltype&#39;: &#39;K562&#39;, &#39;treatment&#39;:</span>
+<span class="sd">                &#39;a&#39;}.  Each key must match a SubGroupDefinition name in the</span>
+<span class="sd">                composite&#39;s subgroups list.  Each value must match a key in</span>
+<span class="sd">                that SubGroupDefinition.mapping dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgroups</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">specific</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                    <span class="n">specific</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;bigDataUrl&#39;</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;url&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">specific</span><span class="p">)</span>
+
+        <span class="c"># Handle subgroups differently depending on if this is a composite</span>
+        <span class="c"># track or not.</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_str_subgroups</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">BaseTrack</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;parent </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
+                <span class="s">&quot;Unhandled keyword arguments: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_html</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_html</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_str_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        helper function to render subgroups as a string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s">&#39;subGroups </span><span class="si">%s</span><span class="s">&#39;</span>
+                <span class="o">%</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">items</span><span class="p">()])]</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+        <span class="c">#assert self.tracktype in TRACKTYPES</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">html_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_fn</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">remote_fn</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.html&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+
+<div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="Track.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;bigDataUrl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;bigDataUrl&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">url</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_fn</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remote_fn</span><span class="p">,</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">remote_fn</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="nd">@url.setter</span>
+    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">fn</span>
+
+</div>
+<div class="viewcode-block" id="CompositeTrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack">[docs]</a><span class="k">class</span> <span class="nc">CompositeTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CompositeTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a composite track.  Subclasses :class:`Track`, and adds some</span>
+<span class="sd">        extras.</span>
+
+<span class="sd">        Add a view to this composite with :meth:`add_view`.</span>
+
+<span class="sd">        Add a subtrack with :meth:`add_track`.</span>
+
+<span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
+<span class="sd">        add this composite to it with that instance&#39;s :meth:`add_tracks`</span>
+<span class="sd">        method.</span>
+
+<span class="sd">        If composite=True, then this track will be consider a composite</span>
+<span class="sd">        parent for other tracks.  In this case, `subgroups` is a list of</span>
+<span class="sd">        :class:`SubGroupDefinition` objects, each defining the possible</span>
+<span class="sd">        values and display labels for the items in a group (for example,</span>
+<span class="sd">        a celltype SubGroupDefinition would define the tags and titles for</span>
+<span class="sd">        cell types).  In the string representation of this Track, subgroups</span>
+<span class="sd">        end up looking like::</span>
+
+<span class="sd">            subGroup1 view Views aln=Alignments sig=Signal</span>
+<span class="sd">            subGroup2 celltype Cell_Type ES=embryonic k562=K562</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">composite_track_fields</span><span class="p">)</span>
+
+        <span class="c"># TODO: are subtracks and views mutually exclusive, or can a composite</span>
+        <span class="c"># have both &quot;view-ed&quot; and &quot;non-view-ed&quot; subtracks?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span> <span class="o">=</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="CompositeTrack.add_subgroups"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subgroups">[docs]</a>    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a list of SubGroupDefinition objects to this composite.</span>
+
+<span class="sd">        :param subgroups:</span>
+<span class="sd">            List of SubGroupDefinition objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_subgroups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">sg</span> <span class="ow">in</span> <span class="n">subgroups</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sg</span><span class="p">,</span> <span class="n">SubGroupDefinition</span><span class="p">)</span>
+            <span class="n">_subgroups</span><span class="p">[</span><span class="n">sg</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span> <span class="o">=</span> <span class="n">_subgroups</span>
+</div>
+<div class="viewcode-block" id="CompositeTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a child :class:`SubTrack`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CompositeTrack.add_view"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_view">[docs]</a>    <span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a ViewTrack object to this composite.</span>
+
+<span class="sd">        :param view:</span>
+<span class="sd">            A ViewTrack object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_str_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        renders subgroups to a list of strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c"># if there are any views, there must be a subGroup1 view View tag=val</span>
+        <span class="c"># as the first one.  So create it automatically here</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">view</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">)</span>
+            <span class="n">view_subgroup</span> <span class="o">=</span> <span class="n">SubGroupDefinition</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s">&#39;view&#39;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s">&#39;Views&#39;</span><span class="p">,</span>
+                <span class="n">mapping</span><span class="o">=</span><span class="n">mapping</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;subGroup</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">view_subgroup</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">subgroup</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;subGroup</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">subgroup</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;compositeTrack on&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">view</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ViewTrack"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack">[docs]</a><span class="k">class</span> <span class="nc">ViewTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a View track.  Subclasses :class:`Track`, and adds some</span>
+<span class="sd">        extras.</span>
+
+<span class="sd">        Upon being added to a CompositeTrack, the `view` tag will be checked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ViewTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
+</div>
+    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;not sure if Views can have subgroups?&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ViewTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtracks</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add tracks to this view.</span>
+
+<span class="sd">        :param subtracks:</span>
+<span class="sd">            A single Track instance or an iterable of them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtracks</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+            <span class="n">subtracks</span> <span class="o">=</span> <span class="p">[</span><span class="n">subtracks</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="n">subtracks</span><span class="p">:</span>
+            <span class="n">subtrack</span><span class="o">.</span><span class="n">subgroups</span><span class="p">[</span><span class="s">&#39;view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_str_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">view_specific</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">view_track_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                    <span class="n">view_specific</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">ViewTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">view_specific</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;        &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="SuperTrack"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack">[docs]</a><span class="k">class</span> <span class="nc">SuperTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a Super track. Subclasses :class:`Track`, and adds some</span>
+<span class="sd">        extras.</span>
+
+<span class="sd">        Super tracks are container tracks (Folders) that group tracks. They are</span>
+<span class="sd">        used to control visualization of a set of related data.</span>
+
+<span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
+<span class="sd">        add this supertrack to it with that instance&#39;s :meth:`add_tracks`</span>
+<span class="sd">        method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SuperTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="SuperTrack.add_track"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_track">[docs]</a>    <span class="k">def</span> <span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a child :class:`SubTrack` to this supertrack.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">SuperTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;superTrack on&#39;</span><span class="p">)</span>
+
+        <span class="c"># Removed subtracks for Supertrack because composite tracks can be</span>
+        <span class="c"># within the supertrack.  This is also the recommendation from UCSC</span>
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+</div>
+<span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents an Aggregate or Overlay track. Subclasses :class:`Track`,</span>
+<span class="sd">        adds some extras.</span>
+
+<span class="sd">        Aggregate tracks allow closley related tracks to be viewed as a single</span>
+<span class="sd">        track.</span>
+
+<span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
+<span class="sd">        add this supertrack to it with that instance&#39;s :meth:`add_tracks`</span>
+<span class="sd">        method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span> <span class="o">=</span> <span class="n">aggregate</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;aggregate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aggregate</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AggregateTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">aggregate_track_fields</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a child :class:`SubTrack` to this aggregrate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">AggregateTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;container multiWig&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">HTMLDoc</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents an HTML file used for documentation.</span>
+
+<span class="sd">        Handles local/remote/url filenames when connected to a Track and</span>
+<span class="sd">        CompositeTrack</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">contents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_local_fn</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remote_fn</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HTMLDoc</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">local_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.html&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">remote_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">remote_fn</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;.html&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">obj</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">cls</span><span class="o">=</span><span class="n">trackdb</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">obj</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">cls</span><span class="o">=</span><span class="n">BaseTrack</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;HTMLDoc object must be connected to a &quot;</span>
+                             <span class="s">&quot;BaseTrack subclass instance and a TrackDb &quot;</span>
+                             <span class="s">&quot;instance&quot;</span><span class="p">)</span>
+        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_fn</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+        <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_fn</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fout</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

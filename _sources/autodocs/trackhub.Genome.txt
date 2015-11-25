@@ -1,0 +1,27 @@
+trackhub.Genome
+===============
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: Genome
+
+.. autoclass:: Genome
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~Genome.__init__
+        ~Genome.add_child
+        ~Genome.add_parent
+        ~Genome.add_trackdb
+        ~Genome.leaves
+        ~Genome.render
+        ~Genome.root
+        ~Genome.validate
+    
+    .. automethod:: __init__ 

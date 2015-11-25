@@ -1,0 +1,31 @@
+trackhub.SuperTrack
+===================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: SuperTrack
+
+.. autoclass:: SuperTrack
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~SuperTrack.__init__
+        ~SuperTrack.add_child
+        ~SuperTrack.add_params
+        ~SuperTrack.add_parent
+        ~SuperTrack.add_subgroups
+        ~SuperTrack.add_track
+        ~SuperTrack.add_trackdb
+        ~SuperTrack.leaves
+        ~SuperTrack.remove_params
+        ~SuperTrack.render
+        ~SuperTrack.root
+        ~SuperTrack.validate
+    
+    .. automethod:: __init__ 

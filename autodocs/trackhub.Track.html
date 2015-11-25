@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>trackhub.Track &mdash; trackhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="trackhub 0.1 documentation" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="trackhub-track">
+<h1>trackhub.Track<a class="headerlink" href="#trackhub-track" title="Permalink to this headline">¶</a></h1>
+<p class="graphviz">
+<img src="../_images/inheritance-4f6c35123fef027439ac4498db5c84c489ca438f.png" alt="Inheritance diagram of Track" usemap="#inheritancef595ae0a64" class="inheritance"/>
+<map id="inheritancef595ae0a64" name="inheritancef595ae0a64">
+<area shape="rect" id="node1" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="Base class for various track hub components. &#160;Several methods must be" alt="" coords="5,5,224,30"/>
+</map>
+</p>
+<dl class="class">
+<dt id="trackhub.Track">
+<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Track</code><span class="sig-paren">(</span><em>url=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#Track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">trackhub.track.BaseTrack</span></code></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<dl class="method">
+<dt id="trackhub.Track.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>url=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#Track.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Track.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.add_child">
+<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds self as parent to child, and then adds child.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.add_params">
+<code class="descname">add_params</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add [possibly many] parameters to the track.</p>
+<p>Parameters will be checked against known UCSC parameters and their
+supported formats.</p>
+<p>E.g.,</p>
+<p>add_params(color=&#8216;128,0,0&#8217;, visibility=&#8217;dense&#8217;)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.add_parent">
+<code class="descname">add_parent</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds self as child of parent, then adds parent.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.add_subgroups">
+<code class="descname">add_subgroups</code><span class="sig-paren">(</span><em>subgroups</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_subgroups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the subgroups for this track.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subgroups</strong> &#8211; <dl class="docutils">
+<dt>Dictionary of subgroups, e.g., {&#8216;celltype&#8217;: &#8216;K562&#8217;, &#8216;treatment&#8217;:</dt>
+<dd>&#8216;a&#8217;}.  Each key must match a SubGroupDefinition name in the
+composite&#8217;s subgroups list.  Each value must match a key in
+that SubGroupDefinition.mapping dictionary.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.add_trackdb">
+<code class="descname">add_trackdb</code><span class="sig-paren">(</span><em>trackdb</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_trackdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach this track to a parent TrackDb object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.leaves">
+<code class="descname">leaves</code><span class="sig-paren">(</span><em>cls</em>, <em>level=0</em>, <em>intermediate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.leaves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
+<p>If <cite>intermediate</cite> is True, then return any intermediate classes as
+well.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.remove_params">
+<code class="descname">remove_params</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.remove_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove [possibly many] parameters from the track.</p>
+<p>E.g.,</p>
+<p>remove_params(&#8216;color&#8217;, &#8216;visibility&#8217;)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the object to file, returning a list of created files.</p>
+<p>Calls validation code, and, as long as each child is also a subclass of
+<code class="xref py py-class docutils literal"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trackhub.Track.root">
+<code class="descname">root</code><span class="sig-paren">(</span><em>cls=None</em>, <em>level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the top-most HubComponent in the hierarchy.</p>
+<p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
+that is an instance of class <cite>cls</cite>.</p>
+<p>For a fully-constructed track hub (and <cite>cls=None</cite>), this should return
+a a Hub object for every component in the hierarchy.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/autodocs/trackhub.Track.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

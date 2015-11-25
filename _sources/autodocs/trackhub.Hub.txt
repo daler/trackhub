@@ -1,0 +1,27 @@
+trackhub.Hub
+============
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: Hub
+
+.. autoclass:: Hub
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~Hub.__init__
+        ~Hub.add_child
+        ~Hub.add_genomes_file
+        ~Hub.add_parent
+        ~Hub.leaves
+        ~Hub.render
+        ~Hub.root
+        ~Hub.validate
+    
+    .. automethod:: __init__ 

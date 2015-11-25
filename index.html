@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>trackhub documentation &mdash; trackhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="trackhub 0.1 documentation" href="#" />
+    <link rel="next" title="Quickstart" href="quickstart.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">trackhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="trackhub-documentation">
+<h1><cite>trackhub</cite> documentation<a class="headerlink" href="#trackhub-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="why-trackhub">
+<h1>Why <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>?<a class="headerlink" href="#why-trackhub" title="Permalink to this headline">¶</a></h1>
+<p>This Python package, <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>, aims to ease in construction of programatically-generated track
+hubs for the UCSC Genome Browser.</p>
+<p>The existing framework for creating a track hub consists of writing a text file
+as detailed in the <a class="reference external" href="http://genome-source.cse.ucsc.edu/gitweb/?p=kent.git;a=blob;f=src/hg/makeDb/trackDb/README;hb=HEAD">trackDb.txt README</a>
+(and, more recently, in the development <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html">track database definition page</a>).</p>
+<p>This can get extremely tedious, especially when trying to create and upload
+track hubs as part of an automated pipeline.  <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code> tries to ease
+this creation by providing a framework in Python for creating track hubs from
+scripts and programs. Why use <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>?:</p>
+<ul class="simple">
+<li><cite>filename handling</cite>: automatic (yet still completely configurable, if needed)
+handling of filenames and directory structure</li>
+<li><cite>uploading</cite>: upload a full hub &#8211; hub/genomes/trackdb files, plus all data
+files (bam/bigWig/bigBed) &#8211; via rsync over ssh</li>
+<li><cite>validation</cite>: mechanisms for handling validation of parameters so errors are
+[hopefully] caught prior to uploading</li>
+<li><cite>rapid deployment</cite>: mapping local filenames to remote filenames on the host enables
+rapid updating of the hub with new or updated data (e.g., when analysis
+parameters change)</li>
+<li><cite>flexibility</cite>: support for simple hubs up through complex composite hubs with views and
+subtracks</li>
+<li><cite>extensible</cite>: provides a framework for working with hub components, allowing
+new functionality to be easily added</li>
+</ul>
+<p>Move on to the <a class="reference internal" href="quickstart.html#quickstart"><span>Quickstart</span></a> to get started, or try the more in-depth
+<a class="reference internal" href="tutorial.html#tutorial"><span>Tutorial</span></a>.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#create-hub-components">Create hub components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#connect-components">Connect components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#render-the-hub">Render the hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#upload-data">Upload data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#make-a-hub-genomesfile-and-genome">Make a <code class="docutils literal"><span class="pre">Hub</span></code>, <code class="docutils literal"><span class="pre">GenomesFile</span></code>, and <code class="docutils literal"><span class="pre">Genome</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#connecting-the-components">Connecting the components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#general-structure-of-composites-views-and-subtracks">General structure of composites, views, and subtracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-a-composite-track">Creating a composite track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#subgroups">Subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-viewtrack-objects">Creating <code class="docutils literal"><span class="pre">ViewTrack</span></code> objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-track-objects">Creating <code class="docutils literal"><span class="pre">Track</span></code> objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#track-hub-filenames">Track hub filenames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#render">Render</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#html-documentation-for-tracks">HTML documentation for tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#uploading">Uploading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filenames.html">Filenames</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filenames.html#default-filenames">Default filenames</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">Topical docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developers.html#validation-of-parameters">Validation of parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developers.html#rendered-results-dictionary">Rendered results dictionary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1-2-jan-2-2015">Version 0.1.2 (Jan 2 2015)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1-1-dec-19-2012">Version 0.1.1 (Dec 19 2012)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1-oct-30-2012">Version 0.1 (Oct 30 2012)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><cite>trackhub</cite> documentation</a></li>
+<li><a class="reference internal" href="#why-trackhub">Why <code class="docutils literal"><span class="pre">trackhub</span></code>?</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">Quickstart</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">trackhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
