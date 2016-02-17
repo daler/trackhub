@@ -69,6 +69,19 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
             **kwargs)
     )
 
+    # Then any associated assembly:
+    for g in hub.genomes_file.genomes:
+        if getattr(g, "twobit_fn", None):
+            results.extend(
+                upload_file(
+                    local_fn=g.twobit_fn,
+                    remote_fn=os.path.join(
+                        os.path.dirname(g.genome_file_obj.remote_fn),
+                        g.genome,os.path.basename(g.twobit_fn)),
+                    **kwargs
+                )
+            )
+
     # then the trackDB file:
     for g in hub.genomes_file.genomes:
         results.extend(

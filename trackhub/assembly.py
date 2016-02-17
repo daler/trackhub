@@ -33,10 +33,7 @@ class Assembly(Genome):
                                           start = os.path.dirname(
                                                     self.parent.parent.local_fn)) #local_fn of hub file
         s.append('trackDb %s' % trackdb_relpath)
-        twobit_relpath = os.path.relpath(self.twobit_fn,
-                                          start = os.path.dirname(
-                                                    self.parent.parent.local_fn)) #local_fn of hub file
-        s.append('twoBitPath %s' % twobit_relpath)
+        s.append('twoBitPath %s' % os.path.join(self.genome,os.path.basename(self.twobit_fn)))
         for k, v in self.genome_info.iteritems():
             s.append(str(k) + ' ' + str(v))
         return '\n'.join(s) + '\n'
