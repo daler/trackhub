@@ -159,3 +159,19 @@ def off_or_int(v):
         if v == 'off':
             return True
         raise
+
+@validator("chr21:33031596-33033258")
+def ucsc_position(v):
+    try:
+        str(v)
+        chrom, pos = v.split(":")
+        start, end = pos.split("-")
+        int(start)
+        int(end)
+    except ValueError:
+        raise ValueError("UCSC position string is formatted incorrectly")
+    assert start >= 0, "start position must be a positive integer"
+    assert end >= 0, "end position must be a positive integer"
+    assert start < end, "start must be less than end"
+    return True
+

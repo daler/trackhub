@@ -69,20 +69,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
             **kwargs)
     )
 
-    # Then any associated assembly:
-    for g in hub.genomes_file.genomes:
-        if getattr(g, "twobit_fn", None):
-            results.extend(
-                upload_file(
-                    local_fn=g.twobit_fn,
-                    remote_fn=os.path.join(
-                        os.path.dirname(g.genome_file_obj.remote_fn),
-                        g.genome,os.path.basename(g.twobit_fn)),
-                    **kwargs
-                )
-            )
-
-    # then the trackDB file:
+    # Then any associated trackDb:
     for g in hub.genomes_file.genomes:
         results.extend(
             upload_file(
@@ -91,6 +78,38 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 **kwargs
             )
         )
+
+        # and assemblies
+        if isinstance(g, "Assembly"):
+            results.extend(
+                upload_file(
+                    local_fn=g.local_fn,
+                    remote_fn=g.remote_fn,
+                    **kwargs
+                )
+            )
+
+            g_dir_local = os.path.join(basename(hub.genomes_file.local_fn), g.genome)
+            g_dir_remote = os.path.join(basename(hub.genomes_file.remote_fn), g.genome)
+
+            if g.groups != []:
+                results.extend(
+                    upload_file(
+                        local_fn=os.path.join(g_dir_local, "groups.txt"),
+                        remote_fn=os.path.join(g_dir_remote, "groups.txt"),
+                        **kwargs
+                    )
+                )
+
+            if g.html_documentation is not None:
+                results.extend(
+                    upload_file(
+                        local_fn=os.path.join(g_dir_local, "%s_documentation.txt" % g.genome),
+                        remote_fn=os.path.join(g_dir_remote, "%s_documentation.txt" % g.genome),
+                        **kwargs
+                    )
+                )
+
     # and finally any HTML files:
     for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
         print repr(t)

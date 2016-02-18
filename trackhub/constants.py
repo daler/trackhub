@@ -664,3 +664,28 @@ track_fields = OrderedDict((i.param, i) for i in [
 
 
 ])
+
+assembly_fields = OrderedDict((i.param, i) for i in [
+    Parameter(
+        'description',
+        "assembly description",
+        str),
+    Parameter(
+        'organism',
+        "organism",
+        str),
+    Parameter(
+        'scientificName',
+        "The scientific name of the organism",
+        str),
+    Parameter(
+        'orderKey',
+        'key used to sort genomes',
+        int),
+    Parameter(
+        'defaultPos',
+        'default co-ordinates for viewing in new UCSC sessions',
+        # TODO: better validation here for things like bed 3
+        validate.ucsc_position),
+])
+
