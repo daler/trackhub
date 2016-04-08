@@ -9,6 +9,7 @@ from genome import Genome
 from genomes_file import GenomesFile
 from trackdb import TrackDb
 from constants import assembly_fields
+from track import HTMLDoc
 
 
 class GroupDefinition(object):
@@ -114,7 +115,15 @@ class Assembly(Genome):
     params = OrderedDict()
     params.update(assembly_fields)
 
-    def __init__(self, genome, twobit_local_fn=None, groups=None, trackdb=None, genome_file_obj=None, **kwargs):
+    def __init__(self,
+                 genome,
+                 twobit_file=None,
+                 remote_fn=None,
+                 groups_file=None,
+                 trackdb=None,
+                 genome_file_obj=None,
+                 # html_description=None,
+                 **kwargs):
         """
         Represents a genome stanza within a "genomes.txt" file for a non-UCSC genome.
 
@@ -122,31 +131,32 @@ class Assembly(Genome):
         """
         HubComponent.__init__(self)
         Genome.__init__(self, genome, trackdb=trackdb, genome_file_obj=genome_file_obj)
-        if genome_obj is not None:
-            self.genome = genome
-        if twobit_local_fn is not None:
-            self.local_fn = local_fn
+        # self.genome = genome
+        self.local_fn = twobit_file
+        self.remote_fn = remote_fn
+        self.groups_file = None
+        self.html_doc = None
         # Use HTMLDoc container ?
-        if html_description is not None:
-            self.html_description = html_description
-        self.add_groups(groups)
+        # if html_description is not None:
+        #     self.html_description = html_description
+        if groups_file is not None:
+            self.add_groups_file(groups_file)
 
         self.kwargs = kwargs
         self._orig_kwargs = kwargs.copy()
-        self.add_params(self, **kwargs)
 
     def add_trackdb(self, trackdb):
-        self.children = filter(self.children, not isinstance(TrackDb))
+        self.children = [x for x in self.children if not isinstance(x, TrackDb)]
         self.add_child(trackdb)
         self.trackdb = trackdb
 
-    def add_html_doc(self, hmtl_doc):
-        self.children = filter(self.children, not isinstance(HTMLDoc))
-        self.add_child(html_doc)
-        self.html_doc = html_doc
+    # def add_html_doc(self, hmtl_doc):
+    #     self.children = [x for x in self.children if not isinstance(x, HTMLDoc)]
+    #     self.add_child(html_doc)
+    #     self.html_doc = html_doc
 
     def add_groups_file(self, groups_file):
-        self.children = filter(self.children, not isinstance(GroupsFile))
+        self.children = [x for x in self.children if not isinstance(x, GroupsFile)]
         self.add_child(groups_file)
         self.groups_file = groups_file
 
@@ -192,7 +202,7 @@ class Assembly(Genome):
         s.append('genome %s' % self.genome)
         s.append('trackDb %s' % self.trackdb.remote_fn)
         s.append('twoBitPath %s' % self.remote_fn)
-        if getattr(self, groups_file, None):
+        if self.groups_file is not None:
             s.append('groups %s' % self.groups_file.remote_fn)
 
         for name, parameter_obj in self.params.items():
@@ -201,10 +211,11 @@ class Assembly(Genome):
                 if parameter_obj.validate(value):
                     s.append("%s %s" % (name, value))
 
-        if getattr(self, html_doc, None):
+        if self.html_doc is not None:
             s.append('htmlDocumentation %s' % self.html_doc.remote_fn)
 
-        return '\n'.join(s) + '\n'
+        self.kwargs = self._orig_kwargs.copy()
+        return '\n'.join(s)
 
     @property
     def remote_fn(self):
@@ -214,13 +225,13 @@ class Assembly(Genome):
         if self.genome is None:
             return None
 
-        if self.genome.genomes_file is None:
+        if self.parent is None:
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genome.genomes_file.remote_fn),
-                                self.genome.genome,
-                                '%s.2bit' % self.genome.genome)
+            return os.path.join(os.path.dirname(self.parent.remote_fn),
+                                self.genome,
+                                '%s.2bit' % self.genome)
 
     @remote_fn.setter
     def remote_fn(self, fn):
