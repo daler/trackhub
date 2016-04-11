@@ -7,105 +7,10 @@ from validate import ValidationError
 from base import HubComponent
 from genome import Genome
 from genomes_file import GenomesFile
+from groups import GroupsFile
 from trackdb import TrackDb
 from constants import assembly_fields
 from track import HTMLDoc
-
-
-class GroupDefinition(object):
-    def __init__(self, name, label, priority=1, default_is_closed=0):
-        """
-        Represents a group of tracks in a trackhub.
-
-        Instances of this class are provided to an assembly.
-
-        :param name:
-            String; name for the group (e.g., "celltype").
-
-        :param label:
-            String; the label that will be displayed (e.g., "Cell_Type")
-
-        :param priority:
-            Orders this track group with the other track groups
-
-        :param default_is_closed:
-            Determines if this track group is expanded or closed by default. Values to use are 0 or 1
-        """
-        self.name = str(name)
-        self.label = str(label)
-        self.priority = int(priority)
-        if default_is_closed in (0, 1):
-            self.default_is_closed = default_is_closed
-        else:
-            raise ValueError("default_is_closed must be 1 or 0")
-
-    def __str__(self):
-        try:
-            self.validate()
-        except ValidationError:
-            return "Unconfigured <GroupDefinition> object"
-        s = [
-                'name %s' % self.name,
-                'label %s' % self.label,
-                'priority %s' % self.priority,
-                'defaultIsClosed %s' % self.default_is_closed
-        ]
-        s.extend('%s %s' % (k, v) for k, v in self.mapping.items())
-        return '\n'.join(s) + '\n'
-
-class GroupsFile(HubComponent):
-    def __init__(self, groups=None):
-        Hubcomponent.__init__(self)
-        if groups is not None:
-            self.add_groups(groups)
-
-    def add_groups(self, groups):
-        """
-        Add a list of GroupDefinition objects to this composite.
-
-        :param groups:
-            List of GroupDefinition objects.
-        """
-        if groups is None:
-            groups = {}
-        _groups = {}
-        for g in groups:
-            assert isinstance(sg, GroupDefinition)
-            _groups[g.name] = g
-        self.groups = _groups
-
-    def __str__(self):
-        """
-        Render groups.txt file.
-        """
-        return '\n'.join(g.__str__() for g in self.groups)
-
-    def _render(self):
-        raise NotImplementedError("GroupsFile needs a render method")
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-
-        if self.genome is None:
-            return None
-
-        if self.genome.genomes_file is None:
-            return None
-
-        else:
-            return os.path.join(os.path.dirname(self.genome.genomes_file.remote_fn),
-                                self.genome.genome, "groups.txt")
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
-
-    def validate(self):
-        for g in self.groups:
-            g.validate()
-        return True
 
 class Assembly(Genome):
 
@@ -119,7 +24,7 @@ class Assembly(Genome):
                  genome,
                  twobit_file=None,
                  remote_fn=None,
-                 groups_file=None,
+                 groups=None,
                  trackdb=None,
                  genome_file_obj=None,
                  # html_description=None,
@@ -134,31 +39,31 @@ class Assembly(Genome):
         # self.genome = genome
         self.local_fn = twobit_file
         self.remote_fn = remote_fn
-        self.groups_file = None
+        self.groups = groups
         self.html_doc = None
         # Use HTMLDoc container ?
         # if html_description is not None:
         #     self.html_description = html_description
-        if groups_file is not None:
-            self.add_groups_file(groups_file)
+        if groups is not None:
+            self.add_groups(groups)
 
-        self.kwargs = kwargs
-        self._orig_kwargs = kwargs.copy()
+        self._orig_kwargs = kwargs
+        self.add_params(**kwargs)
 
     def add_trackdb(self, trackdb):
         self.children = [x for x in self.children if not isinstance(x, TrackDb)]
         self.add_child(trackdb)
         self.trackdb = trackdb
 
-    # def add_html_doc(self, hmtl_doc):
-    #     self.children = [x for x in self.children if not isinstance(x, HTMLDoc)]
-    #     self.add_child(html_doc)
-    #     self.html_doc = html_doc
+    def add_html_doc(self, html_doc):
+        self.children = [x for x in self.children if not isinstance(x, HTMLDoc)]
+        self.add_child(html_doc)
+        self.html_doc = html_doc
 
-    def add_groups_file(self, groups_file):
+    def add_groups(self, groups):
         self.children = [x for x in self.children if not isinstance(x, GroupsFile)]
-        self.add_child(groups_file)
-        self.groups_file = groups_file
+        self.add_child(groups)
+        self.groups = groups
 
     def add_params(self, **kw):
         """
@@ -168,13 +73,10 @@ class Assembly(Genome):
         supported formats.
         """
         for k, v in kw.items():
-            if (k not in self.params) and (k not in self.specific_params):
+            if k not in self.params:
                 raise ParameterError('"%s" is not a valid parameter for %s'
                                      % (k, self.__class__.__name__))
-            try:
-                self.params[k].validate(v)
-            except KeyError:
-                self.specific_params[k].validate(v)
+            self.params[k].validate(v)
 
         self._orig_kwargs.update(kw)
         self.kwargs = self._orig_kwargs.copy()
@@ -202,8 +104,8 @@ class Assembly(Genome):
         s.append('genome %s' % self.genome)
         s.append('trackDb %s' % self.trackdb.remote_fn)
         s.append('twoBitPath %s' % self.remote_fn)
-        if self.groups_file is not None:
-            s.append('groups %s' % self.groups_file.remote_fn)
+        if self.groups is not None:
+            s.append('groups %s' % self.groups.remote_fn)
 
         for name, parameter_obj in self.params.items():
             value = self.kwargs.pop(name, None)
@@ -215,15 +117,12 @@ class Assembly(Genome):
             s.append('htmlDocumentation %s' % self.html_doc.remote_fn)
 
         self.kwargs = self._orig_kwargs.copy()
-        return '\n'.join(s)
+        return '\n'.join(s) + '\n'
 
     @property
     def remote_fn(self):
         if self._remote_fn is not None:
             return self._remote_fn
-
-        if self.genome is None:
-            return None
 
         if self.parent is None:
             return None
@@ -254,7 +153,7 @@ class AssemblyHTMLDoc(HTMLDoc):
 
     @property
     def remote_fn(self):
-        if (self.trackdb is None) or (self.track is None):
+        if (self.genomes_file is None) or (self.genome is None):
             return None
         return os.path.join(
             os.path.dirname(self.genomes_file.remote_fn),
@@ -264,17 +163,24 @@ class AssemblyHTMLDoc(HTMLDoc):
     @property
     def genomes_file(self):
         obj, level = self.root(cls=GenomesFile)
+        if level is None:
+            return None
+        if level != -2:
+            raise ValueError("GenomesFile is level %s, not -2" % level)
         return obj
 
     @property
-    def assembly(self):
+    def genome(self):
         obj, level = self.root(cls=Assembly)
+        if level is None:
+            return None
+        if level != -1:
+            raise ValueError("Assembly is level %s, not -1" % level)
         return obj
 
     def validate(self):
-        if not self.genomes_file:
-            raise ValueError("HTMLDoc object must be connected to a "
-                             "BaseTrack subclass instance and a TrackDb "
-                             "instance")
+        if not self.genome:
+            raise ValueError("HTMLDoc object must be connected to an"
+                             "Assembly subclass instance")
         return True
 

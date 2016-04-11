@@ -90,23 +90,20 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 )
             )
 
-            g_dir_local = os.path.join(basename(hub.genomes_file.local_fn), g.genome)
-            g_dir_remote = os.path.join(basename(hub.genomes_file.remote_fn), g.genome)
-
             if g.groups != []:
                 results.extend(
                     upload_file(
-                        local_fn=os.path.join(g_dir_local, "groups.txt"),
-                        remote_fn=os.path.join(g_dir_remote, "groups.txt"),
+                        local_fn=g.groups.local_fn,
+                        remote_fn=g.groups.remote_fn,
                         **kwargs
                     )
                 )
 
-            if g.html_documentation is not None:
+            if g.html_doc is not None:
                 results.extend(
                     upload_file(
-                        local_fn=os.path.join(g_dir_local, "%s_documentation.txt" % g.genome),
-                        remote_fn=os.path.join(g_dir_remote, "%s_documentation.txt" % g.genome),
+                        local_fn=g.html_doc.local_fn,
+                        remote_fn=g.html_doc.remote_fn,
                         **kwargs
                     )
                 )
