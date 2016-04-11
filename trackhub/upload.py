@@ -4,6 +4,7 @@ from fabric.api import local, settings, run, abort, cd, env, hide, puts
 from fabric.contrib.console import confirm
 from fabric.colors import green, yellow
 import track
+from assembly import Assembly
 
 
 def upload_file(host, user, local_fn, remote_fn, port=22,
@@ -80,7 +81,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
         )
 
         # and assemblies
-        if isinstance(g, "Assembly"):
+        if isinstance(g, Assembly):
             results.extend(
                 upload_file(
                     local_fn=g.local_fn,
