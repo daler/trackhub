@@ -4,7 +4,6 @@ from fabric.api import local, settings, run, abort, cd, env, hide, puts
 from fabric.contrib.console import confirm
 from fabric.colors import green, yellow
 import track
-from assembly import Assembly
 
 
 def upload_file(host, user, local_fn, remote_fn, port=22,
@@ -81,7 +80,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
         )
 
         # and assemblies
-        if isinstance(g, Assembly):
+        if hasattr(g, "local_fn"):
             results.extend(
                 upload_file(
                     local_fn=g.local_fn,
@@ -90,23 +89,23 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 )
             )
 
-            if g.groups != []:
-                results.extend(
-                    upload_file(
-                        local_fn=g.groups.local_fn,
-                        remote_fn=g.groups.remote_fn,
-                        **kwargs
-                    )
+        if getattr(g, "groups", None) != None:
+            results.extend(
+                upload_file(
+                    local_fn=g.groups.local_fn,
+                    remote_fn=g.groups.remote_fn,
+                    **kwargs
                 )
+            )
 
-            if g.html_doc is not None:
-                results.extend(
-                    upload_file(
-                        local_fn=g.html_doc.local_fn,
-                        remote_fn=g.html_doc.remote_fn,
-                        **kwargs
-                    )
+        if getattr(g, "html_doc", None) is not None:
+            results.extend(
+                upload_file(
+                    local_fn=g.html_doc.local_fn,
+                    remote_fn=g.html_doc.remote_fn,
+                    **kwargs
                 )
+            )
 
     # and finally any HTML files:
     for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
