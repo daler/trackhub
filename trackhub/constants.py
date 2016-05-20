@@ -210,6 +210,19 @@ track_typespecific_fields = {
             # NOTE: BED 5 or higher
             int),
 
+        Parameter(
+            'labelOnFeature',
+            """
+            show feature labels on browser: on/off
+            """,
+            set(['on', 'off'])),
+
+        Parameter(
+            'searchIndex',
+            """
+            Specifies the list of field names on which a index has been made.
+            """,
+            str),
     ]),
 
     'bigWig': OrderedDict((i.param, i) for i in [
@@ -664,3 +677,28 @@ track_fields = OrderedDict((i.param, i) for i in [
 
 
 ])
+
+assembly_fields = OrderedDict((i.param, i) for i in [
+    Parameter(
+        'description',
+        "assembly description",
+        str),
+    Parameter(
+        'organism',
+        "organism",
+        str),
+    Parameter(
+        'scientificName',
+        "The scientific name of the organism",
+        str),
+    Parameter(
+        'orderKey',
+        'key used to sort genomes',
+        int),
+    Parameter(
+        'defaultPos',
+        'default co-ordinates for viewing in new UCSC sessions',
+        # TODO: better validation here for things like bed 3
+        validate.ucsc_position),
+])
+

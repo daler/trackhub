@@ -41,10 +41,7 @@ class Genome(HubComponent):
             return "Unconfigured <Genome> object"
         s = []
         s.append('genome %s' % self.genome)
-        trackdb_relpath = os.path.relpath(self.trackdb.local_fn, 
-                                          start = os.path.dirname(
-                                                    self.parent.parent.local_fn)) #local_fn of hub file
-        s.append('trackDb %s' % trackdb_relpath)
+        s.append('trackDb %s' % self.trackdb.remote_fn)
         return '\n'.join(s) + '\n'
 
     def validate(self):
@@ -60,3 +57,4 @@ class Genome(HubComponent):
         GenomesFile object.
         """
         pass
+
