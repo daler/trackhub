@@ -590,6 +590,11 @@ track_fields = OrderedDict((i.param, i) for i in [
         str),
 
     Parameter(
+        'group',
+        'Track grouping in an AssemblyHub',
+        str),
+
+    Parameter(
         'otherDb',
         'declare the other species/assembly used in the pairwise alignments',
         # TODO: determine if functionality works for bigBed
