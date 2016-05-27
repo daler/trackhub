@@ -27,7 +27,7 @@ class Assembly(Genome):
                  groups=None,
                  trackdb=None,
                  genome_file_obj=None,
-                 # html_description=None,
+                 html_string=None,
                  **kwargs):
         """
         Represents a genome stanza within a "genomes.txt" file for a non-UCSC genome.
@@ -36,16 +36,14 @@ class Assembly(Genome):
         """
         HubComponent.__init__(self)
         Genome.__init__(self, genome, trackdb=trackdb, genome_file_obj=genome_file_obj)
-        # self.genome = genome
         self.local_fn = twobit_file
         self.remote_fn = remote_fn
-        self.groups = groups
-        self.html_doc = None
-        # Use HTMLDoc container ?
-        # if html_description is not None:
-        #     self.html_description = html_description
+        self.html_string = html_string
+
         if groups is not None:
             self.add_groups(groups)
+        else:
+            self.groups = None
 
         self._orig_kwargs = kwargs
         self.add_params(**kwargs)
@@ -54,11 +52,6 @@ class Assembly(Genome):
         self.children = [x for x in self.children if not isinstance(x, TrackDb)]
         self.add_child(trackdb)
         self.trackdb = trackdb
-
-    def add_html_doc(self, html_doc):
-        self.children = [x for x in self.children if not isinstance(x, HTMLDoc)]
-        self.add_child(html_doc)
-        self.html_doc = html_doc
 
     def add_groups(self, groups):
         self.children = [x for x in self.children if not isinstance(x, GroupsFile)]
@@ -83,7 +76,7 @@ class Assembly(Genome):
 
     def remove_params(self, *args):
         """
-        Remove [possibly many] parameters from the track.
+        Remove [possibly many] parameters from the Assembly.
 
         E.g.,
 
@@ -92,6 +85,14 @@ class Assembly(Genome):
         for a in args:
             self._orig_kwargs.pop(a)
         self.kwargs = self._orig_kwargs.copy()
+
+    @property
+    def _html(self):
+        if not self.html_string:
+            return None
+        _html = AssemblyHTMLDoc(self.html_string)
+        _html.add_parent(self)
+        return _html
 
     def __str__(self):
         try:
@@ -113,8 +114,8 @@ class Assembly(Genome):
                 if parameter_obj.validate(value):
                     s.append("%s %s" % (name, value))
 
-        if self.html_doc is not None:
-            s.append('htmlDocumentation %s' % self.html_doc.remote_fn)
+        if self._html is not None:
+            s.append('htmlDocumentation %s' % self._html.remote_fn)
 
         self.kwargs = self._orig_kwargs.copy()
         return '\n'.join(s) + '\n'
