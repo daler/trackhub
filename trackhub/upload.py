@@ -98,13 +98,12 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 )
             )
 
-        if getattr(g, "html_doc", None) is not None:
+        if g._html:
             results.extend(
                 upload_file(
-                    local_fn=g.html_doc.local_fn,
-                    remote_fn=g.html_doc.remote_fn,
-                    **kwargs
-                )
+                    local_fn=g._html.local_fn,
+                    remote_fn=g._html.remote_fn,
+                    **kwargs)
             )
 
     # and finally any HTML files:

@@ -39,7 +39,7 @@ class GroupDefinition(object):
             'name %s' % self.name,
             'label %s' % self.label,
             'priority %s' % self.priority,
-            'defaultIsClosed %s' % self.default_is_closed
+            'defaultIsClosed %d' % self.default_is_closed
         ]
         return '\n'.join(s) + '\n'
 
