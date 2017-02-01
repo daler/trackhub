@@ -1,10 +1,12 @@
+from __future__ import absolute_import
+
 import os
 try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
-from validate import ValidationError
-from base import HubComponent
+from .validate import ValidationError
+from .base import HubComponent
 
 
 class Hub(HubComponent):

@@ -1,9 +1,11 @@
+from __future__ import absolute_import
+
 import tempfile
 import os
 from fabric.api import local, settings, run, abort, cd, env, hide, puts
 from fabric.contrib.console import confirm
 from fabric.colors import green, yellow
-import track
+from . import track
 
 
 def upload_file(host, user, local_fn, remote_fn, port=22,

@@ -1,8 +1,10 @@
+from __future__ import absolute_import
+
 import os
-from validate import ValidationError
-from base import HubComponent
-from genome import Genome
-from genomes_file import GenomesFile
+from .validate import ValidationError
+from .base import HubComponent
+from .genome import Genome
+from .genomes_file import GenomesFile
 
 class GroupDefinition(object):
 

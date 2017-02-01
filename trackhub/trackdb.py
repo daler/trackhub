@@ -1,9 +1,11 @@
+from __future__ import absolute_import
+
 import os
-from validate import ValidationError
-from base import HubComponent
-from genomes_file import GenomesFile
-from genome import Genome
-import track as _track
+from .validate import ValidationError
+from .base import HubComponent
+from .genomes_file import GenomesFile
+from .genome import Genome
+from . import track as _track
 
 try:
     from collections import OrderedDict

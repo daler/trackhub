@@ -1,8 +1,10 @@
+from __future__ import absolute_import
+
 import os
 import sys
 import json
-import base
-from hub import Hub
+from . import base
+from .hub import Hub
 
 _here = __file__
 
