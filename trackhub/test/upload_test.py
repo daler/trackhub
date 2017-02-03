@@ -1,5 +1,6 @@
 from trackhub import upload
 import os
+import unittest
 from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
     TrackDb, ViewTrack, SuperTrack, AggregateTrack
 
@@ -33,6 +34,7 @@ class TestUpload(object):
         self.trackdb.add_tracks(self.tracks)
 
 
+    @unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
     def test_upload(self):
         self.hub.remote_fn = os.path.join(
             'uploaded_version',
@@ -48,3 +50,9 @@ class TestUpload(object):
         for t, level in self.hub.leaves(Track):
             upload.upload_track(
                 track=t, host='localhost', user=None, run_local=True)
+
+    def test_render(self):
+        trackdb = str(self.trackdb)
+        # make sure some of the trackdb rendered correctly
+        assert 'track track1' in trackdb
+        assert 'bigDataUrl track1.bam' in trackdb
