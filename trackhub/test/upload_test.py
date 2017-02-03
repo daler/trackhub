@@ -50,3 +50,9 @@ class TestUpload(object):
         for t, level in self.hub.leaves(Track):
             upload.upload_track(
                 track=t, host='localhost', user=None, run_local=True)
+
+    def test_render(self):
+        trackdb = str(self.trackdb)
+        # make sure some of the trackdb rendered correctly
+        assert 'track track1' in trackdb
+        assert 'bigDataUrl track1.bam' in trackdb
