@@ -1,5 +1,5 @@
 from textwrap import dedent
-
+from six import string_types
 
 class ValidationError(Exception):
     pass
@@ -97,14 +97,14 @@ def key_val(v):
 @validator("a,b,c")
 def CSV(v):
     #TODO: is a one-item list "chr1," or "chr1"?
-    if isinstance(v, basestring):
+    if isinstance(v, string_types):
         return True
 
 
 @validator("a:b:c")
 def ColSV3(v):
     nvalues = 3
-    if not isinstance(v, basestring):
+    if not isinstance(v, string_types):
         raise ValueError('not a string')
     vs = v.split(':')
     assert len(vs) == nvalues
@@ -114,7 +114,7 @@ def ColSV3(v):
 @validator("a:b")
 def ColSV2(v):
     nvalues = 2
-    if not isinstance(v, basestring):
+    if not isinstance(v, string_types):
         raise ValueError('not a string')
     vs = v.split(':')
     assert len(vs) == nvalues
@@ -127,7 +127,7 @@ def RGB(v):
         raise ValueError('Space in RGB tuple')
     if "." in v:
         raise ValueError('"." in RGB tuple')
-    assert isinstance(v, basestring), "RGB tuple is not a string"
+    assert isinstance(v, string_types), "RGB tuple is not a string"
     if ',' not in v:
         raise ValueError("no commas in RGB tuple")
     rgb = v.split(',')
