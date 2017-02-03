@@ -163,7 +163,6 @@ def off_or_int(v):
 @validator("chr21:33031596-33033258")
 def ucsc_position(v):
     try:
-        str(v)
         chrom, pos = v.split(":")
         start, end = pos.split("-")
         int(start)
