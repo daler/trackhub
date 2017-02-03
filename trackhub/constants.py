@@ -68,6 +68,15 @@ track_typespecific_fields = {
             set(['on', 'off'])),
 
         Parameter(
+            'exonNumbers',
+            """
+            on|off; show exons or blocks within features, mouseover shows exon and
+            intron numbers. (Default: on)
+            """,
+            # NOTE: BED 9
+            set(['on', 'off'])),
+
+        Parameter(
             'scoreFilter',
             """default score filter value for a track which excludes scores
             below threshold""",
