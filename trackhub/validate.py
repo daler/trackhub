@@ -165,8 +165,8 @@ def ucsc_position(v):
     try:
         chrom, pos = v.split(":")
         start, end = pos.split("-")
-        int(start)
-        int(end)
+        start = int(start)
+        end = int(end)
     except ValueError:
         raise ValueError("UCSC position string is formatted incorrectly")
     assert start >= 0, "start position must be a positive integer"
