@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 import os
 import sys
@@ -43,7 +43,7 @@ def show_rendered_files(results_dict):
     """
     for k, v in results_dict.items():
         if isinstance(v, basestring):
-            print "rendered file: %s (created by: %s)" % (v, k)
+            print("rendered file: %s (created by: %s)" % (v, k))
         else:
             show_rendered_files(v)
     return
@@ -65,7 +65,7 @@ def print_rendered_results(results_dict):
     # the returned string contains lines with trailing spaces, which causes
     # doctests to fail.  So fix that here.
     for s in formatted.splitlines():
-        print s.rstrip()
+        print(s.rstrip())
 
 
 def data_dir():
