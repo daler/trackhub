@@ -1,16 +1,18 @@
+from __future__ import absolute_import
+
 import os
 try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
-from validate import ValidationError
-from base import HubComponent
-from genome import Genome
-from genomes_file import GenomesFile
-from groups import GroupsFile
-from trackdb import TrackDb
-from constants import assembly_fields
-from track import HTMLDoc
+from .validate import ValidationError
+from .base import HubComponent
+from .genome import Genome
+from .genomes_file import GenomesFile
+from .groups import GroupsFile
+from .trackdb import TrackDb
+from .constants import assembly_fields
+from .track import HTMLDoc
 
 class Assembly(Genome):
 

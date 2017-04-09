@@ -1,13 +1,15 @@
+from __future__ import absolute_import
+
 import sys
 import os
 import re
-from validate import ValidationError
-from base import HubComponent
-import hub
-import trackdb
-import genomes_file
-import genome
-import constants
+from .validate import ValidationError
+from .base import HubComponent
+from . import hub
+import trackhub.trackdb
+from . import genomes_file
+from . import genome
+from . import constants
 
 try:
     from collections import OrderedDict
@@ -162,7 +164,7 @@ class BaseTrack(HubComponent):
 
     @property
     def trackdb(self):
-        return self.root(trackdb.TrackDb)[0]
+        return self.root(trackhub.trackdb.TrackDb)[0]
 
     @property
     def hub(self):

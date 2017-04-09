@@ -1,9 +1,11 @@
+from __future__ import absolute_import
+
 try:
     from collections import OrderedDict
 except ImportError:
     from ordereddict import OrderedDict
-from validate import Parameter
-import validate
+from .validate import Parameter
+from . import validate
 
 
 # http://genome-source.cse.ucsc.edu/gitweb/
