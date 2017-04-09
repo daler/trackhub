@@ -69,7 +69,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
             **kwargs)
     )
 
-    # then the trackDB file:
+    # Then any associated trackDb:
     for g in hub.genomes_file.genomes:
         results.extend(
             upload_file(
@@ -78,6 +78,34 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 **kwargs
             )
         )
+
+        # and assemblies
+        if hasattr(g, "local_fn"):
+            results.extend(
+                upload_file(
+                    local_fn=g.local_fn,
+                    remote_fn=g.remote_fn,
+                    **kwargs
+                )
+            )
+
+        if getattr(g, "groups", None) != None:
+            results.extend(
+                upload_file(
+                    local_fn=g.groups.local_fn,
+                    remote_fn=g.groups.remote_fn,
+                    **kwargs
+                )
+            )
+
+        if g._html:
+            results.extend(
+                upload_file(
+                    local_fn=g._html.local_fn,
+                    remote_fn=g._html.remote_fn,
+                    **kwargs)
+            )
+
     # and finally any HTML files:
     for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
         print repr(t)

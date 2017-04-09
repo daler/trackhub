@@ -12,7 +12,7 @@ g = pybedtools.chromsizes_to_file(chromsizes)
 for i in range(3):
     x = pybedtools.BedTool(
         "chr2L 0 10000000", from_string=True)\
-        .window_maker(w=1000 * (i + 1))\
+        .window_maker(g=g, w=1000 * (i + 1))\
         .shuffle(g=g, seed=i)\
         .sort()
 

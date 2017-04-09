@@ -645,10 +645,7 @@ class HTMLDoc(HubComponent):
         return obj
 
     def _render(self):
-        if not self.trackdb:
-            raise ValueError("HTMLDoc object must be connected to a "
-                             "BaseTrack subclass instance and a TrackDb "
-                             "instance")
+        self.validate()
         dirname = os.path.dirname(self.local_fn)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
@@ -657,5 +654,13 @@ class HTMLDoc(HubComponent):
         fout.close()
         return fout.name
 
+    def validate(self):
+        if not self.trackdb:
+            raise ValueError("HTMLDoc object must be connected to a "
+                             "BaseTrack subclass instance and a TrackDb "
+                             "instance")
+        return True
+
     def __str__(self):
         return self.contents
+
