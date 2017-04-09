@@ -100,7 +100,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 )
             )
 
-        if g._html:
+        if hasattr(g, '_html') and g._html:
             results.extend(
                 upload_file(
                     local_fn=g._html.local_fn,
