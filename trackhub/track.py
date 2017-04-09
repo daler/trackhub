@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import sys
 import os
 import re
+from collections import OrderedDict
 from .validate import ValidationError
 from .base import HubComponent
 from . import hub
@@ -10,11 +11,6 @@ import trackhub.trackdb
 from . import genomes_file
 from . import genome
 from . import constants
-
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
 
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
