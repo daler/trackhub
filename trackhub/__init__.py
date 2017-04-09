@@ -1,13 +1,15 @@
-from hub import Hub
-import helpers
-from genomes_file import GenomesFile
-from genome import Genome
-from assembly import Assembly
-from groups import GroupsFile, GroupDefinition
-from trackdb import TrackDb
-from track import Track, SubGroupDefinition, CompositeTrack, \
+from __future__ import absolute_import
+
+from .hub import Hub
+from . import helpers
+from .genomes_file import GenomesFile
+from .genome import Genome
+from .assembly import Assembly
+from .groups import GroupsFile, GroupDefinition
+from .trackdb import TrackDb
+from .track import Track, SubGroupDefinition, CompositeTrack, \
     ViewTrack, SuperTrack, AggregateTrack
-from version import version as __version__
+from .version import version as __version__
 
 
 def default_hub(hub_name, genome, short_label, long_label, email):

@@ -1,9 +1,11 @@
+from __future__ import absolute_import, print_function
+
 import tempfile
 import os
 from fabric.api import local, settings, run, abort, cd, env, hide, puts
 from fabric.contrib.console import confirm
 from fabric.colors import green, yellow
-import track
+from . import track
 
 
 def upload_file(host, user, local_fn, remote_fn, port=22,
@@ -49,7 +51,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                run_local=False, symlink=False, symlink_dir='staging'):
     kwargs = dict(host=host, user=user, port=port, rsync_options=rsync_options,
                   run_local=run_local, symlink=symlink, symlink_dir=symlink_dir)
-    print kwargs
+    print(kwargs)
     results = []
 
     # First the hub file:
@@ -61,7 +63,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
     )
 
     # Then the genomes file:
-    print hub.genomes_file.local_fn
+    print(hub.genomes_file.local_fn)
     results.extend(
         upload_file(
             local_fn=hub.genomes_file.local_fn,
@@ -98,7 +100,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
                 )
             )
 
-        if g._html:
+        if hasattr(g, '_html') and g._html:
             results.extend(
                 upload_file(
                     local_fn=g._html.local_fn,
@@ -108,7 +110,7 @@ def upload_hub(host, user, hub, port=22, rsync_options='-azvrL --progress',
 
     # and finally any HTML files:
     for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
-        print repr(t)
+        print(repr(t))
         if t._html:
             results.extend(
                 upload_file(
