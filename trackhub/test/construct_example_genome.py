@@ -1,9 +1,13 @@
-import random
 import os
-import pybedtools
+import random
 import subprocess
-from trackhub import helpers
 from collections import OrderedDict
+import pybedtools
+import numpy as np
+from trackhub import helpers
+
+random.seed(0)
+np.random.seed(0)
 
 data_dir = helpers.data_dir()
 
@@ -13,12 +17,13 @@ chromsizes = OrderedDict([
     ("chr3", (0, 50000))
 ])
 
+
 def random_dna(length, chars="ATGC"):
     return ''.join(random.choice(chars) for _ in range(length)) + "\n"
 
 fasta = open(os.path.join(data_dir, "newOrg1.fa"), "w")
 
-for chrom, size in chromsizes.iteritems():
+for chrom, size in chromsizes.items():
     fasta.write(">" + chrom + "\n")
     n, r = divmod(size[1], 80)
     for _ in range(n):
@@ -31,8 +36,7 @@ cmds = [
     fasta.name[0:-2] + "2bit"
 ]
 
-p = subprocess.Popen(cmds)
-p.communicate()
+p = subprocess.check_call(cmds)
 
 fasta.close()
 os.unlink(fasta.name)
@@ -54,12 +58,10 @@ for i in range(3):
         x.fn,
         g,
         out]
-    p = subprocess.Popen(cmds)
-    p.communicate()
+    p = subprocess.check_call(cmds)
 
 
 # make some sine waves for bigWigs
-import numpy as np
 def sine(factor):
 
     for chrom, size in chromsizes.items():
@@ -67,8 +69,8 @@ def sine(factor):
         x = np.arange(0, size, 10000)
         y = np.sin(x / factor / np.pi) + np.random.random(len(x)) / 3
         for xi, yi in zip(x, y):
-            yield pybedtools.create_interval_from_list(map(str, [
-                chrom, xi, xi + 1000, yi]))
+            yield pybedtools.create_interval_from_list(list(map(str, [
+                chrom, xi, xi + 1000, yi])))
 
 for f in [100., 1000.]:
     x = pybedtools.BedTool(sine(f)).saveas(os.path.join(data_dir, 'sine-no1-%d.bedgraph' % f))
@@ -79,7 +81,5 @@ for f in [100., 1000.]:
         x.fn,
         g,
         out]
-    p = subprocess.Popen(cmds)
-    p.communicate()
+    p = subprocess.check_call(cmds)
     os.unlink(x.fn)
-
