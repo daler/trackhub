@@ -7,7 +7,6 @@ def test_example_data_md5s():
 
     data = [i.strip().split() for i in '''
     ba2fd8b22bcad65bb6583da937ff5222  newOrg1.2bit
-    a6106256ee35e36f1ffa68f6543abf16  out.b
     a274a76ddfc2cb95e9db3751ca7cf82a  random-dm3-0.bigBed
     c680c1f5b4242634889011a0d2289112  random-dm3-1.bigBed
     797523ad6685db94044aebcfafc8fbec  random-dm3-2.bigBed
