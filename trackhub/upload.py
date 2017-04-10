@@ -48,8 +48,7 @@ def symlink(target, linkname):
     return linkname
 
 
-def upload(host, user, local_dir, remote_dir,
-                rsync_options=RSYNC_OPTIONS):
+def upload(host, user, local_dir, remote_dir, rsync_options=RSYNC_OPTIONS):
     """
     Upload a file or directory via rsync.
 
@@ -134,6 +133,7 @@ def stage(x, staging):
         raise ValueError("Object does not have a valid `local_fn` value")
 
     linknames = []
+
     def _stg(x, ext=''):
         linknames.append(
             local_link(x.local_fn + ext, x.remote_fn + ext, staging)
@@ -143,9 +143,9 @@ def stage(x, staging):
 
     if isinstance(x, track.Track):
         if x.tracktype == 'bam':
-            stg(x, ext='.bai')
+            _stg(x, ext='.bai')
         if x.tracktype == 'vcfTabix':
-            stg(x, ext='.tbi')
+            _stg(x, ext='.tbi')
 
     return linknames
 
