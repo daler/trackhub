@@ -1,4 +1,4 @@
-from nose.tools import assert_raises
+import pytest
 from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
     TrackDb, ViewTrack, SuperTrack, AggregateTrack
 import os
@@ -88,7 +88,9 @@ class TestComponents(object):
         assert self.hub.remote_fn == 'remote.txt'
 
     def test_genome_file_fns(self):
-        assert_raises(AttributeError, getattr, self.genomes_file, 'url')
+        with pytest.raises(AttributeError):
+            getattr(self.genomes_file, 'url')
+
         # When unconnected, filenames should be None
         assert self.genomes_file.local_fn is None
         assert self.genomes_file.remote_fn is None
@@ -121,12 +123,16 @@ class TestComponents(object):
 
     def test_genome_fns(self):
         # should be easy -- filenames should raise attribute errors
-        assert_raises(AttributeError, getattr, self.genome, 'local_fn')
-        assert_raises(AttributeError, getattr, self.genome, 'remote_fn')
-        assert_raises(AttributeError, getattr, self.genome, 'url')
+        with pytest.raises(AttributeError):
+            getattr(self.genome, 'local_fn')
+        with pytest.raises(AttributeError):
+            getattr(self.genome, 'remote_fn')
+        with pytest.raises(AttributeError):
+            getattr(self.genome, 'url')
 
     def test_trackdb_fns(self):
-        assert_raises(AttributeError, getattr, self.trackdb, 'url')
+        with pytest.raises(AttributeError):
+            getattr(self.trackdb, 'url')
 
         # when unconnected, no defaults
         assert self.trackdb.local_fn is None
