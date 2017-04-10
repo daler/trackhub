@@ -24,5 +24,5 @@ conda create -y -n $CONDA_ENV python=3 --file requirements.txt --file test-requi
 set +x; source activate $CONDA_ENV; set -x
 python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz
-conda install -y nose
-nosetests trackhub/test/test.py
+
+pytest trackhub/test/test.py
