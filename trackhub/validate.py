@@ -1,5 +1,6 @@
 from textwrap import dedent
-from six import string_types
+from .compatibility import string_types
+
 
 class ValidationError(Exception):
     pass
