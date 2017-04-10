@@ -11,6 +11,7 @@ from .trackdb import TrackDb
 from .constants import assembly_fields
 from .track import HTMLDoc
 
+
 class Assembly(Genome):
 
     # Dictionary where keys are parameter names (e.g., "color") and values are
@@ -66,8 +67,9 @@ class Assembly(Genome):
         """
         for k, v in kw.items():
             if k not in self.params:
-                raise ParameterError('"%s" is not a valid parameter for %s'
-                                     % (k, self.__class__.__name__))
+                raise ValidationError(
+                    '"%s" is not a valid parameter for %s'
+                    % (k, self.__class__.__name__))
             self.params[k].validate(v)
 
         self._orig_kwargs.update(kw)
@@ -140,6 +142,7 @@ class Assembly(Genome):
         Genome.validate(self)
         # check for necessary params?
 
+
 class AssemblyHTMLDoc(HTMLDoc):
     # overload track-specific methods in HTMLDoc
     @property
@@ -183,4 +186,3 @@ class AssemblyHTMLDoc(HTMLDoc):
             raise ValueError("HTMLDoc object must be connected to an"
                              "Assembly subclass instance")
         return True
-

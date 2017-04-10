@@ -1,11 +1,10 @@
 from __future__ import absolute_import, print_function
 
 import os
-import sys
 import json
-from collections import OrderedDict
 from . import base
 from .hub import Hub
+from .compatibility import string_types
 
 _here = __file__
 
@@ -26,7 +25,7 @@ def auto_track_url(track):
         raise ValueError(
             "track is not fully connected because the root is %s" % repr(hub))
     if hub.url is None:
-        raise ValueError( "hub.url is not set")
+        raise ValueError("hub.url is not set")
     if track.local_fn is None:
         raise ValueError("track.local_fn is not set")
 
@@ -37,7 +36,7 @@ def show_rendered_files(results_dict):
     the resulting files.
     """
     for k, v in results_dict.items():
-        if isinstance(v, basestring):
+        if isinstance(v, string_types):
             print("rendered file: %s (created by: %s)" % (v, k))
         else:
             show_rendered_files(v)

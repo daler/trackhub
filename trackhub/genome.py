@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-import os
-from collections import OrderedDict
 from .validate import ValidationError
 from .base import HubComponent
 
@@ -56,4 +54,3 @@ class Genome(HubComponent):
         GenomesFile object.
         """
         pass
-

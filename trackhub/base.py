@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-import inspect
-import sys
 from collections import OrderedDict
 
 

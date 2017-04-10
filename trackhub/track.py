@@ -1,15 +1,11 @@
 from __future__ import absolute_import
 
-import sys
 import os
 import re
 from collections import OrderedDict
-from .validate import ValidationError
 from .base import HubComponent
 from . import hub
-import trackhub.trackdb
-from . import genomes_file
-from . import genome
+from . import trackdb
 from . import constants
 
 
@@ -160,7 +156,7 @@ class BaseTrack(HubComponent):
 
     @property
     def trackdb(self):
-        return self.root(trackhub.trackdb.TrackDb)[0]
+        return self.root(trackdb.TrackDb)[0]
 
     @property
     def hub(self):
@@ -320,7 +316,6 @@ class BaseTrack(HubComponent):
 
     def validate(self):
         pass
-        #assert self.tracktype in TRACKTYPES
 
     @property
     def html_fn(self):
@@ -613,9 +608,6 @@ class HTMLDoc(HubComponent):
         self._remote_fn = None
         super(HTMLDoc, self).__init__()
 
-    def validate(self):
-        return
-
     @property
     def local_fn(self):
         if (self.trackdb is None) or (self.track is None):
@@ -661,4 +653,3 @@ class HTMLDoc(HubComponent):
 
     def __str__(self):
         return self.contents
-
