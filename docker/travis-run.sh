@@ -4,10 +4,9 @@ set -x
 
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-src=/tmp/trackhub
-mkdir $src
+src=$(mktemp -d --tmpdir trackhub-XXXX)
 rm -f $HERE/../.git/shallow
-git clone $HERE/.. $src
+cp -r $HERE/.. $src
 cd $src
 
 # extract version
