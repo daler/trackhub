@@ -25,4 +25,4 @@ set +x; source activate $CONDA_ENV; set -x
 python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz
 
-pytest trackhub/test/test.py
+pytest trackhub/test
