@@ -1,0 +1,7 @@
+bedtools
+numpy
+pybedtools
+pytest
+ucsc-bedgraphtobigwig
+ucsc-fatotwobit
+ucsc-bedtobigbed
