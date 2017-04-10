@@ -3,15 +3,12 @@ from __future__ import absolute_import, print_function
 import os
 import sys
 import json
+from collections import OrderedDict
 from . import base
 from .hub import Hub
 
 _here = __file__
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
 
 def auto_track_url(track):
     """
@@ -32,8 +29,6 @@ def auto_track_url(track):
         raise ValueError( "hub.url is not set")
     if track.local_fn is None:
         raise ValueError("track.local_fn is not set")
-
-
 
 
 def show_rendered_files(results_dict):
