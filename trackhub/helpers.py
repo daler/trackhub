@@ -9,6 +9,31 @@ from .compatibility import string_types
 _here = __file__
 
 
+def sanitize(s, strict=True):
+    """
+    Parameters
+    ----------
+    s : str
+        String to sanitize
+
+    strict : bool
+        If True, only alphanumeric characters are allowed. If False, a limited
+        set of additional characters (-._) will be allowed.
+    """
+    allowed = ''.join(
+        [
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'abcdefghijklmnopqrstuvwxyz',
+            '0123456789',
+        ]
+    )
+
+    if not strict:
+        allowed += '-_.'
+
+    return ''.join([i for i in s if i in allowed])
+
+
 def auto_track_url(track):
     """
     Automatically sets the bigDataUrl for `track`.
