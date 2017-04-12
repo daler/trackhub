@@ -8,6 +8,7 @@ from . import genome
 from . import base
 from . import trackdb
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 RSYNC_OPTIONS = '--progress -rvL'
@@ -19,10 +20,11 @@ def run(cmds, **kwargs):
 
     Additional kwargs are passed to subprocess.run.
     """
-
     try:
         p = sp.run(cmds, stdout=sp.PIPE, stderr=sp.STDOUT, check=True, **kwargs)
         p.stdout = p.stdout.decode(errors='replace')
+        if p.stdout:
+            logger.info(p.stdout)
     except sp.CalledProcessError as e:
         e.stdout = e.stdout.decode(errors='replace')
         logger.error('COMMAND FAILED: %s', ' '.join(e.cmd))
