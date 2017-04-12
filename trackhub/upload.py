@@ -4,6 +4,9 @@ import shlex
 import subprocess as sp
 import logging
 from . import track
+from . import genome
+from . import base
+from . import trackdb
 
 logger = logging.getLogger(__name__)
 
@@ -126,6 +129,15 @@ def stage(x, staging):
 
     Returns a list of the linknames created.
     """
+    non_file_objects = (
+        track.ViewTrack,
+        track.CompositeTrack,
+        genome.Genome,
+    )
+
+    if isinstance(x, non_file_objects):
+        return []
+
     if not x.remote_fn:
         raise ValueError("Object does not have a valid `remote_fn` value")
 
@@ -147,6 +159,10 @@ def stage(x, staging):
         if x.tracktype == 'vcfTabix':
             _stg(x, ext='.tbi')
 
+    if isinstance(x, track.CompositeTrack):
+        if x._html:
+            _stg(x._html)
+
     return linknames
 
 
@@ -154,19 +170,12 @@ def stage_hub(hub, staging=None):
     """
     Stage a hub by symlinking all its connected files to a local directory.
     """
+    linknames = []
     if staging is None:
         staging = tempfile.mkdtemp()
-
-    stage(hub, staging)
-    stage(hub.genomes_file, staging)
-    for genome in hub.genomes_file.genomes:
-        stage(genome.genome_file_obj, staging)
-    for t, level in hub.leaves(track.CompositeTrack, intermediate=True):
-        if t._html:
-            stage(t._html, staging)
-
-    for t, level in hub.leaves(track.Track):
-        stage(t, staging)
+    for obj, level in hub.leaves(base.HubComponent, intermediate=True):
+        linknames.extend(stage(obj, staging))
+    return linknames
 
 
 def upload_hub(host, user, hub, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
@@ -175,5 +184,9 @@ def upload_hub(host, user, hub, port=22, rsync_options=RSYNC_OPTIONS, staging=No
     """
     if staging is None:
         staging = tempfile.mkdtemp()
-    stage_hub(hub, staging=staging)
-    upload(host, user, local_dir=staging, remote_dir='/', rsync_options=rsync_options)
+    linknames = stage_hub(hub, staging=staging)
+    hub_dir = os.path.dirname(hub.remote_fn)
+    local_dir = os.path.join(staging, hub_dir.lstrip('/'))
+    remote_dir = hub_dir
+    upload(host, user, local_dir=local_dir, remote_dir=remote_dir, rsync_options=rsync_options)
+    return linknames
