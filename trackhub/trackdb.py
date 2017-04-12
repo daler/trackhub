@@ -78,11 +78,10 @@ class TrackDb(HubComponent):
             return None
 
         else:
-            return os.path.relpath(
+            return (
                 os.path.join(
                     os.path.dirname(self.genomes_file.remote_fn),
-                    self.genome.genome, 'trackDb.txt'),
-                os.path.dirname(self.genomes_file.remote_fn)
+                    self.genome.genome, 'trackDb.txt')
             )
 
     @remote_fn.setter

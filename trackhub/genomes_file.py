@@ -55,11 +55,10 @@ class GenomesFile(HubComponent):
             return self._remote_fn
         if self.hub is None:
             return None
-        return os.path.relpath(
+        return (
             os.path.join(
                 os.path.dirname(self.hub.remote_fn),
-                self.hub.hub + '.genomes.txt'),
-            os.path.dirname(self.hub.remote_fn)
+                self.hub.hub + '.genomes.txt')
         )
 
     @remote_fn.setter
