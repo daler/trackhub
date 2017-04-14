@@ -131,6 +131,8 @@ def stage(x, staging):
     non_file_objects = (
         track.ViewTrack,
         track.CompositeTrack,
+        track.AggregateTrack,
+        track.SuperTrack,
         genome.Genome,
     )
 
