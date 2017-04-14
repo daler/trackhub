@@ -1,5 +1,6 @@
 import tempfile
 import os
+import sys
 import shlex
 import subprocess as sp
 import logging
@@ -20,17 +21,13 @@ def run(cmds, **kwargs):
 
     Additional kwargs are passed to subprocess.run.
     """
-    try:
-        p = sp.run(cmds, stdout=sp.PIPE, stderr=sp.STDOUT, check=True, **kwargs)
-        p.stdout = p.stdout.decode(errors='replace')
-        if p.stdout:
-            logger.info(p.stdout)
-    except sp.CalledProcessError as e:
-        e.stdout = e.stdout.decode(errors='replace')
-        logger.error('COMMAND FAILED: %s', ' '.join(e.cmd))
-        logger.error('STDOUT+STDERR:\n%s', e.stdout)
-        raise e
-    return p
+    proc = sp.Popen(cmds, bufsize=-1, stdout=sp.PIPE, stderr=sp.STDOUT,
+                    close_fds=sys.platform != 'win32')
+    for line in proc.stdout:
+        print(line[:-1].decode())
+    retcode = proc.wait()
+    if retcode:
+        raise sp.CalledProcessError(retcode, cmd)
 
 
 def symlink(target, linkname):
