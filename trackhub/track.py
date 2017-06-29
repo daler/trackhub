@@ -95,7 +95,7 @@ class BaseTrack(HubComponent):
     specific_params = OrderedDict()
 
     def __init__(self, name, tracktype=None, short_label=None,
-                 long_label=None, subgroups=None, local_fn=None,
+                 long_label=None, parentonoff="on", subgroups=None, local_fn=None,
                  remote_fn=None, html_string=None, **kwargs):
         """
         Represents a single track stanza.
@@ -111,6 +111,9 @@ class BaseTrack(HubComponent):
         :param long_label:
             String; used for the longer middle labels; if None will copy
             short_label
+
+	:param parentonoff:
+	    String; used to determine individual track status on or off
 
         :param subgroups:
 
@@ -137,6 +140,7 @@ class BaseTrack(HubComponent):
         if long_label is None:
             long_label = short_label
         self.long_label = long_label
+	self.parentonoff = parentonoff
 
         self._local_fn = local_fn
         self._remote_fn = remote_fn
@@ -299,7 +303,7 @@ class BaseTrack(HubComponent):
 
         if self.parent is not None:
             if isinstance(self.parent, BaseTrack):
-                s.append('parent %s' % self.parent.name)
+                s.append('parent %s' % self.parent.name + ' ' + self.parentonoff)
 
         if len(self.kwargs) > 0:
             raise ParameterError(
