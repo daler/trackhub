@@ -69,5 +69,5 @@ def test_parentonoff():
 
     results = hub.render()
 
-    assert( open( 'hg19/trackDb.txt').read() == open('expected/hg19/trackDb.txt').read() )
+    assert( open( 'trackhub/test/test_parentonoff/hg19/trackDb.txt').read() == open('trackhub/test/test_parentonoff/expected/hg19/trackDb.txt').read() )
 
