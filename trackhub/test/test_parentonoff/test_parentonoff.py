@@ -13,8 +13,8 @@ def test_parentonoff():
         genome="hg19"
     ) 
     ## Write files locally; need to be placed in accessible location
-    hub.local_fn="hub.txt"
-    genomes_file.local_fn="genomes.txt"
+    hub.local_fn="trackhub/test/test_parentonoff/hub.txt"
+    genomes_file.local_fn="trackhub/test/test_parentonoff/genomes.txt"
 
     testcomposite = CompositeTrack( 
         name="testcomposite",
@@ -69,5 +69,5 @@ def test_parentonoff():
 
     results = hub.render()
 
-    assert( open( 'trackhub/test/test_parentonoff/hg19/trackDb.txt').read() == open('trackhub/test/test_parentonoff/expected/hg19/trackDb.txt').read() )
 
+    assert( open( 'trackhub/test/test_parentonoff/hg19/trackDb.txt').read() == open('trackhub/test/test_parentonoff/expected/hg19/trackDb.txt').read() )

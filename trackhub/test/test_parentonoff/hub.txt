@@ -1,5 +1,0 @@
-hub TestHub
-shortLabel TestHub
-longLabel TestHub
-genomesFile genomes.txt
-email karen.kapur@novartis.com
