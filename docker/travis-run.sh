@@ -18,3 +18,6 @@ python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz
 conda install -y nose
 nosetests trackhub/test/test.py
+nosetests trackhub/test/test_parentonoff/test_parentonoff.py
+
+
