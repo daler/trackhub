@@ -27,7 +27,7 @@ def run(cmds, **kwargs):
         print(line[:-1].decode())
     retcode = proc.wait()
     if retcode:
-        raise sp.CalledProcessError(retcode, cmd)
+        raise sp.CalledProcessError(retcode, cmds)
 
 
 def symlink(target, linkname):
