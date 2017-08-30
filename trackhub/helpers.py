@@ -11,6 +11,10 @@ _here = __file__
 
 def sanitize(s, strict=True):
     """
+    Sanitize a string.
+
+    Spaces are converted to underscore; if strict=True they are then removed.
+
     Parameters
     ----------
     s : str
@@ -30,6 +34,8 @@ def sanitize(s, strict=True):
 
     if not strict:
         allowed += '-_.'
+
+    s = s.replace(' ', '_')
 
     return ''.join([i for i in s if i in allowed])
 
