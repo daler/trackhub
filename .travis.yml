@@ -4,4 +4,4 @@ services:
 before_install:
     - docker pull continuumio/miniconda
 script:
-    - docker run -v `pwd`:/trackhub continuumio/miniconda /trackhub/docker/travis-run.sh
+    - docker run -v `pwd`:/trackhub continuumio/miniconda bash /trackhub/docker/travis-run.sh
