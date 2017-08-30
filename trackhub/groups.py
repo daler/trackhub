@@ -6,6 +6,7 @@ from .base import HubComponent
 from .genome import Genome
 from .genomes_file import GenomesFile
 
+
 class GroupDefinition(object):
 
     def __init__(self, name, label=None, priority=1, default_is_closed=0):
@@ -44,6 +45,7 @@ class GroupDefinition(object):
             'defaultIsClosed %d' % self.default_is_closed
         ]
         return '\n'.join(s) + '\n'
+
 
 class GroupsFile(HubComponent):
     def __init__(self, groups):
@@ -136,4 +138,3 @@ class GroupsFile(HubComponent):
         fout.write(str(self))
         fout.close()
         return fout.name
-

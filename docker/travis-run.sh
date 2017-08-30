@@ -4,20 +4,25 @@ set -x
 
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-src=/tmp/trackhub
-mkdir $src
+src=$(mktemp -d --tmpdir trackhub-XXXX)
 rm -f $HERE/../.git/shallow
-git clone $HERE/.. $src
+cp -r $HERE/.. $src
 cd $src
+
+CONDA_ENV=trackhub-test-env
+
+conda config --add channels conda-forge
+conda config --add channels defaults
+conda config --add channels r
+conda config --add channels bioconda
+
+conda env list | grep -q $CONDA_ENV && conda env remove -y -n $CONDA_ENV
 
 # extract version
 VERSION=$(python -c 'exec(open("trackhub/version.py").read());print(version)')
-conda create -y -n trackhub-env python=2 --file requirements.txt
-set +x; source activate trackhub-env; set -x
+conda create -y -n $CONDA_ENV python=3 --file requirements.txt --file test-requirements.txt
+set +x; source activate $CONDA_ENV; set -x
 python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz
-conda install -y nose
-nosetests trackhub/test/test.py
-nosetests trackhub/test/test_parentonoff/test_parentonoff.py
 
-
+pytest trackhub/test

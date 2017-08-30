@@ -1,9 +1,12 @@
-from trackhub import upload
 import os
-import unittest
+import pytest
+import tempfile
+from trackhub import upload
+from trackhub.helpers import data_dir
 from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
     TrackDb, ViewTrack, SuperTrack, AggregateTrack
 
+d = data_dir()
 
 class TestUpload(object):
     def setup(self):
@@ -19,13 +22,13 @@ class TestUpload(object):
         self.tracks = [
             Track(
                 name='track1',
-                tracktype='bam',
-                local_fn='data/track1.bam'
+                tracktype='bigBed',
+                local_fn=os.path.join(d, 'random-dm3-0.bigBed')
             ),
             Track(
                 name='track2',
                 tracktype='bigWig',
-                local_fn='data/track2.bigwig',
+                local_fn=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
             ),
         ]
         self.hub.add_genomes_file(self.genomes_file)
@@ -34,25 +37,21 @@ class TestUpload(object):
         self.trackdb.add_tracks(self.tracks)
 
 
-    @unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
+    #@unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
     def test_upload(self):
+        d = tempfile.mkdtemp()
         self.hub.remote_fn = os.path.join(
+            d,
             'uploaded_version',
             self.hub.remote_fn)
         self.hub.render()
         upload.upload_hub(
-            'localhost',
             None,
-            self.hub,
-            symlink=True,
-            symlink_dir='staging',
-            run_local=True,)
-        for t, level in self.hub.leaves(Track):
-            upload.upload_track(
-                track=t, host='localhost', user=None, run_local=True)
+            None,
+            self.hub)
 
     def test_render(self):
         trackdb = str(self.trackdb)
         # make sure some of the trackdb rendered correctly
         assert 'track track1' in trackdb
-        assert 'bigDataUrl track1.bam' in trackdb
+        assert 'bigDataUrl track1.bigBed' in trackdb

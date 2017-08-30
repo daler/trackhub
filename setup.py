@@ -1,6 +1,3 @@
-import ez_setup
-ez_setup.use_setuptools()
-
 import os
 import sys
 from setuptools import setup
@@ -12,14 +9,10 @@ long_description = """
 Create and manage UCSC track hubs from Python
 """
 
-install_requires = ['fabric']
-if (sys.version_info[0] == 2) and (sys.version_info[1] < 7):
-    install_requires.append('ordereddict')
-
 setup(
     name="trackhub",
     version=version,
-    install_requires=[i.strip() for i in open('requirements.txt')],
+    install_requires=[i.strip() for i in open('requirements.txt') if not i.startswith('#')],
     packages=['trackhub',
               'trackhub.test',
               'trackhub.test.data',
@@ -31,7 +24,15 @@ setup(
     package_data = {'trackhub':["test/data/*"]},
     package_dir = {"trackhub": "trackhub"},
     license = 'MIT',
-    #scripts = ['trackhub/scripts/example_script.py'],
     author_email="dalerr@niddk.nih.gov",
-    classifiers=['Development Status :: 4 - Beta'],
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Topic :: Scientific/Engineering :: Bio-Informatics',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
 )

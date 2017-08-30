@@ -1,5 +1,11 @@
 Changelog
 =========
+Version 0.1.3 (Nov 2015)
+------------------------
+- fixed bug where local rsync operations were not using the provided rsync options
+- docs now at https://daler.github.io/trackhub
+- tests now on travis-ci using Docker
+
 Version 0.1.2 (Jan 2 2015)
 --------------------------
 - always use the remote filename of a BAM when uploading the corresponding .bai

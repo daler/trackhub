@@ -1,11 +1,6 @@
 from __future__ import absolute_import
 
-import inspect
-import sys
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 
 
 class HubComponent(object):

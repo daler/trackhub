@@ -1,7 +1,10 @@
 import os
 import subprocess
 import pybedtools
+import numpy as np
 from trackhub import helpers
+
+np.random.seed(0)
 
 data_dir = helpers.data_dir()
 
@@ -23,12 +26,10 @@ for i in range(3):
         x.fn,
         g,
         out]
-    p = subprocess.Popen(cmds)
-    p.communicate()
+    subprocess.check_call(cmds)
 
 
 # make some sine waves for bigWigs
-import numpy as np
 def sine(factor):
 
     for chrom, size in chromsizes.items():
@@ -36,19 +37,16 @@ def sine(factor):
         x = np.arange(0, size, 10000)
         y = np.sin(x / factor / np.pi) + np.random.random(len(x)) / 3
         for xi, yi in zip(x, y):
-            yield pybedtools.create_interval_from_list(map(str, [
-                chrom, xi, xi + 1000, yi]))
+            yield pybedtools.create_interval_from_list(list(map(str, [
+                chrom, xi, xi + 1000, yi])))
 
 for f in [1000., 10000.]:
     x = pybedtools.BedTool(sine(f)).saveas(os.path.join(data_dir, 'sine-dm3-%d.bedgraph' % f))
     out = x.fn + '.bw'
-
     cmds = [
         'bedGraphToBigWig',
         x.fn,
         g,
         out]
-    p = subprocess.Popen(cmds)
-    p.communicate()
+    subprocess.check_call(cmds)
     os.unlink(x.fn)
-

@@ -1,16 +1,12 @@
 from __future__ import absolute_import
 
 import os
-from .validate import ValidationError
 from .base import HubComponent
 from .genomes_file import GenomesFile
+from .hub import Hub
 from .genome import Genome
 from . import track as _track
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
 
 class TrackDb(HubComponent):
     def __init__(self, tracks=None):
@@ -82,8 +78,11 @@ class TrackDb(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.remote_fn),
-                                self.genome.genome, 'trackDb.txt')
+            return (
+                os.path.join(
+                    os.path.dirname(self.genomes_file.remote_fn),
+                    self.genome.genome, 'trackDb.txt')
+            )
 
     @remote_fn.setter
     def remote_fn(self, fn):

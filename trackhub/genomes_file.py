@@ -1,11 +1,6 @@
 from __future__ import absolute_import
 
 import os
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
-from .validate import ValidationError
 from .hub import Hub
 from .base import HubComponent
 
@@ -60,9 +55,11 @@ class GenomesFile(HubComponent):
             return self._remote_fn
         if self.hub is None:
             return None
-        return os.path.join(
-            os.path.dirname(self.hub.remote_fn),
-            self.hub.hub + '.genomes.txt')
+        return (
+            os.path.join(
+                os.path.dirname(self.hub.remote_fn),
+                self.hub.hub + '.genomes.txt')
+        )
 
     @remote_fn.setter
     def remote_fn(self, fn):

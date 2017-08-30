@@ -1,10 +1,6 @@
 from __future__ import absolute_import
 
 import os
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
 from .validate import ValidationError
 from .base import HubComponent
 
@@ -43,7 +39,13 @@ class Genome(HubComponent):
             return "Unconfigured <Genome> object"
         s = []
         s.append('genome %s' % self.genome)
-        s.append('trackDb %s' % self.trackdb.remote_fn)
+        s.append(
+            'trackDb %s'
+            % os.path.relpath(
+                self.trackdb.remote_fn,
+                os.path.dirname(self.genome_file_obj.remote_fn)
+            )
+        )
         return '\n'.join(s) + '\n'
 
     def validate(self):
@@ -59,4 +61,3 @@ class Genome(HubComponent):
         GenomesFile object.
         """
         pass
-

@@ -1,9 +1,6 @@
 from __future__ import absolute_import
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 from .validate import Parameter
 from . import validate
 
@@ -445,7 +442,8 @@ track_typespecific_fields = {
         # Currently not supported for bigBed
         Parameter(
             'baseColorUseSequence',
-            'for BAM, try "lfExtra"; <extFile {seqTable} <extFile> / hgPcrResult / lfExtra / nameIsSequence / seq1Seq2 / ss >',
+            'for BAM, try "lfExtra"; <extFile {seqTable} <extFile> / hgPcrResult / lfExtra '
+            '/ nameIsSequence / seq1Seq2 / ss >',
             set(['extFile', 'hgPcrResult', 'lfExtra', 'nameIsSequence', 'seq1Seq2', 'ss'])),
 
         Parameter(
@@ -717,4 +715,3 @@ assembly_fields = OrderedDict((i.param, i) for i in [
         # TODO: better validation here for things like bed 3
         validate.ucsc_position),
 ])
-

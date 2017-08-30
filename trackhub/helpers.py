@@ -1,17 +1,44 @@
 from __future__ import absolute_import, print_function
 
 import os
-import sys
 import json
 from . import base
 from .hub import Hub
+from .compatibility import string_types
 
 _here = __file__
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    from ordereddict import OrderedDict
+
+def sanitize(s, strict=True):
+    """
+    Sanitize a string.
+
+    Spaces are converted to underscore; if strict=True they are then removed.
+
+    Parameters
+    ----------
+    s : str
+        String to sanitize
+
+    strict : bool
+        If True, only alphanumeric characters are allowed. If False, a limited
+        set of additional characters (-._) will be allowed.
+    """
+    allowed = ''.join(
+        [
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'abcdefghijklmnopqrstuvwxyz',
+            '0123456789',
+        ]
+    )
+
+    if not strict:
+        allowed += '-_.'
+
+    s = s.replace(' ', '_')
+
+    return ''.join([i for i in s if i in allowed])
+
 
 def auto_track_url(track):
     """
@@ -29,11 +56,9 @@ def auto_track_url(track):
         raise ValueError(
             "track is not fully connected because the root is %s" % repr(hub))
     if hub.url is None:
-        raise ValueError( "hub.url is not set")
+        raise ValueError("hub.url is not set")
     if track.local_fn is None:
         raise ValueError("track.local_fn is not set")
-
-
 
 
 def show_rendered_files(results_dict):
@@ -42,7 +67,7 @@ def show_rendered_files(results_dict):
     the resulting files.
     """
     for k, v in results_dict.items():
-        if isinstance(v, basestring):
+        if isinstance(v, string_types):
             print("rendered file: %s (created by: %s)" % (v, k))
         else:
             show_rendered_files(v)
