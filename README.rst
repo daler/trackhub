@@ -64,7 +64,7 @@ Full documentation, including a full in-depth tutorial, can be found at
 http://packages.python.org/trackhub.
 
 The following example will build and upload a trackhub for all the bigWig files
-in the current directory:
+in the current directory, coloring them based on their filenames:
 
 .. code-block:: python
 
@@ -77,11 +77,26 @@ in the current directory:
         genome="hg19",
         email="none@example.com")
 
+    # Host the hub will be uploaded to
+    host = 'www.example.com'
+    username = 'username'
+
+    # Upload the hub.txt to this path on the host. Other associated files will
+    # be relative to this file.
     hub.remote_fn = "/var/www/data/hubs/my_example_hub.txt"
+
+    # Upon being uploaded to the host, this is its resulting
+    # publicly-accessible URL
     hub.url = "http://example.com/hubs/my_example_hub.txt"
 
     for bigwig in glob.glob('*.bigwig'):
-        track = Track(local_fn=bigwig, tracktype='bigWig')
+
+        if 'mutant' in bigwig:
+            color = '128,0,0'  # dark red
+        else:
+            color = '0,0,0'    # black
+
+        track = Track(local_fn=bigwig, tracktype='bigWig', color=color)
         trackdb.add_tracks(track)
 
     upload_hub(hub=hub, host='www.example.com', user='username')
