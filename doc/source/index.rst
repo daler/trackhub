@@ -5,22 +5,23 @@
 
 `trackhub` documentation
 ========================
-Why :mod:`trackhub`?
-====================
+Why ``trackhub``?
+=================
 .. currentmodule:: trackhub
 
-This Python package, :mod:`trackhub`, aims to ease in construction of programatically-generated track
-hubs for the UCSC Genome Browser.
+This Python package, ``trackhub``, aims to ease in construction of
+programatically-generated track hubs for the UCSC Genome Browser.
 
 The existing framework for creating a track hub consists of writing a text file
-as detailed in the `trackDb.txt README <http://genome-source.cse.ucsc.edu/gitweb/?p=kent.git;a=blob;f=src/hg/makeDb/trackDb/README;hb=HEAD>`_
+as detailed in the `trackDb.txt README
+<http://genome-source.cse.ucsc.edu/gitweb/?p=kent.git;a=blob;f=src/hg/makeDb/trackDb/README;hb=HEAD>`_
 (and, more recently, in the development `track database definition page
 <http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html>`_).
 
 This can get extremely tedious, especially when trying to create and upload
-track hubs as part of an automated pipeline.  :mod:`trackhub` tries to ease
+track hubs as part of an automated pipeline.  ``trackhub`` tries to ease
 this creation by providing a framework in Python for creating track hubs from
-scripts and programs. Why use :mod:`trackhub`?:
+scripts and programs. Why use ``trackhub``?:
 
 * `filename handling`: automatic (yet still completely configurable, if needed)
   handling of filenames and directory structure
