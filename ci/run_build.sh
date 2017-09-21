@@ -35,19 +35,29 @@ ENCRYPTED_FILE=${HERE}/key.enc
     SSH_REPO="git@github.com:daler/trackhub-demo.git"
     rm -rf trackhub-demo
     git clone $SSH_REPO
-    cp -r $REMOTE_FN trackhub-demo
+
+    TRACKHUB_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
     (
+        set -x
         cd trackhub-demo
+        git fetch
+        git checkout -B $TRACKHUB_BRANCH
+        git pull origin $TRACKHUB_BRANCH
+
+        cp -r $REMOTE_FN trackhub-demo
+
         if git diff --quiet; then
             echo "No changes to push"
         else
-            git add .
+            git add -f .
             git commit -m "update hub"
-            git push
+
+            git push origin $TRACKHUB_BRANCH
         fi
+        set +x
     )
 
     echo "Checking hub..."
-    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/master/my_example_hub.txt; set +x
+    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${TRACKHUB_BRANCH}/my_example_hub.txt; set +x
 )
