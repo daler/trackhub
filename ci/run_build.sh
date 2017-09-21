@@ -20,7 +20,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 (
   cd $HERE
 
-    rm -r example_hub
+    rm -rf example_hub
 
     python build_example.py
 
