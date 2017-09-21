@@ -20,6 +20,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 (
   cd $HERE
 
+    rm -r example_hub
 
     python build_example.py
 
@@ -38,7 +39,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
         ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
         ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-        ENCRYPTED_FILE=key.enc
+        ENCRYPTED_FILE=${HERE}/key.enc
         openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $ENCRYPTED_FILE -out key -d
         chmod 600 key
         eval `ssh-agent -s`
@@ -60,15 +61,16 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         cd trackhub-demo
 
         git checkout -B $BRANCH
-        cp -r $REMOTE_FN trackhub-demo
+        git pull origin $BRANCH
 
-        if git diff --quiet; then
-            echo "No changes to push"
-        else
-            git add -f .
-            git commit -m "update hub"
-            git push origin $BRANCH
-        fi
+        # git rm -rf ./*
+        # git commit -m 'clean'
+
+        cp -r ../example_hub .
+
+        git add -f .
+        git commit -m "update hub"
+        git push origin $BRANCH
         set +x
     )
 
@@ -77,5 +79,5 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         chmod +x hubCheck
     fi
     echo "Checking hub..."
-    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/my_example_hub.txt; set +x
+    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/example_hub/hub.txt; set +x
 )
