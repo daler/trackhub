@@ -9,6 +9,48 @@ from .compatibility import string_types
 _here = __file__
 
 
+def dimensions_from_subgroups(s):
+    """
+    Given a sorted list of subgroups, return a string appropriate to provide as
+    a composite track's `dimensions` arg.
+
+    Parameters
+    ----------
+    s : list of SubGroup objects (or anything with a `name` attribute)
+    """
+    letters = 'XYABCDEFGHIJKLMNOPQRSTUVWZ'
+    return ' '.join(['dim{0}={1}'.format(dim, sg.name) for dim, sg in zip(letters, s)])
+
+
+def filter_composite_from_subgroups(s):
+    """
+    Given a sorted list of subgroups, return a string appropriate to provide as
+    the a composite track's `filterComposite` argument
+    """
+    dims = []
+    for letter, sg in zip('ABCDEFGHIJKLMNOPQRSTUVWZ', s[2:]):
+        dims.append('dim{0}'.format(letter))
+    if dims:
+        return ' '.join(dims)
+
+
+def hex2rgb(h):
+    """
+    Convert hex colors to RGB tuples
+
+    >>> hex2rgb("#ff0033")
+    '255,0,51'
+    """
+    if not h.startswith('#') or len(h) != 7:
+        raise ValueError("Does not look like a hex color: '{0}'".format(h))
+    return ','.join(map(str, (
+        int(h[1:3], 16),
+        int(h[3:5], 16),
+        int(h[5:7], 16),
+    )))
+
+
+
 def sanitize(s, strict=True):
     """
     Sanitize a string.
