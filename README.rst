@@ -84,7 +84,7 @@ Example
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
             local_fn=bigwig,
-            color='128,0,0',
+            color='128,0,5',
             tracktype='bigWig',
         )
         trackdb.add_tracks(track)
@@ -96,7 +96,7 @@ Example
     #            publicly accessible
     #
     #
-    # Example rendering the hub locally, to be pushed to github later:
+    # Example of "uploading" the hub locally, to be pushed to github later:
     hub.remote_fn = os.path.abspath("./example_hub/hub.txt")
     hub.url = "https://raw.githubusercontent.com/daler/trackhub-demo/master/my_example_hub.txt"
     trackhub.upload.upload_hub(hub=hub, host='localhost')
