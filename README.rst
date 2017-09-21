@@ -63,43 +63,49 @@ added to the UCSC Genome Browser.
 Full documentation, including a full in-depth tutorial, can be found at
 http://packages.python.org/trackhub.
 
-The following example will build and upload a trackhub for all the bigWig files
-in the current directory, coloring them based on their filenames:
+Example
+-------
 
 .. code-block:: python
 
     import glob, os
-    from trackhub import Track, default_hub
-    from trackhub.upload import upload
+    import trackhub
 
-    hub, genomes_file, genome, trackdb = default_hub(
+    # Initialize the components of a track hub
+    hub, genomes_file, genome, trackdb = trackhub.default_hub(
         hub_name="myhub",
-        genome="hg19",
+        short_label='myhub',
+        long_label='myhub',
+        genome="dm3",
         email="none@example.com")
 
-    # Host the hub will be uploaded to
-    host = 'www.example.com'
-    username = 'username'
-
-    # Upload the hub.txt to this path on the host. Other associated files will
-    # be relative to this file.
-    hub.remote_fn = "/var/www/data/hubs/my_example_hub.txt"
-
-    # Upon being uploaded to the host, this is its resulting
-    # publicly-accessible URL
-    hub.url = "http://example.com/hubs/my_example_hub.txt"
-
-    for bigwig in glob.glob('*.bigwig'):
-
-        if 'mutant' in bigwig:
-            color = '128,0,0'  # dark red
-        else:
-            color = '0,0,0'    # black
-
-        track = Track(local_fn=bigwig, tracktype='bigWig', color=color)
+    # Add a track for every bigwig found
+    for bigwig in glob.glob('../trackhub/test/data/sine-dm3*.bw'):
+        track = trackhub.Track(
+            name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
+            local_fn=bigwig,
+            color='128,0,0',
+            tracktype='bigWig',
+        )
         trackdb.add_tracks(track)
 
-    upload_hub(hub=hub, host='www.example.com', user='username')
+    # Two settings need to be made in order for the files to be created correctly:
+    #
+    #   hub.remote_fn: where to copy the hub to on the host (when using rsync)
+    #   hub.url: upon being uploaded to the host, the URL from which it will be
+    #            publicly accessible
+    #
+    #
+    # Example rendering the hub locally, to be pushed to github later:
+    hub.remote_fn = os.path.abspath("./example_hub/hub.txt")
+    hub.url = "https://raw.githubusercontent.com/daler/trackhub-demo/master/my_example_hub.txt"
+    trackhub.upload.upload_hub(hub=hub, host='localhost')
+
+    # Example uploading to a web server (not run):
+    if 0:
+        hub.remote_fn = "/var/www/example/my_example_hub.txt"
+        hub.url = "http://example.com/example/my_example_hub.txt"
+        trackhub.upload.upload_hub(hub=hub, host='example.com', user='username')
 
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.

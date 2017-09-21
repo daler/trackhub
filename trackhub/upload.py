@@ -179,10 +179,11 @@ def stage_hub(hub, staging=None):
     return linknames
 
 
-def upload_hub(host, user, hub, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
+def upload_hub(hub, host, user=None, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
     """
-    Stages a hub and then uploads it.
+    Renders, stages, and uploads a hub.
     """
+    hub.render()
     if staging is None:
         staging = tempfile.mkdtemp()
     linknames = stage_hub(hub, staging=staging)

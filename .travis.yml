@@ -5,3 +5,7 @@ before_install:
     - docker pull continuumio/miniconda
 script:
     - docker run -v `pwd`:/trackhub continuumio/miniconda bash /trackhub/docker/travis-run.sh
+env:
+  global:
+    - ENCRYPTION_LABEL: "8609f8a4dd98"
+    - COMMIT_AUTHOR_EMAIL: "dalerr@niddk.nih.gov"

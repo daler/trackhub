@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import tempfile
 from .hub import Hub
 from . import helpers
+from . import upload
 from .genomes_file import GenomesFile
 from .genome import Genome
 from .assembly import Assembly
