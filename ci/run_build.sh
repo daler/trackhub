@@ -61,7 +61,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     )
 
     if [[ ! -e hubCheck ]]; then
-        wget -O- http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/hubCheck > hubCheck
+        curl -O http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/hubCheck
         chmod +x hubCheck
     fi
     echo "Checking hub..."
