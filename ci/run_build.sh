@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# This driver script runs a full end-to-end test, including uploading to the
+# trackhub-demo branch and running hubCheck on it.
+#
+#  - calls build_example.py, which:
+#      - extracts the example out of the README
+#      - runs it and generates a new trackhub in `example_hub` directory
+#
+#  - checks out a matching branch of the trackhub-demo repo
+#  - copies over `example_hub` to trackhub-demo, then adds, commits, and pushes it
+#  - downloads a copy of hubCheck if needed
+#  - runs hubCheck on the newly pushed hub on trackhub-demo
+
 set -e
 
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

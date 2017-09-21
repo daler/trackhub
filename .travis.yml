@@ -1,9 +1,7 @@
-install:
-    - ci/travis-setup.sh
+install: "ci/travis-setup.sh"
 before_script:
-  - export PATH=/tmp/miniconda:$PATH
-script:
-    - ci/travis-run.sh
+  - export PATH=/tmp/miniconda/bin:$PATH
+script: "ci/travis-run.sh"
 env:
   global:
     - ENCRYPTION_LABEL: "8609f8a4dd98"
