@@ -65,5 +65,5 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         chmod +x hubCheck
     fi
     echo "Checking hub..."
-    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${TRACKHUB_BRANCH}/my_example_hub.txt; set +x
+    set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/my_example_hub.txt; set +x
 )
