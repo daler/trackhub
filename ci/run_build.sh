@@ -69,8 +69,8 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         git checkout -B $BRANCH
         git pull origin $BRANCH
 
-        # git rm -rf ./*
-        # git commit -m 'clean'
+        git rm -rf ./*
+        git commit -m 'clean'
 
         cp -r ../example_hub .
 
