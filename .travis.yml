@@ -1,8 +1,7 @@
 install:
     - ci/travis-setup.sh
 before_script:
-  - export PATH=/tmp/miniconda:$PATH
-  - source activate trackhub-test-env
+  - export PATH=/tmp/miniconda:$PATH && source activate trackhub-test-env
 script:
     - ci/travis-run.sh
 env:
