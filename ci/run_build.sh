@@ -54,7 +54,13 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     # We want the trackhub-demo repo's branch to match the current branch of
     # trackhub, so grab the current trackhub branch now before we move to
     # trackhub-demo.
-    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+    if [[ ! -z $TRAVIS_BRANCH ]]; then
+        BRANCH=$TRAVIS_BRANCH
+    else
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    fi
+
 
     (
         set -x
