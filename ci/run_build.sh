@@ -39,7 +39,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
         ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
         ENCRYPTED_FILE=key.enc
-        openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in .$ENCRYPTED_FILE -out key -d
+        openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $ENCRYPTED_FILE -out key -d
         chmod 600 key
         eval `ssh-agent -s`
         ssh-add key
