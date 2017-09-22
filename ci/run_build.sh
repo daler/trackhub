@@ -67,8 +67,8 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
         cd trackhub-demo
 
         git checkout -B $BRANCH
+        rm -rf ./*
         git pull origin $BRANCH
-
         git rm -rf ./*
         git commit -m 'clean'
 
