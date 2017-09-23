@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import os
+import tempfile
 from collections import OrderedDict
 
 
@@ -90,7 +91,7 @@ class HubComponent(object):
             for leaf, _level in child.leaves(cls, level + 1, intermediate=intermediate):
                     yield leaf, _level
 
-    def render(self, staging='staging'):
+    def render(self, staging=None):
         """
         Renders the object to file, returning a list of created files.
 
@@ -99,6 +100,8 @@ class HubComponent(object):
         """
         self.validate()
         created_files = OrderedDict()
+        if staging is None:
+            staging = tempfile.mkdtemp()
         this = self._render(staging)
         if this:
             created_files[repr(self)] = this
