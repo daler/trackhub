@@ -11,3 +11,4 @@ trackhub/test/hg19/
 /ci/key.pub
 ci/example_hub/
 ci/example_assembly_hub/
+ci/trackhub-demo/
