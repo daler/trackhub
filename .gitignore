@@ -12,3 +12,6 @@ trackhub/test/hg19/
 ci/example_hub/
 ci/example_assembly_hub/
 ci/trackhub-demo/
+.cache
+dist/
+ci/hubCheck
