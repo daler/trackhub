@@ -104,8 +104,8 @@ class BaseTrack(HubComponent):
             String; used for the longer middle labels; if None will copy
             short_label
 
-	:param parentonoff:
-	    String; used to determine individual track status on or off
+        :param parentonoff:
+            String; used to determine individual track status on or off
 
         :param subgroups:
 

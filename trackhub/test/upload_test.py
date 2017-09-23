@@ -46,9 +46,10 @@ class TestUpload(object):
             self.hub.remote_fn)
         self.hub.render()
         upload.upload_hub(
-            None,
-            None,
-            self.hub)
+            hub=self.hub,
+            user=None,
+            host=None,
+        )
 
     def test_render(self):
         trackdb = str(self.trackdb)

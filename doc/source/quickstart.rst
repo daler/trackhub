@@ -6,10 +6,9 @@ Quickstart
 ----------
 Preliminaries
 ~~~~~~~~~~~~~
-
-It's a good idea to read the `track hub help
-<http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ so you know
-some of the terminology.
+If you've never created a track hub before, it's important to read the `track
+hub help <http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ so you
+know some of the terminology.
 
 In order to create the structure of a track hub, no data files are necessary
 and no host is required -- it's simply a handful of text files on disk.

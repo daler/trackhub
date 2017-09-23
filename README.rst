@@ -1,87 +1,111 @@
 ``trackhub``
 ============
 
-``trackhub`` is a Python package for handling the creation and uploading of
-track hubs for the UCSC Genome Browser (see
-http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html for more info)
+Data visualization is critical at all steps of genomic data analysis, from QC
+through final figure preparation.  A *track hub* is a collection of genomic data
+"tracks" (data files in a supported format)  along with a set of plain-text
+files that determine the organization, labels, color, configuration UI, and
+other details.  The files comprising a track hub are uploaded to a server, and
+a genome browser (e.g., UCSC Genome Browser) is pointed to the served URL for
+viewing.
 
-Some reasons for using ``trackhub`` to manage your track hubs:
+For a handful of tracks, it is straightforward to write the configuration files
+and upload the tracks manually. For larger data sets however, this becomes
+tedious and error-prone. Here we introduce `trackhub`, a Python package that
+enables the programmatic construction and upload of arbitrarily complex track
+hubs. It has no dependencies besides Python itself and the availability of
+``rsync``, a standard Unix command-line tool for remotely transferring files. It
+is availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
+documentation ensure high-quality code and help.
 
-* `filename handling`: automatic (yet still completely configurable, if needed)
-  handling of filenames and directory structure
-* `uploading`: upload a full hub -- hub/genomes/trackdb files, plus all data
-  files (bam/bigWig/bigBed) -- via rsync over ssh
-* `validation`: mechanisms for handling validation of parameters so errors are
-  [hopefully] caught prior to uploading
-* `rapid deployment`: mapping local filenames to remote filenames on the host enables
-  rapid updating of the hub with new or updated data (e.g., when analysis
-  parameters change)
-* `flexibility`: support for simple hubs up through complex composite hubs with
-  views and subtracks
-* `extensible`: provides a framework for working with hub components, allowing
-  new functionality to be easily added
+Features
+--------
+
+Validation
+~~~~~~~~~~
+When configuring a track hub, there are many parameters to choose from, and
+a typo or invalid option in one part of a hub can cause the rest to fail. To
+reduce these issues at creation time, `trackhub` validates the hub options
+against UCSC's documentated options and raises a Python exception if improperly
+configured.
+
+
+Filename handling
+~~~~~~~~~~~~~~~~~
+Often the directory structure used for analysis does not reflect the desired
+directory structure for a track hub. To avoid the tedious process of uploading
+each local file to its remote destination (which would require many separate
+``rsync`` calls), `trackhub` locally symlinks all tracks and configuration files
+to a temporary directory that is then uploaded to the remote host in one call to
+``rsync``.  This allows local inspection of the hub for troubleshooting, and
+enables rapid deployment and updating since only files that have changed will be
+uploaded on subsequent calls.
+
+Flexibility
+~~~~~~~~~~~
+Where possible, sensible defaults are used to minimize the effort to build
+a functioning track hub. However, all parts can be configured if desired,
+resulting in support for simple one-track hubs through complex composite hubs
+with supertracks, views, and subtracks.
+
+While there is an implicit hierarchy in a track hub (hub file, genomes file,
+trackdb, tracks), there is no requirement for them to be created in any
+particular order. This allows the user to build their hub in whatever order or
+method best suits the particular use-case.
+
+
+Extensible
+~~~~~~~~~~
+The framework provided by `trackhub` can be extended as new hub functionality is
+added to the UCSC Genome Browser.
 
 
 Full documentation, including a full in-depth tutorial, can be found at
 http://packages.python.org/trackhub.
 
-Here's an example of creating a hub, and uploading the hub and files to
-a remote server.  This hub will show all the bigWig files in the current
-directory, and any of them that have "control" in the filename will be colored
-gray in the hub
+Example
+-------
 
 .. code-block:: python
 
-    from trackhub import Track, default_hub
-    from trackhub.upload import upload_hub, upload_track
+    import glob, os
+    import trackhub
 
-    hub, genomes_file, genome, trackdb = default_hub(
+    # Initialize the components of a track hub
+    hub, genomes_file, genome, trackdb = trackhub.default_hub(
         hub_name="myhub",
-        genome="hg19",
-        short_label="example hub",
-        long_label="My example hub",
+        short_label='myhub',
+        long_label='myhub',
+        genome="dm3",
         email="none@example.com")
 
-    # publicly accessible hub URL
-    hub.url = "http://example.com/hubs/my_example_hub.txt"
-
-    # hub's location on remote host, for use with rsync
-    hub.remote_fn = "/var/www/data/hubs/my_example_hub.txt"
-
-    # Make tracks for all bigWigs in current dir
-    import glob, os
-    for fn in glob.glob('*.bigwig'):
-        label = fn.replace('.bigwig', '')
-
-        # Parameters are checked for valid values, see 
-        # http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html
-        # for what's available
-        track = Track(
-            name=label,
-            short_label=label,
-            long_label=label,
-            autoScale='off',
-            local_fn=fn,
+    # Add a track for every bigwig found
+    for bigwig in glob.glob('../trackhub/test/data/sine-dm3*.bw'):
+        track = trackhub.Track(
+            name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
+            local_fn=bigwig,
+            color='128,0,5',
             tracktype='bigWig',
-            )
+        )
         trackdb.add_tracks(track)
 
-    # Demonstrate some post-creation adjustments...here, just make control
-    # samples gray
-    for track in trackdb.tracks:
-        if 'control' in track.name:
-            track.add_params(color="100,100,100")
+    # Two settings need to be made in order for the files to be created correctly:
+    #
+    #   hub.remote_fn: where to copy the hub to on the host (when using rsync)
+    #   hub.url: upon being uploaded to the host, the URL from which it will be
+    #            publicly accessible
+    #
+    #
+    # Example of "uploading" the hub locally, to be pushed to github later:
+    hub.remote_fn = os.path.abspath("./example_hub/hub.txt")
+    hub.url = "https://raw.githubusercontent.com/daler/trackhub-demo/master/my_example_hub.txt"
+    trackhub.upload.upload_hub(hub=hub, host='localhost')
 
-    # Render the hub to text files
-    hub.render()
-
-    # Upload the hub files and all the bigwig files using rsync.
-    kwargs = dict(host='www.example.com', user='me')
-    upload_hub(hub=hub, **kwargs)
-    for track, level in hub.leaves(Track):
-        upload_track(track=track, **kwargs)
+    # Example uploading to a web server (not run):
+    if 0:
+        hub.remote_fn = "/var/www/example/my_example_hub.txt"
+        hub.url = "http://example.com/example/my_example_hub.txt"
+        trackhub.upload.upload_hub(hub=hub, host='example.com', user='username')
 
 
-
-
-Copyright 2012 Ryan Dale; BSD 2-clause license.
+Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
