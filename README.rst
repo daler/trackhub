@@ -89,22 +89,12 @@ Example
         )
         trackdb.add_tracks(track)
 
-    # Two settings need to be made in order for the files to be created correctly:
-    #
-    #   hub.remote_fn: where to copy the hub to on the host (when using rsync)
-    #   hub.url: upon being uploaded to the host, the URL from which it will be
-    #            publicly accessible
-    #
-    #
     # Example of "uploading" the hub locally, to be pushed to github later:
-    hub.remote_fn = os.path.abspath("./example_hub/hub.txt")
-    hub.url = "https://raw.githubusercontent.com/daler/trackhub-demo/master/my_example_hub.txt"
-    trackhub.upload.upload_hub(hub=hub, host='localhost')
+    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hub')
 
     # Example uploading to a web server (not run):
     if 0:
         hub.remote_fn = "/var/www/example/my_example_hub.txt"
-        hub.url = "http://example.com/example/my_example_hub.txt"
         trackhub.upload.upload_hub(hub=hub, host='example.com', user='username')
 
 
