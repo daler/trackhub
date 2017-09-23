@@ -135,36 +135,34 @@ def stage(x, staging):
         track.SuperTrack,
         genome.Genome,
     )
-
-    if isinstance(x, non_file_objects):
-        return []
-
-    if not x.remote_fn:
-        raise ValueError("Object does not have a valid `remote_fn` value")
-
-    if not x.local_fn:
-        raise ValueError("Object does not have a valid `local_fn` value")
-
     linknames = []
 
-    def _stg(x, ext=''):
-        linknames.append(
-            local_link(x.local_fn + ext, x.remote_fn + ext, staging)
-        )
+    if isinstance(x, non_file_objects):
+        return linknames
 
-    _stg(x)
+    linknames.append(x.render(staging))
 
-    if isinstance(x, track.Track):
-        if x.tracktype == 'bam':
-            _stg(x, ext='.bai')
-        if x.tracktype == 'vcfTabix':
-            _stg(x, ext='.tbi')
+    if hasattr(x, 'remote_fn') and hasattr(x, 'local_fn'):
 
-    if isinstance(x, track.CompositeTrack):
-        if x._html:
-            _stg(x._html)
+        def _stg(x, ext=''):
+            linknames.append(
+                local_link(x.local_fn + ext, x.remote_fn + ext, staging)
+            )
+
+        _stg(x)
+
+        if isinstance(x, track.Track):
+            if x.tracktype == 'bam':
+                _stg(x, ext='.bai')
+            if x.tracktype == 'vcfTabix':
+                _stg(x, ext='.tbi')
+
+        if isinstance(x, track.CompositeTrack):
+            if x._html:
+                _stg(x._html)
 
     return linknames
+
 
 
 def stage_hub(hub, staging=None):
@@ -176,19 +174,17 @@ def stage_hub(hub, staging=None):
         staging = tempfile.mkdtemp()
     for obj, level in hub.leaves(base.HubComponent, intermediate=True):
         linknames.extend(stage(obj, staging))
-    return linknames
+    return staging, linknames
 
 
-def upload_hub(hub, host, user=None, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
+def upload_hub(hub, host, remote_dir, user=None, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
     """
     Renders, stages, and uploads a hub.
     """
     hub.render()
     if staging is None:
         staging = tempfile.mkdtemp()
-    linknames = stage_hub(hub, staging=staging)
-    hub_dir = os.path.dirname(hub.remote_fn)
-    local_dir = os.path.join(staging, hub_dir.lstrip('/'))
-    remote_dir = hub_dir
+    staging, linknames = stage_hub(hub, staging=staging)
+    local_dir = os.path.join(staging)
     upload(host, user, local_dir=local_dir, remote_dir=remote_dir, rsync_options=rsync_options)
     return linknames
