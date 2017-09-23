@@ -1,4 +1,5 @@
 import os
+from textwrap import dedent
 import pytest
 import tempfile
 from trackhub import upload
@@ -36,17 +37,30 @@ class TestUpload(object):
         self.genome.add_trackdb(self.trackdb)
         self.trackdb.add_tracks(self.tracks)
 
+    def test_staging(self):
+        staging_dir, linknames = upload.stage_hub(self.hub)
+
+        assert open(os.path.join(staging_dir, 'example_hub.genomes.txt')).read() == dedent(
+            """\
+            genome dm3
+            trackDb dm3/trackDb.txt
+
+            """)
+
+        assert open(os.path.join(staging_dir, 'example_hub.hub.txt')).read() == dedent(
+            """\
+            hub hub
+            shortLabel example hub
+            longLabel an example hub for testing
+            genomesFile example_hub.genomes.txt
+            email none@example.com""")
 
     #@unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
     def test_upload(self):
         d = tempfile.mkdtemp()
-        self.hub.remote_fn = os.path.join(
-            d,
-            'uploaded_version',
-            self.hub.remote_fn)
-        self.hub.render()
         upload.upload_hub(
             hub=self.hub,
+            remote_dir=d,
             user=None,
             host=None,
         )
