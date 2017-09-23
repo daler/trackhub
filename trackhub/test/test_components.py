@@ -117,16 +117,16 @@ class TestComponents(object):
         self.CONNECT()
         # local fns should still be None
         for track in self.tracks:
-            assert track.local_fn is None
+            assert track.source is None
 
-        # remote_fn is relative to the hub's remote_fn
-        assert self.tracks[0].remote_fn == 'dm3/track1.bam'
-        assert self.tracks[1].remote_fn == 'dm3/track2.bigWig'
+        # filename is relative to the hub's filename
+        assert self.tracks[0].filename == 'dm3/track1.bam'
+        assert self.tracks[1].filename == 'dm3/track2.bigWig'
 
         # URL is relative to the trackDb
         assert self.tracks[0].url == 'track1.bam'
 
 
     def test_track_creation(self):
-        track = Track(name='track0', tracktype='bam', local_fn='t0.bam')
-        assert track.local_fn == 't0.bam'
+        track = Track(name='track0', tracktype='bam', source='t0.bam')
+        assert track.source == 't0.bam'

@@ -24,12 +24,12 @@ class TestUpload(object):
             Track(
                 name='track1',
                 tracktype='bigBed',
-                local_fn=os.path.join(d, 'random-dm3-0.bigBed')
+                source=os.path.join(d, 'random-dm3-0.bigBed')
             ),
             Track(
                 name='track2',
                 tracktype='bigWig',
-                local_fn=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
+                source=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
             ),
         ]
         self.hub.add_genomes_file(self.genomes_file)

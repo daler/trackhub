@@ -87,8 +87,8 @@ class BaseTrack(HubComponent):
     specific_params = OrderedDict()
 
     def __init__(self, name, tracktype=None, short_label=None,
-                 long_label=None, parentonoff="on", subgroups=None, local_fn=None,
-                 remote_fn=None, html_string=None, **kwargs):
+                 long_label=None, parentonoff="on", subgroups=None, source=None,
+                 filename=None, html_string=None, **kwargs):
         """
         Represents a single track stanza.
 
@@ -116,10 +116,10 @@ class BaseTrack(HubComponent):
 
                 subGroups view=aln celltype=ES
 
-        :param local_fn:
+        :param source:
             String; Local path to the file (used for uploading)
 
-        :param remote_fn:
+        :param filename:
             String; path to upload the file to, over rsync and ssh.
         """
         HubComponent.__init__(self)
@@ -134,8 +134,8 @@ class BaseTrack(HubComponent):
         self.long_label = long_label
         self.parentonoff = parentonoff
 
-        self._local_fn = local_fn
-        self._remote_fn = remote_fn
+        self._source = source
+        self._filename = filename
         self.html_string = html_string
         self.subgroups = {}
         self.add_subgroups(subgroups)
@@ -167,33 +167,33 @@ class BaseTrack(HubComponent):
         return self.root(hub.Hub)[0]
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def source(self):
+        if self._source is not None:
+            return self._source
         return None
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
+    @source.setter
+    def source(self, fn):
+        self._source = fn
 
     @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
 
-        # If remote_fn hasn't been assigned then make one automatically based
-        # on the track name and the trackhub's remote_fn (which, by the way,
-        # acts similarly, deferring up to the genomes_file.remote_fn . . . and
-        # so on up to the hub's remote_fn)
+        # If filename hasn't been assigned then make one automatically based
+        # on the track name and the trackhub's filename (which, by the way,
+        # acts similarly, deferring up to the genomes_file.filename . . . and
+        # so on up to the hub's filename)
         if self.trackdb:
                 return os.path.join(
                     os.path.dirname(self.trackdb.filename),
                     self.name + '.' + self.tracktype.split(' ')[0])
         return None
 
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     @property
     def tracktype(self):
@@ -324,7 +324,7 @@ class BaseTrack(HubComponent):
 
     @property
     def html_fn(self):
-        if self.remote_fn and self.trackdb:
+        if self.filename and self.trackdb:
             return os.path.join(
                 os.path.dirname(self.trackdb.filename),
                 self.name + '.html')
@@ -342,10 +342,10 @@ class Track(BaseTrack):
     def url(self):
         if self._url is not None:
             return self._url
-        if self.remote_fn is None:
+        if self.filename is None:
             return None
         return os.path.relpath(
-            self.remote_fn,
+            self.filename,
             start=os.path.dirname(self.trackdb.filename)
         )
 

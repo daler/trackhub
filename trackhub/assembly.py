@@ -13,10 +13,10 @@ from .track import HTMLDoc
 
 
 class TwoBitFile(HubComponent):
-    def __init__(self, local_fn, remote_fn=None, assembly_obj=None):
+    def __init__(self, source, filename=None, assembly_obj=None):
         HubComponent.__init__(self)
-        self.local_fn = local_fn
-        self._remote_fn = remote_fn
+        self.source = source
+        self._filename = filename
         self.assembly_obj = assembly_obj
 
     @property
@@ -29,21 +29,21 @@ class TwoBitFile(HubComponent):
         return obj
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def source(self):
+        if self._source is not None:
+            return self._source
         return None
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
+    @source.setter
+    def source(self, fn):
+        self._source = fn
 
     @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
 
-        # If remote_fn hasn't been assigned then make one automatically based
+        # If filename hasn't been assigned then make one automatically based
         # on the assembly's parent genomes_file and the assembly's genome.
         if not self.assembly:
             return None
@@ -55,12 +55,12 @@ class TwoBitFile(HubComponent):
             self.assembly.genome + '.2bit')
 
     def validate(self):
-        if not os.path.exists(self.local_fn):
-            raise ValueError("Local filename {0} does not exist".format(self.local_fn))
+        if not os.path.exists(self.source):
+            raise ValueError("Local filename {0} does not exist".format(self.source))
 
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     def _render(self, staging='staging'):
         pass
@@ -171,7 +171,7 @@ class Assembly(Genome):
 
         s.append('genome %s' % self.genome)
         s.append('trackDb %s' % self.trackdb.filename)
-        s.append('twoBitPath %s' % self.twobit.remote_fn)
+        s.append('twoBitPath %s' % self.twobit.filename)
         if self.groups is not None:
             s.append('groups %s' % self.groups.filename)
 

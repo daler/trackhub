@@ -83,7 +83,7 @@ Example
     for bigwig in glob.glob('../trackhub/test/data/sine-dm3*.bw'):
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
-            local_fn=bigwig,
+            source=bigwig,
             color='128,0,5',
             tracktype='bigWig',
         )
@@ -94,8 +94,9 @@ Example
 
     # Example uploading to a web server (not run):
     if 0:
-        hub.remote_fn = "/var/www/example/my_example_hub.txt"
-        trackhub.upload.upload_hub(hub=hub, host='example.com', user='username')
+        trackhub.upload.upload_hub(
+            hub=hub, host='example.com', user='username',
+            remote_dir='/var/www/example_hub')
 
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.

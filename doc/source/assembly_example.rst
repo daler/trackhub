@@ -38,7 +38,7 @@ Assembly example
         name, _, _ = os.path.basename(bw).split(".")
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(name),
-            local_fn=bw,
+            source=bw,
             tracktype='bigWig',
             autoScale=True)
         trackdb.add_tracks(track)
@@ -47,7 +47,7 @@ Assembly example
         name, _ = os.path.basename(bb).split(".")
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(name),
-            local_fn=bb,
+            source=bb,
             tracktype='bigBed')
         trackdb.add_tracks(track)
 

@@ -90,7 +90,7 @@ def auto_track_url(track):
 
         * the track must be fully connected, such that its root is a Hub object
         * the root Hub object must have the Hub.url attribute set
-        * the track must have the `local_fn` attribute set
+        * the track must have the `source` attribute set
     """
     hub = track.root(cls=Hub)
 
@@ -99,8 +99,8 @@ def auto_track_url(track):
             "track is not fully connected because the root is %s" % repr(hub))
     if hub.url is None:
         raise ValueError("hub.url is not set")
-    if track.local_fn is None:
-        raise ValueError("track.local_fn is not set")
+    if track.source is None:
+        raise ValueError("track.source is not set")
 
 
 def show_rendered_files(results_dict):
