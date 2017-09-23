@@ -42,8 +42,8 @@ class Genome(HubComponent):
         s.append(
             'trackDb %s'
             % os.path.relpath(
-                self.trackdb.remote_fn,
-                os.path.dirname(self.genome_file_obj.remote_fn)
+                self.trackdb.filename,
+                os.path.dirname(self.genome_file_obj.filename)
             )
         )
         return '\n'.join(s) + '\n'

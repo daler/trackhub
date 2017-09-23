@@ -48,12 +48,11 @@ class GroupDefinition(object):
 
 
 class GroupsFile(HubComponent):
-    def __init__(self, groups):
+    def __init__(self, groups, filename=None):
         HubComponent.__init__(self)
-        self._local_fn = None
-        self._remote_fn = None
         self.groups = []
         self.add_groups(groups)
+        self._filename = filename
 
     def add_groups(self, groups):
         """
@@ -89,9 +88,9 @@ class GroupsFile(HubComponent):
         return genome
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
 
         if self.genome is None:
             return None
@@ -100,30 +99,12 @@ class GroupsFile(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.local_fn),
+            return os.path.join(os.path.dirname(self.genomes_file.filename),
                                 self.genome.genome, 'groups.txt')
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-
-        if self.genome is None:
-            return None
-
-        if self.genomes_file is None:
-            return None
-
-        return os.path.join(os.path.dirname(self.genomes_file.remote_fn),
-                            self.genome.genome, "groups.txt")
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     def validate(self):
         if self.genome is None:

@@ -180,13 +180,14 @@ class BaseTrack(HubComponent):
     def remote_fn(self):
         if self._remote_fn is not None:
             return self._remote_fn
+
         # If remote_fn hasn't been assigned then make one automatically based
         # on the track name and the trackhub's remote_fn (which, by the way,
         # acts similarly, deferring up to the genomes_file.remote_fn . . . and
         # so on up to the hub's remote_fn)
         if self.trackdb:
                 return os.path.join(
-                    os.path.dirname(self.trackdb.remote_fn),
+                    os.path.dirname(self.trackdb.filename),
                     self.name + '.' + self.tracktype.split(' ')[0])
         return None
 
@@ -304,9 +305,9 @@ class BaseTrack(HubComponent):
         self.kwargs = self._orig_kwargs.copy()
         return '\n'.join(s)
 
-    def _render(self):
+    def _render(self, staging='staging'):
         if self._html:
-            self._html.render()
+            self._html.render(staging)
 
     def _str_subgroups(self):
         """
@@ -325,7 +326,7 @@ class BaseTrack(HubComponent):
     def html_fn(self):
         if self.remote_fn and self.trackdb:
             return os.path.join(
-                os.path.dirname(self.trackdb.remote_fn),
+                os.path.dirname(self.trackdb.filename),
                 self.name + '.html')
         else:
             return None
@@ -345,7 +346,7 @@ class Track(BaseTrack):
             return None
         return os.path.relpath(
             self.remote_fn,
-            start=os.path.dirname(self.trackdb.remote_fn)
+            start=os.path.dirname(self.trackdb.filename)
         )
 
     @url.setter
@@ -368,7 +369,7 @@ class CompositeTrack(BaseTrack):
         add this composite to it with that instance's :meth:`add_tracks`
         method.
 
-        If composite=True, then this track will be consider a composite
+        If composite=True, then this track will be considered a composite
         parent for other tracks.  In this case, `subgroups` is a list of
         :class:`SubGroupDefinition` objects, each defining the possible
         values and display labels for the items in a group (for example,
@@ -600,7 +601,7 @@ class AggregateTrack(BaseTrack):
 
 
 class HTMLDoc(HubComponent):
-    def __init__(self, contents):
+    def __init__(self, contents, filename=None):
         """
         Represents an HTML file used for documentation.
 
@@ -608,25 +609,22 @@ class HTMLDoc(HubComponent):
         CompositeTrack
         """
         self.contents = contents
-        self._local_fn = None
-        self._remote_fn = None
+        self._filename = None
         super(HTMLDoc, self).__init__()
 
     @property
-    def local_fn(self):
-        if (self.trackdb is None) or (self.track is None):
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
+        if self.trackdb is None or self.track is None:
             return None
         return os.path.join(
-            os.path.dirname(self.trackdb.local_fn),
+            os.path.dirname(self.trackdb.filename),
             self.track.name + '.html')
 
-    @property
-    def remote_fn(self):
-        if (self.trackdb is None) or (self.track is None):
-            return None
-        return os.path.join(
-            os.path.dirname(self.trackdb.remote_fn),
-            self.track.name + '.html')
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     @property
     def trackdb(self):

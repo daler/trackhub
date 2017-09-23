@@ -9,12 +9,13 @@ from . import track as _track
 
 
 class TrackDb(HubComponent):
-    def __init__(self, tracks=None):
+    def __init__(self, tracks=None, filename=None):
         """
         Represents the file containing one or more Track objects (which each
         represent a stanza).
         """
         HubComponent.__init__(self)
+
         if tracks is None:
             tracks = []
 
@@ -22,8 +23,7 @@ class TrackDb(HubComponent):
         for track in tracks:
             self.add_track(track)
 
-        self._local_fn = None
-        self._remote_fn = None
+        self._filename = filename
 
     @property
     def hub(self):
@@ -48,9 +48,9 @@ class TrackDb(HubComponent):
         return genome
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
 
         if self.genome is None:
             return None
@@ -59,34 +59,12 @@ class TrackDb(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.local_fn),
+            return os.path.join(os.path.dirname(self.genomes_file.filename),
                                 self.genome.genome, 'trackDb.txt')
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-
-        if self.genome is None:
-            return None
-
-        if self.genomes_file is None:
-            return None
-
-        else:
-            return (
-                os.path.join(
-                    os.path.dirname(self.genomes_file.remote_fn),
-                    self.genome.genome, 'trackDb.txt')
-            )
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     def add_tracks(self, track):
         """
