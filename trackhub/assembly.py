@@ -12,10 +12,61 @@ from .constants import assembly_fields
 from .track import HTMLDoc
 
 
-class Assembly(Genome):
+class TwoBitFile(HubComponent):
+    def __init__(self, local_fn, remote_fn=None, assembly_obj=None):
+        HubComponent.__init__(self)
+        self.local_fn = local_fn
+        self._remote_fn = remote_fn
+        self.assembly_obj = assembly_obj
 
-    # Dictionary where keys are parameter names (e.g., "color") and values are
-    # Parameter objects.  These are defined in the constants module.
+    @property
+    def assembly(self):
+        obj, level = self.root(cls=Assembly)
+        if level is None:
+            return None
+        if level != -1:
+            raise ValueError("Assembly is level %s, not -1" % level)
+        return obj
+
+    @property
+    def local_fn(self):
+        if self._local_fn is not None:
+            return self._local_fn
+        return None
+
+    @local_fn.setter
+    def local_fn(self, fn):
+        self._local_fn = fn
+
+    @property
+    def remote_fn(self):
+        if self._remote_fn is not None:
+            return self._remote_fn
+
+        # If remote_fn hasn't been assigned then make one automatically based
+        # on the assembly's parent genomes_file and the assembly's genome.
+        if not self.assembly:
+            return None
+        if not self.assembly.genomes_file:
+            return None
+        return os.path.join(
+            os.path.dirname(self.assembly.genomes_file.filename),
+            self.assembly.genome,
+            self.assembly.genome + '.2bit')
+
+    def validate(self):
+        if not os.path.exists(self.local_fn):
+            raise ValueError("Local filename {0} does not exist".format(self.local_fn))
+
+    @remote_fn.setter
+    def remote_fn(self, fn):
+        self._remote_fn = fn
+
+    def _render(self, staging='staging'):
+        pass
+
+
+class Assembly(Genome):
 
     params = OrderedDict()
     params.update(assembly_fields)
@@ -23,7 +74,6 @@ class Assembly(Genome):
     def __init__(self,
                  genome,
                  twobit_file=None,
-                 remote_fn=None,
                  groups=None,
                  trackdb=None,
                  genome_file_obj=None,
@@ -34,10 +84,11 @@ class Assembly(Genome):
 
         The file itself is represented by a :class:`GenomesFile` object.
         """
-        HubComponent.__init__(self)
         Genome.__init__(self, genome, trackdb=trackdb, genome_file_obj=genome_file_obj)
-        self.local_fn = twobit_file
-        self.remote_fn = remote_fn
+
+        if twobit_file is not None:
+            self.add_twobit(TwoBitFile(twobit_file))
+
         self.html_string = html_string
 
         if groups is not None:
@@ -46,7 +97,13 @@ class Assembly(Genome):
             self.groups = None
 
         self._orig_kwargs = kwargs
+
         self.add_params(**kwargs)
+
+    def add_twobit(self, twobit):
+        self.children = [x for x in self.children if not isinstance(x, TwoBitFile)]
+        self.add_child(twobit)
+        self.twobit = twobit
 
     def add_trackdb(self, trackdb):
         self.children = [x for x in self.children if not isinstance(x, TrackDb)]
@@ -57,6 +114,15 @@ class Assembly(Genome):
         self.children = [x for x in self.children if not isinstance(x, GroupsFile)]
         self.add_child(groups)
         self.groups = groups
+
+    @property
+    def genomes_file(self):
+        obj, level = self.root(cls=GenomesFile)
+        if level is None:
+            return None
+        if level != -1:
+            raise ValueError("GenomesFile is level %s, not -1" % level)
+        return obj
 
     def add_params(self, **kw):
         """
@@ -104,10 +170,10 @@ class Assembly(Genome):
         s = []
 
         s.append('genome %s' % self.genome)
-        s.append('trackDb %s' % self.trackdb.remote_fn)
-        s.append('twoBitPath %s' % self.remote_fn)
+        s.append('trackDb %s' % self.trackdb.filename)
+        s.append('twoBitPath %s' % self.twobit.remote_fn)
         if self.groups is not None:
-            s.append('groups %s' % self.groups.remote_fn)
+            s.append('groups %s' % self.groups.filename)
 
         for name, parameter_obj in self.params.items():
             value = self.kwargs.pop(name, None)
@@ -116,27 +182,10 @@ class Assembly(Genome):
                     s.append("%s %s" % (name, value))
 
         if self._html is not None:
-            s.append('htmlDocumentation %s' % self._html.remote_fn)
+            s.append('htmlDocumentation %s' % self._html.filename)
 
         self.kwargs = self._orig_kwargs.copy()
         return '\n'.join(s) + '\n'
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-
-        if self.parent is None:
-            return None
-
-        else:
-            return os.path.join(os.path.dirname(self.parent.remote_fn),
-                                self.genome,
-                                '%s.2bit' % self.genome)
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
 
     def validate(self):
         Genome.validate(self)
@@ -146,20 +195,11 @@ class Assembly(Genome):
 class AssemblyHTMLDoc(HTMLDoc):
     # overload track-specific methods in HTMLDoc
     @property
-    def local_fn(self):
+    def filename(self):
         if (self.genomes_file is None) or (self.genome is None):
             return None
         return os.path.join(
-            os.path.dirname(self.genomes_file.local_fn),
-            self.genome.genome,
-            '%s_info.html' % self.genome.genome)
-
-    @property
-    def remote_fn(self):
-        if (self.genomes_file is None) or (self.genome is None):
-            return None
-        return os.path.join(
-            os.path.dirname(self.genomes_file.remote_fn),
+            os.path.dirname(self.genomes_file.filename),
             self.genome.genome,
             '%s_info.html' % self.genome.genome)
 
