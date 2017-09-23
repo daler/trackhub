@@ -73,8 +73,12 @@ hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
       done
 
       git add -f .
-      git commit -m "update hub"
-      git push origin $BRANCH --force
+      if git diff --quiet; then
+          echo "no changes to push"
+      else
+          git commit -m "update hub"
+          git push origin $BRANCH --force
+      fi
       set +x
   )
 
