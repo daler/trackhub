@@ -55,7 +55,7 @@ class Genome(HubComponent):
         if self.trackdb is None:
             raise ValidationError("No TrackDb objects provided")
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         No file is created from a Genome object -- only from its parent
         GenomesFile object.

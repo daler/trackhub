@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-
+import os
 from collections import OrderedDict
 
 
@@ -12,7 +12,7 @@ class HubComponent(object):
         self.children = []
         self.parent = None
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         Renders the object to file.  Must be overridden by subclass.
 
@@ -20,7 +20,7 @@ class HubComponent(object):
         """
         raise NotImplementedError(
             "%s: subclasses must define their own _render() method"
-            % self.__class__.name__)
+            % self.__class__.__name__)
 
     def validate(self):
         """
@@ -90,7 +90,7 @@ class HubComponent(object):
             for leaf, _level in child.leaves(cls, level + 1, intermediate=intermediate):
                     yield leaf, _level
 
-    def render(self):
+    def render(self, staging='staging'):
         """
         Renders the object to file, returning a list of created files.
 
@@ -99,9 +99,14 @@ class HubComponent(object):
         """
         self.validate()
         created_files = OrderedDict()
-        this = self._render()
+        this = self._render(staging)
         if this:
             created_files[repr(self)] = this
         for child in self.children:
-            created_files[repr(child)] = child.render()
+            created_files[repr(child)] = child.render(staging)
         return created_files
+
+    def makedirs(self, fn):
+        dirname = os.path.dirname(fn)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)

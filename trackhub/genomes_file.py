@@ -75,11 +75,10 @@ class GenomesFile(HubComponent):
             s.append(str(genome))
         return '\n'.join(s) + '\n'
 
-    def _render(self):
-        """
-        Renders the children Genome objects to file
-        """
-        fout = open(self.local_fn, 'w')
+    def _render(self, staging='staging'):
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

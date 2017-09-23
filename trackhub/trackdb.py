@@ -121,13 +121,10 @@ class TrackDb(HubComponent):
         if len(self.children) == 0:
             raise ValueError("No Track objects specified")
 
-    def _render(self):
-        dirname = os.path.dirname(self.local_fn)
-
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
-
-        fout = open(self.local_fn, 'w')
+    def _render(self, staging='staging'):
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

@@ -110,12 +110,14 @@ class Hub(HubComponent):
             s.append('%s %s' % (field, value))
         return '\n'.join(s)
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         Render just this object, and not all the underlying GenomeFiles and
         their TrackDb.
         """
-        fout = open(self.local_fn, 'w')
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

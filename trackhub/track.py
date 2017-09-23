@@ -638,12 +638,12 @@ class HTMLDoc(HubComponent):
         obj, level = self.root(cls=BaseTrack)
         return obj
 
-    def _render(self):
+    def _render(self, staging='staging'):
         self.validate()
-        dirname = os.path.dirname(self.local_fn)
+        dirname = os.path.dirname(self.filename)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
-        fout = open(self.local_fn, 'w')
+        fout = open(os.path.join(staging, self.filename), 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

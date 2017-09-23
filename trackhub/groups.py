@@ -130,11 +130,13 @@ class GroupsFile(HubComponent):
             raise ValidationError("GroupsFile object must be attached to an Genome instance or subclass")
         pass
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         Renders the children GroupDefinition objects to file
         """
-        fout = open(self.local_fn, 'w')
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name
