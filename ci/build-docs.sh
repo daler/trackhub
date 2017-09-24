@@ -2,6 +2,7 @@
 
 set -eou pipefail
 
+set -x
 # References:
 #  - https://docs.travis-ci.com/user/encrypting-files
 #  - https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
@@ -42,6 +43,22 @@ BUILD_DOCS_FROM_BRANCH="total-refactor"
 # another repo, edit the above settings.
 #
 # ----------------------------------------------------------------------------
+set +u
+if [[ $TRAVIS != "true" ]]; then
+    echo "Not running on travis; exiting cleanly"
+    exit 0
+fi
+set -u
+
+# Decrypt and ssh-add key.
+ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_key"
+ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_iv"
+ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
+ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
+openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $ENCRYPTED_FILE -out key -d
+chmod 600 key
+eval `ssh-agent -s`
+ssh-add key
 
 # clone the branch to tmpdir, clean out contents
 rm -rf $STAGING
@@ -69,12 +86,6 @@ if git diff --quiet; then
     exit 0
 fi
 
-set +u
-if [[ $TRAVIS != "true" ]]; then
-    echo "Not running on travis; exiting cleanly"
-    exit 0
-fi
-set -u
 if [[ $TRAVIS_BRANCH != $BUILD_DOCS_FROM_BRANCH ]]; then
     echo "Not pushing docs because not on branch '$BUILD_DOCS_FROM_BRANCH'"
     exit 0
@@ -90,15 +101,6 @@ if [[ $TRAVIS_REPO_SLUG != "daler/trackhub" ]]; then
     exit 0
 fi
 
-# Decrypt and ssh-add key.
-ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_key"
-ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_iv"
-ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $ENCRYPTED_FILE -out key -d
-chmod 600 key
-eval `ssh-agent -s`
-ssh-add key
 
 # Add, commit, and push
 echo ".*" >> .gitignore
