@@ -31,7 +31,7 @@ DOCHTML=${HERE}/../doc/build/html
 # tmpdir to which built docs will be copied
 STAGING=/tmp/${GITHUB_USERNAME}-docs
 
-ENCRYPTED_FILE=${HERE}/ci/docs-key.enc
+ENCRYPTED_FILE=${HERE}/docs-key.enc
 
 # Build docs only if travis-ci is testing this branch:
 BUILD_DOCS_FROM_BRANCH="total-refactor"
