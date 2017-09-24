@@ -34,7 +34,7 @@ STAGING=/tmp/${GITHUB_USERNAME}-docs
 ENCRYPTED_FILE=${HERE}/ci/docs-key.enc
 
 # Build docs only if travis-ci is testing this branch:
-BUILD_DOCS_FROM_BRANCH="master"
+BUILD_DOCS_FROM_BRANCH="total-refactor"
 
 # ----------------------------------------------------------------------------
 #
