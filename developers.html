@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Topical docs &mdash; trackhub 0.1 documentation</title>
-    
+    <title>Topical docs &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
-    <link rel="prev" title="trackhub.base.HubComponent" href="autodocs/trackhub.base.HubComponent.html" /> 
+    <link rel="prev" title="trackhub.constants.Parameter" href="autodocs/trackhub.constants.Parameter.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -38,9 +37,9 @@
           <a href="changelog.html" title="Changelog"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="autodocs/trackhub.base.HubComponent.html" title="trackhub.base.HubComponent"
+          <a href="autodocs/trackhub.constants.Parameter.html" title="trackhub.constants.Parameter"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -56,18 +55,18 @@
 <p><code class="xref py py-mod docutils literal"><span class="pre">trackhub.constants</span></code> contains dictionaries of
 <a class="reference internal" href="autodocs/trackhub.constants.Parameter.html#trackhub.constants.Parameter" title="trackhub.constants.Parameter"><code class="xref py py-class docutils literal"><span class="pre">trackhub.constants.Parameter</span></code></a> objects.  These were copied from the
 trackDB help text from kentsrc.</p>
-<p>Each Parameter object takes the parameter name, a description, and a &#8220;possible
-values&#8221; object.  For simple cases, it&#8217;s <code class="docutils literal"><span class="pre">str</span></code> or <code class="docutils literal"><span class="pre">int</span></code>.  But for more
-complex things &#8211; like a comma separated RBG tuple &#8211; a validation class, like
+<p>Each Parameter object takes the parameter name, a description, and a “possible
+values” object.  For simple cases, it’s <code class="docutils literal"><span class="pre">str</span></code> or <code class="docutils literal"><span class="pre">int</span></code>.  But for more
+complex things – like a comma separated RBG tuple – a validation class, like
 <code class="xref py py-class docutils literal"><span class="pre">trackhub.constants.RGB</span></code>, can be provided.</p>
 <p>Need to validate a new kind of parameter?  Write a function in
 <code class="xref py py-mod docutils literal"><span class="pre">validate.py</span></code> that returns True when its argument is valid.  For example,
 <code class="xref py py-func docutils literal"><span class="pre">trackhub.validate.RGB()</span></code> checks that the value is a string containing
 3 comma-separated integers that are between 0-255.</p>
 <p>Different kinds of hub components are allowed to have different parameters.  In
-<code class="xref py py-mod docutils literal"><span class="pre">trackhub.constants</span></code>, there are dictionaries &#8211; keyed by parameter name &#8211;
+<code class="xref py py-mod docutils literal"><span class="pre">trackhub.constants</span></code>, there are dictionaries – keyed by parameter name –
 for the different components.</p>
-<p>For example, there&#8217;s a <code class="docutils literal"><span class="pre">track_fields</span></code> dictionary with all common track
+<p>For example, there’s a <code class="docutils literal"><span class="pre">track_fields</span></code> dictionary with all common track
 parameters, and <code class="docutils literal"><span class="pre">composite_track_fields</span></code> which adds additional params used
 for composite tracks.  <code class="docutils literal"><span class="pre">track_typespecific_fields</span></code> is a nested dict that has
 specific parameters for bigBed, bigWig, and BAM formats.</p>
@@ -75,7 +74,7 @@ specific parameters for bigBed, bigWig, and BAM formats.</p>
 <div class="section" id="rendered-results-dictionary">
 <span id="rendered-results-dict"></span><h2>Rendered results dictionary<a class="headerlink" href="#rendered-results-dictionary" title="Permalink to this headline">¶</a></h2>
 <p>This section describes the <code class="docutils literal"><span class="pre">results</span></code> dictionary created in the tutorial in
-the <a class="reference internal" href="tutorial.html#render-tut"><span>Render</span></a> section.</p>
+the <a class="reference internal" href="tutorial.html#render-tut"><span class="std std-ref">Render</span></a> section.</p>
 <p><code class="docutils literal"><span class="pre">results</span></code> is recursive nested dictionary, helpful for debugging or just
 useful to see the structure of the track hub and what happened.</p>
 <p>Each level has at least the object itself as a key and a dictionary of its
@@ -83,28 +82,28 @@ children as the value.  If an object rendered a text file, then it will have an
 additional key at that level for itself and a value for the text file.
 Any other keys at that level are keys of the children, which in turn is
 a dictionary of [possibly] the child and any other sub-children, in a similar
-structure.  It&#8217;s probably easier just to look at the example &#8211; we can view
+structure.  It’s probably easier just to look at the example – we can view
 a nicely-formatted version of it as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub.helpers</span> <span class="kn">import</span> <span class="n">print_rendered_results</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.helpers</span> <span class="k">import</span> <span class="n">print_rendered_results</span>
 <span class="n">print_rendered_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s">&quot;&lt;trackhub.hub.Hub object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s">&quot;example_hub.hub.txt&quot;</span><span class="p">,</span>
-    <span class="s">&quot;&lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s">&quot;&lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s">&quot;example_hub.genomes.txt&quot;</span><span class="p">,</span>
-        <span class="s">&quot;&lt;trackhub.genome.Genome object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s">&quot;&lt;trackhub.trackdb.TrackDb object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;&lt;trackhub.trackdb.TrackDb object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s">&quot;dm3/trackDb.txt&quot;</span><span class="p">,</span>
-                <span class="s">&quot;&lt;trackhub.track.CompositeTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s">&quot;&lt;trackhub.track.ViewTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
-                        <span class="s">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
-                        <span class="s">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;&lt;trackhub.hub.Hub object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;example_hub.hub.txt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;&lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;example_hub.genomes.txt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;trackhub.genome.Genome object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;&lt;trackhub.trackdb.TrackDb object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;&lt;trackhub.trackdb.TrackDb object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;dm3/trackDb.txt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;&lt;trackhub.track.CompositeTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;&lt;trackhub.track.ViewTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                        <span class="s2">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                        <span class="s2">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{}</span>
                     <span class="p">},</span>
-                    <span class="s">&quot;&lt;trackhub.track.ViewTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
-                        <span class="s">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{}</span>
+                    <span class="s2">&quot;&lt;trackhub.track.ViewTrack object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                        <span class="s2">&quot;&lt;trackhub.track.Track object at 0x...&gt;&quot;</span><span class="p">:</span> <span class="p">{}</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
             <span class="p">}</span>
@@ -115,16 +114,16 @@ a nicely-formatted version of it as follows:</p>
 </div>
 <p>For example, this shows that the rendering of the <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a> object resulted
 in a text file <code class="docutils literal"><span class="pre">example_hub.hub.txt</span></code>, and it had one child object (since
-there&#8217;s only one other key besides the hub itself at the same nesting level) &#8211; the
+there’s only one other key besides the hub itself at the same nesting level) – the
 <a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
 <p>That <a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object then rendered a <code class="docutils literal"><span class="pre">example_hub.genomes.txt</span></code>
 file, and contained a single <a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a> object child.  Note that the
-<a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a> object itself did <em>not</em> render any text file &#8211; that&#8217;s because
+<a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a> object itself did <em>not</em> render any text file – that’s because
 it represents just a stanza in the <a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object rather than
 a full file to itself.</p>
 <p>The <a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a> object contains one child, the <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object,
 which <em>does</em> write out a file, <code class="docutils literal"><span class="pre">dm3/trackDb.txt</span></code>.</p>
-<p>The <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object then has 1 child objects &#8211; the
+<p>The <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object then has 1 child objects – the
 <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> object.  Again, no file created.  However there are
 2 children here, the 2 <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> objects, each of which have several
 <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> children.</p>
@@ -147,29 +146,26 @@ which <em>does</em> write out a file, <code class="docutils literal"><span class
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="autodocs/trackhub.base.HubComponent.html"
-                        title="previous chapter">trackhub.base.HubComponent</a></p>
+  <p class="topless"><a href="autodocs/trackhub.constants.Parameter.html"
+                        title="previous chapter">trackhub.constants.Parameter</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="changelog.html"
                         title="next chapter">Changelog</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/developers.txt"
+      <li><a href="_sources/developers.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -186,14 +182,14 @@ which <em>does</em> write out a file, <code class="docutils literal"><span class
           <a href="changelog.html" title="Changelog"
              >next</a> |</li>
         <li class="right" >
-          <a href="autodocs/trackhub.base.HubComponent.html" title="trackhub.base.HubComponent"
+          <a href="autodocs/trackhub.constants.Parameter.html" title="trackhub.constants.Parameter"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

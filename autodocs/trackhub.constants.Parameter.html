@@ -1,38 +1,46 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>trackhub.constants.Parameter &mdash; trackhub 0.1 documentation</title>
-    
+    <title>trackhub.constants.Parameter &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="../index.html" /> 
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Topical docs" href="../developers.html" />
+    <link rel="prev" title="trackhub.SubGroupDefinition" href="trackhub.SubGroupDefinition.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../developers.html" title="Topical docs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.SubGroupDefinition.html" title="trackhub.SubGroupDefinition"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" accesskey="U">API documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -43,22 +51,24 @@
             
   <div class="section" id="trackhub-constants-parameter">
 <h1>trackhub.constants.Parameter<a class="headerlink" href="#trackhub-constants-parameter" title="Permalink to this headline">¶</a></h1>
-<p class="graphviz">
-<img src="../_images/inheritance-ad3dd19097a87901eb0e9d7bca4e3407947a4532.png" alt="Inheritance diagram of Parameter" usemap="#inheritanceca0b249abe" class="inheritance"/>
-<map id="inheritanceca0b249abe" name="inheritanceca0b249abe">
-<area shape="rect" id="node1" title="Represents a generic parameter. Validates based on the provided possible" alt="" coords="5,5,208,30"/>
-</map>
-</p>
+digraph inheritanceca0b249abe {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;trackhub.validate.Parameter&quot; [fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;,tooltip=&quot;Represents a generic parameter. Validates based on the provided possible&quot;];
+}
 <dl class="class">
 <dt id="trackhub.constants.Parameter">
 <em class="property">class </em><code class="descclassname">trackhub.constants.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>param</em>, <em>desc</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/validate.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.constants.Parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a generic parameter. Validates based on the provided possible
 values, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Parameter</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;the name to use&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s">&quot;asdf&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;the name to use&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s2">&quot;asdf&quot;</span><span class="p">)</span>
 <span class="go">True</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Parameter</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;the name to use&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;the name to use&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;the name to use&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
 <span class="go">False</span>
 </pre></div>
 </div>
@@ -69,6 +79,12 @@ values, e.g.:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#trackhub.constants.Parameter.__init__" title="trackhub.constants.Parameter.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(param,&nbsp;desc,&nbsp;values)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">validate</span></code>(value)</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <dl class="method">
@@ -86,24 +102,27 @@ values, e.g.:</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="trackhub.SubGroupDefinition.html"
+                        title="previous chapter">trackhub.SubGroupDefinition</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../developers.html"
+                        title="next chapter">Topical docs</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/autodocs/trackhub.constants.Parameter.txt"
+      <li><a href="../_sources/autodocs/trackhub.constants.Parameter.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -116,12 +135,19 @@ values, e.g.:</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../developers.html" title="Topical docs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.SubGroupDefinition.html" title="trackhub.SubGroupDefinition"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" >API documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

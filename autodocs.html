@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>API documentation &mdash; trackhub 0.1 documentation</title>
-    
+    <title>API documentation &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="trackhub.base.HubComponent" href="autodocs/trackhub.base.HubComponent.html" />
     <link rel="prev" title="Filenames" href="filenames.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="filenames.html" title="Filenames"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,6 +60,36 @@
 <tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a>()</td>
 <td>Base class for various track hub components.</td>
 </tr>
+<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Hub</span></code></a>(hub[,&nbsp;short_label,&nbsp;long_label,&nbsp;…])</td>
+<td>Represents a top-level track hub container.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.GenomesFile</span></code></a>([genome,&nbsp;filename])</td>
+<td>Represents the genomes file on disk.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Genome</span></code></a>(genome[,&nbsp;trackdb,&nbsp;…])</td>
+<td>Represents a 2-line genome stanza within a “genomes.txt” file.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.TrackDb</span></code></a>([tracks,&nbsp;filename])</td>
+<td>Represents the file containing one or more Track objects (which each represent a stanza).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack" title="trackhub.SuperTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.SuperTrack</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Represents a Super track.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.CompositeTrack</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Represents a composite track.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.ViewTrack</span></code></a>(view,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Represents a View track.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Track</span></code></a>([url])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.SubGroupDefinition</span></code></a>(name,&nbsp;label,&nbsp;mapping)</td>
+<td>Represents a subgroup line in a composite track.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.constants.Parameter.html#trackhub.constants.Parameter" title="trackhub.constants.Parameter"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.constants.Parameter</span></code></a>(param,&nbsp;desc,&nbsp;values)</td>
+<td>Represents a generic parameter.</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -80,21 +109,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/autodocs.txt"
+      <li><a href="_sources/autodocs.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -113,12 +139,12 @@
         <li class="right" >
           <a href="filenames.html" title="Filenames"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

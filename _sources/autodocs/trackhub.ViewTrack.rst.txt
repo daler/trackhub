@@ -1,0 +1,32 @@
+trackhub.ViewTrack
+==================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: ViewTrack
+
+.. autoclass:: ViewTrack
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~ViewTrack.__init__
+        ~ViewTrack.add_child
+        ~ViewTrack.add_params
+        ~ViewTrack.add_parent
+        ~ViewTrack.add_subgroups
+        ~ViewTrack.add_trackdb
+        ~ViewTrack.add_tracks
+        ~ViewTrack.leaves
+        ~ViewTrack.makedirs
+        ~ViewTrack.remove_params
+        ~ViewTrack.render
+        ~ViewTrack.root
+        ~ViewTrack.validate
+    
+    .. automethod:: __init__ 

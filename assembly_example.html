@@ -1,0 +1,150 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Assembly example &#8212; trackhub 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="assembly-example">
+<h1>Assembly example<a class="headerlink" href="#assembly-example" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="n">hub</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Hub</span><span class="p">(</span>
+    <span class="s2">&quot;assembly_hub&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;assembly_hub&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;an example of an assembly hub&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;none@example.com&quot;</span><span class="p">)</span>
+
+<span class="n">genome</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Assembly</span><span class="p">(</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;newOrg1&quot;</span><span class="p">,</span>
+    <span class="n">twobit_file</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;newOrg1.2bit&quot;</span><span class="p">),</span>
+    <span class="n">organism</span><span class="o">=</span><span class="s2">&quot;Big Foot&quot;</span><span class="p">,</span>
+    <span class="n">defaultPos</span><span class="o">=</span><span class="s2">&quot;chr1:0-1000000&quot;</span><span class="p">,</span>
+    <span class="n">scientificName</span><span class="o">=</span><span class="s2">&quot;Biggus Footus&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;BigFoot V4&quot;</span><span class="p">,</span>
+    <span class="n">html_string</span><span class="o">=</span><span class="s2">&quot;BIGFOOT V4 INFO</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">orderKey</span><span class="o">=</span><span class="mi">4800</span>
+<span class="p">)</span>
+
+<span class="n">genomes_file</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">GenomesFile</span><span class="p">()</span>
+<span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">()</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
+<span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
+<span class="n">genome</span><span class="o">.</span><span class="n">add_trackdb</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">bw</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*no1*.bw&quot;</span><span class="p">)):</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+        <span class="n">autoScale</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*no1*.bigBed&quot;</span><span class="p">)):</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bb</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">)</span>
+    <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+<span class="n">example_group</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">GroupDefinition</span><span class="p">(</span>
+    <span class="s2">&quot;example_tracks&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Example Tracks&quot;</span><span class="p">,</span>
+    <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">default_is_closed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">groups_file</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">GroupsFile</span><span class="p">([</span><span class="n">example_group</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;example_tracks&quot;</span><span class="p">)</span>
+<span class="n">genome</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">groups_file</span><span class="p">)</span>
+
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+    <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_assembly_hub&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/assembly_example.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

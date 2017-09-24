@@ -1,38 +1,46 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>trackhub.TrackDb &mdash; trackhub 0.1 documentation</title>
-    
+    <title>trackhub.TrackDb &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="../index.html" /> 
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.SuperTrack" href="trackhub.SuperTrack.html" />
+    <link rel="prev" title="trackhub.Genome" href="trackhub.Genome.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="trackhub.SuperTrack.html" title="trackhub.SuperTrack"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.Genome.html" title="trackhub.Genome"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" accesskey="U">API documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -43,15 +51,16 @@
             
   <div class="section" id="trackhub-trackdb">
 <h1>trackhub.TrackDb<a class="headerlink" href="#trackhub-trackdb" title="Permalink to this headline">¶</a></h1>
-<p class="graphviz">
-<img src="../_images/inheritance-752938b5182b64142d6760e0bf1de276b326c186.png" alt="Inheritance diagram of TrackDb" usemap="#inheritancee8eb7d8e37" class="inheritance"/>
-<map id="inheritancee8eb7d8e37" name="inheritancee8eb7d8e37">
-<area shape="rect" id="node1" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="Base class for various track hub components. &#160;Several methods must be" alt="" coords="5,5,224,30"/>
-</map>
-</p>
+digraph inheritancee8eb7d8e37 {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
+  &quot;trackhub.trackdb.TrackDb&quot; [fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;trackhub.base.HubComponent&quot; -&gt; &quot;trackhub.trackdb.TrackDb&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
+}
 <dl class="class">
 <dt id="trackhub.TrackDb">
-<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">TrackDb</code><span class="sig-paren">(</span><em>tracks=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/trackdb.html#TrackDb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.TrackDb" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">TrackDb</code><span class="sig-paren">(</span><em>tracks=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/trackdb.html#TrackDb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.TrackDb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents the file containing one or more Track objects (which each
 represent a stanza).</p>
@@ -62,11 +71,41 @@ represent a stanza).</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#trackhub.TrackDb.__init__" title="trackhub.TrackDb.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([tracks,&nbsp;filename])</td>
+<td>Represents the file containing one or more Track objects (which each represent a stanza).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#trackhub.TrackDb.add_child" title="trackhub.TrackDb.add_child"><code class="xref py py-obj docutils literal"><span class="pre">add_child</span></code></a>(child)</td>
+<td>Adds self as parent to child, and then adds child.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add_genome</span></code>(genome)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#trackhub.TrackDb.add_parent" title="trackhub.TrackDb.add_parent"><code class="xref py py-obj docutils literal"><span class="pre">add_parent</span></code></a>(parent)</td>
+<td>Adds self as child of parent, then adds parent.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#trackhub.TrackDb.add_tracks" title="trackhub.TrackDb.add_tracks"><code class="xref py py-obj docutils literal"><span class="pre">add_tracks</span></code></a>(track)</td>
+<td>Add a track or iterable of tracks.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#trackhub.TrackDb.leaves" title="trackhub.TrackDb.leaves"><code class="xref py py-obj docutils literal"><span class="pre">leaves</span></code></a>(cls[,&nbsp;level,&nbsp;intermediate])</td>
+<td>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">makedirs</span></code>(fn)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#trackhub.TrackDb.render" title="trackhub.TrackDb.render"><code class="xref py py-obj docutils literal"><span class="pre">render</span></code></a>([staging])</td>
+<td>Renders the object to file, returning a list of created files.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#trackhub.TrackDb.root" title="trackhub.TrackDb.root"><code class="xref py py-obj docutils literal"><span class="pre">root</span></code></a>([cls,&nbsp;level])</td>
+<td>Returns the top-most HubComponent in the hierarchy.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">validate</span></code>()</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="trackhub.TrackDb.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>tracks=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/trackdb.html#TrackDb.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.TrackDb.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>tracks=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/trackdb.html#TrackDb.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.TrackDb.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the file containing one or more Track objects (which each
 represent a stanza).</p>
 </dd></dl>
@@ -91,7 +130,7 @@ represent a stanza).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>track</strong> &#8211; Iterable of <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects, or a single <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>track</strong> – Iterable of <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects, or a single <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a>
 object.</td>
 </tr>
 </tbody>
@@ -108,7 +147,7 @@ well.</p>
 
 <dl class="method">
 <dt id="trackhub.TrackDb.render">
-<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.TrackDb.render" title="Permalink to this definition">¶</a></dt>
+<code class="descname">render</code><span class="sig-paren">(</span><em>staging=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.TrackDb.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
 <code class="xref py py-class docutils literal"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
@@ -134,24 +173,27 @@ a a Hub object for every component in the hierarchy.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="trackhub.Genome.html"
+                        title="previous chapter">trackhub.Genome</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="trackhub.SuperTrack.html"
+                        title="next chapter">trackhub.SuperTrack</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/autodocs/trackhub.TrackDb.txt"
+      <li><a href="../_sources/autodocs/trackhub.TrackDb.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -164,12 +206,19 @@ a a Hub object for every component in the hierarchy.</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="trackhub.SuperTrack.html" title="trackhub.SuperTrack"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.Genome.html" title="trackhub.Genome"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" >API documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

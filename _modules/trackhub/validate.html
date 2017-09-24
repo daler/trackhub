@@ -1,40 +1,38 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>trackhub.validate &mdash; trackhub 0.1 documentation</title>
-    
+    <title>trackhub.validate &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -44,7 +42,8 @@
           <div class="body" role="main">
             
   <h1>Source code for trackhub.validate</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
+<span></span><span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">dedent</span>
+<span class="kn">from</span> <span class="nn">.compatibility</span> <span class="k">import</span> <span class="n">string_types</span>
 
 
 <span class="k">class</span> <span class="nc">ValidationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -54,21 +53,21 @@
 <span class="k">def</span> <span class="nf">validator</span><span class="p">(</span><span class="o">*</span><span class="n">example</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 
-        <span class="c"># Try running validation on the function&#39;s own example . . . it better</span>
-        <span class="c"># work!</span>
+        <span class="c1"># Try running validation on the function&#39;s own example . . . it better</span>
+        <span class="c1"># work!</span>
         <span class="n">example_string</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
                     <span class="n">func</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
                     <span class="n">example_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-                <span class="n">example_string</span> <span class="o">=</span> <span class="s">&#39;Example value(s): </span><span class="si">%s</span><span class="s">&#39;</span> \
-                    <span class="o">%</span> <span class="p">(</span><span class="s">&quot; or &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">example_string</span><span class="p">))</span>
+                <span class="n">example_string</span> <span class="o">=</span> <span class="s1">&#39;Example value(s): </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                    <span class="o">%</span> <span class="p">(</span><span class="s2">&quot; or &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">example_string</span><span class="p">))</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s">&#39;Error validating example (func=</span><span class="si">%s</span><span class="s">, example=</span><span class="si">%r</span><span class="s">)! &#39;</span>
-                <span class="s">&#39;</span><span class="se">\n</span><span class="s">Original error:</span><span class="se">\n\t</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span>
-                <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+                <span class="s1">&#39;Error validating example (func=</span><span class="si">%s</span><span class="s1">, example=</span><span class="si">%r</span><span class="s1">)! &#39;</span>
+                <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Original error:</span><span class="se">\n\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
 
         <span class="k">class</span> <span class="nc">Validator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -79,11 +78,11 @@
                     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span>
-                        <span class="s">&#39;</span><span class="si">%s</span><span class="s">; </span><span class="si">%s</span><span class="s">&#39;</span>
+                        <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">; </span><span class="si">%s</span><span class="s1">&#39;</span>
                         <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">example_string</span><span class="p">))</span>
 
             <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-                <span class="k">return</span> <span class="s">&quot;&lt;Validator [</span><span class="si">%s</span><span class="s">] at </span><span class="si">%s</span><span class="s">&gt; sample: </span><span class="si">%s</span><span class="s">&quot;</span> \
+                <span class="k">return</span> <span class="s2">&quot;&lt;Validator [</span><span class="si">%s</span><span class="s2">] at </span><span class="si">%s</span><span class="s2">&gt; sample: </span><span class="si">%s</span><span class="s2">&quot;</span> \
                     <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="n">example</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">Validator</span><span class="p">()</span>
@@ -99,112 +98,130 @@
 <span class="sd">        True</span>
 
 <span class="sd">        &gt;&gt;&gt; Parameter(&quot;name&quot;, &quot;the name to use&quot;, int).validate(999)</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; Parameter(&quot;name&quot;, &quot;the name to use&quot;, str).validate(999)</span>
 <span class="sd">        False</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="Parameter.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.constants.Parameter.html#trackhub.constants.Parameter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dedent</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="bp">False</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dedent</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span></div>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;</span><span class="si">%s</span><span class="s"> &quot;</span><span class="si">%s</span><span class="s">&quot; at </span><span class="si">%s</span><span class="s">&gt;&#39;</span> \
-            <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> &quot;</span><span class="si">%s</span><span class="s1">&quot; at </span><span class="si">%s</span><span class="s1">&gt;&#39;</span> \
+            <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">True</span>
+                <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
-                <span class="k">return</span> <span class="bp">True</span>
-            <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s">&#39;__call__&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
 
-</div>
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;tag=value&quot;</span><span class="p">)</span>
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;tag=value&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">key_val</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="s">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">v</span>
+        <span class="k">assert</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">v</span>
         <span class="n">items</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;a,b,c&quot;</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a,b,c&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">CSV</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="c">#TODO: is a one-item list &quot;chr1,&quot; or &quot;chr1&quot;?</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">True</span>
+    <span class="c1">#TODO: is a one-item list &quot;chr1,&quot; or &quot;chr1&quot;?</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;a:b:c&quot;</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a:b:c&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">ColSV3</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
     <span class="n">nvalues</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;not a string&#39;</span><span class="p">)</span>
-    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not a string&#39;</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="o">==</span> <span class="n">nvalues</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;a:b&quot;</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a:b&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">ColSV2</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
     <span class="n">nvalues</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;not a string&#39;</span><span class="p">)</span>
-    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not a string&#39;</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="o">==</span> <span class="n">nvalues</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;128,0,255&quot;</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;128,0,255&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">RGB</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s">&#39; &#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Space in RGB tuple&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;&quot;.&quot; in RGB tuple&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">),</span> <span class="s">&quot;RGB tuple is not a string&quot;</span>
-    <span class="k">if</span> <span class="s">&#39;,&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;no commas in RGB tuple&quot;</span><span class="p">)</span>
-    <span class="n">rgb</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;RGB tuple does not have 3 values&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Space in RGB tuple&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;.&quot; in RGB tuple&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">),</span> <span class="s2">&quot;RGB tuple is not a string&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;,&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;no commas in RGB tuple&quot;</span><span class="p">)</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;RGB tuple does not have 3 values&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">rgb</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">rgb</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;RGB tuple does not contain ints&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;RGB tuple does not contain ints&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rgb</span><span class="p">:</span>
         <span class="k">assert</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;128,0,0 90,90,5&quot;</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;128,0,0 90,90,5&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">RGBList</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="n">rgbs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgbs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;RGBList not a space-separated list of RGB tuples&quot;</span>
+    <span class="n">rgbs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgbs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;RGBList not a space-separated list of RGB tuples&quot;</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rgbs</span><span class="p">:</span>
         <span class="n">RGB</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="nd">@validator</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">off_or_int</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s">&#39;off&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;off&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
         <span class="k">raise</span>
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;chr21:33031596-33033258&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ucsc_position</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">chrom</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;UCSC position string is formatted incorrectly&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;start position must be a positive integer&quot;</span>
+    <span class="k">assert</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;end position must be a positive integer&quot;</span>
+    <span class="k">assert</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">,</span> <span class="s2">&quot;start must be less than end&quot;</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
 </pre></div>
 
           </div>
@@ -215,14 +232,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -235,13 +249,13 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Tutorial &mdash; trackhub 0.1 documentation</title>
-    
+    <title>Tutorial &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Filenames" href="filenames.html" />
     <link rel="prev" title="Quickstart" href="quickstart.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="quickstart.html" title="Quickstart"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -58,28 +57,28 @@ with subsetting and selection tools like a matrix to determine peak caller and
 cell type.</p>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>It&#8217;s assumed you know a fair bit about track hubs in general and Python in
+<p>It’s assumed you know a fair bit about track hubs in general and Python in
 general.</p>
 <p>This tutorial uses data that ships with <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>, so you can play around
-without actually having any data of your own....</p>
+without actually having any data of your own….</p>
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<p>The example data we&#8217;re working with consists of two bigWig files that contains
+<p>The example data we’re working with consists of two bigWig files that contains
 some modified sine waves.  The only difference is in the frequency of the sine
 wave:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">sine-dm3-1000.bedgraph.bw</span></code> &#8211; low frequency, in cell type &#8220;a&#8221;</li>
-<li><code class="docutils literal"><span class="pre">sine-dm3-10000.bedgraph.bw</span></code> &#8211; high frequency, in cell type &#8220;b&#8221;</li>
+<li><code class="docutils literal"><span class="pre">sine-dm3-1000.bedgraph.bw</span></code> – low frequency, in cell type “a”</li>
+<li><code class="docutils literal"><span class="pre">sine-dm3-10000.bedgraph.bw</span></code> – high frequency, in cell type “b”</li>
 </ul>
 </div></blockquote>
 <p>and some random peaks with different feature sizes:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">random-dm3-0.bigBed</span></code> &#8211; random features, each 1kb, in cell type &#8220;a&#8221;</li>
-<li><code class="docutils literal"><span class="pre">random-dm3-1.bigBed</span></code> &#8211; random features, each 10kb, in cell type &#8220;a&#8221;</li>
-<li><code class="docutils literal"><span class="pre">random-dm3-2.bigBed</span></code> &#8211; random features, each 100kb, in cell type &#8220;b&#8221;</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-0.bigBed</span></code> – random features, each 1kb, in cell type “a”</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-1.bigBed</span></code> – random features, each 10kb, in cell type “a”</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-2.bigBed</span></code> – random features, each 100kb, in cell type “b”</li>
 </ul>
 </div></blockquote>
 <p>Note the different cell types, too.  The goal here is to have an example data
@@ -89,13 +88,13 @@ burdernsome.</p>
 <div class="section" id="make-a-hub-genomesfile-and-genome">
 <h2>Make a <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>, <a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a>, and <a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a><a class="headerlink" href="#make-a-hub-genomesfile-and-genome" title="Permalink to this headline">¶</a></h2>
 <p>Recall that the hierarchy of a track hub is something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>HUB.TXT
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HUB</span><span class="o">.</span><span class="n">TXT</span>
 
-    GENOMES.TXT
-    (contains stanzas that point to a trackDb.txt file for each genome)
+    <span class="n">GENOMES</span><span class="o">.</span><span class="n">TXT</span>
+    <span class="p">(</span><span class="n">contains</span> <span class="n">stanzas</span> <span class="n">that</span> <span class="n">point</span> <span class="n">to</span> <span class="n">a</span> <span class="n">trackDb</span><span class="o">.</span><span class="n">txt</span> <span class="n">file</span> <span class="k">for</span> <span class="n">each</span> <span class="n">genome</span><span class="p">)</span>
 
-        TRACKDB.TXT
-        (contains details about all the tracks)
+        <span class="n">TRACKDB</span><span class="o">.</span><span class="n">TXT</span>
+        <span class="p">(</span><span class="n">contains</span> <span class="n">details</span> <span class="n">about</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">tracks</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So we need:</p>
@@ -107,17 +106,17 @@ file.</li>
 <li>a <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object (representing <code class="docutils literal"><span class="pre">TRACKDB.TXT</span></code> above</li>
 </ul>
 <p>Easy enough:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># import the components we&#39;ll be using</span>
-<span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">Hub</span><span class="p">,</span> <span class="n">GenomesFile</span><span class="p">,</span> <span class="n">Genome</span><span class="p">,</span> <span class="n">TrackDb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># import the components we&#39;ll be using</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">Hub</span><span class="p">,</span> <span class="n">GenomesFile</span><span class="p">,</span> <span class="n">Genome</span><span class="p">,</span> <span class="n">TrackDb</span>
 
 <span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
-    <span class="n">hub</span><span class="o">=</span><span class="s">&#39;example_hub&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;example hub&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;an example hub for testing&#39;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s">&#39;none@example.com&#39;</span><span class="p">)</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;an example hub for testing&#39;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;none@example.com&#39;</span><span class="p">)</span>
 
 <span class="n">genomes_file</span> <span class="o">=</span> <span class="n">GenomesFile</span><span class="p">()</span>
-<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s">&#39;dm3&#39;</span><span class="p">)</span>
+<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s1">&#39;dm3&#39;</span><span class="p">)</span>
 <span class="n">trackdb</span> <span class="o">=</span> <span class="n">TrackDb</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -125,105 +124,105 @@ file.</li>
 <div class="section" id="connecting-the-components">
 <span id="id2"></span><h2>Connecting the components<a class="headerlink" href="#connecting-the-components" title="Permalink to this headline">¶</a></h2>
 <p>Now we need to connect them together.  Importantly, we can connect things from
-the bottom-up or from the top-down, or even a mix of the two.  It doesn&#8217;t
+the bottom-up or from the top-down, or even a mix of the two.  It doesn’t
 really matter, whatever fits your brain better.</p>
-<p>The &#8220;bottom-up&#8221; approach (which, by the way, would actually need all the tracks
+<p>The “bottom-up” approach (which, by the way, would actually need all the tracks
 to be truly bottom-up, and add them to trackdb first) would look something like
 this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
-    <span class="n">hub</span><span class="o">=</span><span class="s">&#39;example_hub&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;example hub&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;an example hub for testing&#39;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s">&#39;none@example.com&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;an example hub for testing&#39;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;none@example.com&#39;</span><span class="p">)</span>
 <span class="n">genomes_file</span> <span class="o">=</span> <span class="n">GenomesFile</span><span class="p">()</span>
-<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s">&#39;dm3&#39;</span><span class="p">)</span>
+<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s1">&#39;dm3&#39;</span><span class="p">)</span>
 <span class="n">trackdb</span> <span class="o">=</span> <span class="n">TrackDb</span><span class="p">()</span>
 
-<span class="c"># Bottom-up</span>
+<span class="c1"># Bottom-up</span>
 <span class="n">genome</span><span class="o">.</span><span class="n">add_trackdb</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 <span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
 <span class="n">hub</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Check to see that the trackDb made it to the hub:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">assert</span> <span class="n">trackdb</span> <span class="ow">is</span> <span class="n">hub</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">genomes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">trackdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">trackdb</span> <span class="ow">is</span> <span class="n">hub</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">genomes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">trackdb</span>
 </pre></div>
 </div>
-<p>Here&#8217;s the top-down way (again re-creating the components from scratch to make
+<p>Here’s the top-down way (again re-creating the components from scratch to make
 a good test case):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
-    <span class="n">hub</span><span class="o">=</span><span class="s">&#39;example_hub&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;example hub&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;an example hub for testing&#39;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s">&#39;none@example.com&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;an example hub for testing&#39;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;none@example.com&#39;</span><span class="p">)</span>
 <span class="n">genomes_file</span> <span class="o">=</span> <span class="n">GenomesFile</span><span class="p">()</span>
-<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s">&#39;dm3&#39;</span><span class="p">)</span>
+<span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="s1">&#39;dm3&#39;</span><span class="p">)</span>
 <span class="n">trackdb</span> <span class="o">=</span> <span class="n">TrackDb</span><span class="p">()</span>
 
-<span class="c"># Top-down</span>
+<span class="c1"># Top-down</span>
 <span class="n">hub</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
 <span class="n">genome</span><span class="o">.</span><span class="n">add_trackdb</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 <span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Do the same check:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">assert</span> <span class="n">trackdb</span> <span class="ow">is</span> <span class="n">hub</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">genomes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">trackdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">trackdb</span> <span class="ow">is</span> <span class="n">hub</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">genomes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">trackdb</span>
 </pre></div>
 </div>
 <p>There is also a convenience function to set up a connected set of hub components:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">default_hub</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">default_hub</span>
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">default_hub</span><span class="p">(</span>
-    <span class="n">hub_name</span><span class="o">=</span><span class="s">&#39;example_hub&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;example hub&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;an example hub for testing&#39;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s">&#39;none@example.com&#39;</span><span class="p">,</span>
-    <span class="n">genome</span><span class="o">=</span><span class="s">&#39;dm3&#39;</span><span class="p">)</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;an example hub for testing&#39;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;none@example.com&#39;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s1">&#39;dm3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now we need to create objects representing stanzas in the <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a>
-object, which makes up the bulk of the rest of the tutorial....</p>
+object, which makes up the bulk of the rest of the tutorial….</p>
 <div class="section" id="grouping-tracks-in-supertracks">
 <h3>Grouping Tracks in supertracks<a class="headerlink" href="#grouping-tracks-in-supertracks" title="Permalink to this headline">¶</a></h3>
 <p>Before we get into more complicated grouping structure of tracks,
 lets discuss supertracks:</p>
-<div class="highlight-python"><div class="highlight"><pre>SUPERTRACK STANZA
-- Defines a group of tracks to vizualize as a block
-- Doesn&#39;t contain any params like a track, including
-   bigDataUlr
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SUPERTRACK</span> <span class="n">STANZA</span>
+<span class="o">-</span> <span class="n">Defines</span> <span class="n">a</span> <span class="n">group</span> <span class="n">of</span> <span class="n">tracks</span> <span class="n">to</span> <span class="n">vizualize</span> <span class="k">as</span> <span class="n">a</span> <span class="n">block</span>
+<span class="o">-</span> <span class="n">Doesn</span><span class="s1">&#39;t contain any params like a track, including</span>
+   <span class="n">bigDataUlr</span>
 
-TRACK A STANZA
-- Defines params for this track, including bigDataUrl
-- Refers to supertrack as parent, can have different
-   type than other track stanzas
+<span class="n">TRACK</span> <span class="n">A</span> <span class="n">STANZA</span>
+<span class="o">-</span> <span class="n">Defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">track</span><span class="p">,</span> <span class="n">including</span> <span class="n">bigDataUrl</span>
+<span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">supertrack</span> <span class="k">as</span> <span class="n">parent</span><span class="p">,</span> <span class="n">can</span> <span class="n">have</span> <span class="n">different</span>
+   <span class="nb">type</span> <span class="n">than</span> <span class="n">other</span> <span class="n">track</span> <span class="n">stanzas</span>
 
-TRACK B STANZA
-- Defines params for this track, including bigDataUrl
-- Refers to supertrack as parent, can have different
-  type than other track stanzas
+<span class="n">TRACK</span> <span class="n">B</span> <span class="n">STANZA</span>
+<span class="o">-</span> <span class="n">Defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">track</span><span class="p">,</span> <span class="n">including</span> <span class="n">bigDataUrl</span>
+<span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">supertrack</span> <span class="k">as</span> <span class="n">parent</span><span class="p">,</span> <span class="n">can</span> <span class="n">have</span> <span class="n">different</span>
+  <span class="nb">type</span> <span class="n">than</span> <span class="n">other</span> <span class="n">track</span> <span class="n">stanzas</span>
 </pre></div>
 </div>
 <p>A supertrack acts as a container level to group tracks that should
 be visualized together. Connections between supertracks and tracks
 will be created in much the same way as adding a <code class="docutils literal"><span class="pre">track</span></code> to
-the parent <code class="docutils literal"><span class="pre">trackdb</span></code> &#8211; for example,
+the parent <code class="docutils literal"><span class="pre">trackdb</span></code> – for example,
 <code class="docutils literal"><span class="pre">supertrack.add_track(track)</span></code> to add the child <code class="docutils literal"><span class="pre">track</span></code> to the
 parent <code class="docutils literal"><span class="pre">supertrack</span></code>.</p>
 </div>
 <div class="section" id="creating-a-supertrack">
 <h3>Creating a supertrack<a class="headerlink" href="#creating-a-supertrack" title="Permalink to this headline">¶</a></h3>
 <p>So lets create a supertrack:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">SuperTrack</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">SuperTrack</span>
 
 <span class="n">supertrack</span> <span class="o">=</span> <span class="n">SuperTrack</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;supertrack&quot;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&quot;my super&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&quot;An example supertrack&quot;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;supertrack&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;my super&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;An example supertrack&quot;</span><span class="p">)</span>
 
-<span class="c">#make sure it looks OK</span>
-<span class="k">print</span> <span class="n">supertrack</span>
+<span class="c1">#make sure it looks OK</span>
+<span class="nb">print</span> <span class="n">supertrack</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track supertrack
+<div class="highlight-none"><div class="highlight"><pre><span></span>track supertrack
 shortLabel my super
 longLabel An example supertrack
 superTrack on
@@ -233,38 +232,38 @@ superTrack on
 add additional tracks.</p>
 <p>Create two new <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> instances and add them to the <code class="docutils literal"><span class="pre">supertrack</span></code>.
 Each instance represents a stanza in the <code class="docutils literal"><span class="pre">supertrack</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">Track</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">Track</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">URLBASE</span> <span class="o">=</span> <span class="s">&#39;http://example.com/mytrackhubs&#39;</span>
-<span class="n">GENOME</span> <span class="o">=</span> <span class="s">&#39;dm3&#39;</span>
+<span class="n">URLBASE</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/mytrackhubs&#39;</span>
+<span class="n">GENOME</span> <span class="o">=</span> <span class="s1">&#39;dm3&#39;</span>
 
 <span class="n">track1</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;track1Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s">&#39;track1.bigWig&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigWig 0 1000&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;track1&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;my track #1&#39;</span><span class="p">,</span>
-    <span class="c"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">&#39;128,0,0&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track1Track&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track1.bigWig&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig 0 1000&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track1&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #1&#39;</span><span class="p">,</span>
+    <span class="c1"># add other params here...</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">)</span>
 
 <span class="n">track2</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;track2Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s">&#39;track2.bigBed&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigBed 3&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;track2&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;my track #2&#39;</span><span class="p">,</span>
-    <span class="c"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">&#39;128,0,0&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track2Track&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track2.bigBed&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed 3&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track2&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #2&#39;</span><span class="p">,</span>
+    <span class="c1"># add other params here...</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">)</span>
 
 <span class="n">supertrack</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="n">track1</span><span class="p">)</span>
 <span class="n">supertrack</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
 
-<span class="c">#make sure it looks OK</span>
-<span class="k">print</span> <span class="n">supertrack</span>
+<span class="c1">#make sure it looks OK</span>
+<span class="nb">print</span> <span class="n">supertrack</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track supertrack
+<div class="highlight-none"><div class="highlight"><pre><span></span>track supertrack
 shortLabel my super
 longLabel An example supertrack
 superTrack on
@@ -293,56 +292,56 @@ for easier readability. Next onto composites, views and subtracks.</p>
 </div>
 <div class="section" id="general-structure-of-composites-views-and-subtracks">
 <h2>General structure of composites, views, and subtracks<a class="headerlink" href="#general-structure-of-composites-views-and-subtracks" title="Permalink to this headline">¶</a></h2>
-<p>OK, we&#8217;re about to get into the somewhat complicated stuff. So it may be
+<p>OK, we’re about to get into the somewhat complicated stuff. So it may be
 helpful to recall the structure of a hypothetical <code class="docutils literal"><span class="pre">trackDb.txt</span></code> file that
 contains a composite, some views, and some subtracks:</p>
-<div class="highlight-python"><div class="highlight"><pre>COMPOSITE TRACK STANZA
-- defines top-level params
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">COMPOSITE</span> <span class="n">TRACK</span> <span class="n">STANZA</span>
+<span class="o">-</span> <span class="n">defines</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">params</span>
 
-    VIEW TRACK 1 STANZA
-    - defines params for this kind of view -- e.g., bigWig params for
-      a bigWig view
-    - Refers to the composite track as parent
+    <span class="n">VIEW</span> <span class="n">TRACK</span> <span class="mi">1</span> <span class="n">STANZA</span>
+    <span class="o">-</span> <span class="n">defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">view</span> <span class="o">--</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">bigWig</span> <span class="n">params</span> <span class="k">for</span>
+      <span class="n">a</span> <span class="n">bigWig</span> <span class="n">view</span>
+    <span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">the</span> <span class="n">composite</span> <span class="n">track</span> <span class="k">as</span> <span class="n">parent</span>
 
-        SUBTRACK A STANZA
-        - Defines params for this track, including bigDataUrl
-        - Refers to view track as parent, so this subtrack is probably
-          refers to a bigWig file
+        <span class="n">SUBTRACK</span> <span class="n">A</span> <span class="n">STANZA</span>
+        <span class="o">-</span> <span class="n">Defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">track</span><span class="p">,</span> <span class="n">including</span> <span class="n">bigDataUrl</span>
+        <span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">view</span> <span class="n">track</span> <span class="k">as</span> <span class="n">parent</span><span class="p">,</span> <span class="n">so</span> <span class="n">this</span> <span class="n">subtrack</span> <span class="ow">is</span> <span class="n">probably</span>
+          <span class="n">refers</span> <span class="n">to</span> <span class="n">a</span> <span class="n">bigWig</span> <span class="n">file</span>
 
-    VIEW TRACK 2 STANZA
-        - Another view track with different settings than the one above,
-          say, bigBed params
+    <span class="n">VIEW</span> <span class="n">TRACK</span> <span class="mi">2</span> <span class="n">STANZA</span>
+        <span class="o">-</span> <span class="n">Another</span> <span class="n">view</span> <span class="n">track</span> <span class="k">with</span> <span class="n">different</span> <span class="n">settings</span> <span class="n">than</span> <span class="n">the</span> <span class="n">one</span> <span class="n">above</span><span class="p">,</span>
+          <span class="n">say</span><span class="p">,</span> <span class="n">bigBed</span> <span class="n">params</span>
 
-        SUBTRACK B STANZA
-        - Refers to view track #2 as parent, so this subtrack probably
-          refers to a bigBed
+        <span class="n">SUBTRACK</span> <span class="n">B</span> <span class="n">STANZA</span>
+        <span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">view</span> <span class="n">track</span> <span class="c1">#2 as parent, so this subtrack probably</span>
+          <span class="n">refers</span> <span class="n">to</span> <span class="n">a</span> <span class="n">bigBed</span>
 </pre></div>
 </div>
 <p>Recall that the hub, genomes file, and genome objects make up different levels
 of a hierarchy.  In the previous section, we used the <code class="docutils literal"><span class="pre">add_&lt;something&gt;()</span></code>
-methods to add a child to a parent &#8211; for example,
+methods to add a child to a parent – for example,
 <code class="docutils literal"><span class="pre">genome.add_trackdb(trackdb)</span></code> to add the child <code class="docutils literal"><span class="pre">trackdb</span></code> to the parent
 <code class="docutils literal"><span class="pre">genome</span></code>.</p>
 <p>Connections between composite tracks, view tracks, and subtracks
-will be created in much the same way &#8211; for example,
+will be created in much the same way – for example,
 <code class="docutils literal"><span class="pre">composite.add_view(view)</span></code> to add the child <code class="docutils literal"><span class="pre">view</span></code> to the parent <code class="docutils literal"><span class="pre">composite</span></code> track.</p>
 </div>
 <div class="section" id="creating-a-composite-track">
 <h2>Creating a composite track<a class="headerlink" href="#creating-a-composite-track" title="Permalink to this headline">¶</a></h2>
-<p>So let&#8217;s create a composite track:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">CompositeTrack</span>
+<p>So let’s create a composite track:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">CompositeTrack</span>
 
 <span class="n">composite</span> <span class="o">=</span> <span class="n">CompositeTrack</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;mycomposite&quot;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&quot;my composite&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&quot;An example composite track&quot;</span><span class="p">,</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&quot;bigWig&quot;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mycomposite&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;my composite&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;An example composite track&quot;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s2">&quot;bigWig&quot;</span><span class="p">)</span>
 
-<span class="c"># make sure it looks OK</span>
-<span class="k">print</span> <span class="n">composite</span>
+<span class="c1"># make sure it looks OK</span>
+<span class="nb">print</span> <span class="n">composite</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track mycomposite
+<div class="highlight-none"><div class="highlight"><pre><span></span>track mycomposite
 shortLabel my composite
 longLabel An example composite track
 type bigWig
@@ -351,14 +350,14 @@ compositeTrack on
 </div>
 <p>After the composite track has been created, we can incrementally add additional
 parameters.  This is same method can be used for all classes derived from
-<a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> &#8211; <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a>, <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> and of course
+<a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> – <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a>, <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> and of course
 <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> itself:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">dragAndDrop</span><span class="o">=</span><span class="s">&#39;subtracks&#39;</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s">&#39;full&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">dragAndDrop</span><span class="o">=</span><span class="s1">&#39;subtracks&#39;</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="n">composite</span>
+<span class="nb">print</span> <span class="n">composite</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track mycomposite
+<div class="highlight-none"><div class="highlight"><pre><span></span>track mycomposite
 shortLabel my composite
 longLabel An example composite track
 type bigWig
@@ -370,26 +369,26 @@ compositeTrack on
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><strong>Parameter handling</strong></p>
-<p>Parameters for all subclasses of <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> &#8211; which includes
-<a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> and <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> &#8211;  are checked against known
+<p>Parameters for all subclasses of <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> – which includes
+<a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> and <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> –  are checked against known
 supported values in the UCSC Genome Browser.  Trying to add an unknown
 parameter results in a <code class="xref py py-class docutils literal"><span class="pre">ParameterError</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">not_a_param</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">not_a_param</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
+<div class="highlight-none"><div class="highlight"><pre><span></span>Traceback (most recent call last):
     ...
 ParameterError: &quot;not_a_param&quot; is not a valid parameter for CompositeTrack
 </pre></div>
 </div>
-<p>Parameters are also checked for validity.  There&#8217;s a lot more than just floats,
-ints, and strings &#8211; for example the <code class="docutils literal"><span class="pre">color</span></code> parameter needs to be
+<p>Parameters are also checked for validity.  There’s a lot more than just floats,
+ints, and strings – for example the <code class="docutils literal"><span class="pre">color</span></code> parameter needs to be
 a comma-separated list of 3 ints between 0-255.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Try adding the wrong kind of parameter and get a ValidationError</span>
-<span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Try adding the wrong kind of parameter and get a ValidationError</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="last highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
+<div class="last highlight-none"><div class="highlight"><pre><span></span>Traceback (most recent call last):
     ...
 ValidationError: no commas in RGB tuple; an example value is: &quot;128,0,255&quot;
 </pre></div>
@@ -412,60 +411,60 @@ tracks)</li>
 referred to later by subtracks, and each value is the corresponding label for
 that tag.</p>
 <p>For example, in the final rendered files, the composite track will have a line
-like this, defining the &#8220;frequency&#8221; group (I added some annotations below the
+like this, defining the “frequency” group (I added some annotations below the
 line):</p>
-<div class="highlight-python"><div class="highlight"><pre>subGroup3 frequency Frequency lo=Low     hi=High
-#            ^          ^     key1=val1  key2=val2
-#           name      label   ^---- mapping -----^
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroup3</span> <span class="n">frequency</span> <span class="n">Frequency</span> <span class="n">lo</span><span class="o">=</span><span class="n">Low</span>     <span class="n">hi</span><span class="o">=</span><span class="n">High</span>
+<span class="c1">#            ^          ^     key1=val1  key2=val2</span>
+<span class="c1">#           name      label   ^---- mapping -----^</span>
 </pre></div>
 </div>
 <p>And the tracks will add themselves to the appropriate category of the
-&#8220;frequency&#8221; group with a line like:</p>
-<div class="highlight-python"><div class="highlight"><pre>subGroups frequency=lo
-#             ^     ^
-#            name   one of the keys from the mapping
+“frequency” group with a line like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroups</span> <span class="n">frequency</span><span class="o">=</span><span class="n">lo</span>
+<span class="c1">#             ^     ^</span>
+<span class="c1">#            name   one of the keys from the mapping</span>
 </pre></div>
 </div>
-<p>Here&#8217;s how to set it up in <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>.  Let&#8217;s make a &#8220;frequency&#8221; group as
-well as a &#8220;feature size&#8221; group to categorize the bed files and a &#8220;cell type&#8221;
+<p>Here’s how to set it up in <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>.  Let’s make a “frequency” group as
+well as a “feature size” group to categorize the bed files and a “cell type”
 group for further subsetting:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub.track</span> <span class="kn">import</span> <span class="n">SubGroupDefinition</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.track</span> <span class="k">import</span> <span class="n">SubGroupDefinition</span>
 <span class="n">subgroups</span> <span class="o">=</span> <span class="p">[</span>
 
     <span class="n">SubGroupDefinition</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s">&quot;frequency&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s">&quot;Frequency&quot;</span><span class="p">,</span>
-        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">lo</span><span class="o">=</span><span class="s">&quot;Low&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="s">&quot;High&quot;</span><span class="p">)),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;frequency&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Frequency&quot;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">lo</span><span class="o">=</span><span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="s2">&quot;High&quot;</span><span class="p">)),</span>
 
     <span class="n">SubGroupDefinition</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s">&quot;size&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s">&quot;Feature_size&quot;</span><span class="p">,</span>
-        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">small</span><span class="o">=</span><span class="s">&quot;Small&quot;</span><span class="p">,</span> <span class="n">med</span><span class="o">=</span><span class="s">&quot;Medium&quot;</span><span class="p">,</span> <span class="n">lg</span><span class="o">=</span><span class="s">&quot;Large&quot;</span><span class="p">)),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;size&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Feature_size&quot;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">small</span><span class="o">=</span><span class="s2">&quot;Small&quot;</span><span class="p">,</span> <span class="n">med</span><span class="o">=</span><span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="n">lg</span><span class="o">=</span><span class="s2">&quot;Large&quot;</span><span class="p">)),</span>
 
     <span class="n">SubGroupDefinition</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s">&quot;celltype&quot;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s">&quot;Cell_Type&quot;</span><span class="p">,</span>
-        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s">&quot;CelltypeA&quot;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s">&quot;CelltypeB&quot;</span><span class="p">)),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;celltype&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cell_Type&quot;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s2">&quot;CelltypeA&quot;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s2">&quot;CelltypeB&quot;</span><span class="p">)),</span>
 
 <span class="p">]</span>
 </pre></div>
 </div>
 <p>Verify that the subgroups look OK:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">sg</span> <span class="ow">in</span> <span class="n">subgroups</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">sg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sg</span> <span class="ow">in</span> <span class="n">subgroups</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="n">sg</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>frequency Frequency lo=Low hi=High
+<div class="highlight-none"><div class="highlight"><pre><span></span>frequency Frequency lo=Low hi=High
 size Feature_size small=Small lg=Large med=Medium
 celltype Cell_Type a=CelltypeA b=CelltypeB
 </pre></div>
 </div>
-<p>Note that they don&#8217;t yet have the <code class="docutils literal"><span class="pre">subGroupN</span></code> prefix &#8211; that&#8217;s because these
-prefixes aren&#8217;t added until the TrackDb object is ready to print, since
+<p>Note that they don’t yet have the <code class="docutils literal"><span class="pre">subGroupN</span></code> prefix – that’s because these
+prefixes aren’t added until the TrackDb object is ready to print, since
 additional handling has to take place (like inserting a special Views subgroup
 as subGroup1 if needed).</p>
-<p>Now that we have some subgroups for this composite track, let&#8217;s add them:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">composite</span><span class="o">.</span><span class="n">add_subgroups</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
+<p>Now that we have some subgroups for this composite track, let’s add them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">composite</span><span class="o">.</span><span class="n">add_subgroups</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -475,37 +474,37 @@ as subGroup1 if needed).</p>
 <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> and <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> are subclasses of the more
 generic <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> class, so they act in much the same way.  This should
 look familiar, but a notable difference is the addition of the <cite>view</cite> kwarg:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">ViewTrack</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">ViewTrack</span>
 
 <span class="n">bed_view</span> <span class="o">=</span> <span class="n">ViewTrack</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;bedViewTrack&quot;</span><span class="p">,</span>
-    <span class="n">view</span><span class="o">=</span><span class="s">&quot;Bed&quot;</span><span class="p">,</span>
-    <span class="n">visibility</span><span class="o">=</span><span class="s">&quot;squish&quot;</span><span class="p">,</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&quot;bigBed 3&quot;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&quot;beds&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&quot;Beds&quot;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bedViewTrack&quot;</span><span class="p">,</span>
+    <span class="n">view</span><span class="o">=</span><span class="s2">&quot;Bed&quot;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;squish&quot;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s2">&quot;bigBed 3&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;beds&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;Beds&quot;</span><span class="p">)</span>
 
 <span class="n">signal_view</span> <span class="o">=</span> <span class="n">ViewTrack</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;signalViewTrack&quot;</span><span class="p">,</span>
-    <span class="n">view</span><span class="o">=</span><span class="s">&quot;Signal&quot;</span><span class="p">,</span>
-    <span class="n">visibility</span><span class="o">=</span><span class="s">&quot;full&quot;</span><span class="p">,</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&quot;bigWig 0 10000&quot;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&quot;signal&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&quot;Signal&quot;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signalViewTrack&quot;</span><span class="p">,</span>
+    <span class="n">view</span><span class="o">=</span><span class="s2">&quot;Signal&quot;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s2">&quot;bigWig 0 10000&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;signal&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;Signal&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Add these new view tracks to <code class="docutils literal"><span class="pre">composite</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">bed_view</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">bed_view</span><span class="p">)</span>
 <span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">signal_view</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now when we print <code class="docutils literal"><span class="pre">composite</span></code>, it has the views added to it (nicely
 indented, too):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># after adding the views</span>
-<span class="k">print</span> <span class="n">composite</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># after adding the views</span>
+<span class="nb">print</span> <span class="n">composite</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track mycomposite
+<div class="highlight-none"><div class="highlight"><pre><span></span>track mycomposite
 shortLabel my composite
 longLabel An example composite track
 type bigWig
@@ -537,14 +536,14 @@ compositeTrack on
 <p>We can make changes to the created views without having to add them again to
 the composite.  For example, here we add <code class="docutils literal"><span class="pre">configureable</span> <span class="pre">on</span></code> to each view and
 print <code class="docutils literal"><span class="pre">composite</span></code> to make sure the changes show up:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">composite</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
-    <span class="n">view</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">configurable</span><span class="o">=</span><span class="s">&quot;on&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">composite</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">configurable</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">)</span>
 
-<span class="c"># after changing params</span>
-<span class="k">print</span> <span class="n">composite</span>
+<span class="c1"># after changing params</span>
+<span class="nb">print</span> <span class="n">composite</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track mycomposite
+<div class="highlight-none"><div class="highlight"><pre><span></span>track mycomposite
 shortLabel my composite
 longLabel An example composite track
 type bigWig
@@ -576,151 +575,151 @@ compositeTrack on
 </pre></div>
 </div>
 <p>And then make all bigBed tracks non-configurable and change visibility to dense
-. . .</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">composite</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s">&#39;bigBed&#39;</span> <span class="ow">in</span> <span class="n">view</span><span class="o">.</span><span class="n">tracktype</span><span class="p">:</span>
-        <span class="n">view</span><span class="o">.</span><span class="n">remove_params</span><span class="p">(</span><span class="s">&#39;configurable&#39;</span><span class="p">)</span>
-        <span class="n">view</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">visibility</span><span class="o">=</span><span class="s">&#39;dense&#39;</span><span class="p">)</span>
+…</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">composite</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;bigBed&#39;</span> <span class="ow">in</span> <span class="n">view</span><span class="o">.</span><span class="n">tracktype</span><span class="p">:</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">remove_params</span><span class="p">(</span><span class="s1">&#39;configurable&#39;</span><span class="p">)</span>
+        <span class="n">view</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>. . . you get the idea.  It&#8217;s convenient to have programmatic access to the hub
+<p>… you get the idea.  It’s convenient to have programmatic access to the hub
 components.  Next, on to the tracks.</p>
 </div>
 <div class="section" id="creating-track-objects">
 <h2>Creating <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects<a class="headerlink" href="#creating-track-objects" title="Permalink to this headline">¶</a></h2>
 <p>We could add the track params one-by-one, similar to how we created the hub,
-composite track, and view tracks . . . but we might as well edit the
+composite track, and view tracks … but we might as well edit the
 trackDb.txt by hand.  The goal here will be to provide a flavor for how you
 might go about adding many tracks with custom parameters, even though here
-we&#8217;re only working on a relatively simple set of of 2 bigWigs and 3 bigBeds.</p>
-<p>First, let&#8217;s get the example data to work with.  In practice you would get
+we’re only working on a relatively simple set of of 2 bigWigs and 3 bigBeds.</p>
+<p>First, let’s get the example data to work with.  In practice you would get
 these via <code class="docutils literal"><span class="pre">glob</span></code> or <code class="docutils literal"><span class="pre">os.listdir</span></code> or more complicated things depending on
 your use case.</p>
-<p>Here, we&#8217;ll just grab some files that come with <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>, saving the
+<p>Here, we’ll just grab some files that come with <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>, saving the
 filenames of the bigBed files in <code class="docutils literal"><span class="pre">bbs</span></code> and the bigWig filenames in <code class="docutils literal"><span class="pre">bws</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">helpers</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">helpers</span>
 <span class="n">bbs</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">example_bigbeds</span><span class="p">()</span>
 <span class="n">bws</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">example_bigwigs</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Recall we&#8217;re working with the following files. Note the numbers embedded in
-the filenames; we&#8217;ll be using them in a moment:</p>
+<p>Recall we’re working with the following files. Note the numbers embedded in
+the filenames; we’ll be using them in a moment:</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">sine-dm3-1000.bedgraph.bw</span></code> (low-frequency bigWig)</li>
 <li><code class="docutils literal"><span class="pre">sine-dm3-10000.bedgraph.bw</span></code> (high-frequency bigWig)</li>
-<li><code class="docutils literal"><span class="pre">random-dm3-0.bigBed</span></code> &#8211; (random features bigBed, each 1kb)</li>
-<li><code class="docutils literal"><span class="pre">random-dm3-1.bigBed</span></code> &#8211; random features bigBed, each 10kb</li>
-<li><code class="docutils literal"><span class="pre">random-dm3-2.bigBed</span></code> &#8211; random features bigBed, each 100kb</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-0.bigBed</span></code> – (random features bigBed, each 1kb)</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-1.bigBed</span></code> – random features bigBed, each 10kb</li>
+<li><code class="docutils literal"><span class="pre">random-dm3-2.bigBed</span></code> – random features bigBed, each 100kb</li>
 </ul>
 </div></blockquote>
 <p>Also recall we created these subgroups:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># print the subgroups as a reminder</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># print the subgroups as a reminder</span>
 <span class="k">for</span> <span class="n">sg</span> <span class="ow">in</span> <span class="n">subgroups</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">sg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sg</span><span class="o">.</span><span class="n">mapping</span>
+    <span class="nb">print</span> <span class="n">sg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sg</span><span class="o">.</span><span class="n">mapping</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>frequency {&#39;lo&#39;: &#39;Low&#39;, &#39;hi&#39;: &#39;High&#39;}
+<div class="highlight-none"><div class="highlight"><pre><span></span>frequency {&#39;lo&#39;: &#39;Low&#39;, &#39;hi&#39;: &#39;High&#39;}
 size {&#39;small&#39;: &#39;Small&#39;, &#39;lg&#39;: &#39;Large&#39;, &#39;med&#39;: &#39;Medium&#39;}
 celltype {&#39;a&#39;: &#39;CelltypeA&#39;, &#39;b&#39;: &#39;CelltypeB&#39;}
 </pre></div>
 </div>
-<p>The numbers from the filenames will be extracted in a moment.  But first, let&#8217;s
+<p>The numbers from the filenames will be extracted in a moment.  But first, let’s
 set up some dictionaries to map the number in the filename to various
 parameters for the tracks.  Here, we map the filename numbers to the
-&#8220;frequency&#8221; subgroup, and arbitrarily make the low freq file to be &#8220;CelltypeA&#8221;:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">bw_p</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;1000&#39;</span><span class="p">:</span> <span class="s">&#39;lo&#39;</span><span class="p">,</span>   <span class="s">&#39;10000&#39;</span><span class="p">:</span> <span class="s">&#39;hi&#39;</span><span class="p">}</span>
-<span class="n">bw_c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;1000&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>    <span class="s">&#39;10000&#39;</span><span class="p">:</span> <span class="s">&#39;b&#39;</span><span class="p">}</span>
+“frequency” subgroup, and arbitrarily make the low freq file to be “CelltypeA”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bw_p</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1000&#39;</span><span class="p">:</span> <span class="s1">&#39;lo&#39;</span><span class="p">,</span>   <span class="s1">&#39;10000&#39;</span><span class="p">:</span> <span class="s1">&#39;hi&#39;</span><span class="p">}</span>
+<span class="n">bw_c</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1000&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>    <span class="s1">&#39;10000&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>For the bigBeds, let&#8217;s map the numbers (0, 1, 2) in the filenames to the
-&#8220;size&#8221; subgroup.  Let&#8217;s also abritrarily make the first two bigBeds from
-&#8220;CelltypeA&#8221; and the last one from &#8220;CelltypeB&#8221;:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">bb_s</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0&#39;</span><span class="p">:</span> <span class="s">&#39;small&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">:</span> <span class="s">&#39;med&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">:</span> <span class="s">&#39;lg&#39;</span><span class="p">}</span>
-<span class="n">bb_c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;0&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>     <span class="s">&#39;1&#39;</span><span class="p">:</span> <span class="s">&#39;a&#39;</span><span class="p">,</span>   <span class="s">&#39;2&#39;</span><span class="p">:</span> <span class="s">&#39;b&#39;</span><span class="p">}</span>
+<p>For the bigBeds, let’s map the numbers (0, 1, 2) in the filenames to the
+“size” subgroup.  Let’s also abritrarily make the first two bigBeds from
+“CelltypeA” and the last one from “CelltypeB”:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bb_s</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;med&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;lg&#39;</span><span class="p">}</span>
+<span class="n">bb_c</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>     <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>   <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>One more thing: it&#8217;s easiest to add the <code class="docutils literal"><span class="pre">remote_fn</span></code>, <code class="docutils literal"><span class="pre">local_fn</span></code>, and
-<code class="docutils literal"><span class="pre">url</span></code> attributes now, while we&#8217;re handling tracks iteratively.  To do so, we
-need to configure some values &#8211; you&#8217;ll need to edit these to match your own
-situtation or else they won&#8217;t work when you try to upload them later on.</p>
+<p>One more thing: it’s easiest to add the <code class="docutils literal"><span class="pre">remote_fn</span></code>, <code class="docutils literal"><span class="pre">local_fn</span></code>, and
+<code class="docutils literal"><span class="pre">url</span></code> attributes now, while we’re handling tracks iteratively.  To do so, we
+need to configure some values – you’ll need to edit these to match your own
+situtation or else they won’t work when you try to upload them later on.</p>
 <p>In this example, the files will have bigDataUrls that start with <code class="docutils literal"><span class="pre">url_base</span></code>,
 so that will be the publicly accessibly location.  However, in order to get
 them there, the files have to be transferred to the host to the path indicated
 in <code class="docutils literal"><span class="pre">upload_base</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># edit these to reflect where your data will be hosted</span>
-<span class="n">url_base</span> <span class="o">=</span> <span class="s">&#39;http://example.com/trackhubs/dm3/&#39;</span>
-<span class="n">upload_base</span> <span class="o">=</span> <span class="s">&#39;/var/www/data/dm3/&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># edit these to reflect where your data will be hosted</span>
+<span class="n">url_base</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/trackhubs/dm3/&#39;</span>
+<span class="n">upload_base</span> <span class="o">=</span> <span class="s1">&#39;/var/www/data/dm3/&#39;</span>
 </pre></div>
 </div>
 <p>Now we make <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects for each of the bigBeds and each of the
 bigWigs.  Numbers from filenames are extracted, subgroups are assigned
 according to the mappings we created above, and each track is added to the
-appropriate <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> we&#8217;ve already constructed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">Track</span>
+appropriate <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> we’ve already constructed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">Track</span>
 
-<span class="c"># A quick function to return the number in the middle of filenames -- this</span>
-<span class="c"># will become the key into the subgroup dictionaries above</span>
+<span class="c1"># A quick function to return the number in the middle of filenames -- this</span>
+<span class="c1"># will become the key into the subgroup dictionaries above</span>
 <span class="k">def</span> <span class="nf">num_from_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="c"># Make the bigBed tracks</span>
+<span class="c1"># Make the bigBed tracks</span>
 <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bbs</span><span class="p">):</span>
     <span class="n">num</span> <span class="o">=</span> <span class="n">num_from_fn</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
     <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s">&#39;features</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
-        <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigBed 3&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;features</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed 3&#39;</span><span class="p">,</span>
         <span class="n">url</span><span class="o">=</span><span class="n">url_base</span> <span class="o">+</span> <span class="n">basename</span><span class="p">,</span>
         <span class="n">local_fn</span><span class="o">=</span><span class="n">bb</span><span class="p">,</span>
         <span class="n">remote_fn</span><span class="o">=</span><span class="n">upload_base</span> <span class="o">+</span> <span class="n">basename</span><span class="p">,</span>
-        <span class="n">shortLabel</span><span class="o">=</span><span class="s">&#39;features </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
-        <span class="n">longLabel</span><span class="o">=</span><span class="s">&#39;features </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">shortLabel</span><span class="o">=</span><span class="s1">&#39;features </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">longLabel</span><span class="o">=</span><span class="s1">&#39;features </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
         <span class="n">subgroups</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">size</span><span class="o">=</span><span class="n">bb_s</span><span class="p">[</span><span class="n">num</span><span class="p">],</span>
             <span class="n">celltype</span><span class="o">=</span><span class="n">bb_c</span><span class="p">[</span><span class="n">num</span><span class="p">]))</span>
 
-    <span class="c"># add this track to the bed view</span>
+    <span class="c1"># add this track to the bed view</span>
     <span class="n">bed_view</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="c"># Make the bigWig tracks</span>
+<span class="c1"># Make the bigWig tracks</span>
 <span class="k">for</span> <span class="n">bw</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bws</span><span class="p">):</span>
     <span class="n">num</span> <span class="o">=</span> <span class="n">num_from_fn</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span>
     <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s">&#39;signal</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
-        <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigWig 0 &#39;</span> <span class="o">+</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signal</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig 0 &#39;</span> <span class="o">+</span> <span class="n">num</span><span class="p">,</span>
         <span class="n">url</span><span class="o">=</span><span class="n">url_base</span> <span class="o">+</span> <span class="n">basename</span><span class="p">,</span>
         <span class="n">local_fn</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span>
         <span class="n">remote_fn</span><span class="o">=</span><span class="n">upload_base</span> <span class="o">+</span> <span class="n">basename</span><span class="p">,</span>
-        <span class="n">shortLabel</span><span class="o">=</span><span class="s">&#39;signal </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
-        <span class="n">longLabel</span><span class="o">=</span><span class="s">&#39;signal </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">shortLabel</span><span class="o">=</span><span class="s1">&#39;signal </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
+        <span class="n">longLabel</span><span class="o">=</span><span class="s1">&#39;signal </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num</span><span class="p">,</span>
         <span class="n">subgroups</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">frequency</span><span class="o">=</span><span class="n">bw_p</span><span class="p">[</span><span class="n">num</span><span class="p">],</span>
             <span class="n">celltype</span><span class="o">=</span><span class="n">bw_c</span><span class="p">[</span><span class="n">num</span><span class="p">]))</span>
 
-    <span class="c"># add this track to the signal view</span>
+    <span class="c1"># add this track to the signal view</span>
     <span class="n">signal_view</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now print the track db:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">trackdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">trackdb</span>
 </pre></div>
 </div>
 <p>Oops! We forgot to add the composite to the trackdb.  So even though we made
 the connections earlier (hub -&gt; genomes file -&gt; genome -&gt; trackdb), the trackdb
-never got anything added to it.  This is a one-line remedy...</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">composite</span><span class="p">)</span>
+never got anything added to it.  This is a one-line remedy…</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">composite</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>...and since we&#8217;ve already added the tracks to the views, and the views to the
+<p>…and since we’ve already added the tracks to the views, and the views to the
 composite, adding the composite to the trackdb like that makes the final
 connection, allowing us to print <em>everything</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">trackdb</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">trackdb</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track mycomposite
+<div class="highlight-none"><div class="highlight"><pre><span></span>track mycomposite
 shortLabel my composite
 longLabel An example composite track
 type bigWig
@@ -790,32 +789,32 @@ compositeTrack on
             parent signalViewTrack
 </pre></div>
 </div>
-<p>Now that we have a nice structure here, it&#8217;s possible to make all kinds of
+<p>Now that we have a nice structure here, it’s possible to make all kinds of
 changes and tweaks to the tracks with minimal effort.  For example, this will
 set default view limits of all bigWigs in the hub:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">signal_view</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
-    <span class="n">track</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">viewLimits</span><span class="o">=</span><span class="s">&#39;0:3&#39;</span><span class="p">,</span> <span class="n">autoScale</span><span class="o">=</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">signal_view</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;0:3&#39;</span><span class="p">,</span> <span class="n">autoScale</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="track-hub-filenames">
 <h2>Track hub filenames<a class="headerlink" href="#track-hub-filenames" title="Permalink to this headline">¶</a></h2>
-<p>We&#8217;re about to render the hub components to file; you can jump right to
-<a class="reference internal" href="#render-tut"><span>Render</span></a> if you&#8217;d like.  This section is an explanation of how
+<p>We’re about to render the hub components to file; you can jump right to
+<a class="reference internal" href="#render-tut"><span class="std std-ref">Render</span></a> if you’d like.  This section is an explanation of how
 filenames are chosen by default, how to change them, and what the consequences
 are of changing the filenames.</p>
 <p>With only one genome here, there are only 3 files to create:  the hub file, the
 genomes file, and the trackdb file, but in general the number of files will be
 <code class="docutils literal"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">genomes</span> <span class="pre">*</span> <span class="pre">2</span></code>.  <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code> handles the creation of the files on
-disk, and its behavior is fully described in the <a class="reference internal" href="filenames.html#filenames"><span>Filenames</span></a> section.
-Here it&#8217;s probably easier to see this as an example.</p>
-<p>For the example we&#8217;ve been working on, the default values are:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
+disk, and its behavior is fully described in the <a class="reference internal" href="filenames.html#filenames"><span class="std std-ref">Filenames</span></a> section.
+Here it’s probably easier to see this as an example.</p>
+<p>For the example we’ve been working on, the default values are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>example_hub.hub.txt
+<div class="highlight-none"><div class="highlight"><pre><span></span>example_hub.hub.txt
 example_hub.genomes.txt
 dm3/trackDb.txt
 </pre></div>
@@ -823,26 +822,26 @@ dm3/trackDb.txt
 <p>Note that these files are all in the current directory. To put all the files in
 another directory, all we need to do is change the hub filename and the rest
 will follow:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span> <span class="o">=</span> <span class="s">&#39;/data/myhubs/hub.txt&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span> <span class="o">=</span> <span class="s1">&#39;/data/myhubs/hub.txt&#39;</span>
 
-<span class="k">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>/data/myhubs/hub.txt
+<div class="highlight-none"><div class="highlight"><pre><span></span>/data/myhubs/hub.txt
 /data/myhubs/example_hub.genomes.txt
 /data/myhubs/dm3/trackDb.txt
 </pre></div>
 </div>
 <p>Reset to defaults by setting the filename to None:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="k">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
-<span class="k">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="nb">print</span> <span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">genomes_file</span><span class="o">.</span><span class="n">local_fn</span>
+<span class="nb">print</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">local_fn</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>example_hub.hub.txt
+<div class="highlight-none"><div class="highlight"><pre><span></span>example_hub.hub.txt
 example_hub.genomes.txt
 dm3/trackDb.txt
 </pre></div>
@@ -852,17 +851,17 @@ dm3/trackDb.txt
 <span id="render-tut"></span><h2>Render<a class="headerlink" href="#render" title="Permalink to this headline">¶</a></h2>
 <p>After setting up the filenames (or leaving them as their defaults), simply
 render the entire hub:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>At this point, we&#8217;re ready to upload.  For details on the <code class="docutils literal"><span class="pre">results</span></code>
-dictionary, refer to the developer docs, <a class="reference internal" href="developers.html#rendered-results-dict"><span>Rendered results dictionary</span></a>.</p>
-<p>If you&#8217;re interested, you can check to see which files were created:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub.helpers</span> <span class="kn">import</span> <span class="n">show_rendered_files</span>
+<p>At this point, we’re ready to upload.  For details on the <code class="docutils literal"><span class="pre">results</span></code>
+dictionary, refer to the developer docs, <a class="reference internal" href="developers.html#rendered-results-dict"><span class="std std-ref">Rendered results dictionary</span></a>.</p>
+<p>If you’re interested, you can check to see which files were created:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.helpers</span> <span class="k">import</span> <span class="n">show_rendered_files</span>
 <span class="n">show_rendered_files</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>rendered file: example_hub.hub.txt (created by: &lt;trackhub.hub.Hub object at 0x...&gt;)
+<div class="highlight-none"><div class="highlight"><pre><span></span>rendered file: example_hub.hub.txt (created by: &lt;trackhub.hub.Hub object at 0x...&gt;)
 rendered file: example_hub.genomes.txt (created by: &lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;)
 rendered file: dm3/trackDb.txt (created by: &lt;trackhub.trackdb.TrackDb object at 0x...&gt;)
 </pre></div>
@@ -870,13 +869,13 @@ rendered file: dm3/trackDb.txt (created by: &lt;trackhub.trackdb.TrackDb object 
 </div>
 <div class="section" id="html-documentation-for-tracks">
 <h2>HTML documentation for tracks<a class="headerlink" href="#html-documentation-for-tracks" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference internal" href="filenames.html#htmldocs"><span>HTML documentation default filenames</span></a> for more info on how to easily add documentation to your
+<p>See <a class="reference internal" href="filenames.html#htmldocs"><span class="std std-ref">HTML documentation default filenames</span></a> for more info on how to easily add documentation to your
 tracks kwarg to tracks by simply providing some content via the <cite>html_string</cite>
 kwarg when creating any subclass of <code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code>.</p>
 </div>
 <div class="section" id="uploading">
 <h2>Uploading<a class="headerlink" href="#uploading" title="Permalink to this headline">¶</a></h2>
-<p>So far we&#8217;ve seen how to use <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code> to create the text files that
+<p>So far we’ve seen how to use <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code> to create the text files that
 define a track hub.  Now lets see how to use <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code> to upload these
 files and all associated data files to a publicly available web server.</p>
 <p>In order to do this, each hub component that refers to a file needs to have
@@ -898,56 +897,56 @@ files and all associated data files to a publicly available web server.</p>
 <p>You will need a publicly-accessible location to upload your tracks to (ftp,
 http, https; see <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html">http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html</a> for
 more info).  Currently, the upload mechanism expects SSH access, and works best
-if you configure ssh to use public/private key pairs (google &#8220;ssh no password&#8221;
+if you configure ssh to use public/private key pairs (google “ssh no password”
 for more info on this).</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub.upload</span> <span class="kn">import</span> <span class="n">upload_track</span><span class="p">,</span> <span class="n">upload_hub</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.upload</span> <span class="k">import</span> <span class="n">upload_track</span><span class="p">,</span> <span class="n">upload_hub</span>
 <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">tracks</span><span class="p">:</span>
     <span class="n">upload_track</span><span class="p">(</span><span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
 <span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now you can paste the hub&#8217;s <code class="xref py py-attr docutils literal"><span class="pre">Hub.url</span></code> into the UCSC genome browser track
+<p>Now you can paste the hub’s <code class="xref py py-attr docutils literal"><span class="pre">Hub.url</span></code> into the UCSC genome browser track
 hub page to load your new hub.</p>
 <div class="section" id="group-related-tracks-into-an-aggregate-track">
 <h3>Group related tracks into an aggregate track<a class="headerlink" href="#group-related-tracks-into-an-aggregate-track" title="Permalink to this headline">¶</a></h3>
 <p>To group related tracks and view as a single track we utilize
 an aggregate:</p>
-<div class="highlight-python"><div class="highlight"><pre>AGGREGATE TRACK STANZA
-- Defines a group of tracks to vizualize as a single
-  track
-- defines top-level params
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">AGGREGATE</span> <span class="n">TRACK</span> <span class="n">STANZA</span>
+<span class="o">-</span> <span class="n">Defines</span> <span class="n">a</span> <span class="n">group</span> <span class="n">of</span> <span class="n">tracks</span> <span class="n">to</span> <span class="n">vizualize</span> <span class="k">as</span> <span class="n">a</span> <span class="n">single</span>
+  <span class="n">track</span>
+<span class="o">-</span> <span class="n">defines</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">params</span>
 
-    TRACK A STANZA
-    - Defines params for this track, including bigDataUrl
-    - Refers to aggregate as parent
+    <span class="n">TRACK</span> <span class="n">A</span> <span class="n">STANZA</span>
+    <span class="o">-</span> <span class="n">Defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">track</span><span class="p">,</span> <span class="n">including</span> <span class="n">bigDataUrl</span>
+    <span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">aggregate</span> <span class="k">as</span> <span class="n">parent</span>
 
-    TRACK B STANZA
-    - Defines params for this track, including bigDataUrl
-    - Refers to aggregate as parent
+    <span class="n">TRACK</span> <span class="n">B</span> <span class="n">STANZA</span>
+    <span class="o">-</span> <span class="n">Defines</span> <span class="n">params</span> <span class="k">for</span> <span class="n">this</span> <span class="n">track</span><span class="p">,</span> <span class="n">including</span> <span class="n">bigDataUrl</span>
+    <span class="o">-</span> <span class="n">Refers</span> <span class="n">to</span> <span class="n">aggregate</span> <span class="k">as</span> <span class="n">parent</span>
 </pre></div>
 </div>
 <p>Connections between aggregate tracks, and subtracks
-will be created in much the same way &#8211; for example,
+will be created in much the same way – for example,
 <code class="docutils literal"><span class="pre">aggregate.add_subtrack(subtrack)</span></code> to add the child <code class="docutils literal"><span class="pre">subtrack</span></code> to the parent <code class="docutils literal"><span class="pre">aggregate</span></code> track.</p>
 </div>
 <div class="section" id="creating-an-aggregate-track">
 <h3>Creating an aggregate track<a class="headerlink" href="#creating-an-aggregate-track" title="Permalink to this headline">¶</a></h3>
 <p>So lets create an aggregate:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">AggregateTrack</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">AggregateTrack</span>
 
 <span class="n">aggregate</span> <span class="o">=</span> <span class="n">AggregateTrack</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;aggregate&quot;</span><span class="p">,</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigWig 0 2000&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&quot;my aggregate&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&quot;An example aggregate&quot;</span><span class="p">,</span>
-    <span class="n">aggregate</span><span class="o">=</span><span class="s">&#39;transparentOverlay&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;aggregate&quot;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig 0 2000&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;my aggregate&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;An example aggregate&quot;</span><span class="p">,</span>
+    <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;transparentOverlay&#39;</span><span class="p">)</span>
 
-<span class="c">#make sure it looks OK</span>
-<span class="k">print</span> <span class="n">aggregate</span>
+<span class="c1">#make sure it looks OK</span>
+<span class="nb">print</span> <span class="n">aggregate</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track aggregate
+<div class="highlight-none"><div class="highlight"><pre><span></span>track aggregate
 shortLabel my aggregate
 longLabel An example aggregate
 type bigWig 0 2000
@@ -958,12 +957,12 @@ container multiWig
 <p>After the aggregate track has been created, we can incrementally add additional
 parameters.  This is same method can be used for all classes derived from
 <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">aggregate</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">showSubtrackColorOnUi</span><span class="o">=</span><span class="s">&#39;on&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aggregate</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">showSubtrackColorOnUi</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="n">aggregate</span>
+<span class="nb">print</span> <span class="n">aggregate</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track aggregate
+<div class="highlight-none"><div class="highlight"><pre><span></span>track aggregate
 shortLabel my aggregate
 longLabel An example aggregate
 type bigWig 0 2000
@@ -976,38 +975,38 @@ container multiWig
 add additional tracks, just like <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a>, <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a>.</p>
 <p>Create two new <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> instances and add them to the <code class="docutils literal"><span class="pre">aggregate</span></code>.
 Each instance represents a stanza in the <code class="docutils literal"><span class="pre">aggregate</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">Track</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">Track</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">URLBASE</span> <span class="o">=</span> <span class="s">&#39;http://example.com/mytrackhubs&#39;</span>
-<span class="n">GENOME</span> <span class="o">=</span> <span class="s">&#39;dm3&#39;</span>
+<span class="n">URLBASE</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/mytrackhubs&#39;</span>
+<span class="n">GENOME</span> <span class="o">=</span> <span class="s1">&#39;dm3&#39;</span>
 
 <span class="n">track1</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;track1Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s">&#39;track1.bigWig&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigWig 0 1400&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;track1&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;my track #1&#39;</span><span class="p">,</span>
-    <span class="c"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">&#39;120,235,204&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track1Track&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track1.bigWig&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig 0 1400&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track1&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #1&#39;</span><span class="p">,</span>
+    <span class="c1"># add other params here...</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;120,235,204&#39;</span><span class="p">)</span>
 
 <span class="n">track2</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&quot;track2Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s">&#39;track2.bigWig&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s">&#39;bigWig 0 1700&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s">&#39;track2&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s">&#39;my track #2&#39;</span><span class="p">,</span>
-    <span class="c"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">&#39;255,128,128&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track2Track&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track2.bigWig&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig 0 1700&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track2&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #2&#39;</span><span class="p">,</span>
+    <span class="c1"># add other params here...</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;255,128,128&#39;</span><span class="p">)</span>
 
 <span class="n">aggregate</span><span class="o">.</span><span class="n">add_subtrack</span><span class="p">(</span><span class="n">track1</span><span class="p">)</span>
 <span class="n">aggregate</span><span class="o">.</span><span class="n">add_subtrack</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
 
-<span class="c">#make sure it looks OK</span>
-<span class="k">print</span> <span class="n">aggregate</span>
+<span class="c1">#make sure it looks OK</span>
+<span class="nb">print</span> <span class="n">aggregate</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>track aggregate
+<div class="highlight-none"><div class="highlight"><pre><span></span>track aggregate
 shortLabel my aggregate
 longLabel An example aggregate
 type bigWig 0 2000
@@ -1034,7 +1033,7 @@ container multiWig
 </div>
 <p>The new <code class="docutils literal"><span class="pre">aggregate</span></code> track can be added to <code class="docutils literal"><span class="pre">trackDb.txt</span></code>
 like other track objects. To see how to connect the components,
-see <a class="reference internal" href="#connecting-the-components"><span>Connecting the components</span></a>.</p>
+see <a class="reference internal" href="#connecting-the-components"><span class="std std-ref">Connecting the components</span></a>.</p>
 </div>
 </div>
 </div>
@@ -1082,21 +1081,18 @@ see <a class="reference internal" href="#connecting-the-components"><span>Connec
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/tutorial.txt"
+      <li><a href="_sources/tutorial.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1115,12 +1111,12 @@ see <a class="reference internal" href="#connecting-the-components"><span>Connec
         <li class="right" >
           <a href="quickstart.html" title="Quickstart"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

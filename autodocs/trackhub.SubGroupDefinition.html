@@ -1,38 +1,46 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>trackhub.SubGroupDefinition &mdash; trackhub 0.1 documentation</title>
-    
+    <title>trackhub.SubGroupDefinition &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="../index.html" /> 
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.constants.Parameter" href="trackhub.constants.Parameter.html" />
+    <link rel="prev" title="trackhub.Track" href="trackhub.Track.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="trackhub.constants.Parameter.html" title="trackhub.constants.Parameter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.Track.html" title="trackhub.Track"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" accesskey="U">API documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -43,41 +51,43 @@
             
   <div class="section" id="trackhub-subgroupdefinition">
 <h1>trackhub.SubGroupDefinition<a class="headerlink" href="#trackhub-subgroupdefinition" title="Permalink to this headline">¶</a></h1>
-<p class="graphviz">
-<img src="../_images/inheritance-b242646cbc12c5a4d61c41c393ae8c8fd4e64178.png" alt="Inheritance diagram of SubGroupDefinition" class="inheritance"/>
-</p>
+digraph inheritance11992ac205 {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;trackhub.track.SubGroupDefinition&quot; [fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;];
+}
 <dl class="class">
 <dt id="trackhub.SubGroupDefinition">
 <em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">SubGroupDefinition</code><span class="sig-paren">(</span><em>name</em>, <em>label</em>, <em>mapping</em>, <em>default='none'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SubGroupDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.SubGroupDefinition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a subgroup line in a composite track.</p>
 <p>Instances of this class are provided to a composite track in order to
-define options for the subtracks&#8217; groups.</p>
+define options for the subtracks’ groups.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> &#8211; String; name for the subgroup (e.g., &#8220;celltype&#8221;).</li>
-<li><strong>label</strong> &#8211; String; the label that will be displayed (e.g., &#8220;Cell_Type&#8221;)</li>
-<li><strong>mapping</strong> &#8211; <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
+<li><strong>name</strong> – String; name for the subgroup (e.g., “celltype”).</li>
+<li><strong>label</strong> – String; the label that will be displayed (e.g., “Cell_Type”)</li>
+<li><strong>mapping</strong> – <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
 access this group and <cite>title</cite> is how it will be displayed in the
 browser, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;ES&quot;</span><span class="p">:</span> <span class="s">&quot;Embryonic stem cell&quot;</span><span class="p">,</span>
- <span class="s">&quot;MEF&quot;</span><span class="p">:</span> <span class="s">&quot;Mouse embryonic fibroblast&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;ES&quot;</span><span class="p">:</span> <span class="s2">&quot;Embryonic stem cell&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;MEF&quot;</span><span class="p">:</span> <span class="s2">&quot;Mouse embryonic fibroblast&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Upon appending this SubGroupDefinition to a composite track, the
-options for the subtracks&#8217; subgroups are required to come from the
-keys in the mapping.  Continuing the example, &#8220;celltype=ES&#8221; would
-be a valid subgroup for a subtrack, but &#8220;celltype=other&#8221; would not
-since it&#8217;s not in the mapping dict above.</p>
+options for the subtracks’ subgroups are required to come from the
+keys in the mapping.  Continuing the example, “celltype=ES” would
+be a valid subgroup for a subtrack, but “celltype=other” would not
+since it’s not in the mapping dict above.</p>
 </li>
-<li><strong>default</strong> &#8211; String; value to be used by subtracks if they don&#8217;t explicitly
-define this subgroup. Continuing the example, if a subtrack didn&#8217;t
-specify the &#8220;celltype&#8221; subgroup, then by default a &#8220;celltype=none&#8221;
+<li><strong>default</strong> – String; value to be used by subtracks if they don’t explicitly
+define this subgroup. Continuing the example, if a subtrack didn’t
+specify the “celltype” subgroup, then by default a “celltype=none”
 value will be added.  This is necessary because subtracks must
 define a value for all groups.</li>
 </ul>
@@ -92,6 +102,9 @@ define a value for all groups.</li>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#trackhub.SubGroupDefinition.__init__" title="trackhub.SubGroupDefinition.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(name,&nbsp;label,&nbsp;mapping[,&nbsp;default])</td>
+<td>Represents a subgroup line in a composite track.</td>
+</tr>
 </tbody>
 </table>
 <dl class="method">
@@ -99,32 +112,32 @@ define a value for all groups.</li>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>label</em>, <em>mapping</em>, <em>default='none'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SubGroupDefinition.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.SubGroupDefinition.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a subgroup line in a composite track.</p>
 <p>Instances of this class are provided to a composite track in order to
-define options for the subtracks&#8217; groups.</p>
+define options for the subtracks’ groups.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> &#8211; String; name for the subgroup (e.g., &#8220;celltype&#8221;).</li>
-<li><strong>label</strong> &#8211; String; the label that will be displayed (e.g., &#8220;Cell_Type&#8221;)</li>
-<li><strong>mapping</strong> &#8211; <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
+<li><strong>name</strong> – String; name for the subgroup (e.g., “celltype”).</li>
+<li><strong>label</strong> – String; the label that will be displayed (e.g., “Cell_Type”)</li>
+<li><strong>mapping</strong> – <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
 access this group and <cite>title</cite> is how it will be displayed in the
 browser, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;ES&quot;</span><span class="p">:</span> <span class="s">&quot;Embryonic stem cell&quot;</span><span class="p">,</span>
- <span class="s">&quot;MEF&quot;</span><span class="p">:</span> <span class="s">&quot;Mouse embryonic fibroblast&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;ES&quot;</span><span class="p">:</span> <span class="s2">&quot;Embryonic stem cell&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;MEF&quot;</span><span class="p">:</span> <span class="s2">&quot;Mouse embryonic fibroblast&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Upon appending this SubGroupDefinition to a composite track, the
-options for the subtracks&#8217; subgroups are required to come from the
-keys in the mapping.  Continuing the example, &#8220;celltype=ES&#8221; would
-be a valid subgroup for a subtrack, but &#8220;celltype=other&#8221; would not
-since it&#8217;s not in the mapping dict above.</p>
+options for the subtracks’ subgroups are required to come from the
+keys in the mapping.  Continuing the example, “celltype=ES” would
+be a valid subgroup for a subtrack, but “celltype=other” would not
+since it’s not in the mapping dict above.</p>
 </li>
-<li><strong>default</strong> &#8211; String; value to be used by subtracks if they don&#8217;t explicitly
-define this subgroup. Continuing the example, if a subtrack didn&#8217;t
-specify the &#8220;celltype&#8221; subgroup, then by default a &#8220;celltype=none&#8221;
+<li><strong>default</strong> – String; value to be used by subtracks if they don’t explicitly
+define this subgroup. Continuing the example, if a subtrack didn’t
+specify the “celltype” subgroup, then by default a “celltype=none”
 value will be added.  This is necessary because subtracks must
 define a value for all groups.</li>
 </ul>
@@ -144,24 +157,27 @@ define a value for all groups.</li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="trackhub.Track.html"
+                        title="previous chapter">trackhub.Track</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="trackhub.constants.Parameter.html"
+                        title="next chapter">trackhub.constants.Parameter</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/autodocs/trackhub.SubGroupDefinition.txt"
+      <li><a href="../_sources/autodocs/trackhub.SubGroupDefinition.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -174,12 +190,19 @@ define a value for all groups.</li>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="trackhub.constants.Parameter.html" title="trackhub.constants.Parameter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="trackhub.Track.html" title="trackhub.Track"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">trackhub 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../autodocs.html" >API documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

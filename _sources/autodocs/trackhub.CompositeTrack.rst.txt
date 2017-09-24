@@ -1,0 +1,33 @@
+trackhub.CompositeTrack
+=======================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: CompositeTrack
+
+.. autoclass:: CompositeTrack
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~CompositeTrack.__init__
+        ~CompositeTrack.add_child
+        ~CompositeTrack.add_params
+        ~CompositeTrack.add_parent
+        ~CompositeTrack.add_subgroups
+        ~CompositeTrack.add_subtrack
+        ~CompositeTrack.add_trackdb
+        ~CompositeTrack.add_view
+        ~CompositeTrack.leaves
+        ~CompositeTrack.makedirs
+        ~CompositeTrack.remove_params
+        ~CompositeTrack.render
+        ~CompositeTrack.root
+        ~CompositeTrack.validate
+    
+    .. automethod:: __init__ 

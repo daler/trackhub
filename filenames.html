@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Filenames &mdash; trackhub 0.1 documentation</title>
-    
+    <title>Filenames &#8212; trackhub 0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API documentation" href="autodocs.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -85,8 +84,8 @@ the behavior:</p>
 <li>If you manually specify a filename, that filename takes priority for that
 object.</li>
 <li><strong>Reset</strong> the default behavior by setting the attribute back to <cite>None</cite></li>
-<li>If a child component&#8217;s filename has been reset but the parent&#8217;s has not, the
-child component will have a sensible default that reflect the parent&#8217;s
+<li>If a child component’s filename has been reset but the parent’s has not, the
+child component will have a sensible default that reflect the parent’s
 filename (see tables below).</li>
 <li>Hub components that do not refer to filenames do not have a <code class="xref py py-attr docutils literal"><span class="pre">local_fn</span></code>
 or <code class="xref py py-attr docutils literal"><span class="pre">remote_fn</span></code> attribute.</li>
@@ -99,8 +98,8 @@ or <code class="xref py py-attr docutils literal"><span class="pre">remote_fn</s
 sensible defaults:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The &#8220;example&#8221; columns are a sort of running example across tables, where
-the hub&#8217;s local_dir and remote_dir have been set to custom locations but
+<p class="last">The “example” columns are a sort of running example across tables, where
+the hub’s local_dir and remote_dir have been set to custom locations but
 everything else uses the default behavior.</p>
 </div>
 <table border="1" class="docutils">
@@ -126,7 +125,7 @@ everything else uses the default behavior.</p>
 </tr>
 </tbody>
 </table>
-<p>For more control over the hub&#8217;s filename, set the attributes directly:</p>
+<p>For more control over the hub’s filename, set the attributes directly:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="18%" />
@@ -173,9 +172,9 @@ everything else uses the default behavior.</p>
 </div>
 <div class="section" id="genomefile-default-filenames">
 <h3>GenomeFile default filenames<a class="headerlink" href="#genomefile-default-filenames" title="Permalink to this headline">¶</a></h3>
-<p>The defaults for <code class="xref py py-class docutils literal"><span class="pre">GenomeFile</span></code> objects use the parent <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>&#8216;s
+<p>The defaults for <code class="xref py py-class docutils literal"><span class="pre">GenomeFile</span></code> objects use the parent <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>’s
 configured values.  If there is no parent <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>, then the value is None.
-For the &#8220;Default value&#8221; column below, assume that <code class="file docutils literal"><span class="pre">Hub</span></code> is the parent
+For the “Default value” column below, assume that <code class="file docutils literal"><span class="pre">Hub</span></code> is the parent
 hub.  The examples assume the example hub values in the above table.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -204,10 +203,10 @@ hub.  The examples assume the example hub values in the above table.</p>
 <div class="section" id="trackdb-default-filenames">
 <h3>TrackDb default filenames<a class="headerlink" href="#trackdb-default-filenames" title="Permalink to this headline">¶</a></h3>
 <p>Recall that each <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> has a parent <a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a>, which has a
-<code class="xref py py-attr docutils literal"><span class="pre">Genome.genome</span></code> attribute defining the assembly name.  In the &#8220;Default
-value&#8221; column, assume that <code class="file docutils literal"><span class="pre">Genome</span></code> is the parent genome, and
+<code class="xref py py-attr docutils literal"><span class="pre">Genome.genome</span></code> attribute defining the assembly name.  In the “Default
+value” column, assume that <code class="file docutils literal"><span class="pre">Genome</span></code> is the parent genome, and
 <code class="file docutils literal"><span class="pre">GenomesFile</span></code> is the parent genomes file (with values configured as in
-the &#8220;example&#8221; column above).</p>
+the “example” column above).</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="22%" />
@@ -236,12 +235,12 @@ the &#8220;example&#8221; column above).</p>
 <h3>Track default filenames<a class="headerlink" href="#track-default-filenames" title="Permalink to this headline">¶</a></h3>
 <p>Recall that <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects have a parent <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object;
 assume that <code class="file docutils literal"><span class="pre">TrackDb</span></code> is the parent TrackDb object (with values
-configured as in the &#8220;example&#8221; column above).</p>
+configured as in the “example” column above).</p>
 <p><a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> objects that are children of <a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-class docutils literal"><span class="pre">ViewTrack</span></code></a> and/or
 <a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> objects still have a parent <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object,
 which is used for configuring the defaults below.</p>
 <p>Since the most meaningful part of a track hub is the data it contains, no
-effort is made to assume what local filename you&#8217;d like to point each
+effort is made to assume what local filename you’d like to point each
 <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> to.  However, the remote and URLs try to use sensible defaults.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -280,20 +279,20 @@ will be displayed on the bottom of the configuration page.</p>
 The following will trigger, at render time, the creation of an HTML file whose
 contents will be automatically shown at the bottom of the track configuration
 page:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">composite_track</span><span class="o">.</span><span class="n">html_string</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">&lt;h2&gt;Description&lt;/h2&gt;</span>
-<span class="s">&lt;p&gt;This track shows...it was created by...&lt;/p&gt;</span>
-<span class="s">&quot;&quot;&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">composite_track</span><span class="o">.</span><span class="n">html_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;h2&gt;Description&lt;/h2&gt;</span>
+<span class="s2">&lt;p&gt;This track shows...it was created by...&lt;/p&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
 <p>While the docs at
 <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html#commonSettings">http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html#commonSettings</a>
 say that an <cite>html</cite> parameter is needed if you want to supply documentation, it
-turns out you don&#8217;t need this if there is a <code class="file docutils literal"><span class="pre">&lt;trackname&gt;.html</span></code> file in
+turns out you don’t need this if there is a <code class="file docutils literal"><span class="pre">&lt;trackname&gt;.html</span></code> file in
 the same directory as the <cite>trackDb.txt</cite>.</p>
-<p>HTML files are created at render time.  If you don&#8217;t want to use any of this
+<p>HTML files are created at render time.  If you don’t want to use any of this
 automatic filename handling, simply write your own HTML file, upload it
-wherever you&#8217;d like, and manually specify the <cite>html</cite> kwarg to point to that
+wherever you’d like, and manually specify the <cite>html</cite> kwarg to point to that
 file (relative to <cite>trackDb.txt</cite>) when creating a track.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -353,21 +352,18 @@ file (relative to <cite>trackDb.txt</cite>) when creating a track.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/filenames.txt"
+      <li><a href="_sources/filenames.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -386,12 +382,12 @@ file (relative to <cite>trackDb.txt</cite>) when creating a track.</p>
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
