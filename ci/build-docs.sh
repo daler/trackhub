@@ -31,15 +31,7 @@ DOCHTML=${HERE}/../doc/build/html
 # tmpdir to which built docs will be copied
 STAGING=/tmp/${GITHUB_USERNAME}-docs
 
-# The public key should have been added to the repo's settings in github; the
-# private key should have been encrypted using `travis encrypt-file` and the
-# encrypted version committed to the repo under $ENCRYPTED_FILE.
-#
-# ENCRYPTION_LABEL is from .travis.yml, and should have been edited to match
-# the hash value reported by `travis encrypt-file`.
-#
-# See https://gist.github.com/domenic/ec8b0fc8ab45f39403dd for details
-ENCRYPTED_FILE=${HERE}/ci/key.enc
+ENCRYPTED_FILE=${HERE}/ci/docs-key.enc
 
 # Build docs only if travis-ci is testing this branch:
 BUILD_DOCS_FROM_BRANCH="master"
@@ -99,8 +91,8 @@ if [[ $TRAVIS_REPO_SLUG != "daler/trackhub" ]]; then
 fi
 
 # Decrypt and ssh-add key.
-ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
+ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_key"
+ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL_DOCS}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in $ENCRYPTED_FILE -out key -d
