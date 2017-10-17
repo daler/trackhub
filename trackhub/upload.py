@@ -142,11 +142,11 @@ def stage(x, staging):
 
     linknames.append(x.render(staging))
 
-    if hasattr(x, 'remote_fn') and hasattr(x, 'local_fn'):
+    if hasattr(x, 'source') and hasattr(x, 'filename'):
 
         def _stg(x, ext=''):
             linknames.append(
-                local_link(x.local_fn + ext, x.remote_fn + ext, staging)
+                local_link(x.source + ext, x.filename + ext, staging)
             )
 
         _stg(x)
@@ -174,6 +174,7 @@ def stage_hub(hub, staging=None):
         staging = tempfile.mkdtemp()
     for obj, level in hub.leaves(base.HubComponent, intermediate=True):
         linknames.extend(stage(obj, staging))
+
     return staging, linknames
 
 
