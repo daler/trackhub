@@ -77,7 +77,7 @@ def sanitize(s, strict=True):
     if not strict:
         allowed += '-_.'
 
-    s = s.replace(' ', '_')
+    s = str(s).replace(' ', '_')
 
     return ''.join([i for i in s if i in allowed])
 
