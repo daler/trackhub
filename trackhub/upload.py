@@ -143,8 +143,13 @@ def stage(x, staging):
     linknames.append(x.render(staging))
 
     if hasattr(x, 'source') and hasattr(x, 'filename'):
-
         def _stg(x, ext=''):
+            if (
+                x.source is None
+                and x.filename is None
+                and getattr(x, 'url', None) is not None
+            ):
+                return
             linknames.append(
                 local_link(x.source + ext, x.filename + ext, staging)
             )

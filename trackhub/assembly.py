@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import os
 from collections import OrderedDict
 from .validate import ValidationError
-from .base import HubComponent
+from .base import HubComponent, deprecation_handler
 from .genome import Genome
 from .genomes_file import GenomesFile
 from .groups import GroupsFile
@@ -13,7 +13,8 @@ from .track import HTMLDoc
 
 
 class TwoBitFile(HubComponent):
-    def __init__(self, source, filename=None, assembly_obj=None):
+    def __init__(self, source, filename=None, assembly_obj=None, **kwargs):
+        source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
         self.source = source
         self._filename = filename

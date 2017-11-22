@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import os
 import re
 from collections import OrderedDict
-from .base import HubComponent
+from .base import HubComponent, deprecation_handler
 from . import hub
 from . import trackdb
 from . import constants
@@ -122,6 +122,7 @@ class BaseTrack(HubComponent):
         :param filename:
             String; path to upload the file to, over rsync and ssh.
         """
+        source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
         _check_name(name)
         self.name = name
@@ -184,11 +185,16 @@ class BaseTrack(HubComponent):
         # If filename hasn't been assigned then make one automatically based
         # on the track name and the trackhub's filename (which, by the way,
         # acts similarly, deferring up to the genomes_file.filename . . . and
-        # so on up to the hub's filename)
+        # so on up to the hub's filename).
+        #
+        # However, if source is None and URL is set, then this is an
+        # already-existing remote file and so should not have a filename.
         if self.trackdb:
-                return os.path.join(
-                    os.path.dirname(self.trackdb.filename),
-                    self.name + '.' + self.tracktype.split(' ')[0])
+            if self.source is None and self._url is not None:
+                return None
+            return os.path.join(
+                os.path.dirname(self.trackdb.filename),
+                self.name + '.' + self.tracktype.split(' ')[0])
         return None
 
     @filename.setter
