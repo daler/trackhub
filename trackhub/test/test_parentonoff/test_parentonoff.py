@@ -1,6 +1,7 @@
 import trackhub
 import os
 
+HERE = os.path.abspath(os.path.dirname(__file__))
 
 def test_parentonoff():
 
@@ -71,5 +72,5 @@ def test_parentonoff():
 
     assert(
         open(os.path.join(tmpdir, 'hg19/trackDb.txt')).read() ==
-        open('trackhub/test/test_parentonoff/expected/hg19/trackDb.txt').read()
+        open(os.path.join(HERE, 'expected/hg19/trackDb.txt')).read()
     )
