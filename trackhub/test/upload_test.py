@@ -31,6 +31,12 @@ class TestUpload(object):
                 tracktype='bigWig',
                 source=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
             ),
+            Track(
+                name='track3',
+                tracktype='bigWig',
+                source=os.path.join(d, 'sine-no1-100.bedgraph.bw'),
+                filename='3.bw',
+            )
         ]
         self.hub.add_genomes_file(self.genomes_file)
         self.genomes_file.add_genome(self.genome)
@@ -58,6 +64,7 @@ class TestUpload(object):
     #@unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
     def test_upload(self):
         d = tempfile.mkdtemp()
+        print(d)
         upload.upload_hub(
             hub=self.hub,
             remote_dir=d,
@@ -70,3 +77,4 @@ class TestUpload(object):
         # make sure some of the trackdb rendered correctly
         assert 'track track1' in trackdb
         assert 'bigDataUrl track1.bigBed' in trackdb
+        assert 'bigDataUrl ../3.bw' in trackdb
