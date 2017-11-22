@@ -7,24 +7,24 @@ from collections import OrderedDict
 
 def deprecation_handler(source, filename, kwargs):
     if 'local_fn' in kwargs:
-        warning.warn(
+        warnings.warn(
             'Please use the argument "source" instead of "local_fn"',
             DeprecationWarning)
         if source is not None:
             raise ValueError(
                 'Both "source" and "local_fn" are specified. Please use '
                 'just "source"')
-        source = kwargs['local_fn']
+        source = kwargs.pop('local_fn')
 
     if 'remote_fn' in kwargs:
-        warning.warn(
+        warnings.warn(
             'Please use the argument "source" instead of "remote_fn"',
             DeprecationWarning)
         if filename is not None:
             raise ValueError(
                 'Both "filename" and "remote_fn" are specified. Please use '
                 'just "filename"')
-        filename = kwargs['remote_fn']
+        filename = kwargs.pop('remote_fn')
     return source, filename
 
 class HubComponent(object):
