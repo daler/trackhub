@@ -26,6 +26,16 @@ def filter_composite_from_subgroups(s):
     """
     Given a sorted list of subgroups, return a string appropriate to provide as
     the a composite track's `filterComposite` argument
+
+    >>> filter_composite_from_subgroups(['cell', 'ab', 'lab', 'knockdown'])
+    'dimA dimB'
+
+    Parameters
+    ----------
+    s : list
+        A list representing the ordered subgroups, ideally the same list
+        provided to `dimensions_from_subgroups`. The values are not actually
+        used, just the number of items.
     """
     dims = []
     for letter, sg in zip('ABCDEFGHIJKLMNOPQRSTUVWZ', s[2:]):
@@ -37,6 +47,11 @@ def filter_composite_from_subgroups(s):
 def hex2rgb(h):
     """
     Convert hex colors to RGB tuples
+
+    Parameters
+    ----------
+    h : str
+        String hex color value
 
     >>> hex2rgb("#ff0033")
     '255,0,51'

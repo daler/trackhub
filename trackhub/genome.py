@@ -11,6 +11,18 @@ class Genome(HubComponent):
         Represents a 2-line genome stanza within a "genomes.txt" file.
 
         The file itself is represented by a :class:`GenomesFile` object.
+
+        Parameters
+        ----------
+
+        genome : str
+            One of the UCSC-supported assembly names (e.g., "hg38")
+
+        trackdb : TrackDb object
+            If not None, this object will be attached as the child track db
+
+        genome_file : GenomesFile object
+            If not None, this object will be attached as the parent GenomesFile
         """
         HubComponent.__init__(self)
         self.genome = genome

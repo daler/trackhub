@@ -15,16 +15,19 @@ class GroupDefinition(object):
 
         Instances of this class are provided to an assembly.
 
-        :param name:
-            String; name for the group (e.g., "map").
+        Parameters
+        ----------
 
-        :param label:
-            String; the label that will be displayed (e.g., "Mapping")
+        name : str
+            Name for the group (e.g., "map").
 
-        :param priority:
+        label : str
+            The label that will be displayed (e.g., "Mapping")
+
+        priority : int
             Orders this track group with the other track groups
 
-        :param default_is_closed:
+        default_is_closed : 0 | 1
             Determines if this track group is expanded or closed by default. Values to use are 0 or 1
         """
         self.name = str(name)
@@ -49,6 +52,18 @@ class GroupDefinition(object):
 
 class GroupsFile(HubComponent):
     def __init__(self, groups, filename=None):
+        """
+        Represents the groups file on disk, used for assembly hubs.
+
+        Parameters
+        ----------
+        groups : list
+            List of GroupDefinition objects
+
+        filename : str
+            Filename to use, relative to the top-level hub. If None, default is
+            to use "<genome>/groups.txt"
+        """
         HubComponent.__init__(self)
         self.groups = []
         self.add_groups(groups)
@@ -58,7 +73,9 @@ class GroupsFile(HubComponent):
         """
         Add a list of GroupDefinition objects.
 
-        :param groups:
+        Parameters
+        ----------
+        groups : list
             List of GroupDefinition objects.
         """
         self.groups.extend(groups)

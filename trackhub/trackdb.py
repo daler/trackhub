@@ -13,6 +13,13 @@ class TrackDb(HubComponent):
         """
         Represents the file containing one or more Track objects (which each
         represent a stanza).
+
+        tracks : list
+            If provided, these tracks will be added
+
+        filename : str
+            Path to trackdb, relative to top-level hub. If None, default is to
+            use "<genome>/trackDb.txt"
         """
         HubComponent.__init__(self)
 
@@ -70,7 +77,10 @@ class TrackDb(HubComponent):
         """
         Add a track or iterable of tracks.
 
-        :param track:
+        Parameters
+        ----------
+
+        track : iterable or Track
             Iterable of :class:`Track` objects, or a single :class:`Track`
             object.
         """

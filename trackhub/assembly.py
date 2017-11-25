@@ -84,6 +84,14 @@ class Assembly(Genome):
         Represents a genome stanza within a "genomes.txt" file for a non-UCSC genome.
 
         The file itself is represented by a :class:`GenomesFile` object.
+
+        Parameters
+        ----------
+        genome : str
+            The genome assembly name to use for this assembly
+
+        twobit_file : str
+            Local path to 2bit file.
         """
         Genome.__init__(self, genome, trackdb=trackdb, genome_file_obj=genome_file_obj)
 

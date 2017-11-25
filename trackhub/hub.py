@@ -14,9 +14,36 @@ class Hub(HubComponent):
                  url=None, filename=None):
         """
         Represents a top-level track hub container.
+
+        hub : str
+            Top-level name of the hub.
+
+        short_label : str
+            Short label for the hub, alias for UCSC parameter shortLabel.
+
+        long_label : str
+            Long label for the hub, alias for UCSC parameter longLabel. If
+            None, will copy `short_label`.
+
+        genomes_file : GenomesFile
+            If you already have a GenomesFile created, you can add it here;
+            otherwise when one is created you'll have to add one later with the
+            `add_genomes_file` method.
+
+        email : str
+            Email that will be provided in the hub for contact info
+
+        url : str
+            Deprecated.
+
+        filename : str
+            If None, defaults to the value of `hub` plus ".hub.txt". When
+            uploaded, the filename is relative to the uploaded location.
         """
         HubComponent.__init__(self)
-        self.url = url
+        if url is not None:
+            self.url = url
+            warnings.DeprecationWarning('url is no longer used for Hub objects')
         self.hub = hub
         if not short_label:
             short_label = hub

@@ -30,13 +30,16 @@ class SubGroupDefinition(object):
         Instances of this class are provided to a composite track in order to
         define options for the subtracks' groups.
 
-        :param name:
-            String; name for the subgroup (e.g., "celltype").
+        Parameters
+        ----------
 
-        :param label:
-            String; the label that will be displayed (e.g., "Cell_Type")
+        name : str
+            Name for the subgroup (e.g., "celltype").
 
-        :param mapping:
+        label : str
+            The label that will be displayed (e.g., "Cell_Type")
+
+        mapping : dict
             Dictionary of {tag: title}, where `tag` will be how subtracks
             access this group and `title` is how it will be displayed in the
             browser, e.g.::
@@ -52,12 +55,12 @@ class SubGroupDefinition(object):
             be a valid subgroup for a subtrack, but "celltype=other" would not
             since it's not in the mapping dict above.
 
-        :param default:
-            String; value to be used by subtracks if they don't explicitly
-            define this subgroup. Continuing the example, if a subtrack didn't
-            specify the "celltype" subgroup, then by default a "celltype=none"
-            value will be added.  This is necessary because subtracks must
-            define a value for all groups.
+        default : str
+            Value to be used by subtracks if they don't explicitly define this
+            subgroup. Continuing the example, if a subtrack didn't specify the
+            "celltype" subgroup, then by default a "celltype=none" value will
+            be added.  This is necessary because subtracks must define a value
+            for all groups.
         """
         self.name = name
         self.label = label
@@ -92,23 +95,34 @@ class BaseTrack(HubComponent):
         """
         Represents a single track stanza.
 
-        :param name: String; name of the track
+        Parameters
+        ----------
 
-        :param tracktype: String; type of the track (e.g., "bam")
+        name : str
+            Name of the track
 
-        :param url: String; full URL for the track (i.e., bigDataUrl)
+        tracktype : str
+            Type of the track (e.g., "bam"). The UCSC parameter name is "type"
+            which is a reserved Python keyword, hence using "tracktype" here.
 
-        :param short_label: String; used for the left-hand side track label
+        url : str
+            Full URL for the track (i.e., bigDataUrl). Typically this is only
+            used when using a remote track from some other provider or when you
+            need lots of control over the URL. Otherwise the url will be
+            automatically created based on `filename`.
 
-        :param long_label:
-            String; used for the longer middle labels; if None will copy
-            short_label
+        short_label : str
+            Used for the left-hand side track label; alias for UCSC parameter
+            "shortLabel"
 
-        :param parentonoff:
-            String; used to determine individual track status on or off
+        long_label : str
+            Used for the longer middle labels; if None will copy
+            short_label. Alias for UCSC parameter "longLabel".
 
-        :param subgroups:
+        parentonoff : 'on' | 'off'
+            Used to determine individual track status on or off
 
+        subgroups : dict
             A dictionary of `{name: tag}` where each `name` is the name of
             a SubGroupDefinition in a parent :class:`CompositeTrack` and each
             `tag` is a key in the SubGroupDefinition.mapping dictionary.  They
@@ -116,11 +130,14 @@ class BaseTrack(HubComponent):
 
                 subGroups view=aln celltype=ES
 
-        :param source:
-            String; Local path to the file (used for uploading)
+        source : str or None
+            Local path to the file (used for uploading). If None, then we
+            assume an already-existing filename specifed by the `url` argument.
 
-        :param filename:
-            String; path to upload the file to, over rsync and ssh.
+        filename : str or None
+            Path to upload the file to, over rsync and ssh, relative to the hub
+            directory. If None, will use a filename of "name.tracktype" in the
+            same directory as the TrackDb.
         """
         source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
@@ -265,11 +282,14 @@ class BaseTrack(HubComponent):
         """
         Update the subgroups for this track.
 
-        :param subgroups:
+        Parameters
+        ----------
+
+        subgroups : dict
             Dictionary of subgroups, e.g., {'celltype': 'K562', 'treatment':
-                'a'}.  Each key must match a SubGroupDefinition name in the
-                composite's subgroups list.  Each value must match a key in
-                that SubGroupDefinition.mapping dictionary.
+            'a'}.  Each key must match a SubGroupDefinition name in the
+            composite's subgroups list.  Each value must match a key in that
+            SubGroupDefinition.mapping dictionary.
         """
         if subgroups is None:
             subgroups = {}
@@ -309,6 +329,7 @@ class BaseTrack(HubComponent):
                 "Unhandled keyword arguments: %s" % self.kwargs)
 
         self.kwargs = self._orig_kwargs.copy()
+
         return '\n'.join(s)
 
     def _render(self, staging='staging'):
@@ -494,7 +515,7 @@ class ViewTrack(BaseTrack):
         """
         Add tracks to this view.
 
-        :param subtracks:
+        subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
         if isinstance(subtracks, Track):

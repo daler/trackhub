@@ -10,6 +10,16 @@ class GenomesFile(HubComponent):
         """
         Represents the genomes file on disk.  Can contain multiple `Genome`
         objects, each of which represent a stanza in this file.
+
+        Parameters
+        ----------
+
+        genome : list
+            List of Genome objects
+
+        filename : str
+            Filename relative to the hub file. If None, defaults to
+            "<hubname>.genomes.txt"
         """
         HubComponent.__init__(self)
         self.filename = filename
@@ -18,7 +28,6 @@ class GenomesFile(HubComponent):
             genome = []
         for genome in genome:
             self.add_genome(genome)
-
 
         self._filename = filename
 
