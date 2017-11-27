@@ -63,6 +63,26 @@ size=&quot;8.0, 12.0&quot;;
 <em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Hub</code><span class="sig-paren">(</span><em>hub</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>genomes_file=None</em>, <em>genomes_filename=None</em>, <em>email=''</em>, <em>url=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents a top-level track hub container.</p>
+<dl class="docutils">
+<dt>hub <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Top-level name of the hub.</dd>
+<dt>short_label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Short label for the hub, alias for UCSC parameter shortLabel.</dd>
+<dt>long_label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Long label for the hub, alias for UCSC parameter longLabel. If
+None, will copy <cite>short_label</cite>.</dd>
+<dt>genomes_file <span class="classifier-delimiter">:</span> <span class="classifier">GenomesFile</span></dt>
+<dd>If you already have a GenomesFile created, you can add it here;
+otherwise when one is created you’ll have to add one later with the
+<cite>add_genomes_file</cite> method.</dd>
+<dt>email <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Email that will be provided in the hub for contact info</dd>
+<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Deprecated.</dd>
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>If None, defaults to the value of <cite>hub</cite> plus “.hub.txt”. When
+uploaded, the filename is relative to the uploaded location.</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -103,6 +123,26 @@ size=&quot;8.0, 12.0&quot;;
 <dt id="trackhub.Hub.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>hub</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>genomes_file=None</em>, <em>genomes_filename=None</em>, <em>email=''</em>, <em>url=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a top-level track hub container.</p>
+<dl class="docutils">
+<dt>hub <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Top-level name of the hub.</dd>
+<dt>short_label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Short label for the hub, alias for UCSC parameter shortLabel.</dd>
+<dt>long_label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Long label for the hub, alias for UCSC parameter longLabel. If
+None, will copy <cite>short_label</cite>.</dd>
+<dt>genomes_file <span class="classifier-delimiter">:</span> <span class="classifier">GenomesFile</span></dt>
+<dd>If you already have a GenomesFile created, you can add it here;
+otherwise when one is created you’ll have to add one later with the
+<cite>add_genomes_file</cite> method.</dd>
+<dt>email <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Email that will be provided in the hub for contact info</dd>
+<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Deprecated.</dd>
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>If None, defaults to the value of <cite>hub</cite> plus “.hub.txt”. When
+uploaded, the filename is relative to the uploaded location.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -205,7 +245,7 @@ a a Hub object for every component in the hierarchy.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

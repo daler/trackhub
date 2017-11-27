@@ -63,14 +63,13 @@ size=&quot;8.0, 12.0&quot;;
 <p>Represents a subgroup line in a composite track.</p>
 <p>Instances of this class are provided to a composite track in order to
 define options for the subtracks’ groups.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – String; name for the subgroup (e.g., “celltype”).</li>
-<li><strong>label</strong> – String; the label that will be displayed (e.g., “Cell_Type”)</li>
-<li><strong>mapping</strong> – <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
+<dl class="docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Name for the subgroup (e.g., “celltype”).</dd>
+<dt>label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The label that will be displayed (e.g., “Cell_Type”)</dd>
+<dt>mapping <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first">Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
 access this group and <cite>title</cite> is how it will be displayed in the
 browser, e.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -79,22 +78,19 @@ browser, e.g.:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Upon appending this SubGroupDefinition to a composite track, the
+<p class="last">Upon appending this SubGroupDefinition to a composite track, the
 options for the subtracks’ subgroups are required to come from the
 keys in the mapping.  Continuing the example, “celltype=ES” would
 be a valid subgroup for a subtrack, but “celltype=other” would not
 since it’s not in the mapping dict above.</p>
-</li>
-<li><strong>default</strong> – String; value to be used by subtracks if they don’t explicitly
-define this subgroup. Continuing the example, if a subtrack didn’t
-specify the “celltype” subgroup, then by default a “celltype=none”
-value will be added.  This is necessary because subtracks must
-define a value for all groups.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt>default <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Value to be used by subtracks if they don’t explicitly define this
+subgroup. Continuing the example, if a subtrack didn’t specify the
+“celltype” subgroup, then by default a “celltype=none” value will
+be added.  This is necessary because subtracks must define a value
+for all groups.</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -113,14 +109,13 @@ define a value for all groups.</li>
 <dd><p>Represents a subgroup line in a composite track.</p>
 <p>Instances of this class are provided to a composite track in order to
 define options for the subtracks’ groups.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – String; name for the subgroup (e.g., “celltype”).</li>
-<li><strong>label</strong> – String; the label that will be displayed (e.g., “Cell_Type”)</li>
-<li><strong>mapping</strong> – <p>Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
+<dl class="docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Name for the subgroup (e.g., “celltype”).</dd>
+<dt>label <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The label that will be displayed (e.g., “Cell_Type”)</dd>
+<dt>mapping <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd><p class="first">Dictionary of {tag: title}, where <cite>tag</cite> will be how subtracks
 access this group and <cite>title</cite> is how it will be displayed in the
 browser, e.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -129,22 +124,19 @@ browser, e.g.:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Upon appending this SubGroupDefinition to a composite track, the
+<p class="last">Upon appending this SubGroupDefinition to a composite track, the
 options for the subtracks’ subgroups are required to come from the
 keys in the mapping.  Continuing the example, “celltype=ES” would
 be a valid subgroup for a subtrack, but “celltype=other” would not
 since it’s not in the mapping dict above.</p>
-</li>
-<li><strong>default</strong> – String; value to be used by subtracks if they don’t explicitly
-define this subgroup. Continuing the example, if a subtrack didn’t
-specify the “celltype” subgroup, then by default a “celltype=none”
-value will be added.  This is necessary because subtracks must
-define a value for all groups.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt>default <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Value to be used by subtracks if they don’t explicitly define this
+subgroup. Continuing the example, if a subtrack didn’t specify the
+“celltype” subgroup, then by default a “celltype=none” value will
+be added.  This is necessary because subtracks must define a value
+for all groups.</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -202,7 +194,7 @@ define a value for all groups.</li>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

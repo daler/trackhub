@@ -64,6 +64,13 @@ size=&quot;8.0, 12.0&quot;;
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents the genomes file on disk.  Can contain multiple <cite>Genome</cite>
 objects, each of which represent a stanza in this file.</p>
+<dl class="docutils">
+<dt>genome <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd>List of Genome objects</dd>
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Filename relative to the hub file. If None, defaults to
+“&lt;hubname&gt;.genomes.txt”</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -105,6 +112,13 @@ objects, each of which represent a stanza in this file.</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>genome=None</em>, <em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genomes_file.html#GenomesFile.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.GenomesFile.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents the genomes file on disk.  Can contain multiple <cite>Genome</cite>
 objects, each of which represent a stanza in this file.</p>
+<dl class="docutils">
+<dt>genome <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd>List of Genome objects</dd>
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>Filename relative to the hub file. If None, defaults to
+“&lt;hubname&gt;.genomes.txt”</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -200,7 +214,7 @@ a a Hub object for every component in the hierarchy.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

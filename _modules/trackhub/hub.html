@@ -58,9 +58,36 @@
                  <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a top-level track hub container.</span>
+
+<span class="sd">        hub : str</span>
+<span class="sd">            Top-level name of the hub.</span>
+
+<span class="sd">        short_label : str</span>
+<span class="sd">            Short label for the hub, alias for UCSC parameter shortLabel.</span>
+
+<span class="sd">        long_label : str</span>
+<span class="sd">            Long label for the hub, alias for UCSC parameter longLabel. If</span>
+<span class="sd">            None, will copy `short_label`.</span>
+
+<span class="sd">        genomes_file : GenomesFile</span>
+<span class="sd">            If you already have a GenomesFile created, you can add it here;</span>
+<span class="sd">            otherwise when one is created you&#39;ll have to add one later with the</span>
+<span class="sd">            `add_genomes_file` method.</span>
+
+<span class="sd">        email : str</span>
+<span class="sd">            Email that will be provided in the hub for contact info</span>
+
+<span class="sd">        url : str</span>
+<span class="sd">            Deprecated.</span>
+
+<span class="sd">        filename : str</span>
+<span class="sd">            If None, defaults to the value of `hub` plus &quot;.hub.txt&quot;. When</span>
+<span class="sd">            uploaded, the filename is relative to the uploaded location.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">DeprecationWarning</span><span class="p">(</span><span class="s1">&#39;url is no longer used for Hub objects&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hub</span> <span class="o">=</span> <span class="n">hub</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">short_label</span><span class="p">:</span>
             <span class="n">short_label</span> <span class="o">=</span> <span class="n">hub</span>
@@ -151,7 +178,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

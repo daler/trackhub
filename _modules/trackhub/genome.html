@@ -55,6 +55,18 @@
 <span class="sd">        Represents a 2-line genome stanza within a &quot;genomes.txt&quot; file.</span>
 
 <span class="sd">        The file itself is represented by a :class:`GenomesFile` object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        genome : str</span>
+<span class="sd">            One of the UCSC-supported assembly names (e.g., &quot;hg38&quot;)</span>
+
+<span class="sd">        trackdb : TrackDb object</span>
+<span class="sd">            If not None, this object will be attached as the child track db</span>
+
+<span class="sd">        genome_file : GenomesFile object</span>
+<span class="sd">            If not None, this object will be attached as the parent GenomesFile</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genome</span> <span class="o">=</span> <span class="n">genome</span>
@@ -138,7 +150,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

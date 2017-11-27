@@ -54,6 +54,16 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents the genomes file on disk.  Can contain multiple `Genome`</span>
 <span class="sd">        objects, each of which represent a stanza in this file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        genome : list</span>
+<span class="sd">            List of Genome objects</span>
+
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename relative to the hub file. If None, defaults to</span>
+<span class="sd">            &quot;&lt;hubname&gt;.genomes.txt&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
@@ -62,7 +72,6 @@
             <span class="n">genome</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">genome</span> <span class="ow">in</span> <span class="n">genome</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
-
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span> <span class="o">=</span> <span class="n">filename</span></div>
 
@@ -143,7 +152,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

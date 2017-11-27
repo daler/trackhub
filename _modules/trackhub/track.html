@@ -47,7 +47,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">HubComponent</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">HubComponent</span><span class="p">,</span> <span class="n">deprecation_handler</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">hub</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">trackdb</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">constants</span>
@@ -74,13 +74,16 @@
 <span class="sd">        Instances of this class are provided to a composite track in order to</span>
 <span class="sd">        define options for the subtracks&#39; groups.</span>
 
-<span class="sd">        :param name:</span>
-<span class="sd">            String; name for the subgroup (e.g., &quot;celltype&quot;).</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
 
-<span class="sd">        :param label:</span>
-<span class="sd">            String; the label that will be displayed (e.g., &quot;Cell_Type&quot;)</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name for the subgroup (e.g., &quot;celltype&quot;).</span>
 
-<span class="sd">        :param mapping:</span>
+<span class="sd">        label : str</span>
+<span class="sd">            The label that will be displayed (e.g., &quot;Cell_Type&quot;)</span>
+
+<span class="sd">        mapping : dict</span>
 <span class="sd">            Dictionary of {tag: title}, where `tag` will be how subtracks</span>
 <span class="sd">            access this group and `title` is how it will be displayed in the</span>
 <span class="sd">            browser, e.g.::</span>
@@ -96,12 +99,12 @@
 <span class="sd">            be a valid subgroup for a subtrack, but &quot;celltype=other&quot; would not</span>
 <span class="sd">            since it&#39;s not in the mapping dict above.</span>
 
-<span class="sd">        :param default:</span>
-<span class="sd">            String; value to be used by subtracks if they don&#39;t explicitly</span>
-<span class="sd">            define this subgroup. Continuing the example, if a subtrack didn&#39;t</span>
-<span class="sd">            specify the &quot;celltype&quot; subgroup, then by default a &quot;celltype=none&quot;</span>
-<span class="sd">            value will be added.  This is necessary because subtracks must</span>
-<span class="sd">            define a value for all groups.</span>
+<span class="sd">        default : str</span>
+<span class="sd">            Value to be used by subtracks if they don&#39;t explicitly define this</span>
+<span class="sd">            subgroup. Continuing the example, if a subtrack didn&#39;t specify the</span>
+<span class="sd">            &quot;celltype&quot; subgroup, then by default a &quot;celltype=none&quot; value will</span>
+<span class="sd">            be added.  This is necessary because subtracks must define a value</span>
+<span class="sd">            for all groups.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
@@ -136,23 +139,34 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a single track stanza.</span>
 
-<span class="sd">        :param name: String; name of the track</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
 
-<span class="sd">        :param tracktype: String; type of the track (e.g., &quot;bam&quot;)</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the track</span>
 
-<span class="sd">        :param url: String; full URL for the track (i.e., bigDataUrl)</span>
+<span class="sd">        tracktype : str</span>
+<span class="sd">            Type of the track (e.g., &quot;bam&quot;). The UCSC parameter name is &quot;type&quot;</span>
+<span class="sd">            which is a reserved Python keyword, hence using &quot;tracktype&quot; here.</span>
 
-<span class="sd">        :param short_label: String; used for the left-hand side track label</span>
+<span class="sd">        url : str</span>
+<span class="sd">            Full URL for the track (i.e., bigDataUrl). Typically this is only</span>
+<span class="sd">            used when using a remote track from some other provider or when you</span>
+<span class="sd">            need lots of control over the URL. Otherwise the url will be</span>
+<span class="sd">            automatically created based on `filename`.</span>
 
-<span class="sd">        :param long_label:</span>
-<span class="sd">            String; used for the longer middle labels; if None will copy</span>
-<span class="sd">            short_label</span>
+<span class="sd">        short_label : str</span>
+<span class="sd">            Used for the left-hand side track label; alias for UCSC parameter</span>
+<span class="sd">            &quot;shortLabel&quot;</span>
 
-<span class="sd">        :param parentonoff:</span>
-<span class="sd">            String; used to determine individual track status on or off</span>
+<span class="sd">        long_label : str</span>
+<span class="sd">            Used for the longer middle labels; if None will copy</span>
+<span class="sd">            short_label. Alias for UCSC parameter &quot;longLabel&quot;.</span>
 
-<span class="sd">        :param subgroups:</span>
+<span class="sd">        parentonoff : &#39;on&#39; | &#39;off&#39;</span>
+<span class="sd">            Used to determine individual track status on or off</span>
 
+<span class="sd">        subgroups : dict</span>
 <span class="sd">            A dictionary of `{name: tag}` where each `name` is the name of</span>
 <span class="sd">            a SubGroupDefinition in a parent :class:`CompositeTrack` and each</span>
 <span class="sd">            `tag` is a key in the SubGroupDefinition.mapping dictionary.  They</span>
@@ -160,12 +174,16 @@
 
 <span class="sd">                subGroups view=aln celltype=ES</span>
 
-<span class="sd">        :param source:</span>
-<span class="sd">            String; Local path to the file (used for uploading)</span>
+<span class="sd">        source : str or None</span>
+<span class="sd">            Local path to the file (used for uploading). If None, then we</span>
+<span class="sd">            assume an already-existing filename specifed by the `url` argument.</span>
 
-<span class="sd">        :param filename:</span>
-<span class="sd">            String; path to upload the file to, over rsync and ssh.</span>
+<span class="sd">        filename : str or None</span>
+<span class="sd">            Path to upload the file to, over rsync and ssh, relative to the hub</span>
+<span class="sd">            directory. If None, will use a filename of &quot;name.tracktype&quot; in the</span>
+<span class="sd">            same directory as the TrackDb.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">deprecation_handler</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -228,11 +246,16 @@
         <span class="c1"># If filename hasn&#39;t been assigned then make one automatically based</span>
         <span class="c1"># on the track name and the trackhub&#39;s filename (which, by the way,</span>
         <span class="c1"># acts similarly, deferring up to the genomes_file.filename . . . and</span>
-        <span class="c1"># so on up to the hub&#39;s filename)</span>
+        <span class="c1"># so on up to the hub&#39;s filename).</span>
+        <span class="c1">#</span>
+        <span class="c1"># However, if source is None and URL is set, then this is an</span>
+        <span class="c1"># already-existing remote file and so should not have a filename.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@filename</span><span class="o">.</span><span class="n">setter</span>
@@ -303,11 +326,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the subgroups for this track.</span>
 
-<span class="sd">        :param subgroups:</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        subgroups : dict</span>
 <span class="sd">            Dictionary of subgroups, e.g., {&#39;celltype&#39;: &#39;K562&#39;, &#39;treatment&#39;:</span>
-<span class="sd">                &#39;a&#39;}.  Each key must match a SubGroupDefinition name in the</span>
-<span class="sd">                composite&#39;s subgroups list.  Each value must match a key in</span>
-<span class="sd">                that SubGroupDefinition.mapping dictionary.</span>
+<span class="sd">            &#39;a&#39;}.  Each key must match a SubGroupDefinition name in the</span>
+<span class="sd">            composite&#39;s subgroups list.  Each value must match a key in that</span>
+<span class="sd">            SubGroupDefinition.mapping dictionary.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
@@ -347,6 +373,7 @@
                 <span class="s2">&quot;Unhandled keyword arguments: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s1">&#39;staging&#39;</span><span class="p">):</span>
@@ -532,7 +559,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add tracks to this view.</span>
 
-<span class="sd">        :param subtracks:</span>
+<span class="sd">        subtracks : Track or iterable of Tracks</span>
 <span class="sd">            A single Track instance or an iterable of them.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtracks</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
@@ -732,7 +759,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

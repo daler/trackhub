@@ -57,6 +57,13 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents the file containing one or more Track objects (which each</span>
 <span class="sd">        represent a stanza).</span>
+
+<span class="sd">        tracks : list</span>
+<span class="sd">            If provided, these tracks will be added</span>
+
+<span class="sd">        filename : str</span>
+<span class="sd">            Path to trackdb, relative to top-level hub. If None, default is to</span>
+<span class="sd">            use &quot;&lt;genome&gt;/trackDb.txt&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -114,7 +121,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a track or iterable of tracks.</span>
 
-<span class="sd">        :param track:</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        track : iterable or Track</span>
 <span class="sd">            Iterable of :class:`Track` objects, or a single :class:`Track`</span>
 <span class="sd">            object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -183,7 +193,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

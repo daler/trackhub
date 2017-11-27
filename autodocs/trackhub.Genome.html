@@ -64,6 +64,14 @@ size=&quot;8.0, 12.0&quot;;
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents a 2-line genome stanza within a “genomes.txt” file.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
+<dl class="docutils">
+<dt>genome <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>One of the UCSC-supported assembly names (e.g., “hg38”)</dd>
+<dt>trackdb <span class="classifier-delimiter">:</span> <span class="classifier">TrackDb object</span></dt>
+<dd>If not None, this object will be attached as the child track db</dd>
+<dt>genome_file <span class="classifier-delimiter">:</span> <span class="classifier">GenomesFile object</span></dt>
+<dd>If not None, this object will be attached as the parent GenomesFile</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -105,6 +113,14 @@ size=&quot;8.0, 12.0&quot;;
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>genome</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a 2-line genome stanza within a “genomes.txt” file.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
+<dl class="docutils">
+<dt>genome <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>One of the UCSC-supported assembly names (e.g., “hg38”)</dd>
+<dt>trackdb <span class="classifier-delimiter">:</span> <span class="classifier">TrackDb object</span></dt>
+<dd>If not None, this object will be attached as the child track db</dd>
+<dt>genome_file <span class="classifier-delimiter">:</span> <span class="classifier">GenomesFile object</span></dt>
+<dd>If not None, this object will be attached as the parent GenomesFile</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -200,7 +216,7 @@ a a Hub object for every component in the hierarchy.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

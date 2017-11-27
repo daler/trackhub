@@ -157,20 +157,13 @@ supported formats.</p>
 <dt id="trackhub.SuperTrack.add_subgroups">
 <code class="descname">add_subgroups</code><span class="sig-paren">(</span><em>subgroups</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_subgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the subgroups for this track.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subgroups</strong> – <dl class="docutils">
-<dt>Dictionary of subgroups, e.g., {‘celltype’: ‘K562’, ‘treatment’:</dt>
-<dd>’a’}.  Each key must match a SubGroupDefinition name in the
-composite’s subgroups list.  Each value must match a key in
-that SubGroupDefinition.mapping dictionary.</dd>
+<dl class="docutils">
+<dt>subgroups <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd>Dictionary of subgroups, e.g., {‘celltype’: ‘K562’, ‘treatment’:
+‘a’}.  Each key must match a SubGroupDefinition name in the
+composite’s subgroups list.  Each value must match a key in that
+SubGroupDefinition.mapping dictionary.</dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -274,7 +267,7 @@ a a Hub object for every component in the hierarchy.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>
