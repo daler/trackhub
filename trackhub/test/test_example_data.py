@@ -19,7 +19,10 @@ def test_example_data_md5s():
     b8c983862c58fee6afa99382634ab2d8  sine-no1-100.bedgraph.bw
     '''.splitlines(False) if len(i.strip()) > 0]
 
+    success = True
     for md5, fn in data:
-        assert (
-            hashlib.md5(open(os.path.join(data_dir, fn), 'rb').read()).hexdigest() == md5
-        ), 'md5sum mismatch for {}'.format(fn)
+        fn = os.path.join(data_dir, fn)
+        obs = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+        success = success and (obs == md5)
+        print(obs, md5, fn)
+    assert success
