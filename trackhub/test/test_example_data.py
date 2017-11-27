@@ -6,17 +6,17 @@ def test_example_data_md5s():
     data_dir = helpers.data_dir()
 
     data = [i.strip().split() for i in '''
-    ba2fd8b22bcad65bb6583da937ff5222  newOrg1.2bit
-    a274a76ddfc2cb95e9db3751ca7cf82a  random-dm3-0.bigBed
-    c680c1f5b4242634889011a0d2289112  random-dm3-1.bigBed
-    797523ad6685db94044aebcfafc8fbec  random-dm3-2.bigBed
-    604f2ca028f476bb0baf6da6aeca0901  random-no1-0.bigBed
-    cdb1dc0d4a23980fed3e3b110aac635f  random-no1-1.bigBed
-    f8efe813e570a896df2df625c14dd30c  random-no1-2.bigBed
-    94cb83c18f73b713878c6ef28c19087d  sine-dm3-10000.bedgraph.bw
-    968df78a8a18c6e7d5b061e92fde8d83  sine-dm3-1000.bedgraph.bw
-    55ac2603c31b232dacfdaba07d8a25eb  sine-no1-1000.bedgraph.bw
-    b8c983862c58fee6afa99382634ab2d8  sine-no1-100.bedgraph.bw
+    ba2fd8b22bcad65bb6583da937ff5222 newOrg1.2bit
+    eef35bd42b79885b168e9613f2e20e27 random-dm3-0.bigBed
+    10d37b0c1bf784ff2106b9c3dd802e3a random-dm3-1.bigBed
+    f298dbe95d865f8a0c618c87b1027def random-dm3-2.bigBed
+    604f2ca028f476bb0baf6da6aeca0901 random-no1-0.bigBed
+    cdb1dc0d4a23980fed3e3b110aac635f random-no1-1.bigBed
+    f8efe813e570a896df2df625c14dd30c random-no1-2.bigBed
+    94cb83c18f73b713878c6ef28c19087d sine-dm3-10000.bedgraph.bw
+    968df78a8a18c6e7d5b061e92fde8d83 sine-dm3-1000.bedgraph.bw
+    55ac2603c31b232dacfdaba07d8a25eb sine-no1-1000.bedgraph.bw
+    b8c983862c58fee6afa99382634ab2d8 sine-no1-100.bedgraph.bw
     '''.splitlines(False) if len(i.strip()) > 0]
 
     success = True
