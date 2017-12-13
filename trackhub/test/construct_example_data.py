@@ -8,45 +8,69 @@ np.random.seed(0)
 
 data_dir = helpers.data_dir()
 
-chromsizes = pybedtools.genome_registry.dm3.euchromatic
-g = pybedtools.chromsizes_to_file(chromsizes)
+with open('chromsizes', 'w') as fout:
+    fout.write('chr1\t10000\n')
 
-# Make some randomized bigBed files
-for i in range(3):
-    x = pybedtools.BedTool(
-        "chr2L 0 10000000", from_string=True)\
-        .window_maker(g=g, w=1000 * (i + 1))\
-        .shuffle(g=g, seed=i)\
-        .sort()
+# First, make some example BED files to convert to bigBed
 
-    out = os.path.join(data_dir, 'random-dm3-%s.bigBed' % i)
 
+for i, x in enumerate([
+    pybedtools.BedTool(
+        """
+        chr1 10 50
+        chr1 100 125
+        chr1 300 400
+        """, from_string=True),
+    pybedtools.BedTool(
+        """
+        chr1 500 600
+        """, from_string=True),
+    pybedtools.BedTool(
+        """
+        chr1 20 60
+        chr1 40 100
+        chr1 80 90
+        chr1 250 300
+        """, from_string=True)
+]):
+    out = os.path.join(data_dir, 'random-hg38-%s.bigBed' % i)
     cmds = [
         'bedToBigBed',
         x.fn,
-        g,
+        'chromsizes',
         out]
     subprocess.check_call(cmds)
 
-
 # make some sine waves for bigWigs
-def sine(factor):
 
-    for chrom, size in chromsizes.items():
-        _, size = size
-        x = np.arange(0, size, 10000)
-        y = np.sin(x / factor / np.pi) + np.random.random(len(x)) / 3
-        for xi, yi in zip(x, y):
-            yield pybedtools.create_interval_from_list(list(map(str, [
-                chrom, xi, xi + 1000, yi])))
 
-for f in [1000., 10000.]:
-    x = pybedtools.BedTool(sine(f)).saveas(os.path.join(data_dir, 'sine-dm3-%d.bedgraph' % f))
+
+def sine(resolution=10, power=2):
+    resolution = 10
+    x = np.arange(0, 10000, resolution)
+    y = np.sin(x / resolution ** power) + np.random.random(x.shape[0])
+    for xi, yi in zip(x, y):
+        yield pybedtools.create_interval_from_list([
+            'chr1',
+            str(xi),
+            str(xi + resolution),
+            '{0:.3f}'.format(yi)
+        ])
+
+
+for i, x in enumerate([
+    sine(resolution=10, power=2.0),
+    sine(resolution=10, power=2.5),
+    sine(resolution=10, power=3.0),
+]):
+    x = pybedtools.BedTool(x).saveas(os.path.join(data_dir, 'sine-hg38-%d.bedgraph' % i))
     out = x.fn + '.bw'
     cmds = [
         'bedGraphToBigWig',
         x.fn,
-        g,
+        'chromsizes',
         out]
     subprocess.check_call(cmds)
     os.unlink(x.fn)
+
+os.unlink('chromsizes')

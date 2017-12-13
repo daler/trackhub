@@ -80,11 +80,11 @@ Example
         hub_name="myhub",
         short_label='myhub',
         long_label='myhub',
-        genome="dm3",
-        email="none@example.com")
+        genome="hg38",
+        email="dalerr@niddk.nih.gov")
 
     # Add a track for every bigwig found
-    for bigwig in glob.glob('../trackhub/test/data/sine-dm3*.bw'):
+    for bigwig in glob.glob('../trackhub/test/data/sine-hg38-*.bw'):
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
             source=bigwig,
@@ -94,6 +94,19 @@ Example
             tracktype='bigWig',
         )
         trackdb.add_tracks(track)
+
+    # add tracks for bigBed. Let's give them integer labels
+    for i, bigbed in enumerate(glob.glob('../trackhub/test/data/random-hg38*.bigBed')):
+        track = trackhub.Track(
+            name=trackhub.helpers.sanitize(os.path.basename(bigbed)),
+            short_label='regions{0}'.format(i),
+            source=bigbed,
+            visibility='dense',
+            color='0,0,255',
+            tracktype='bigBed',
+        )
+        trackdb.add_tracks(track)
+
 
     # Example of "uploading" the hub locally, to be pushed to github later:
     trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hub')
@@ -105,8 +118,11 @@ Example
             remote_dir='/var/www/example_hub')
 
 
-The above code is run automatically when the documentation is re-generated, and
-the created files can be found in the repository
-https://github.com/daler/trackhub-demo. To view the hub in the UCSC Genome Browser: http://genome.ucsc.edu/cgi-bin/hgTracks?db=dm3&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt
+The above code is run automatically when the documentation is re-generated. The
+resulting files are automatically uploaded to the GitHub repository
+https://github.com/daler/trackhub-demo, and the built hub can be viewed with
+the following link to the UCSC Genome Browser:
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000.
+Note that the link encodes the ``hubUrl`` URL.
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
