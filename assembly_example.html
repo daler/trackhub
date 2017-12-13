@@ -42,18 +42,33 @@
             
   <div class="section" id="assembly-example">
 <h1>Assembly example<a class="headerlink" href="#assembly-example" title="Permalink to this headline">¶</a></h1>
+<p>The following example shows how to generate an <a class="reference external" href="http://genomewiki.ucsc.edu/index.php/Assembly_Hubs">Assembly Hub</a>, which is a way of
+supporting an assembly that is not already supported on UCSC.</p>
+<p>It requires a <code class="docutils literal"><span class="pre">.2bit</span></code> file, which is created from a FASTA file using UCSC’s
+<code class="docutils literal"><span class="pre">faToTwoBit</span></code> tool. If you have <a class="reference external" href="https://bioconda.github.io">bioconda</a> set
+up, you can get this with <code class="docutils literal"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">ucsc-fatotwobit</span></code>, or download it
+from <a class="reference external" href="http://hgdownload.cse.ucsc.edu/admin/exe/">http://hgdownload.cse.ucsc.edu/admin/exe/</a>.</p>
+<p>This code is automatically run and the built trackhub is uploaded to the
+<a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
+view the live hub using this link:
+<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt">http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 
+<span class="c1"># In contrast to the example in the README, we do not use the</span>
+<span class="c1"># `trackhub.default_hub` function but instead build up the hub from its</span>
+<span class="c1"># component pieces.</span>
 <span class="n">hub</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Hub</span><span class="p">(</span>
     <span class="s2">&quot;assembly_hub&quot;</span><span class="p">,</span>
     <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;assembly_hub&quot;</span><span class="p">,</span>
     <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;an example of an assembly hub&quot;</span><span class="p">,</span>
     <span class="n">email</span><span class="o">=</span><span class="s2">&quot;none@example.com&quot;</span><span class="p">)</span>
 
+<span class="c1"># The major difference from a regular track hub is this object, which needs</span>
+<span class="c1"># to be added to the genomes_file object:</span>
 <span class="n">genome</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Assembly</span><span class="p">(</span>
     <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;newOrg1&quot;</span><span class="p">,</span>
     <span class="n">twobit_file</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;newOrg1.2bit&quot;</span><span class="p">),</span>
@@ -66,21 +81,27 @@
 <span class="p">)</span>
 
 <span class="n">genomes_file</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">GenomesFile</span><span class="p">()</span>
-<span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">()</span>
 <span class="n">hub</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
-<span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
+
+<span class="c1"># we also need to create a trackDb and add it to the genome</span>
+<span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">()</span>
 <span class="n">genome</span><span class="o">.</span><span class="n">add_trackdb</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 
+<span class="c1"># add the genome to the genomes file here:</span>
+<span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
 
+<span class="c1"># Find all bigwigs for this genome in the example data directory, and make</span>
+<span class="c1"># tracks for them</span>
 <span class="k">for</span> <span class="n">bw</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*no1*.bw&quot;</span><span class="p">)):</span>
     <span class="n">name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
         <span class="n">source</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span>
         <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
-        <span class="n">autoScale</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">autoScale</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
     <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
+<span class="c1"># Same with bigBeds</span>
 <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*no1*.bigBed&quot;</span><span class="p">)):</span>
     <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
@@ -89,6 +110,7 @@
         <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">)</span>
     <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
+<span class="c1"># Assembly hubs also need to have a Group specified. Here&#39;s how to do that:</span>
 <span class="n">example_group</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">GroupDefinition</span><span class="p">(</span>
     <span class="s2">&quot;example_tracks&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Example Tracks&quot;</span><span class="p">,</span>
@@ -96,9 +118,11 @@
     <span class="n">default_is_closed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="n">groups_file</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">GroupsFile</span><span class="p">([</span><span class="n">example_group</span><span class="p">])</span>
+<span class="n">genome</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">groups_file</span><span class="p">)</span>
+
+<span class="c1"># We can now add the &quot;group&quot; parameter to all the children of the trackDb</span>
 <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
     <span class="n">track</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;example_tracks&quot;</span><span class="p">)</span>
-<span class="n">genome</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">groups_file</span><span class="p">)</span>
 
 <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
     <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_assembly_hub&#39;</span><span class="p">)</span>

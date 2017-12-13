@@ -1,0 +1,310 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Organizing larger track hubs &#8212; trackhub 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="organizing-larger-track-hubs">
+<h1>Organizing larger track hubs<a class="headerlink" href="#organizing-larger-track-hubs" title="Permalink to this headline">¶</a></h1>
+<p>This is a modified version of the example in the README which shows how to
+organize the data into multiple kinds of containers – multiWig,
+compositeTracks, and superTracks. See UCSC’s <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/hubQuickStartGroups.html">grouping quick start</a> for some
+background.</p>
+<p>View the live hub at:
+<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&amp;position=chr1%3A1-5000">http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&amp;position=chr1%3A1-5000</a>.
+Access the config page for the composite track to view the checkbox matrix and
+see other config options.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">trackhub</span>
+
+<span class="c1"># Initialize the components of a track hub, already connected together</span>
+<span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;grouping&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example grouping hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;example grouping hub&#39;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;dalerr@niddk.nih.gov&quot;</span><span class="p">)</span>
+
+<span class="c1"># Subgroups provide a way of tagging tracks. If you give the same tag to</span>
+<span class="c1"># a bigwig and a bigbed, you can use that tag to select them both. This is</span>
+<span class="c1"># useful for, e.g., ChIP-seq tracks where the tag is &quot;sample&quot; or</span>
+<span class="c1"># &quot;antibody&quot;, and you can select both the signal and the called peaks at</span>
+<span class="c1"># the same time.</span>
+<span class="c1">#</span>
+<span class="c1"># Here we&#39;re making some contrived subgroups just to illustrate</span>
+<span class="n">subgroups</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">SubGroupDefinition</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;num&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Number&#39;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;zero&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">),</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">SubGroupDefinition</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;is_sample_1&#39;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">),</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">SubGroupDefinition</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;kind&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;kind&#39;</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;signal&#39;</span><span class="p">:</span> <span class="s1">&#39;signal&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;peak&#39;</span><span class="p">:</span> <span class="s1">&#39;peak&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">),</span>
+
+<span class="p">]</span>
+
+<span class="c1"># Create the composite track</span>
+<span class="n">composite</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">CompositeTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;composite&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal and regions&#39;</span><span class="p">,</span>
+
+    <span class="c1"># options here are the `name` attributes of each subgroup. Start with</span>
+    <span class="c1"># dimX and dimY (which become axes of the checkbox matrix to select</span>
+    <span class="c1"># tracks), and then dimA, dimB, etc.</span>
+    <span class="n">dimensions</span><span class="o">=</span><span class="s1">&#39;dimX=num dimY=s1 dimA=kind&#39;</span><span class="p">,</span>
+
+    <span class="n">filterComposite</span><span class="o">=</span><span class="s1">&#39;dimA&#39;</span><span class="p">,</span>
+    <span class="c1"># options here are the `name` attributes of each subgroup</span>
+    <span class="n">sortOrder</span><span class="o">=</span><span class="s1">&#39;num=+ kind=-&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add subgroups to the composite track</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_subgroups</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
+
+<span class="c1"># Add composite to the trackDb</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">composite</span><span class="p">)</span>
+
+<span class="c1"># CompositeTracks compose different ViewTracks. We&#39;ll make one for signal,</span>
+<span class="c1"># and one for bigBed regions</span>
+<span class="n">signal_view</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">ViewTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signalviewtrack&#39;</span><span class="p">,</span>
+    <span class="n">view</span><span class="o">=</span><span class="s1">&#39;signal&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal&#39;</span><span class="p">)</span>
+
+<span class="n">regions_view</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">ViewTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;regionsviewtrack&#39;</span><span class="p">,</span>
+    <span class="n">view</span><span class="o">=</span><span class="s1">&#39;regions&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Regions&#39;</span><span class="p">)</span>
+
+<span class="c1"># They need to be added to the composite.</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">signal_view</span><span class="p">)</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">regions_view</span><span class="p">)</span>
+
+<span class="c1"># Next we will build a multiWig overlay track</span>
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">AggregateTrack</span><span class="p">(</span>
+    <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;transparentOverlay&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
+    <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:80:128&#39;</span><span class="p">,</span>
+    <span class="n">showSubtrackColorOnUi</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+
+<span class="c1"># We&#39;ll create a SuperTrack to hold this one overlay track. It&#39;s overkill</span>
+<span class="c1"># to do this for one track, but it does demonstrate the functionality.</span>
+<span class="n">supertrack</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">SuperTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;super&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Super track&#39;</span>
+<span class="p">)</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">supertrack</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># If you&#39;re not using a SuperTrack, you would add this aggregate track to</span>
+<span class="c1"># the trackDb, like so:</span>
+<span class="c1">#</span>
+<span class="c1"># trackdb.add_tracks(overlay)</span>
+<span class="c1">#</span>
+<span class="n">supertrack</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="n">overlay</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">subgroups_from_filename</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This functions figures out subgroups based on the number in the</span>
+<span class="sd">    filename.  Subgroups provided to the Track() constructor is</span>
+<span class="sd">    a dictionary where keys are `name` attributes from the subgroups added</span>
+<span class="sd">    to the composite above, and values are keys of the `mapping` attribute</span>
+<span class="sd">    of that same subgroup.</span>
+
+<span class="sd">    Might be easier to cross-reference with the subgroups above, but an</span>
+<span class="sd">    example return value from this function would be::</span>
+
+<span class="sd">        {&#39;s1&#39;: &#39;n&#39;, &#39;num&#39;: &#39;2&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">is_1</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">is_1</span> <span class="o">=</span> <span class="s1">&#39;n&#39;</span>
+    <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;bw&#39;</span><span class="p">):</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;signal&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;peak&#39;</span>
+    <span class="n">track_subgroup</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;s1&#39;</span><span class="p">:</span> <span class="n">is_1</span><span class="p">,</span>
+        <span class="s1">&#39;num&#39;</span><span class="p">:</span> <span class="n">number</span><span class="p">,</span>
+        <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="n">kind</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">track_subgroup</span>
+
+
+<span class="k">def</span> <span class="nf">color_from_filename</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Figure out a nice color for a track, depending on its filename.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;#8C2B45&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;#2E3440&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;#6DBFA7&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Due to how code is extracted from the docs and run, we need to import</span>
+    <span class="c1"># again inside a function. You don&#39;t normally need this.</span>
+    <span class="kn">import</span> <span class="nn">trackhub</span>
+    <span class="k">return</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">hex2rgb</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">number</span><span class="p">])</span>
+
+
+<span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*hg38*.bw&quot;</span><span class="p">)):</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">)),</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+        <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
+        <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:50:128&#39;</span><span class="p">,</span>
+        <span class="n">subgroups</span><span class="o">=</span><span class="n">subgroups_from_filename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_from_filename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Note that we add the track to the *view* rather than the trackDb.</span>
+    <span class="n">signal_view</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+    <span class="c1"># For the multiWig overlay track, add the track there as well. However</span>
+    <span class="c1"># it needs a different name; we will edit it on the fly</span>
+    <span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;agg&#39;</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_from_filename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">overlay</span><span class="o">.</span><span class="n">add_subtrack</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">bigbed</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;*hg38*.bigBed&#39;</span><span class="p">)):</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigbed</span><span class="p">)),</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigbed</span><span class="p">,</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span>
+        <span class="n">subgroups</span><span class="o">=</span><span class="n">subgroups_from_filename</span><span class="p">(</span><span class="n">bigbed</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color_from_filename</span><span class="p">(</span><span class="n">bigbed</span><span class="p">),</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">regions_view</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+
+
+
+<span class="c1"># Example of &quot;uploading&quot; the hub locally, to be pushed to github later:</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_grouping_hub&#39;</span><span class="p">)</span>
+
+<span class="c1"># Example uploading to a web server (not run):</span>
+<span class="k">if</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
+        <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span>
+        <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/grouping.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">trackhub 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012, Ryan Dale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
