@@ -2,21 +2,25 @@
 ============
 
 Data visualization is critical at all steps of genomic data analysis, from QC
-through final figure preparation.  A *track hub* is a collection of genomic data
-"tracks" (data files in a supported format)  along with a set of plain-text
-files that determine the organization, labels, color, configuration UI, and
-other details.  The files comprising a track hub are uploaded to a server, and
-a genome browser (e.g., UCSC Genome Browser) is pointed to the served URL for
-viewing.
+through final figure preparation.  A `track hub
+<https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ is a collection
+of genomic data "tracks" (data files in a supported format)  along with a set
+of plain-text files that determine the organization, labels, color,
+configuration UI, and other details.  The files comprising a track hub are
+uploaded to a server, and a genome browser (e.g., UCSC Genome Browser) is
+pointed to the served URL for viewing. `Here
+<http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://vizhub.wustl.edu/VizHub/RoadmapRelease3.txt>`_
+is an example of a track hub created by the ENCODE project.
 
-For a handful of tracks, it is straightforward to write the configuration files
-and upload the tracks manually. For larger data sets however, this becomes
-tedious and error-prone. Here we introduce `trackhub`, a Python package that
-enables the programmatic construction and upload of arbitrarily complex track
-hubs. It has no dependencies besides Python itself and the availability of
-``rsync``, a standard Unix command-line tool for remotely transferring files. It
-is availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
-documentation ensure high-quality code and help.
+If you only have a handful of tracks, it is straightforward to write the
+configuration files and upload the tracks manually. For larger data sets
+however, this becomes tedious and error-prone. Here we introduce `trackhub`,
+a Python package that enables the programmatic construction and upload of
+arbitrarily complex track hubs. It has no dependencies besides Python itself
+and the availability of ``rsync`` (a standard Unix command-line tool for
+remotely transferring files). It is availabe on PyPI, bioconda, and GitHub; an
+automated test suite and tested documentation ensure high-quality code and
+help.
 
 Features
 --------
@@ -61,7 +65,7 @@ added to the UCSC Genome Browser.
 
 
 Full documentation, including a full in-depth tutorial, can be found at
-http://packages.python.org/trackhub.
+https://daler.github.io/trackhub.
 
 Example
 -------
@@ -84,7 +88,9 @@ Example
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
             source=bigwig,
+            visibility='full',
             color='128,0,5',
+            autoScale='on',
             tracktype='bigWig',
         )
         trackdb.add_tracks(track)
@@ -98,5 +104,9 @@ Example
             hub=hub, host='example.com', user='username',
             remote_dir='/var/www/example_hub')
 
+
+The above code is run automatically when the documentation is re-generated, and
+the created files can be found in the repository
+https://github.com/daler/trackhub-demo. To view the hub in the UCSC Genome Browser: http://genome.ucsc.edu/cgi-bin/hgTracks?db=dm3&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
