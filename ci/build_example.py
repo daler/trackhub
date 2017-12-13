@@ -18,3 +18,4 @@ def extract_and_run(relpath):
 
 extract_and_run('../README.rst')
 extract_and_run('../doc/source/assembly_example.rst')
+extract_and_run('../doc/source/grouping.rst')

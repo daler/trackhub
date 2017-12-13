@@ -19,6 +19,7 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 declare -A hubs
 hubs["example_hub"]="example_hub/myhub.hub.txt"
 hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
+hubs["example_grouping_hub"]="example_grouping_hub/grouping.hub.txt"
 
 
 (
