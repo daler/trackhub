@@ -24,17 +24,17 @@ class TestUpload(object):
             Track(
                 name='track1',
                 tracktype='bigBed',
-                source=os.path.join(d, 'random-dm3-0.bigBed')
+                source=os.path.join(d, 'random-hg38-0.bigBed')
             ),
             Track(
                 name='track2',
                 tracktype='bigWig',
-                source=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
+                source=os.path.join(d, 'sine-hg38-0.bedgraph.bw'),
             ),
             Track(
                 name='track3',
                 tracktype='bigWig',
-                source=os.path.join(d, 'sine-no1-100.bedgraph.bw'),
+                source=os.path.join(d, 'sine-hg38-1.bedgraph.bw'),
                 filename='3.bw',
             )
         ]

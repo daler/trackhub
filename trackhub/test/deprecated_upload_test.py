@@ -24,13 +24,13 @@ class TestUpload(object):
             Track(
                 name='track1',
                 tracktype='bigBed',
-                local_fn=os.path.join(d, 'random-dm3-0.bigBed'),
+                local_fn=os.path.join(d, 'random-hg38-0.bigBed'),
                 remote_fn='1.bigbed',
             ),
             Track(
                 name='track2',
                 tracktype='bigWig',
-                local_fn=os.path.join(d, 'sine-dm3-10000.bedgraph.bw'),
+                local_fn=os.path.join(d, 'sine-hg38-0.bedgraph.bw'),
                 remote_fn='2.bw',
             ),
         ]
