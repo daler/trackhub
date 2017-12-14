@@ -8,3 +8,4 @@ pygments
 ucsc-bedgraphtobigwig
 ucsc-fatotwobit
 ucsc-bedtobigbed
+sphinx_rtd_theme

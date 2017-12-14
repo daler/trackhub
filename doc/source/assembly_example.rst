@@ -1,3 +1,5 @@
+.. _assembly-example:
+
 Assembly example
 ----------------
 The following example shows how to generate an `Assembly Hub
