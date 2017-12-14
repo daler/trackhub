@@ -22,7 +22,7 @@ remotely transferring files). It is availabe on PyPI, bioconda, and GitHub; an
 automated test suite and tested documentation ensure high-quality code and
 help.
 
-See :ref:`basic-example`, :ref:`grouping-example`, and :ref:`assembly-example`
+See the `documentation <https://daler.github.io/trackhub>`_ for more details.
 
 Features
 --------
@@ -97,8 +97,9 @@ Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
     # Add a track for every bigwig found. Note that this example is executed
     # from the `doc` directory, hence the `../trackhub` path. These data are
     # included in the source repository on github.
+
     for bigwig in glob.glob('../trackhub/test/data/sine-hg38-*.bw'):
-        name = trackhub.helpers.sanitize(os.path.basename(bigwig)),
+        name = trackhub.helpers.sanitize(os.path.basename(bigwig))
         track = trackhub.Track(
             name=name,          # track names can't have any spaces or special chars.
             source=bigwig,      # filename to build this track from
@@ -109,8 +110,9 @@ Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
         )
         trackdb.add_tracks(track)
 
-    # Add a track for everyt bigBed. Let's give them nicer labels (the
+    # Add a track for every bigBed. Let's give them nicer labels (the
     # short_label argument).
+
     for i, bigbed in enumerate(glob.glob('../trackhub/test/data/random-hg38*.bigBed')):
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigbed)),
@@ -123,6 +125,8 @@ Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
         trackdb.add_tracks(track)
 
     # Example of "uploading" the hub locally, to be pushed to github later.
+    # Check the "example_hub" directory for the rendered hub, along with
+    # symlinks to the tracks' data files.
     trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hub')
 
     # Example uploading to a web server (not run):
@@ -132,10 +136,13 @@ Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
             remote_dir='/var/www/example_hub')
 
 
-The hub files are now at
-https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub. The
-`raw file
+The hub files from running the above code have been uploaded to the
+`trackhub-demo
+<https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub)`_
+repository. The `raw file
 <https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt>`_
-served by GitHub can be added to the Track Hubs section of UCSC Genome Browser.
+served by GitHub can be added to the Track Hubs section of UCSC Genome Browser, or click the following link to load the hub directly into the UCSC Genome Browser:
+`load hub <
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
