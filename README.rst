@@ -127,4 +127,11 @@ repository. The `raw file
 served by GitHub can be added to the Track Hubs section of UCSC Genome Browser, or click the following link to load the hub directly into the UCSC Genome Browser:
 `load hub <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
 
+
+Other examples from the documentation:
+
+- `assembly hub <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_
+
+- `extended grouping example <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_
+
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
