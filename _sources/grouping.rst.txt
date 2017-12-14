@@ -1,3 +1,5 @@
+.. _grouping-example:
+
 Organizing larger track hubs
 ============================
 This is a modified version of the example in the README which shows how to
@@ -30,8 +32,10 @@ see other config options.
     # "antibody", and you can select both the signal and the called peaks at
     # the same time.
     #
-    # Here we're making some contrived subgroups just to illustrate
+    # Here we're making some contrived subgroups just to illustrate their use.
     subgroups = [
+
+        # A subgroup to select the replicate number
         trackhub.SubGroupDefinition(
             name='num',
             label='Number',
@@ -41,6 +45,8 @@ see other config options.
                 '2': 'two',
             }
         ),
+
+        # A contrived subgroup that will only tag it as "yes" if it's sample 1.
         trackhub.SubGroupDefinition(
             name='s1',
             label='is_sample_1',
@@ -49,6 +55,12 @@ see other config options.
                 'n': 'No',
             }
         ),
+
+        # While the two different views we create below are a good way of
+        # turning on/off the signal or regions in bulk, this subgroup allows us
+        # to sort the tracks by "name" and then by "kind". This is helpful for
+        # ChIP-seq experiments where you want to have peaks under the
+        # corresponding signal.
         trackhub.SubGroupDefinition(
             name='kind',
             label='kind',
@@ -65,26 +77,29 @@ see other config options.
         name='composite',
         short_label='Signal and regions',
 
-        # options here are the `name` attributes of each subgroup. Start with
-        # dimX and dimY (which become axes of the checkbox matrix to select
-        # tracks), and then dimA, dimB, etc.
+        # The available options for dimensions are the `name` attributes of
+        # each subgroup. Start with dimX and dimY (which become axes of the
+        # checkbox matrix to select tracks), and then dimA, dimB, etc.
         dimensions='dimX=num dimY=s1 dimA=kind',
 
+        # This enables a drop-down box under the checkbox matrix that lets us
+        # select whatever dimA is (here, "kind").
         filterComposite='dimA',
-        # options here are the `name` attributes of each subgroup
+
+        # The availalbe options here are the `name` attributes of each subgroup.
         sortOrder='num=+ kind=-',
         tracktype='bigWig',
         visibility='full',
     )
 
-    # Add subgroups to the composite track
+    # Add those subgroups to the composite track
     composite.add_subgroups(subgroups)
 
-    # Add composite to the trackDb
+    # Add the composite track to the trackDb
     trackdb.add_tracks(composite)
 
-    # CompositeTracks compose different ViewTracks. We'll make one for signal,
-    # and one for bigBed regions
+    # CompositeTracks compose different ViewTracks. We'll make one ViewTrack
+    # for signal, and one for bigBed regions.
     signal_view = trackhub.ViewTrack(
         name='signalviewtrack',
         view='signal',
@@ -99,11 +114,12 @@ see other config options.
         tracktype='bigWig',
         short_label='Regions')
 
-    # They need to be added to the composite.
+    # These need to be added to the composite.
     composite.add_view(signal_view)
     composite.add_view(regions_view)
 
-    # Next we will build a multiWig overlay track
+    # Next we will build a multiWig overlay track which will show an example of
+    # the signal as multiple bigWigs overlaying each other.
     overlay = trackhub.AggregateTrack(
         aggregate='transparentOverlay',
         visibility='full',
@@ -113,8 +129,9 @@ see other config options.
         showSubtrackColorOnUi='on',
         name='agg')
 
-    # We'll create a SuperTrack to hold this one overlay track. It's overkill
-    # to do this for one track, but it does demonstrate the functionality.
+    # We'll create a SuperTrack to hold this one aggregate overlay track. It's
+    # overkill to do this for one track, but it does demonstrate the
+    # functionality.
     supertrack = trackhub.SuperTrack(
         name='super',
         short_label='Super track'
@@ -122,13 +139,15 @@ see other config options.
     trackdb.add_tracks(supertrack)
 
     #
-    # If you're not using a SuperTrack, you would add this aggregate track to
+    # If we weren't using a SuperTrack, we would add this aggregate track to
     # the trackDb, like so:
     #
     # trackdb.add_tracks(overlay)
     #
+    # But here we're adding it to the SuperTrack:
     supertrack.add_track(overlay)
 
+    # Next, some helper functions:
 
     def subgroups_from_filename(fn):
         """
@@ -164,19 +183,20 @@ see other config options.
         """
         Figure out a nice color for a track, depending on its filename.
         """
+        # Due to how code is extracted from the docs and run during tests, we
+        # need to import again inside a function. You don't normally need this.
+        import trackhub
+
         number = os.path.basename(fn).split('.')[0].split('-')[-1]
         colors = {
             '0': '#8C2B45',
             '1': '#2E3440',
             '2': '#6DBFA7',
         }
-
-        # Due to how code is extracted from the docs and run, we need to import
-        # again inside a function. You don't normally need this.
-        import trackhub
         return trackhub.helpers.hex2rgb(colors[number])
 
 
+    # As in the README example, we grab all the example bigwigs
     for bigwig in glob.glob(os.path.join(trackhub.helpers.data_dir(), "*hg38*.bw")):
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)),
@@ -189,11 +209,13 @@ see other config options.
             color=color_from_filename(bigwig),
         )
 
-        # Note that we add the track to the *view* rather than the trackDb.
+        # Note that we add the track to the *view* rather than the trackDb as
+        # we did in the README example.
         signal_view.add_tracks(track)
 
-        # For the multiWig overlay track, add the track there as well. However
-        # it needs a different name; we will edit it on the fly 
+        # For the multiWig overlay track, we need to add the track there as
+        # well. However it needs a different name. We have all the pieces,
+        # might as well just make another track object:
         track2 = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigwig)) + 'agg',
             source=bigwig,
@@ -203,6 +225,8 @@ see other config options.
         )
         overlay.add_subtrack(track2)
 
+    # Same thing with the bigBeds. No overlay track to add these to, though.
+    # Just to the regions_view ViewTrack.
     for bigbed in glob.glob(os.path.join(trackhub.helpers.data_dir(), '*hg38*.bigBed')):
         track = trackhub.Track(
             name=trackhub.helpers.sanitize(os.path.basename(bigbed)),
@@ -213,8 +237,6 @@ see other config options.
             tracktype='bigBed',
         )
         regions_view.add_tracks(track)
-
-
 
 
     # Example of "uploading" the hub locally, to be pushed to github later:

@@ -1,80 +1,288 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>trackhub documentation &#8212; trackhub 0.1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quickstart" href="quickstart.html" /> 
-  </head>
-  <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="quickstart.html" title="Quickstart"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">trackhub 0.1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>trackhub &mdash; trackhub 0.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="trackhub 0.1 documentation" href="#"/>
+        <link rel="next" title="Quickstart" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> trackhub
+          
+
+          
+          </a>
+
+          
             
-  <div class="section" id="trackhub-documentation">
-<h1><cite>trackhub</cite> documentation<a class="headerlink" href="#trackhub-documentation" title="Permalink to this headline">¶</a></h1>
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<div class="section" id="why-trackhub">
-<h1>Why <code class="docutils literal"><span class="pre">trackhub</span></code>?<a class="headerlink" href="#why-trackhub" title="Permalink to this headline">¶</a></h1>
-<p>This Python package, <code class="docutils literal"><span class="pre">trackhub</span></code>, aims to ease in construction of
-programatically-generated track hubs for the UCSC Genome Browser.</p>
-<p>The existing framework for creating a track hub consists of writing a text file
-as detailed in the <a class="reference external" href="http://genome-source.cse.ucsc.edu/gitweb/?p=kent.git;a=blob;f=src/hg/makeDb/trackDb/README;hb=HEAD">trackDb.txt README</a>
-(and, more recently, in the development <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html">track database definition page</a>).</p>
-<p>This can get extremely tedious, especially when trying to create and upload
-track hubs as part of an automated pipeline.  <code class="docutils literal"><span class="pre">trackhub</span></code> tries to ease
-this creation by providing a framework in Python for creating track hubs from
-scripts and programs. Why use <code class="docutils literal"><span class="pre">trackhub</span></code>?:</p>
-<ul class="simple">
-<li><cite>filename handling</cite>: automatic (yet still completely configurable, if needed)
-handling of filenames and directory structure</li>
-<li><cite>uploading</cite>: upload a full hub – hub/genomes/trackdb files, plus all data
-files (bam/bigWig/bigBed) – via rsync over ssh</li>
-<li><cite>validation</cite>: mechanisms for handling validation of parameters so errors are
-[hopefully] caught prior to uploading</li>
-<li><cite>rapid deployment</cite>: mapping local filenames to remote filenames on the host enables
-rapid updating of the hub with new or updated data (e.g., when analysis
-parameters change)</li>
-<li><cite>flexibility</cite>: support for simple hubs up through complex composite hubs with views and
-subtracks</li>
-<li><cite>extensible</cite>: provides a framework for working with hub components, allowing
-new functionality to be easily added</li>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filenames.html">Filenames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">Topical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
-<p>Move on to the <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart</span></a> to get started, or try the more in-depth
-<a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Tutorial</span></a>.</p>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">trackhub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal"><span class="pre">trackhub</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="trackhub">
+<h1><code class="docutils literal"><span class="pre">trackhub</span></code><a class="headerlink" href="#trackhub" title="Permalink to this headline">¶</a></h1>
+<p>Data visualization is critical at all steps of genomic data analysis, from QC
+through final figure preparation.  A <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html">track hub</a> is a collection
+of genomic data “tracks” (data files in a supported format)  along with a set
+of plain-text files that determine the organization, labels, color,
+configuration UI, and other details.  The files comprising a track hub are
+uploaded to a server, and a genome browser (e.g., UCSC Genome Browser) is
+pointed to the served URL for viewing. <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&amp;hubUrl=http://vizhub.wustl.edu/VizHub/RoadmapRelease3.txt">Here</a>
+is an example of a track hub created by the ENCODE project.</p>
+<p>If you only have a handful of tracks, it is straightforward to write the
+configuration files and upload the tracks manually. For larger data sets
+however, this becomes tedious and error-prone. Here we introduce <cite>trackhub</cite>,
+a Python package that enables the programmatic construction and upload of
+arbitrarily complex track hubs. It has no dependencies besides Python itself
+and the availability of <code class="docutils literal"><span class="pre">rsync</span></code> (a standard Unix command-line tool for
+remotely transferring files). It is availabe on PyPI, bioconda, and GitHub; an
+automated test suite and tested documentation ensure high-quality code and
+help.</p>
+<p>See <a class="reference internal" href="#basic-example"><span class="std std-ref">Basic example</span></a>, <a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a>, and <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a></p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>When configuring a track hub, there are many parameters to choose from, and
+a typo or invalid option in one part of a hub can cause the rest to fail. To
+reduce these issues at creation time, <cite>trackhub</cite> validates the hub options
+against UCSC’s documentated options and raises a Python exception if improperly
+configured.</p>
+</div>
+<div class="section" id="filename-handling">
+<h3>Filename handling<a class="headerlink" href="#filename-handling" title="Permalink to this headline">¶</a></h3>
+<p>Often the directory structure used for analysis does not reflect the desired
+directory structure for a track hub. To avoid the tedious process of uploading
+each local file to its remote destination (which would require many separate
+<code class="docutils literal"><span class="pre">rsync</span></code> calls), <cite>trackhub</cite> locally symlinks all tracks and configuration files
+to a temporary directory that is then uploaded to the remote host in one call to
+<code class="docutils literal"><span class="pre">rsync</span></code>.  This allows local inspection of the hub for troubleshooting, and
+enables rapid deployment and updating since only files that have changed will be
+uploaded on subsequent calls.</p>
+</div>
+<div class="section" id="flexibility">
+<h3>Flexibility<a class="headerlink" href="#flexibility" title="Permalink to this headline">¶</a></h3>
+<p>Where possible, sensible defaults are used to minimize the effort to build
+a functioning track hub. However, all parts can be configured if desired,
+resulting in support for simple one-track hubs through complex composite hubs
+with supertracks, views, and subtracks.</p>
+<p>While there is an implicit hierarchy in a track hub (hub file, genomes file,
+trackdb, tracks), there is no requirement for them to be created in any
+particular order. This allows the user to build their hub in whatever order or
+method best suits the particular use-case.</p>
+</div>
+<div class="section" id="extensible">
+<h3>Extensible<a class="headerlink" href="#extensible" title="Permalink to this headline">¶</a></h3>
+<p>The framework provided by <cite>trackhub</cite> can be extended as new hub functionality is
+added to the UCSC Genome Browser.</p>
+<p>Full documentation, including a full in-depth tutorial, can be found at
+<a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a>.</p>
+</div>
+</div>
+<div class="section" id="basic-example">
+<span id="id1"></span><h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p>The code below is run automatically when the documentation is re-generated. The
+resulting files are automatically uploaded to the GitHub repository
+<a class="reference external" href="https://github.com/daler/trackhub-demo">https://github.com/daler/trackhub-demo</a>, and the constructed hub can be viewed
+with the following link to the UCSC Genome Browser:
+<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&amp;position=chr1%3A1-5000">http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&amp;position=chr1%3A1-5000</a>.
+Note that the link encodes the URL to the hub in the <code class="docutils literal"><span class="pre">hubUrl</span></code> parameter.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">trackhub</span>
+
+<span class="c1"># Initialize the components of a track hub</span>
+<span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;myhub&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;myhub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;myhub&#39;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;dalerr@niddk.nih.gov&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a track for every bigwig found. Note that this example is executed</span>
+<span class="c1"># from the `doc` directory, hence the `../trackhub` path. These data are</span>
+<span class="c1"># included in the source repository on github.</span>
+<span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;../trackhub/test/data/sine-hg38-*.bw&#39;</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">)),</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>          <span class="c1"># track names can&#39;t have any spaces or special chars.</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>      <span class="c1"># filename to build this track from</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>  <span class="c1"># shows the full signal</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,5&#39;</span><span class="p">,</span>    <span class="c1"># brick red</span>
+        <span class="n">autoScale</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>     <span class="c1"># allow the track to autoscale</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span> <span class="c1"># required when making a track</span>
+    <span class="p">)</span>
+    <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+<span class="c1"># Add a track for everyt bigBed. Let&#39;s give them nicer labels (the</span>
+<span class="c1"># short_label argument).</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bigbed</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;../trackhub/test/data/random-hg38*.bigBed&#39;</span><span class="p">)):</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigbed</span><span class="p">)),</span>
+        <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;regions{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>  <span class="c1"># a nicer label</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigbed</span><span class="p">,</span>                       <span class="c1"># filename to build this track from</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span>                  <span class="c1"># display in a single line</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0,0,255&#39;</span><span class="p">,</span>                     <span class="c1"># bright blue</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">,</span>                  <span class="c1"># required when making a track</span>
+    <span class="p">)</span>
+    <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+<span class="c1"># Example of &quot;uploading&quot; the hub locally, to be pushed to github later.</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">)</span>
+
+<span class="c1"># Example uploading to a web server (not run):</span>
+<span class="k">if</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
+        <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span>
+        <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The hub files are now at
+<a class="reference external" href="https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub">https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub</a>. The
+<a class="reference external" href="https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt">raw file</a>
+served by GitHub can be added to the Track Hubs section of UCSC Genome Browser.</p>
+<p>Copyright 2012-1017 Ryan Dale; BSD 2-clause license.</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -108,6 +316,8 @@ new functionality to be easily added</li>
 <li class="toctree-l2"><a class="reference internal" href="filenames.html#default-filenames">Default filenames</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.Hub.html">trackhub.Hub</a></li>
@@ -138,58 +348,76 @@ new functionality to be easily added</li>
 </ul>
 </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#"><cite>trackhub</cite> documentation</a></li>
-<li><a class="reference internal" href="#why-trackhub">Why <code class="docutils literal"><span class="pre">trackhub</span></code>?</a></li>
-</ul>
-
-  <h4>Next topic</h4>
-  <p class="topless"><a href="quickstart.html"
-                        title="next chapter">Quickstart</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, Ryan Dale.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="quickstart.html" title="Quickstart"
-             >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">trackhub 0.1 documentation</a> &#187;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, Ryan Dale.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
