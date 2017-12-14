@@ -29,42 +29,28 @@ Features
 
 Validation
 ~~~~~~~~~~
-When configuring a track hub, there are many parameters to choose from, and
-a typo or invalid option in one part of a hub can cause the rest to fail. To
-reduce these issues at creation time, `trackhub` validates the hub options
-against UCSC's documentated options and raises a Python exception if improperly
-configured.
-
+`trackhub` validates parameters against UCSC's documented options, so errors
+are caught early and less time is spent debugging in the Genome Browser.
 
 Filename handling
 ~~~~~~~~~~~~~~~~~
-Often the directory structure used for analysis does not reflect the desired
-directory structure for a track hub. To avoid the tedious process of uploading
-each local file to its remote destination (which would require many separate
-``rsync`` calls), `trackhub` locally symlinks all tracks and configuration files
-to a temporary directory that is then uploaded to the remote host in one call to
-``rsync``.  This allows local inspection of the hub for troubleshooting, and
-enables rapid deployment and updating since only files that have changed will be
-uploaded on subsequent calls.
+The directory structure of a hub rarely matches the directory structure of the
+analysis.  `trackhub` symlinks track files to a staging area so the hub can be
+inspected locally before being uploaded, e.g., with ``rsync``. Staging also
+enables rapid deployment and updating since only files that have changed will
+be uploaded on subsequent calls.
 
 Flexibility
 ~~~~~~~~~~~
-Where possible, sensible defaults are used to minimize the effort to build
+Sensible defaults are used wherever possible to minimize the effort to build
 a functioning track hub. However, all parts can be configured if desired,
 resulting in support for simple one-track hubs through complex composite hubs
 with supertracks, views, and subtracks.
-
-While there is an implicit hierarchy in a track hub (hub file, genomes file,
-trackdb, tracks), there is no requirement for them to be created in any
-particular order. This allows the user to build their hub in whatever order or
-method best suits the particular use-case.
-
 
 Extensible
 ~~~~~~~~~~
 The framework provided by `trackhub` can be extended as new hub functionality is
 added to the UCSC Genome Browser.
-
 
 Full documentation, including a full in-depth tutorial, can be found at
 https://daler.github.io/trackhub.
@@ -73,13 +59,11 @@ https://daler.github.io/trackhub.
 
 Basic example
 -------------
-
 The code below is run automatically when the documentation is re-generated. The
 resulting files are automatically uploaded to the GitHub repository
 https://github.com/daler/trackhub-demo, and the constructed hub can be viewed
-with the following link to the UCSC Genome Browser:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000.
-Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
+with the following link to the UCSC Genome Browser: `load hub
+<http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
 
 .. code-block:: python
 
@@ -137,12 +121,10 @@ Note that the link encodes the URL to the hub in the ``hubUrl`` parameter.
 
 
 The hub files from running the above code have been uploaded to the
-`trackhub-demo
-<https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub)`_
+`trackhub-demo <https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub)`_
 repository. The `raw file
 <https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt>`_
 served by GitHub can be added to the Track Hubs section of UCSC Genome Browser, or click the following link to load the hub directly into the UCSC Genome Browser:
-`load hub <
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
+`load hub <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
