@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="trackhub 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Tutorial" href="tutorial.html"/>
+        <link rel="next" title="Organizing larger track hubs" href="grouping.html"/>
         <link rel="prev" title="trackhub" href="index.html"/> 
 
   
@@ -93,20 +93,14 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-hub-components">Create hub components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#connect-components">Connect components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#introspection">Introspection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#render-the-hub">Render the hub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#upload-data">Upload data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-tracks">Adding tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-stage-the-hub">Render (stage) the hub</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filenames.html">Filenames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developers.html">Topical docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
@@ -182,256 +176,167 @@ know some of the terminology.</p>
 and no host is required – it’s simply a handful of text files on disk.
 However, if you want to use the track hub as it was intended – to browse data
 – you’ll need a publicly accessible place to host files (http or ftp) and some
-data.</p>
+data. For testing small datasets, you can upload to a GitHub repository. The
+example below demonstrates this.</p>
 <p>Here, we’ll set up a simple hub with 2 subtracks using data that comes with
-<code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code></p>
-<p>In the more detailed <a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Tutorial</span></a> you can learn how to create more
-complicated track hubs – for example, a composite hub with multiple views for
-BAM alignments, bigWig signal, and bigBed called peaks.</p>
-</div>
-<div class="section" id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<p>First, import some classes that we’ll be using:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">Hub</span><span class="p">,</span> <span class="n">GenomesFile</span><span class="p">,</span> <span class="n">Genome</span><span class="p">,</span> <span class="n">TrackDb</span><span class="p">,</span> <span class="n">Track</span>
-<span class="kn">import</span> <span class="nn">os</span>
-</pre></div>
-</div>
-<p>Then set up the URL base.  This will completely depend on your own setup – it’s
-the URL of the top-level directory where you’ll be hosting your track hub.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">URLBASE</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/mytrackhubs&#39;</span>
-<span class="n">GENOME</span> <span class="o">=</span> <span class="s1">&#39;dm3&#39;</span>
-</pre></div>
-</div>
+<cite>trackhub</cite> to illustrate the workflow. More complicated examples can be
+found in <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a> and <a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a>.</p>
 </div>
 <div class="section" id="create-hub-components">
 <h2>Create hub components<a class="headerlink" href="#create-hub-components" title="Permalink to this headline">¶</a></h2>
-<p>Create a new <a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>, which will represent the top-level “hub.txt” file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">Hub</span><span class="p">(</span>
-    <span class="n">hub</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example hub&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;an example hub for testing&#39;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;none@example.com&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Create a new <a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a>, which will represent the genomes file
-containing one or more multiple 2-line stanzas. We’ll only be using data for
-a single assembly (dm3).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">genomes_file</span> <span class="o">=</span> <span class="n">GenomesFile</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Create a new <a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-class docutils literal"><span class="pre">Genome</span></code></a> object with the assembly name; this will represent
-the stanza in the genomes file created above:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">genome</span> <span class="o">=</span> <span class="n">Genome</span><span class="p">(</span><span class="n">GENOME</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Create a new <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a> object that will represent the <code class="docutils literal"><span class="pre">trackDb.txt</span></code>
-file and will eventually hold the tracks for this genome:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trackdb</span> <span class="o">=</span> <span class="n">TrackDb</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Create two new <a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> instances.  Each instance represents a stanza in
-the <code class="docutils literal"><span class="pre">trackDb.txt</span></code> file.  Creation of these objects in a script really pays
-off – in fact, the ability to do so is a major reason for <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>’s
-existence. But here, we’re just creating them longhand for clarity:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track1Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track1.bigBed&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed 3&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track1&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #1&#39;</span><span class="p">,</span>
-    <span class="c1"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">)</span>
+<p>A track hub consists of connected components of files that point to each other.
+The hub file points to a genomes file, which points to a trackDb file, which
+points to the various data tracks.</p>
+<p>In <cite>trackhub</cite>, these are modeled as classes with parents and children. The hub
+is the parent of the genomes file, which is the parent of the trackDb file, and
+so on. In this quickstart, we use the <code class="xref py py-func docutils literal"><span class="pre">default_hub()</span></code> function to get all of
+these components already connected. See <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a> for connecting
+them one-by-one or for more control over filenames.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">trackhub</span>
 
-<span class="n">track2</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;track2Track&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">URLBASE</span><span class="p">,</span> <span class="n">GENOME</span><span class="p">,</span> <span class="s1">&#39;track2.bigBed&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed 3&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;track2&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;my track #2&#39;</span><span class="p">,</span>
-    <span class="c1"># add other params here...</span>
-    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0,0,255&#39;</span><span class="p">)</span>
+<span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;quickstart&quot;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;you@email.com&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can indvidually print each object to see the contents of the text file that
+will be created. Note that until a hub is “rendered” (see below), the files
+won’t actually exist.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>hub hub
+shortLabel quickstart
+longLabel quickstart
+genomesFile quickstart.genomes.txt
+email you@email.com
+</pre></div>
+</div>
+<p>Note that we could have specified the short_label and long_label kwargs, but by
+default the hub name is carried over to the shortLabel and longLabel lines.
+Furthermore, the genomes.txt file’s name is prefixed by the hub name.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>genome hg38
+trackDb hg38/trackDb.txt
+</pre></div>
+</div>
+<p>So far, the <cite>trackdb</cite> object has no tracks added:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="connect-components">
-<h2>Connect components<a class="headerlink" href="#connect-components" title="Permalink to this headline">¶</a></h2>
-<p>Now we connect them all together.  <strong>This is an important step</strong>, as it ties
-together the objects thus far created into a defined hierarchy.</p>
-<p>Here we start from the bottom (tracks) and hierarchically add each object to
-the next object up in the hierarchy (trackDb, genome, genomes file, and finally
-up to the hub):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">([</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">])</span>
-<span class="n">genome</span><span class="o">.</span><span class="n">add_trackdb</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
-<span class="n">genomes_file</span><span class="o">.</span><span class="n">add_genome</span><span class="p">(</span><span class="n">genome</span><span class="p">)</span>
-<span class="n">hub</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
+<div class="section" id="adding-tracks">
+<h2>Adding tracks<a class="headerlink" href="#adding-tracks" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we are adding tracks one at a time. This is not much easier
+than just writing the trackDb file in a text editor. However, creating tracks
+in Python makes it easy to scale up to hundreds of tracks and unlocks all of
+Python for configuring tracks. As one example, we could color tracks by some
+aspect (sample, or treatment, for example) and rapidly make the changes across
+the hub. See <a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a> for an example of this.</p>
+<p>Here’s how to create a single track. The most important argument is the
+<cite>source</cite> argument, which points to the location of the track’s file on disk.
+Unlike the objects we made above which don’t yet exist as a file, a Track
+object must point to an existing file. Sometimes you might want to include
+a file from a different hub in your own hub. In this case, instead of <cite>source</cite>,
+use the <cite>url</cite> kwarg.</p>
+<p>Here were are using the <code class="xref py py-func docutils literal"><span class="pre">helpers.data_dir()</span></code> function to get the path to
+the example data shipped with trackhub. In practice, these paths would be
+inside your analysis directories.</p>
+<p>First, the simplest track to add: a name, source, and type. Note that we add it
+to the <cite>trackdb</cite> as well:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Conveniently, upon connecting all the components, reasonable defaults are
-initialized for filenames based on the name of the track hub and genomes
-selected.  For the classes that represent files on disk (<a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-class docutils literal"><span class="pre">Hub</span></code></a>,
-<a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a>, and <a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-class docutils literal"><span class="pre">TrackDb</span></code></a>), you can check and/or change the
-<code class="xref py py-attr docutils literal"><span class="pre">filename</span></code> attribute if you’d like.</p>
-<p>In this case, the filenames are as follows (created in the current directory):</p>
-<ul class="simple">
-<li>hub: <code class="file docutils literal"><span class="pre">example_hub.hub.txt</span></code></li>
-<li>genomes file: <code class="file docutils literal"><span class="pre">example_hub.genomes.txt</span></code></li>
-<li>track db: <code class="file docutils literal"><span class="pre">dm3/trackDb.txt</span></code></li>
-</ul>
-<p>See <a class="reference internal" href="filenames.html#filenames"><span class="std std-ref">Filenames</span></a> in the tutorial for more info on customizing this.</p>
-</div>
-<div class="section" id="introspection">
-<h2>Introspection<a class="headerlink" href="#introspection" title="Permalink to this headline">¶</a></h2>
-<p>Printing the objects shows the contents that will be placed into their files.
-For example, the hub object:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">hub</span>
-<span class="go">hub example_hub</span>
-<span class="go">shortLabel example hub</span>
-<span class="go">longLabel an example hub for testing</span>
-<span class="go">genomesFile example_hub.genomes.txt</span>
-<span class="go">email none@example.com</span>
+<p>Next, a slightly more complex one, which changes the visibility, view height,
+color, and view limits as well as sets nicer labels. See the <a class="reference external" href="https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html">Track Database
+Definition</a>
+page for more details as well as all the other settings that are possible.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signal2&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal 2&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;Signal track for sample 2&#39;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-1.bedgraph.bw&#39;</span><span class="p">),</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">,</span>
+    <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:50:128&#39;</span><span class="p">,</span>
+    <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span>
+<span class="p">)</span>
+
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Printing the genomes file shows all of its attached genomes, so if we were
-working with multiple genomes, they would all be shown here:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">genomes_file</span>
+<p>Now that we have added tracks to the <cite>trackdb</cite> object, printing it should show the updates:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>genome dm3
-trackDb dm3/trackDb.txt
-</pre></div>
-</div>
-<p>The single genome we’re working with; printing the genome looks similar to
-printing the genomes file.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">genome</span>
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>genome dm3
-trackDb dm3/trackDb.txt
-</pre></div>
-</div>
-<p>And the trackDb file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">trackdb</span>
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>track track1Track
-bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
-shortLabel track1
-longLabel my track #1
-type bigBed 3
+<div class="highlight-none"><div class="highlight"><pre><span></span>track signal1
+bigDataUrl signal1.bigWig
+shortLabel signal1
+longLabel signal1
+type bigWig
+
+track signal2
+bigDataUrl signal2.bigWig
+shortLabel Signal 2
+longLabel Signal track for sample 2
+type bigWig
+visibility full
 color 128,0,0
-
-track track2Track
-bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
-shortLabel track2
-longLabel my track #2
-type bigBed 3
-color 0,0,255
-</pre></div>
-</div>
-<p>Now, at this point nothing has actually been written to file (more on that in
-a moment).  But first, let’s make some adjustments.  For example, let’s add
-a visibility mode of “squish” to all the tracks in <cite>trackdb</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">tracks</span><span class="p">:</span>
-    <span class="n">track</span><span class="o">.</span><span class="n">add_params</span><span class="p">(</span><span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;squish&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Printing the <code class="docutils literal"><span class="pre">trackdb</span></code> again reflects the updates:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">trackdb</span>
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>track track1Track
-bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
-shortLabel track1
-longLabel my track #1
-type bigBed 3
-visibility squish
-color 128,0,0
-
-track track2Track
-bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
-shortLabel track2
-longLabel my track #2
-type bigBed 3
-visibility squish
-color 0,0,255
+maxHeightPixels 8:50:128
+viewLimits -2:2
 </pre></div>
 </div>
 </div>
-<div class="section" id="render-the-hub">
-<h2>Render the hub<a class="headerlink" href="#render-the-hub" title="Permalink to this headline">¶</a></h2>
-<p>So far, nothing has been written to file.  <em>Rendering</em> the hub refers to
-actually writing the content to files, creating directories as needed.</p>
-<p>This is done simply by calling the render method on the top-level object:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<div class="section" id="render-stage-the-hub">
+<h2>Render (stage) the hub<a class="headerlink" href="#render-stage-the-hub" title="Permalink to this headline">¶</a></h2>
+<p>To get ready for uploading, <cite>trackhub</cite> renders the hub files and symlinks all
+the track source files into a local directory. This allows us to inspect the
+hub before uploading.</p>
+<p>By default the staging directory is a temporary directory, but here to be more
+explicit we will set <code class="docutils literal"><span class="pre">staging=&quot;quickstart-staging&quot;</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;quickstart-staging&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now everything is written to disk, ready for uploading.</p>
-<p>Where were the files written?  You can use the
-<code class="xref py py-func docutils literal"><span class="pre">helpers.show_rendered_files()</span></code> function to see:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.helpers</span> <span class="k">import</span> <span class="n">show_rendered_files</span>
-<span class="n">show_rendered_files</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<p>The <cite>quickstart-staging</cite> should have these contents:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>quickstart-staging/
+  quickstart.genomes.txt
+  quickstart.hub.txt
+quickstart-staging/hg38/
+  signal1.bigWig
+  signal2.bigWig
+  trackDb.txt
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>rendered file: example_hub.hub.txt (created by: &lt;trackhub.hub.Hub object at 0x...&gt;)
-rendered file: example_hub.genomes.txt (created by: &lt;trackhub.genomes_file.GenomesFile object at 0x...&gt;)
-rendered file: dm3/trackDb.txt (created by: &lt;trackhub.trackdb.TrackDb object at 0x...&gt;)
+<p>This directory is now ready for transferring to a host to serve it. You can
+either use rsync directly from the terminal (be sure to use the <code class="docutils literal"><span class="pre">-L</span></code>
+argument, which follows symlinks), or use the
+<code class="xref py py-func docutils literal"><span class="pre">trackhub.upload.upload_hub()</span></code> function.</p>
+<p>Another workflow would be to <a class="reference external" href="https://help.github.com/articles/create-a-repo/">create a Github repo</a>, then either set the path
+to the repo as the <cite>staging</cite> diretory, or move the contents of the staging
+directory into the repo:</p>
+<p>For example, at the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">repo</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">repo</span>
+<span class="n">mv</span> <span class="o">../</span><span class="n">quickstart</span><span class="o">-</span><span class="n">staging</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;update hub&#39;</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="upload-data">
-<h2>Upload data<a class="headerlink" href="#upload-data" title="Permalink to this headline">¶</a></h2>
-<p>Assuming you have a way of getting data to a publicly accessible location, you
-can upload all of the hub configuration files and data files.</p>
-<p>This requires some extra attributes for tracks and the hub.  For example, the
-tracks need a <code class="xref py py-attr docutils literal"><span class="pre">local_fn</span></code> attribute, which provides the local path on
-disk, and an <code class="xref py py-attr docutils literal"><span class="pre">upload_fn</span></code> attribute, which may or may not be the same as
-their <code class="xref py py-attr docutils literal"><span class="pre">bigDataUrl</span></code> URL – this would depend on where exactly you’re
-hosting the files and how you access them through SSH.</p>
-<p>Since so much depends on your setup, getting the path names right is up to you!</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="xref py py-attr docutils literal"><span class="pre">local_fn</span></code> attribute is very important, because it’s the way that
-data on disk gets connected to tracks in the track hub.  Any file on disk
-can act as the data source for a track, so it’s up to you to specify the
-right data file for each track.</p>
-</div>
-<p>The <code class="xref py py-attr docutils literal"><span class="pre">bigDataUrl</span></code> attributes for the tracks above point to the URL
-<code class="file docutils literal"><span class="pre">http://example.com/mytrackhubs/dm3/</span></code>.  Imagine that on our local
-machine, the data files for these tracks are stored in <code class="file docutils literal"><span class="pre">/data/bedfiles/</span></code>.
-And, in order to upload them via rsync so that they are served by the host at
-the bigDataUrl specified above, imagine we need to get them to
-<code class="file docutils literal"><span class="pre">user&#64;example.com:/var/www/data/mytrackhubs/dm3</span></code>, with rsync over SSH.</p>
-<p>Given this scenario, here’s how we would set up the local and remote filenames:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">local_dir</span> <span class="o">=</span> <span class="s1">&#39;/data/bedfiles&#39;</span>
-<span class="n">upload_dir</span> <span class="o">=</span> <span class="s1">&#39;/var/www/data/mytrackhubs&#39;</span>
-<span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;user&#39;</span>
-<span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span>
-
-<span class="c1"># hub already has a default local_fn (hub.filename)</span>
-<span class="n">hub</span><span class="o">.</span><span class="n">upload_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">upload_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">local_fn</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">tracks</span><span class="p">:</span>
-    <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">track</span><span class="o">.</span><span class="n">local_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">local_dir</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
-    <span class="n">track</span><span class="o">.</span><span class="n">remote_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">upload_dir</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>(note: it’s possible to simplify this even more by allowing default remote
-names to be used; here we’re being more explicit about local and remote
-filenames)</p>
-<p>And then upload (via rsync).  This creates directories as necessary, and only
-uploads files that have differences compared to the server:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trackhub.upload</span> <span class="k">import</span> <span class="n">upload_track</span><span class="p">,</span> <span class="n">upload_hub</span>
-
-<span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">trackdb</span><span class="o">.</span><span class="n">tracks</span><span class="p">:</span>
-    <span class="n">upload_track</span><span class="p">(</span><span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-
-<span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now you can paste the hub URL – <code class="xref py py-attr docutils literal"><span class="pre">Hub.url</span></code> – in the UCSC Genome Browser
-to view the hub.</p>
-<p>Continue on to the <a class="reference internal" href="tutorial.html#tutorial"><span class="std std-ref">Tutorial</span></a> for a more in-depth look at <code class="xref py py-mod docutils literal"><span class="pre">trackhub</span></code>.</p>
 </div>
 </div>
 
@@ -445,7 +350,7 @@ to view the hub.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="grouping.html" class="btn btn-neutral float-right" title="Organizing larger track hubs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="trackhub" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

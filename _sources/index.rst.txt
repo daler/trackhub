@@ -6,10 +6,12 @@ Contents:
     :maxdepth: 2
 
     quickstart
-    tutorial
-    filenames
     grouping
     assembly_example
     autodocs
-    developers
     changelog
+
+::
+    tutorial
+    filenames
+    developers

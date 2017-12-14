@@ -14,311 +14,209 @@ In order to create the structure of a track hub, no data files are necessary
 and no host is required -- it's simply a handful of text files on disk.
 However, if you want to use the track hub as it was intended -- to browse data
 -- you'll need a publicly accessible place to host files (http or ftp) and some
-data.
+data. For testing small datasets, you can upload to a GitHub repository. The
+example below demonstrates this.
 
 Here, we'll set up a simple hub with 2 subtracks using data that comes with
-:mod:`trackhub`
+`trackhub` to illustrate the workflow. More complicated examples can be
+found in :ref:`assembly-example` and :ref:`grouping-example`.
 
-In the more detailed :ref:`tutorial` you can learn how to create more
-complicated track hubs -- for example, a composite hub with multiple views for
-BAM alignments, bigWig signal, and bigBed called peaks.
-
-Setup
-~~~~~
-First, import some classes that we'll be using:
-
-.. testcode::
-
-    from trackhub import Hub, GenomesFile, Genome, TrackDb, Track
-    import os
-
-Then set up the URL base.  This will completely depend on your own setup -- it's
-the URL of the top-level directory where you'll be hosting your track hub.
-
-.. testcode::
-
-    URLBASE = 'http://example.com/mytrackhubs'
-    GENOME = 'dm3'
 
 Create hub components
 ~~~~~~~~~~~~~~~~~~~~~
-Create a new :class:`Hub`, which will represent the top-level "hub.txt" file:
+A track hub consists of connected components of files that point to each other.
+The hub file points to a genomes file, which points to a trackDb file, which
+points to the various data tracks.
+
+In `trackhub`, these are modeled as classes with parents and children. The hub
+is the parent of the genomes file, which is the parent of the trackDb file, and
+so on. In this quickstart, we use the :func:`default_hub` function to get all of
+these components already connected. See :ref:`assembly-example` for connecting
+them one-by-one or for more control over filenames.
 
 .. testcode::
 
-    hub = Hub(
-        hub='example_hub',
-        short_label='example hub',
-        long_label='an example hub for testing',
-        email='none@example.com')
+    import os
+    import trackhub
 
-Create a new :class:`GenomesFile`, which will represent the genomes file
-containing one or more multiple 2-line stanzas. We'll only be using data for
-a single assembly (dm3).
+    hub, genomes_file, genome, trackdb = trackhub.default_hub(
+        hub_name="quickstart",
+        genome="hg38",
+        email="you@email.com")
 
-.. testcode::
-
-    genomes_file = GenomesFile()
-
-Create a new :class:`Genome` object with the assembly name; this will represent
-the stanza in the genomes file created above:
+We can indvidually print each object to see the contents of the text file that
+will be created. Note that until a hub is "rendered" (see below), the files
+won't actually exist.
 
 .. testcode::
 
-    genome = Genome(GENOME)
+    print(hub)
 
-Create a new :class:`TrackDb` object that will represent the ``trackDb.txt``
-file and will eventually hold the tracks for this genome:
+.. testoutput::
+    :options: +NORMALIZE_WHITESPACE
 
-.. testcode::
+    hub hub
+    shortLabel quickstart
+    longLabel quickstart
+    genomesFile quickstart.genomes.txt
+    email you@email.com
 
-    trackdb = TrackDb()
-
-Create two new :class:`Track` instances.  Each instance represents a stanza in
-the ``trackDb.txt`` file.  Creation of these objects in a script really pays
-off -- in fact, the ability to do so is a major reason for :mod:`trackhub`'s
-existence. But here, we're just creating them longhand for clarity:
-
-.. testcode::
-
-    track1 = Track(
-        name="track1Track",
-        url=os.path.join(URLBASE, GENOME, 'track1.bigBed'),
-        tracktype='bigBed 3',
-        short_label='track1',
-        long_label='my track #1',
-        # add other params here...
-        color='128,0,0')
-
-    track2 = Track(
-        name="track2Track",
-        url=os.path.join(URLBASE, GENOME, 'track2.bigBed'),
-        tracktype='bigBed 3',
-        short_label='track2',
-        long_label='my track #2',
-        # add other params here...
-        color='0,0,255')
-
-Connect components
-~~~~~~~~~~~~~~~~~~
-Now we connect them all together.  **This is an important step**, as it ties
-together the objects thus far created into a defined hierarchy.
-
-Here we start from the bottom (tracks) and hierarchically add each object to
-the next object up in the hierarchy (trackDb, genome, genomes file, and finally
-up to the hub):
+Note that we could have specified the short_label and long_label kwargs, but by
+default the hub name is carried over to the shortLabel and longLabel lines.
+Furthermore, the genomes.txt file's name is prefixed by the hub name.
 
 .. testcode::
 
-    trackdb.add_tracks([track1, track2])
-    genome.add_trackdb(trackdb)
-    genomes_file.add_genome(genome)
-    hub.add_genomes_file(genomes_file)
+    print(genomes_file)
 
-Conveniently, upon connecting all the components, reasonable defaults are
-initialized for filenames based on the name of the track hub and genomes
-selected.  For the classes that represent files on disk (:class:`Hub`,
-:class:`GenomesFile`, and :class:`TrackDb`), you can check and/or change the
-:attr:`filename` attribute if you'd like.
+.. testoutput::
+    :options: +NORMALIZE_WHITESPACE
 
-In this case, the filenames are as follows (created in the current directory):
+    genome hg38
+    trackDb hg38/trackDb.txt
 
-* hub: :file:`example_hub.hub.txt`
-* genomes file: :file:`example_hub.genomes.txt`
-* track db: :file:`dm3/trackDb.txt`
+So far, the `trackdb` object has no tracks added:
 
-See :ref:`filenames` in the tutorial for more info on customizing this.
+.. testcode::
 
-Introspection
+    print(trackdb)
+
+.. testoutput::
+    :options: +NORMALIZE_WHITESPACE
+    
+    
+
+Adding tracks
 ~~~~~~~~~~~~~
-Printing the objects shows the contents that will be placed into their files.
-For example, the hub object:
 
-.. doctest::
+In this example, we are adding tracks one at a time. This is not much easier
+than just writing the trackDb file in a text editor. However, creating tracks
+in Python makes it easy to scale up to hundreds of tracks and unlocks all of
+Python for configuring tracks. As one example, we could color tracks by some
+aspect (sample, or treatment, for example) and rapidly make the changes across
+the hub. See :ref:`grouping-example` for an example of this.
 
-    >>> print hub
-    hub example_hub
-    shortLabel example hub
-    longLabel an example hub for testing
-    genomesFile example_hub.genomes.txt
-    email none@example.com
+Here's how to create a single track. The most important argument is the
+`source` argument, which points to the location of the track's file on disk.
+Unlike the objects we made above which don't yet exist as a file, a Track
+object must point to an existing file. Sometimes you might want to include
+a file from a different hub in your own hub. In this case, instead of `source`,
+use the `url` kwarg.
 
+Here were are using the :func:`helpers.data_dir()` function to get the path to
+the example data shipped with trackhub. In practice, these paths would be
+inside your analysis directories.
 
-Printing the genomes file shows all of its attached genomes, so if we were
-working with multiple genomes, they would all be shown here:
+First, the simplest track to add: a name, source, and type. Note that we add it
+to the `trackdb` as well:
 
 .. testcode::
 
-    print genomes_file
+    track1 = trackhub.Track(
+        name="signal1",
+        source=os.path.join(trackhub.helpers.data_dir(), 'sine-hg38-0.bedgraph.bw'),
+        tracktype='bigWig',
+    )
+
+    trackdb.add_tracks(track1)
+
+
+Next, a slightly more complex one, which changes the visibility, view height,
+color, and view limits as well as sets nicer labels. See the `Track Database
+Definition <https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html>`_
+page for more details as well as all the other settings that are possible.
+
+.. testcode::
+
+    track2 = trackhub.Track(
+        name='signal2',
+        short_label='Signal 2',
+        long_label='Signal track for sample 2',
+        source=os.path.join(trackhub.helpers.data_dir(), 'sine-hg38-1.bedgraph.bw'),
+        tracktype='bigWig',
+        color='128,0,0',
+        maxHeightPixels='8:50:128',
+        viewLimits='-2:2',
+        visibility='full'
+    )
+
+    trackdb.add_tracks(track2)
+
+
+Now that we have added tracks to the `trackdb` object, printing it should show the updates:
+
+.. testcode::
+
+    print(trackdb)
 
 .. testoutput::
     :options: +NORMALIZE_WHITESPACE
 
-    genome dm3
-    trackDb dm3/trackDb.txt
+    track signal1
+    bigDataUrl signal1.bigWig
+    shortLabel signal1
+    longLabel signal1
+    type bigWig
 
-
-The single genome we're working with; printing the genome looks similar to
-printing the genomes file.
-
-
-.. testcode::
-
-    print genome
-
-.. testoutput::
-    :options: +NORMALIZE_WHITESPACE
-
-    genome dm3
-    trackDb dm3/trackDb.txt
-
-And the trackDb file:
-
-.. testcode::
-
-    print trackdb
-
-.. testoutput::
-    :options: +NORMALIZE_WHITESPACE
-
-    track track1Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
-    shortLabel track1
-    longLabel my track #1
-    type bigBed 3
+    track signal2
+    bigDataUrl signal2.bigWig
+    shortLabel Signal 2
+    longLabel Signal track for sample 2
+    type bigWig
+    visibility full
     color 128,0,0
+    maxHeightPixels 8:50:128
+    viewLimits -2:2
 
-    track track2Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
-    shortLabel track2
-    longLabel my track #2
-    type bigBed 3
-    color 0,0,255
+Render (stage) the hub
+~~~~~~~~~~~~~~~~~~~~~~
+To get ready for uploading, `trackhub` renders the hub files and symlinks all
+the track source files into a local directory. This allows us to inspect the
+hub before uploading.
 
-Now, at this point nothing has actually been written to file (more on that in
-a moment).  But first, let's make some adjustments.  For example, let's add
-a visibility mode of "squish" to all the tracks in `trackdb`:
-
-.. testcode::
-
-    for track in trackdb.tracks:
-        track.add_params(visibility='squish')
-
-
-Printing the ``trackdb`` again reflects the updates:
+By default the staging directory is a temporary directory, but here to be more
+explicit we will set ``staging="quickstart-staging"`` 
 
 .. testcode::
 
-    print trackdb
+    trackhub.upload.stage_hub(hub, staging="quickstart-staging")
 
-.. testoutput::
-    :options: +NORMALIZE_WHITESPACE
-
-    track track1Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track1.bigBed
-    shortLabel track1
-    longLabel my track #1
-    type bigBed 3
-    visibility squish
-    color 128,0,0
-
-    track track2Track
-    bigDataUrl http://example.com/mytrackhubs/dm3/track2.bigBed
-    shortLabel track2
-    longLabel my track #2
-    type bigBed 3
-    visibility squish
-    color 0,0,255
-
-
-Render the hub
-~~~~~~~~~~~~~~
-So far, nothing has been written to file.  *Rendering* the hub refers to
-actually writing the content to files, creating directories as needed.
-
-This is done simply by calling the render method on the top-level object:
+The `quickstart-staging` should have these contents:
 
 .. testcode::
+    :hide:
 
-    results = hub.render()
-
-Now everything is written to disk, ready for uploading.
-
-Where were the files written?  You can use the
-:func:`helpers.show_rendered_files` function to see:
-
-.. testcode::
-
-    from trackhub.helpers import show_rendered_files
-    show_rendered_files(results)
+    for path, dirs, files in os.walk('quickstart-staging'):
+          print(path + '/')
+          for f in sorted(files):
+            print('  ' + f)
 
 .. testoutput::
 
-    rendered file: example_hub.hub.txt (created by: <trackhub.hub.Hub object at 0x...>)
-    rendered file: example_hub.genomes.txt (created by: <trackhub.genomes_file.GenomesFile object at 0x...>)
-    rendered file: dm3/trackDb.txt (created by: <trackhub.trackdb.TrackDb object at 0x...>)
+    quickstart-staging/
+      quickstart.genomes.txt
+      quickstart.hub.txt
+    quickstart-staging/hg38/
+      signal1.bigWig
+      signal2.bigWig
+      trackDb.txt
 
+This directory is now ready for transferring to a host to serve it. You can
+either use rsync directly from the terminal (be sure to use the ``-L``
+argument, which follows symlinks), or use the
+:func:`trackhub.upload.upload_hub()` function.
 
+Another workflow would be to `create a Github repo
+<https://help.github.com/articles/create-a-repo/>`_, then either set the path
+to the repo as the `staging` diretory, or move the contents of the staging
+directory into the repo:
 
-Upload data
-~~~~~~~~~~~
-Assuming you have a way of getting data to a publicly accessible location, you
-can upload all of the hub configuration files and data files.
+For example, at the command line::
 
-This requires some extra attributes for tracks and the hub.  For example, the
-tracks need a :attr:`local_fn` attribute, which provides the local path on
-disk, and an :attr:`upload_fn` attribute, which may or may not be the same as
-their :attr:`bigDataUrl` URL -- this would depend on where exactly you're
-hosting the files and how you access them through SSH.
+    git clone https://github.com/user/repo.git
+    cd repo
+    mv ../quickstart-staging .
+    git add .
+    git commit -m 'update hub'
+    git push origin
 
-Since so much depends on your setup, getting the path names right is up to you!
-
-.. note::
-
-    The :attr:`local_fn` attribute is very important, because it's the way that
-    data on disk gets connected to tracks in the track hub.  Any file on disk
-    can act as the data source for a track, so it's up to you to specify the
-    right data file for each track.
-
-The :attr:`bigDataUrl` attributes for the tracks above point to the URL
-:file:`http://example.com/mytrackhubs/dm3/`.  Imagine that on our local
-machine, the data files for these tracks are stored in :file:`/data/bedfiles/`.
-And, in order to upload them via rsync so that they are served by the host at
-the bigDataUrl specified above, imagine we need to get them to
-:file:`user@example.com:/var/www/data/mytrackhubs/dm3`, with rsync over SSH.
-
-Given this scenario, here's how we would set up the local and remote filenames:
-
-.. testcode::
-
-    local_dir = '/data/bedfiles'
-    upload_dir = '/var/www/data/mytrackhubs'
-    user = 'user'
-    host = 'example.com'
-
-    # hub already has a default local_fn (hub.filename)
-    hub.upload_fn = os.path.join(upload_dir, os.path.basename(hub.local_fn))
-
-    for track in trackdb.tracks:
-        basename = os.path.basename(track.url)
-        track.local_fn = os.path.join(local_dir, basename)
-        track.remote_fn = os.path.join(upload_dir, basename)
-
-(note: it's possible to simplify this even more by allowing default remote
-names to be used; here we're being more explicit about local and remote
-filenames)
-
-And then upload (via rsync).  This creates directories as necessary, and only
-uploads files that have differences compared to the server::
-
-    from trackhub.upload import upload_track, upload_hub
-
-    for track in trackdb.tracks:
-        upload_track(track=track, host=host, user=user)
-
-    upload_hub(hub=hub, host=host, user=user)
-
-Now you can paste the hub URL -- :attr:`Hub.url` -- in the UCSC Genome Browser
-to view the hub.
-
-Continue on to the :ref:`tutorial` for a more in-depth look at :mod:`trackhub`.
