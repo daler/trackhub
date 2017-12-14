@@ -121,7 +121,7 @@ with the following link to the UCSC Genome Browser: `load hub
 
 
 The hub files from running the above code have been uploaded to the
-`trackhub-demo <https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub)`_
+`trackhub-demo <https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub>`_
 repository. The `raw file
 <https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt>`_
 served by GitHub can be added to the Track Hubs section of UCSC Genome Browser, or click the following link to load the hub directly into the UCSC Genome Browser:
