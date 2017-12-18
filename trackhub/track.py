@@ -610,7 +610,7 @@ class SuperTrack(BaseTrack):
 
         subtrack : Track or iterable of Tracks
         """
-        if isinstance(subtracks, Track):
+        if isinstance(subtracks, BaseTrack):
             subtracks = [subtracks]
         for subtrack in subtracks:
             self.add_child(subtrack)
