@@ -8,10 +8,11 @@ compositeTracks, and superTracks. See UCSC's `grouping quick start
 <https://genome.ucsc.edu/goldenPath/help/hubQuickStartGroups.html>`_ for some
 background.
 
-View the live hub at:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000.
+* `load the grouping example on UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_
+* `files in GitHub <https://github.com/daler/trackhub/example_grouping_hub>`_
+
 Access the config page for the composite track to view the checkbox matrix and
-see other config options.
+see other config options. Here are some screenshots:
 
 .. figure:: screenshot.png
     :width: 500px
