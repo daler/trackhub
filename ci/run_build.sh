@@ -109,7 +109,10 @@ fi
   done
 
   for hub in "${!hubs[@]}"; do
-      rm -r $hub
+      pth=$(dirname ${hubs[$hub]})
+      rm -r $pth
   done
+
+  rm -rf $HERE/trackhub-demo
 
 )
