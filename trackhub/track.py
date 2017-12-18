@@ -604,12 +604,17 @@ class SuperTrack(BaseTrack):
         super(SuperTrack, self).__init__(*args, **kwargs)
         self.subtracks = []
 
-    def add_track(self, subtrack):
+    def add_tracks(self, subtracks):
         """
-        Add a child :class:`SubTrack` to this supertrack.
+        Add one or more tracks.
+
+        subtrack : Track or iterable of Tracks
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        if isinstance(subtracks, Track):
+            subtracks = [subtracks]
+        for subtrack in subtracks:
+            self.add_child(subtrack)
+            self.subtracks.append(subtrack)
 
     def __str__(self):
 
