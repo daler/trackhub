@@ -1,0 +1,6 @@
+trackhub\.helpers\.filter\_composite\_from\_subgroups
+=====================================================
+
+.. currentmodule:: trackhub.helpers
+
+.. autofunction:: filter_composite_from_subgroups

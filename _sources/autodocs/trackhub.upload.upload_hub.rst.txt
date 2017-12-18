@@ -1,0 +1,6 @@
+trackhub\.upload\.upload\_hub
+=============================
+
+.. currentmodule:: trackhub.upload
+
+.. autofunction:: upload_hub

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.Track &mdash; trackhub 0.1 documentation</title>
+  <title>trackhub.Track &mdash; trackhub 0.1.3 documentation</title>
   
 
   
@@ -35,10 +35,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="trackhub 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="trackhub 0.1.3 documentation" href="../index.html"/>
         <link rel="up" title="API documentation" href="../autodocs.html"/>
-        <link rel="next" title="trackhub.SubGroupDefinition" href="trackhub.SubGroupDefinition.html"/>
-        <link rel="prev" title="trackhub.ViewTrack" href="trackhub.ViewTrack.html"/> 
+        <link rel="next" title="trackhub.CompositeTrack" href="trackhub.CompositeTrack.html"/>
+        <link rel="prev" title="trackhub.BaseTrack" href="trackhub.BaseTrack.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1
+                0.1.3
               </div>
             
           
@@ -101,12 +101,24 @@
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GenomesFile.html">trackhub.GenomesFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.Genome.html">trackhub.Genome</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.TrackDb.html">trackhub.TrackDb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.BaseTrack.html">trackhub.BaseTrack</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.Track</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.CompositeTrack.html">trackhub.CompositeTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.ViewTrack.html">trackhub.ViewTrack</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.constants.Parameter.html">trackhub.constants.Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Assembly.html">trackhub.Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.stage_hub.html">trackhub.upload.stage_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.upload_hub.html">trackhub.upload.upload_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.dimensions_from_subgroups.html">trackhub.helpers.dimensions_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.filter_composite_from_subgroups.html">trackhub.helpers.filter_composite_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.hex2rgb.html">trackhub.helpers.hex2rgb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.sanitize.html">trackhub.helpers.sanitize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.data_dir.html">trackhub.helpers.data_dir</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
@@ -190,6 +202,21 @@ size=&quot;8.0, 12.0&quot;;
 <dt id="trackhub.Track">
 <em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Track</code><span class="sig-paren">(</span><em>url=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#Track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Track" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">trackhub.track.BaseTrack</span></code></p>
+<p>Represents a single track stanza along with the file it describes.</p>
+<p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on arguments. Additional arguments
+supported by this class:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>str</em>) – Full URL for the track (i.e., bigDataUrl). Typically this is only
+used when using a remote track from some other provider or when you
+need lots of control over the URL. Otherwise the url will be
+automatically created based on <cite>filename</cite>.</td>
+</tr>
+</tbody>
+</table>
+<p>:param See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.:</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -198,7 +225,7 @@ size=&quot;8.0, 12.0&quot;;
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#trackhub.Track.__init__" title="trackhub.Track.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([url])</td>
-<td></td>
+<td>Represents a single track stanza along with the file it describes.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#trackhub.Track.add_child" title="trackhub.Track.add_child"><code class="xref py py-obj docutils literal"><span class="pre">add_child</span></code></a>(child)</td>
 <td>Adds self as parent to child, and then adds child.</td>
@@ -238,7 +265,22 @@ size=&quot;8.0, 12.0&quot;;
 <dl class="method">
 <dt id="trackhub.Track.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>url=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#Track.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Track.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Represents a single track stanza along with the file it describes.</p>
+<p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on arguments. Additional arguments
+supported by this class:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>str</em>) – Full URL for the track (i.e., bigDataUrl). Typically this is only
+used when using a remote track from some other provider or when you
+need lots of control over the URL. Otherwise the url will be
+automatically created based on <cite>filename</cite>.</td>
+</tr>
+</tbody>
+</table>
+<p>:param See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="trackhub.Track.add_child">
@@ -266,13 +308,17 @@ supported formats.</p>
 <dt id="trackhub.Track.add_subgroups">
 <code class="descname">add_subgroups</code><span class="sig-paren">(</span><em>subgroups</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Track.add_subgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the subgroups for this track.</p>
-<dl class="docutils">
-<dt>subgroups <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd>Dictionary of subgroups, e.g., {‘celltype’: ‘K562’, ‘treatment’:
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subgroups</strong> (<em>dict</em>) – Dictionary of subgroups, e.g., {‘celltype’: ‘K562’, ‘treatment’:
 ‘a’}.  Each key must match a SubGroupDefinition name in the
 composite’s subgroups list.  Each value must match a key in that
-SubGroupDefinition.mapping dictionary.</dd>
-</dl>
+SubGroupDefinition.mapping dictionary.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -329,10 +375,10 @@ a a Hub object for every component in the hierarchy.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="trackhub.SubGroupDefinition.html" class="btn btn-neutral float-right" title="trackhub.SubGroupDefinition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="trackhub.CompositeTrack.html" class="btn btn-neutral float-right" title="trackhub.CompositeTrack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="trackhub.ViewTrack.html" class="btn btn-neutral" title="trackhub.ViewTrack" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="trackhub.BaseTrack.html" class="btn btn-neutral" title="trackhub.BaseTrack" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -363,7 +409,7 @@ a a Hub object for every component in the hierarchy.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'0.1.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

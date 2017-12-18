@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.track &mdash; trackhub 0.1 documentation</title>
+  <title>trackhub.track &mdash; trackhub 0.1.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="trackhub 0.1 documentation" href="../../index.html"/>
+    <link rel="top" title="trackhub 0.1.3 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.1
+                0.1.3
               </div>
             
           
@@ -236,7 +236,7 @@
         <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack">[docs]</a><span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
 
     <span class="c1"># Dictionary where keys are parameter names (e.g., &quot;color&quot;) and values are</span>
     <span class="c1"># Parameter objects.  These are defined in the constants module.</span>
@@ -250,11 +250,11 @@
     <span class="c1"># for that here.</span>
     <span class="n">specific_params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="BaseTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parentonoff</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">subgroups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Represents a single track stanza.</span>
+<span class="sd">        Represents a single track stanza, base class for other track types.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -263,14 +263,9 @@
 <span class="sd">            Name of the track</span>
 
 <span class="sd">        tracktype : str</span>
-<span class="sd">            Type of the track (e.g., &quot;bam&quot;). The UCSC parameter name is &quot;type&quot;</span>
-<span class="sd">            which is a reserved Python keyword, hence using &quot;tracktype&quot; here.</span>
-
-<span class="sd">        url : str</span>
-<span class="sd">            Full URL for the track (i.e., bigDataUrl). Typically this is only</span>
-<span class="sd">            used when using a remote track from some other provider or when you</span>
-<span class="sd">            need lots of control over the URL. Otherwise the url will be</span>
-<span class="sd">            automatically created based on `filename`.</span>
+<span class="sd">            Type of the track (e.g., &quot;bam&quot;, &quot;bigWig&quot;). The UCSC parameter name</span>
+<span class="sd">            is &quot;type&quot; which is a reserved Python keyword, hence using</span>
+<span class="sd">            &quot;tracktype&quot; here.</span>
 
 <span class="sd">        short_label : str</span>
 <span class="sd">            Used for the left-hand side track label; alias for UCSC parameter</span>
@@ -286,19 +281,30 @@
 <span class="sd">        subgroups : dict</span>
 <span class="sd">            A dictionary of `{name: tag}` where each `name` is the name of</span>
 <span class="sd">            a SubGroupDefinition in a parent :class:`CompositeTrack` and each</span>
-<span class="sd">            `tag` is a key in the SubGroupDefinition.mapping dictionary.  They</span>
-<span class="sd">            end up looking like this in the string representation::</span>
+<span class="sd">            `tag` is a key in the SubGroupDefinition.mapping dictionary. The</span>
+<span class="sd">            dictionary `{&#39;celltype&#39;: &#39;ES&#39;} would end up looking like this in</span>
+<span class="sd">            the string representation::</span>
+
+<span class="sd">                subGroups celltype=ES</span>
+
+<span class="sd">            or like this, if the track had been added to a ViewTrack with name</span>
+<span class="sd">            `aln`::</span>
 
 <span class="sd">                subGroups view=aln celltype=ES</span>
 
 <span class="sd">        source : str or None</span>
-<span class="sd">            Local path to the file (used for uploading). If None, then we</span>
-<span class="sd">            assume an already-existing filename specifed by the `url` argument.</span>
+<span class="sd">            Local path to the file. If None, then `url` must instead be used to</span>
+<span class="sd">            point to an already-existing filename or URL.</span>
 
 <span class="sd">        filename : str or None</span>
 <span class="sd">            Path to upload the file to, over rsync and ssh, relative to the hub</span>
-<span class="sd">            directory. If None, will use a filename of &quot;name.tracktype&quot; in the</span>
-<span class="sd">            same directory as the TrackDb.</span>
+<span class="sd">            directory. Typically only used when you need extensive control over</span>
+<span class="sd">            the remote filename.  If None, will use a filename of</span>
+<span class="sd">            &quot;&lt;name&gt;.tracktype&gt;&quot; in the same directory as the TrackDb. By</span>
+<span class="sd">            default, TrackDb goes in a directory named after the assembly of</span>
+<span class="sd">            its parent Genome object.</span>
+
+<span class="sd">        See docstring for :class:`Track` for details.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">deprecation_handler</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -327,7 +333,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -397,13 +403,13 @@
                 <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigWig&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_typespecific_fields</span><span class="p">[</span><span class="n">tracktype</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_trackdb"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_trackdb">[docs]</a>    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach this track to a parent TrackDb object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">add_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_params"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_params">[docs]</a>    <span class="k">def</span> <span class="nf">add_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add [possibly many] parameters to the track.</span>
 
@@ -425,9 +431,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">remove_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.remove_params"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.remove_params">[docs]</a>    <span class="k">def</span> <span class="nf">remove_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove [possibly many] parameters from the track.</span>
 
@@ -437,9 +443,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_subgroups"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_subgroups">[docs]</a>    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the subgroups for this track.</span>
 
@@ -455,7 +461,7 @@
         <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgroups</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
@@ -517,11 +523,28 @@
                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trackdb</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
 <div class="viewcode-block" id="Track.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents a single track stanza along with the file it describes.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on arguments. Additional arguments</span>
+<span class="sd">        supported by this class:</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        url : str</span>
+<span class="sd">            Full URL for the track (i.e., bigDataUrl). Typically this is only</span>
+<span class="sd">            used when using a remote track from some other provider or when you</span>
+<span class="sd">            need lots of control over the URL. Otherwise the url will be</span>
+<span class="sd">            automatically created based on `filename`.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on other arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;bigDataUrl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bigDataUrl&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">url</span></div>
@@ -546,16 +569,15 @@
 
 <div class="viewcode-block" id="CompositeTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Represents a composite track.  Subclasses :class:`Track`, and adds some</span>
-<span class="sd">        extras.</span>
+<span class="sd">        Represents a composite track.  Subclasses :class:`BaseTrack`, and adds</span>
+<span class="sd">        some extras.</span>
 
 <span class="sd">        Add a view to this composite with :meth:`add_view`.</span>
 
 <span class="sd">        Add a subtrack with :meth:`add_track`.</span>
 
 <span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
-<span class="sd">        add this composite to it with that instance&#39;s :meth:`add_tracks`</span>
-<span class="sd">        method.</span>
+<span class="sd">        add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`.</span>
 
 <span class="sd">        If composite=True, then this track will be considered a composite</span>
 <span class="sd">        parent for other tracks.  In this case, `subgroups` is a list of</span>
@@ -567,6 +589,9 @@
 
 <span class="sd">            subGroup1 view Views aln=Alignments sig=Signal</span>
 <span class="sd">            subGroup2 celltype Cell_Type ES=embryonic k562=K562</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on arguments. There are no</span>
+<span class="sd">        additional arguments supported by this class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -594,7 +619,7 @@
 
 <div class="viewcode-block" id="CompositeTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a child :class:`SubTrack`.</span>
+<span class="sd">        Add a child :class:`Track`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
@@ -656,10 +681,24 @@
 <div class="viewcode-block" id="ViewTrack"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack">[docs]</a><span class="k">class</span> <span class="nc">ViewTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
 <div class="viewcode-block" id="ViewTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Represents a View track.  Subclasses :class:`Track`, and adds some</span>
+<span class="sd">        Represents a View track.  Subclasses :class:`BaseTrack`, and adds some</span>
 <span class="sd">        extras.</span>
 
-<span class="sd">        Upon being added to a CompositeTrack, the `view` tag will be checked.</span>
+<span class="sd">        This will need to be added to a :class:`track.CompositeTrack` with</span>
+<span class="sd">        :meth:`track.CompositeTrack.add_view()`.</span>
+
+<span class="sd">        Add tracks to this view with :meth:`track.ViewTrack.add_tracks()`.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on arguments. Additional arguments</span>
+<span class="sd">        supported by this class:</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        view : str</span>
+<span class="sd">            Unique name to use for the view.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on other arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span>
@@ -674,7 +713,7 @@
 
 <div class="viewcode-block" id="ViewTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtracks</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add tracks to this view.</span>
+<span class="sd">        Add one or more tracks to this view.</span>
 
 <span class="sd">        subtracks : Track or iterable of Tracks</span>
 <span class="sd">            A single Track instance or an iterable of them.</span>
@@ -720,16 +759,23 @@
 <span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
 <span class="sd">        add this supertrack to it with that instance&#39;s :meth:`add_tracks`</span>
 <span class="sd">        method.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SuperTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-<div class="viewcode-block" id="SuperTrack.add_track"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_track">[docs]</a>    <span class="k">def</span> <span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtracks</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a child :class:`SubTrack` to this supertrack.</span>
+<span class="sd">        Add one or more tracks.</span>
+
+<span class="sd">        subtrack : Track or iterable of Tracks</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtracks</span><span class="p">,</span> <span class="n">BaseTrack</span><span class="p">):</span>
+            <span class="n">subtracks</span> <span class="o">=</span> <span class="p">[</span><span class="n">subtracks</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="n">subtracks</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -747,8 +793,8 @@
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack">[docs]</a><span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents an Aggregate or Overlay track. Subclasses :class:`Track`,</span>
 <span class="sd">        adds some extras.</span>
@@ -757,22 +803,33 @@
 <span class="sd">        track.</span>
 
 <span class="sd">        Eventually, you&#39;ll need to make a :class:`trackdb.TrackDb` instance and</span>
-<span class="sd">        add this supertrack to it with that instance&#39;s :meth:`add_tracks`</span>
+<span class="sd">        add this aggregate track to it with that instance&#39;s :meth:`add_tracks`</span>
 <span class="sd">        method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        aggregate : str</span>
+<span class="sd">            Aggregate type. One of &quot;transparentOverlay&quot;, &quot;stacked&quot;,</span>
+<span class="sd">            &quot;solidOverlay&quot;. See</span>
+<span class="sd">            https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html#aggregate</span>
+<span class="sd">            for details.</span>
+
+<span class="sd">        See :class:`BaseTrack` for details on other arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span> <span class="o">=</span> <span class="n">aggregate</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;aggregate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aggregate</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AggregateTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">aggregate_track_fields</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a child :class:`SubTrack` to this aggregrate.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -785,7 +842,7 @@
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">HTMLDoc</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
@@ -879,7 +936,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1',
+            VERSION:'0.1.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

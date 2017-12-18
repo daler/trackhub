@@ -1,0 +1,28 @@
+trackhub.GroupsFile
+===================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: GroupsFile
+
+.. autoclass:: GroupsFile
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~GroupsFile.__init__
+        ~GroupsFile.add_child
+        ~GroupsFile.add_groups
+        ~GroupsFile.add_parent
+        ~GroupsFile.leaves
+        ~GroupsFile.makedirs
+        ~GroupsFile.render
+        ~GroupsFile.root
+        ~GroupsFile.validate
+    
+    .. automethod:: __init__ 

@@ -1,0 +1,6 @@
+trackhub\.helpers\.sanitize
+===========================
+
+.. currentmodule:: trackhub.helpers
+
+.. autofunction:: sanitize

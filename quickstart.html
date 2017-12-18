@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; trackhub 0.1 documentation</title>
+  <title>Quickstart &mdash; trackhub 0.1.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html"/>
+    <link rel="top" title="trackhub 0.1.3 documentation" href="index.html"/>
         <link rel="next" title="Organizing larger track hubs" href="grouping.html"/>
         <link rel="prev" title="trackhub" href="index.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1
+                0.1.3
               </div>
             
           
@@ -246,7 +246,7 @@ Unlike the objects we made above which don’t yet exist as a file, a Track
 object must point to an existing file. Sometimes you might want to include
 a file from a different hub in your own hub. In this case, instead of <cite>source</cite>,
 use the <cite>url</cite> kwarg.</p>
-<p>Here were are using the <code class="xref py py-func docutils literal"><span class="pre">helpers.data_dir()</span></code> function to get the path to
+<p>Here were are using the <a class="reference internal" href="autodocs/trackhub.helpers.data_dir.html#trackhub.helpers.data_dir" title="trackhub.helpers.data_dir"><code class="xref py py-func docutils literal"><span class="pre">helpers.data_dir()</span></code></a> function to get the path to
 the example data shipped with trackhub. In practice, these paths would be
 inside your analysis directories.</p>
 <p>First, the simplest track to add: a name, source, and type. Note that we add it
@@ -324,7 +324,7 @@ quickstart-staging/hg38/
 <p>This directory is now ready for transferring to a host to serve it. You can
 either use rsync directly from the terminal (be sure to use the <code class="docutils literal"><span class="pre">-L</span></code>
 argument, which follows symlinks), or use the
-<code class="xref py py-func docutils literal"><span class="pre">trackhub.upload.upload_hub()</span></code> function.</p>
+<a class="reference internal" href="autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub" title="trackhub.upload.upload_hub"><code class="xref py py-func docutils literal"><span class="pre">trackhub.upload.upload_hub()</span></code></a> function.</p>
 <p>Another workflow would be to <a class="reference external" href="https://help.github.com/articles/create-a-repo/">create a Github repo</a>, then either set the path
 to the repo as the <cite>staging</cite> diretory, or move the contents of the staging
 directory into the repo:</p>
@@ -384,7 +384,7 @@ directory into the repo:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'0.1.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

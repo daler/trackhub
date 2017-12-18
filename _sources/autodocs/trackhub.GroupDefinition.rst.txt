@@ -1,0 +1,20 @@
+trackhub.GroupDefinition
+========================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: GroupDefinition
+
+.. autoclass:: GroupDefinition
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~GroupDefinition.__init__
+    
+    .. automethod:: __init__ 

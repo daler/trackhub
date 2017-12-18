@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; trackhub 0.1 documentation</title>
+  <title>Changelog &mdash; trackhub 0.1.3 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="trackhub 0.1 documentation" href="index.html"/>
-        <link rel="prev" title="trackhub.constants.Parameter" href="autodocs/trackhub.constants.Parameter.html"/> 
+    <link rel="top" title="trackhub 0.1.3 documentation" href="index.html"/>
+        <link rel="prev" title="trackhub.helpers.data_dir" href="autodocs/trackhub.helpers.data_dir.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.1
+                0.1.3
               </div>
             
           
@@ -95,7 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-2-nov-2017">Version 0.2 (Nov 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-2-nov-2017">Version 0.2 (Nov 2017)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overhaul-in-how-files-are-uploaded">Overhaul in how files are uploaded</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-fn-is-replaced-by-source"><code class="docutils literal"><span class="pre">local_fn</span></code> is replaced by <code class="docutils literal"><span class="pre">source</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-1-3-nov-2015">Version 0.1.3 (Nov 2015)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-1-2-jan-2-2015">Version 0.1.2 (Jan 2 2015)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-1-1-dec-19-2012">Version 0.1.1 (Dec 19 2012)</a></li>
@@ -169,35 +173,26 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="version-0-2-nov-2017">
 <h2>Version 0.2 (Nov 2017)<a class="headerlink" href="#version-0-2-nov-2017" title="Permalink to this headline">¶</a></h2>
-<p>Major release breaking backwards compatibility.</p>
-<p>One of the features of <cite>trackhub</cite> I’ve always found useful is the ability to
-have a local file (configured as <code class="docutils literal"><span class="pre">local_fn</span></code> in <code class="docutils literal"><span class="pre">Track</span></code> objects) in
-a completely different path on the remote host (configured with <code class="docutils literal"><span class="pre">remote</span></code>).
-The way this was handled was by rsync-ing each file separately, but that meant
-that the directory needed to be created on the host. For this, I used the
-<cite>fabric</cite> package with its remote execution functions.</p>
-<p>This worked fine, but was not optimal because 1) <cite>fabric</cite> does not support
-Python 3 and 2) rsync-ing many individual files could be slow, and annoying if
-the the hostshowed a banner each time or if a public key was not configured on
-the host.</p>
-<p>One of the major changes in this version is that instead of individual rsync
-calls, first the directory structure desired on the host is recreated locally
-using symlinks. This is called the “staging” area. Then the entire staging area
-is rsynced at once (using <cite>-L</cite> so that links are followed) to the host. The end
-result is the same as before (local paths don’t have to match remote pathsThe
-end result is the same as before (local paths don’t have to match remote
-paths), but with the added bonus of being able to inspect the files in the
-staging area.</p>
-<p>Having both remote_fn and local_fn seemed like overkill especially for
-rendered-on-the-fly files like the hub file or genomes file. There were also
-problems with the assembly hub remote filenames, and debugging it was tricky.</p>
-<p>Rendering take place in the (newly-introduced) staging area using the filename
-attribute, and what used to be “rendering” is now “staging”. For
-rendered-on-the-fly files, filename is created relative to the staging
-directory. Objects that represent an existing file on disk (BAM, bigWig, .2bit,
-etc) have a source attribute pointing to that file, and a filename attribute,
-similar to the other objects, that represents the remote path relative to the
-staging dir.</p>
+<div class="section" id="overhaul-in-how-files-are-uploaded">
+<h3>Overhaul in how files are uploaded<a class="headerlink" href="#overhaul-in-how-files-are-uploaded" title="Permalink to this headline">¶</a></h3>
+<p>Instead of uploading files one-by-one, first the hub is rendered to a local
+“staging” directory and tracks are symlinked over to this directory. BAM and
+VCF indexes are also symlinked if needed, and any HTML documentation is also
+rendered to the staging directory.  This allows for inspecting the hub locally
+before uploading.  The entire directory can then be uploaded with <code class="docutils literal"><span class="pre">rsync</span></code>
+using the <code class="docutils literal"><span class="pre">-L</span></code> option to follow symlinks.</p>
+</div>
+<div class="section" id="local-fn-is-replaced-by-source">
+<h3><code class="docutils literal"><span class="pre">local_fn</span></code> is replaced by <code class="docutils literal"><span class="pre">source</span></code><a class="headerlink" href="#local-fn-is-replaced-by-source" title="Permalink to this headline">¶</a></h3>
+<p>To better align the semantics of keyword arguments with this new uploading
+strategy, <code class="docutils literal"><span class="pre">local_fn</span></code> and <code class="docutils literal"><span class="pre">remote_fn</span></code> are deprecated as arguments to
+<code class="xref py py-class docutils literal"><span class="pre">Track</span></code> objects. Using them is still supported, but a DeprecationWarning
+will be raised. Instead, use <code class="docutils literal"><span class="pre">source</span></code> to point to a file on disk.  This
+allows support of the <code class="docutils literal"><span class="pre">url</span></code> argument, to provide a remote URL that you want
+to include in the hub but are not uploading yourself. If more control over the
+filename is required, use the <code class="docutils literal"><span class="pre">filename</span></code> argument. See the documentation for
+<a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">trackhub.BaseTrack</span></code></a> for details.</p>
+</div>
 </div>
 <div class="section" id="version-0-1-3-nov-2015">
 <h2>Version 0.1.3 (Nov 2015)<a class="headerlink" href="#version-0-1-3-nov-2015" title="Permalink to this headline">¶</a></h2>
@@ -252,7 +247,7 @@ Jakob Goldman)</li>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="autodocs/trackhub.constants.Parameter.html" class="btn btn-neutral" title="trackhub.constants.Parameter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="autodocs/trackhub.helpers.data_dir.html" class="btn btn-neutral" title="trackhub.helpers.data_dir" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -283,7 +278,7 @@ Jakob Goldman)</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'0.1.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
