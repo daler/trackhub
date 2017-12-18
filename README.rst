@@ -71,8 +71,8 @@ The following code demonstrates a track hub built out of all bigWig files found
 in a directory. It is relatively simple; see these other examples from the
 documentation for more advanced usage:
 
-- `grouping example <https://daler.github.io/trackhub/grouping.html>`_ (`load the grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
-- `assembly example <https://daler.github.io/trackhub/assembly_example.html>`_ (`load the assembly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_)
+- `grouping example <https://daler.github.io/trackhub/grouping.html>`_ (`load the grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
+- `assembly example <https://daler.github.io/trackhub/assembly_example.html>`_ (`load the assembly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_assembly_hub/assembly_hub.hub.txt>`_)
 
 This basis example is run automatically when the documentation is re-generated.
 You can view the uploaded files in the `trackhub-demo
