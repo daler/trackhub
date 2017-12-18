@@ -128,6 +128,8 @@ def stage(x, staging):
 
     Returns a list of the linknames created.
     """
+
+    # Objects that don't represent a file shouldn't be staged
     non_file_objects = (
         track.ViewTrack,
         track.CompositeTrack,
@@ -140,16 +142,22 @@ def stage(x, staging):
     if isinstance(x, non_file_objects):
         return linknames
 
+    # If it's an object representing a file, then render it.
+    #
+    # Track objects don't represent files, but their documentation does
     linknames.append(x.render(staging))
 
     if hasattr(x, 'source') and hasattr(x, 'filename'):
         def _stg(x, ext=''):
+            # A remote track hosted elsewhere does not need staging. This is
+            # defined by a track with a url, but no source or filename.
             if (
                 x.source is None
                 and x.filename is None
                 and getattr(x, 'url', None) is not None
             ):
                 return
+
             linknames.append(
                 local_link(x.source + ext, x.filename + ext, staging)
             )

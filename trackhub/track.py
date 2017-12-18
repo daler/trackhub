@@ -93,7 +93,7 @@ class BaseTrack(HubComponent):
                  long_label=None, parentonoff="on", subgroups=None, source=None,
                  filename=None, html_string=None, **kwargs):
         """
-        Represents a single track stanza.
+        Represents a single track stanza, base class for other track types.
 
         Parameters
         ----------
@@ -102,14 +102,9 @@ class BaseTrack(HubComponent):
             Name of the track
 
         tracktype : str
-            Type of the track (e.g., "bam"). The UCSC parameter name is "type"
-            which is a reserved Python keyword, hence using "tracktype" here.
-
-        url : str
-            Full URL for the track (i.e., bigDataUrl). Typically this is only
-            used when using a remote track from some other provider or when you
-            need lots of control over the URL. Otherwise the url will be
-            automatically created based on `filename`.
+            Type of the track (e.g., "bam", "bigWig"). The UCSC parameter name
+            is "type" which is a reserved Python keyword, hence using
+            "tracktype" here.
 
         short_label : str
             Used for the left-hand side track label; alias for UCSC parameter
@@ -125,19 +120,30 @@ class BaseTrack(HubComponent):
         subgroups : dict
             A dictionary of `{name: tag}` where each `name` is the name of
             a SubGroupDefinition in a parent :class:`CompositeTrack` and each
-            `tag` is a key in the SubGroupDefinition.mapping dictionary.  They
-            end up looking like this in the string representation::
+            `tag` is a key in the SubGroupDefinition.mapping dictionary. The
+            dictionary `{'celltype': 'ES'} would end up looking like this in
+            the string representation::
+
+                subGroups celltype=ES
+
+            or like this, if the track had been added to a ViewTrack with name
+            `aln`::
 
                 subGroups view=aln celltype=ES
 
         source : str or None
-            Local path to the file (used for uploading). If None, then we
-            assume an already-existing filename specifed by the `url` argument.
+            Local path to the file. If None, then `url` must instead be used to
+            point to an already-existing filename or URL.
 
         filename : str or None
             Path to upload the file to, over rsync and ssh, relative to the hub
-            directory. If None, will use a filename of "name.tracktype" in the
-            same directory as the TrackDb.
+            directory. Typically only used when you need extensive control over
+            the remote filename.  If None, will use a filename of
+            "<name>.tracktype>" in the same directory as the TrackDb. By
+            default, TrackDb goes in a directory named after the assembly of
+            its parent Genome object.
+
+        See docstring for :class:`Track` for details.
         """
         source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
@@ -361,6 +367,23 @@ class BaseTrack(HubComponent):
 
 class Track(BaseTrack):
     def __init__(self, url=None, *args, **kwargs):
+        """
+        Represents a single track stanza along with the file it describes.
+
+        See :class:`BaseTrack` for details on arguments. Additional arguments
+        supported by this class:
+
+        Parameters
+        ----------
+
+        url : str
+            Full URL for the track (i.e., bigDataUrl). Typically this is only
+            used when using a remote track from some other provider or when you
+            need lots of control over the URL. Otherwise the url will be
+            automatically created based on `filename`.
+
+        See :class:`BaseTrack` for details on other arguments.
+        """
         kwargs['bigDataUrl'] = kwargs.get('bigDataUrl', url)
         super(Track, self).__init__(*args, **kwargs)
         self._url = url
@@ -385,16 +408,15 @@ class CompositeTrack(BaseTrack):
 
     def __init__(self, *args, **kwargs):
         """
-        Represents a composite track.  Subclasses :class:`Track`, and adds some
-        extras.
+        Represents a composite track.  Subclasses :class:`BaseTrack`, and adds
+        some extras.
 
         Add a view to this composite with :meth:`add_view`.
 
         Add a subtrack with :meth:`add_track`.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
-        add this composite to it with that instance's :meth:`add_tracks`
-        method.
+        add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`.
 
         If composite=True, then this track will be considered a composite
         parent for other tracks.  In this case, `subgroups` is a list of
@@ -406,6 +428,9 @@ class CompositeTrack(BaseTrack):
 
             subGroup1 view Views aln=Alignments sig=Signal
             subGroup2 celltype Cell_Type ES=embryonic k562=K562
+
+        See :class:`BaseTrack` for details on arguments. There are no
+        additional arguments supported by this class.
         """
         super(CompositeTrack, self).__init__(*args, **kwargs)
 
@@ -433,7 +458,7 @@ class CompositeTrack(BaseTrack):
 
     def add_subtrack(self, subtrack):
         """
-        Add a child :class:`SubTrack`.
+        Add a child :class:`Track`.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
@@ -495,10 +520,24 @@ class CompositeTrack(BaseTrack):
 class ViewTrack(BaseTrack):
     def __init__(self, view, *args, **kwargs):
         """
-        Represents a View track.  Subclasses :class:`Track`, and adds some
+        Represents a View track.  Subclasses :class:`BaseTrack`, and adds some
         extras.
 
-        Upon being added to a CompositeTrack, the `view` tag will be checked.
+        This will need to be added to a :class:`track.CompositeTrack` with
+        :meth:`track.CompositeTrack.add_view()`.
+
+        Add tracks to this view with :meth:`track.ViewTrack.add_tracks()`.
+
+        See :class:`BaseTrack` for details on arguments. Additional arguments
+        supported by this class:
+
+        Parameters
+        ----------
+
+        view : str
+            Unique name to use for the view.
+
+        See :class:`BaseTrack` for details on other arguments.
         """
         self.view = view
         kwargs['view'] = view
@@ -513,7 +552,7 @@ class ViewTrack(BaseTrack):
 
     def add_tracks(self, subtracks):
         """
-        Add tracks to this view.
+        Add one or more tracks to this view.
 
         subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
@@ -559,6 +598,8 @@ class SuperTrack(BaseTrack):
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this supertrack to it with that instance's :meth:`add_tracks`
         method.
+
+        See :class:`BaseTrack` for details on arguments.
         """
         super(SuperTrack, self).__init__(*args, **kwargs)
         self.subtracks = []
@@ -596,8 +637,19 @@ class AggregateTrack(BaseTrack):
         track.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
-        add this supertrack to it with that instance's :meth:`add_tracks`
+        add this aggregate track to it with that instance's :meth:`add_tracks`
         method.
+
+        Parameters
+        ----------
+
+        aggregate : str
+            Aggregate type. One of "transparentOverlay", "stacked",
+            "solidOverlay". See
+            https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html#aggregate
+            for details.
+
+        See :class:`BaseTrack` for details on other arguments.
         """
 
         self.aggregate = aggregate
