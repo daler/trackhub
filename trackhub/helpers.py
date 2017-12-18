@@ -65,7 +65,6 @@ def hex2rgb(h):
     )))
 
 
-
 def sanitize(s, strict=True):
     """
     Sanitize a string.

@@ -42,23 +42,26 @@ will be uploaded on subsequent calls.
 
 Flexibility
 ~~~~~~~~~~~
-Sensible defaults make it easy to build a functioning track hub. These defaults
-can always be overridden for complex configurations or when more precise
-control is needed.
+Sensible defaults make it easy to build a functioning track hub. However, these
+defaults can always be overridden for complex configurations or when more
+precise control is needed. For example, by default a track's `name` also
+becomes the `shortLabel`, `longLabel` and `filename` of the track in the hub
+unless any of these are overridden by the user.
 
 Easy track documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Write track hub documentation in ReStructured Text, and it is converted to
-HTML, connected to the track and uploaded with the rest of the hub.
+HTML, connected to the track and uploaded with the rest of the hub. This allows
+for programmatically including content without the tedium of writing HTML by
+hand.
 
 Extensible
 ~~~~~~~~~~
 The framework provided by `trackhub` can be extended as new hub functionality is
 added to the UCSC Genome Browser.
 
-Full documentation can be found at
-https://daler.github.io/trackhub. The code in the documentation is run as part
-of the test suite to guarantee correctness.
+Full documentation can be found at https://daler.github.io/trackhub. The code
+in the documentation is run as part of the test suite to guarantee correctness.
 
 .. _basic-example:
 
@@ -68,8 +71,8 @@ The following code demonstrates a track hub built out of all bigWig files found
 in a directory. It is relatively simple; see these other examples from the
 documentation for more advanced usage:
 
-- `grouping example <https://daler.github.io/trackhub/grouping.html` (`load grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
-- `assembly example <https://daler.github.io/trackhub/assembly_example.html` (`load assmebly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_)
+- `grouping example <https://daler.github.io/trackhub/grouping.html>`_ (`load the grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
+- `assembly example <https://daler.github.io/trackhub/assembly_example.html>`_ (`load the assembly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_)
 
 This basis example is run automatically when the documentation is re-generated.
 You can view the uploaded files in the `trackhub-demo

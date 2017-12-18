@@ -9,7 +9,7 @@ from .genome import Genome
 from .assembly import Assembly
 from .groups import GroupsFile, GroupDefinition
 from .trackdb import TrackDb
-from .track import Track, SubGroupDefinition, CompositeTrack, \
+from .track import BaseTrack, Track, SubGroupDefinition, CompositeTrack, \
     ViewTrack, SuperTrack, AggregateTrack
 from .version import version as __version__
 
