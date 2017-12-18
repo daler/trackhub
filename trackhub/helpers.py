@@ -27,7 +27,8 @@ def filter_composite_from_subgroups(s):
     Given a sorted list of subgroups, return a string appropriate to provide as
     the a composite track's `filterComposite` argument
 
-    >>> filter_composite_from_subgroups(['cell', 'ab', 'lab', 'knockdown'])
+    >>> import trackhub
+    >>> trackhub.helpers.filter_composite_from_subgroups(['cell', 'ab', 'lab', 'knockdown'])
     'dimA dimB'
 
     Parameters
