@@ -1,28 +1,30 @@
-``trackhub``
-============
+trackhub
+========
 
 Data visualization is critical at all steps of genomic data analysis, from QC
 through final figure preparation.  A `track hub
-<https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ is a collection
-of genomic data "tracks" (data files in a supported format)  along with a set
-of plain-text files that determine the organization, labels, color,
-configuration UI, and other details.  The files comprising a track hub are
-uploaded to a server, and a genome browser (e.g., UCSC Genome Browser) is
-pointed to the served URL for viewing. `Here
+<https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ is way of
+organizing large numbers of of genomic data "tracks" (data files in a supported
+format), configured with a set of plain-text files that determine the
+organization, UI, labels, color, and other details. The files comprising
+a track hub are uploaded to a server, and a genome browser (e.g., UCSC Genome
+Browser) is pointed to the served URL for viewing. For example, `here
 <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://vizhub.wustl.edu/VizHub/RoadmapRelease3.txt>`_
-is an example of a track hub created by the ENCODE project.
+is a track hub created by the ENCODE project. It is straightforward to write
+the configuration files and upload the tracks manually if you have a small
+number of tracks. For larger data sets however, this becomes tedious and
+error-prone.
 
-If you only have a handful of tracks, it is straightforward to write the
-configuration files and upload the tracks manually. For larger data sets
-however, this becomes tedious and error-prone. Here we introduce `trackhub`,
-a Python package that enables the programmatic construction and upload of
-arbitrarily complex track hubs. It has no dependencies besides Python itself
-and the availability of ``rsync`` (a standard Unix command-line tool for
+`trackhub` is a Python package that enables the programmatic construction and
+upload of arbitrarily complex track hubs. It has no dependencies besides Python
+itself and the availability of ``rsync`` (a standard Unix command-line tool for
 remotely transferring files). It is availabe on PyPI, bioconda, and GitHub; an
 automated test suite and tested documentation ensure high-quality code and
 help.
 
-See the `documentation <https://daler.github.io/trackhub>`_ for more details.
+.. image:: screenshot.png
+
+See the documentation at https://daler.github.io/trackhub for more details.
 
 Features
 --------
@@ -34,43 +36,55 @@ are caught early and less time is spent debugging in the Genome Browser.
 
 Filename handling
 ~~~~~~~~~~~~~~~~~
-The directory structure of a hub rarely matches the directory structure of the
-analysis.  `trackhub` symlinks track files to a staging area so the hub can be
-inspected locally before being uploaded, e.g., with ``rsync``. Staging also
-enables rapid deployment and updating since only files that have changed will
-be uploaded on subsequent calls.
+The directory structure of an analysis rarely matches the organization you want
+for a track hub.  `trackhub` symlinks track files to a staging area so the hub
+can be inspected locally before being uploaded, e.g., with ``rsync``. Staging
+also enables rapid deployment and updating since only files that have changed
+will be uploaded on subsequent calls.
 
 Flexibility
 ~~~~~~~~~~~
-Sensible defaults are used wherever possible to minimize the effort to build
-a functioning track hub. However, all parts can be configured if desired,
-resulting in support for simple one-track hubs through complex composite hubs
-with supertracks, views, and subtracks.
+Sensible defaults make it easy to build a functioning track hub. These defaults
+can always be overridden for complex configurations or when more precise
+control is needed.
+
+Easy track documentation
+~~~~~~~~~~~~~~~~~~~~~~~~
+Write track hub documentation in ReStructured Text, and it is converted to
+HTML, connected to the track and uploaded with the rest of the hub.
 
 Extensible
 ~~~~~~~~~~
 The framework provided by `trackhub` can be extended as new hub functionality is
 added to the UCSC Genome Browser.
 
-Full documentation, including a full in-depth tutorial, can be found at
-https://daler.github.io/trackhub.
+Full documentation can be found at
+https://daler.github.io/trackhub. The code in the documentation is run as part
+of the test suite to guarantee correctness.
 
 .. _basic-example:
 
 Basic example
 -------------
-The code below is run automatically when the documentation is re-generated. The
-resulting files are automatically uploaded to the GitHub repository
-https://github.com/daler/trackhub-demo, and the constructed hub can be viewed
-with the following link to the UCSC Genome Browser: `load hub
-<http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
+The following code demonstrates a track hub built out of all bigWig files found
+in a directory. It is relatively simple; see these other examples from the
+documentation for more advanced usage:
+
+- :ref:`grouping-example` (`load grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
+- :ref:`assembly-example` (`load assmebly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_)
+
+This basis example is run automatically when the documentation is re-generated.
+You can view the uploaded files in the `trackhub-demo
+<https://github.com/daler/trackhub-demo>`_ GitHub repository, and `load the hub
+<http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_
+directly into UCSC to see what it looks like.
 
 .. code-block:: python
 
     import glob, os
     import trackhub
 
-    # Initialize the components of a track hub
+    # First we initialize the components of a track hub
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
         hub_name="myhub",
         short_label='myhub',
@@ -78,9 +92,9 @@ with the following link to the UCSC Genome Browser: `load hub
         genome="hg38",
         email="dalerr@niddk.nih.gov")
 
-    # Add a track for every bigwig found. Note that this example is executed
-    # from the `doc` directory, hence the `../trackhub` path. These data are
-    # included in the source repository on github.
+    # Next, we add a track for every bigwig found.  In practice, you would
+    # point to your own files. In this example we use the path to the data
+    # included with trackhub.
 
     for bigwig in glob.glob('../trackhub/test/data/sine-hg38-*.bw'):
         name = trackhub.helpers.sanitize(os.path.basename(bigwig))
@@ -92,46 +106,21 @@ with the following link to the UCSC Genome Browser: `load hub
             autoScale='on',     # allow the track to autoscale
             tracktype='bigWig', # required when making a track
         )
+
+        # Each track is added to the trackdb
         trackdb.add_tracks(track)
 
-    # Add a track for every bigBed. Let's give them nicer labels (the
-    # short_label argument).
-
-    for i, bigbed in enumerate(glob.glob('../trackhub/test/data/random-hg38*.bigBed')):
-        track = trackhub.Track(
-            name=trackhub.helpers.sanitize(os.path.basename(bigbed)),
-            short_label='regions{0}'.format(i),  # a nicer label
-            source=bigbed,                       # filename to build this track from
-            visibility='dense',                  # display in a single line
-            color='0,0,255',                     # bright blue
-            tracktype='bigBed',                  # required when making a track
-        )
-        trackdb.add_tracks(track)
-
-    # Example of "uploading" the hub locally, to be pushed to github later.
-    # Check the "example_hub" directory for the rendered hub, along with
-    # symlinks to the tracks' data files.
+    # In this example we "upload" the hub locally. Files are created in the
+    # "example_hub" directory, along with symlinks to the tracks' data files.
+    # This directory can then be pushed to GitHub or rsynced to a server.
     trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hub')
 
-    # Example uploading to a web server (not run):
+    # Alternatively, we could upload directly to a web server (not run in this
+    # example):
     if 0:
         trackhub.upload.upload_hub(
             hub=hub, host='example.com', user='username',
             remote_dir='/var/www/example_hub')
 
-
-The hub files from running the above code have been uploaded to the
-`trackhub-demo <https://github.com/daler/trackhub-demo/tree/total-refactor/example_hub>`_
-repository. The `raw file
-<https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt>`_
-served by GitHub can be added to the Track Hubs section of UCSC Genome Browser, or click the following link to load the hub directly into the UCSC Genome Browser:
-`load hub <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&position=chr1%3A1-5000>`_.
-
-
-Other examples from the documentation:
-
-- `assembly hub <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_assembly_hub/assembly_hub.hub.txt>`_
-
-- `extended grouping example <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_
 
 Copyright 2012-1017 Ryan Dale; BSD 2-clause license.

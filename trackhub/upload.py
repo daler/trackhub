@@ -128,6 +128,7 @@ def stage(x, staging):
 
     Returns a list of the linknames created.
     """
+    linknames = []
 
     # Objects that don't represent a file shouldn't be staged
     non_file_objects = (
@@ -137,8 +138,6 @@ def stage(x, staging):
         track.SuperTrack,
         genome.Genome,
     )
-    linknames = []
-
     if isinstance(x, non_file_objects):
         return linknames
 

@@ -10,8 +10,3 @@ Contents:
     assembly_example
     autodocs
     changelog
-
-::
-    tutorial
-    filenames
-    developers
