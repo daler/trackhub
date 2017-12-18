@@ -35,7 +35,7 @@ for bw in glob.glob(os.path.join(trackhub.helpers.data_dir(), "*no1*.bw")):
         name=trackhub.helpers.sanitize(name),
         source=bw,
         tracktype='bigWig',
-        autoScale=True)
+        autoScale="on")
     trackdb.add_tracks(track)
 
 trackhub.upload.stage_hub(hub)
