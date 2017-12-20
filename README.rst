@@ -27,13 +27,9 @@ See the documentation at https://daler.github.io/trackhub for more details.
 Installation
 ------------
 
-Using `bioconda <https://bioconda.github.io>`_::
+Using `bioconda <https://bioconda.github.io>`_: ``conda install trackhub``
 
-    conda install trackhub
-
-Using pip::
-
-    pip install trackhub
+Using pip: ``pip install trackhub``
 
 Features
 --------

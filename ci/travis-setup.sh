@@ -15,12 +15,20 @@ if ! hash conda; then
     conda config --add channels bioconda
 fi
 
-CONDA_ENV=trackhub-test-env
-conda env list | grep -q $CONDA_ENV && conda env remove -y -n $CONDA_ENV
-
 # extract version
 VERSION=$(python -c 'exec(open("trackhub/version.py").read());print(version)')
-conda create -y -n $CONDA_ENV python=3 --file requirements.txt --file test-requirements.txt
-set +x; source activate $CONDA_ENV; set -x
+
+
+CONDA_ENV3=trackhub-test-env-py3
+conda env list | grep -q $CONDA_ENV3 && conda env remove -y -n $CONDA_ENV3
+conda create -y -n $CONDA_ENV3 python=3 --file requirements.txt --file test-requirements.txt
+set +x; source activate $CONDA_ENV3; set -x
+python setup.py clean sdist
+pip install dist/trackhub-${VERSION}.tar.gz
+
+CONDA_ENV2=trackhub-test-env-py2
+conda env list | grep -q $CONDA_ENV2 && conda env remove -y -n $CONDA_ENV2
+conda create -y -n $CONDA_ENV3 python=3 --file requirements.txt --file test-requirements.txt
+set +x; source activate $CONDA_ENV3; set -x
 python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz

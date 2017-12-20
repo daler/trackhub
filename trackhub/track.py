@@ -4,10 +4,9 @@ import os
 import re
 from collections import OrderedDict
 from docutils.core import publish_parts
-from .base import HubComponent, deprecation_handler
-from . import hub
-from . import trackdb
-from . import constants
+from trackhub.base import HubComponent, deprecation_handler
+from trackhub import hub
+from trackhub import constants
 
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
@@ -197,7 +196,8 @@ class BaseTrack(HubComponent):
 
     @property
     def trackdb(self):
-        return self.root(trackdb.TrackDb)[0]
+        from trackhub import TrackDb
+        return self.root(TrackDb)[0]
 
     @property
     def hub(self):
@@ -748,7 +748,8 @@ class HTMLDoc(HubComponent):
 
     @property
     def trackdb(self):
-        obj, level = self.root(cls=trackdb.TrackDb)
+        from trackhub import TrackDb
+        obj, level = self.root(cls=TrackDb)
         return obj
 
     @property
