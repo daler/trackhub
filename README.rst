@@ -17,12 +17,23 @@ error-prone.
 
 `trackhub` is a Python package that enables the programmatic construction and
 upload of arbitrarily complex track hubs. It has no dependencies besides Python
-itself and the availability of ``rsync`` (a standard Unix command-line tool for
-remotely transferring files). It is availabe on PyPI, bioconda, and GitHub; an
-automated test suite and tested documentation ensure high-quality code and
-help.
+itself, the common Python package `docutils`, and the availability of ``rsync``
+(a standard Unix command-line tool for remotely transferring files). It is
+availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
+documentation ensure high-quality code and help.
 
 See the documentation at https://daler.github.io/trackhub for more details.
+
+Installation
+------------
+
+Using `bioconda <https://bioconda.github.io>`_::
+
+    conda install trackhub
+
+Using pip::
+
+    pip install trackhub
 
 Features
 --------
