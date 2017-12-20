@@ -125,4 +125,4 @@ directly into UCSC to see what it looks like.
             remote_dir='/var/www/example_hub')
 
 
-Copyright 2012-1017 Ryan Dale; MIT license.
+Copyright 2012-2017 Ryan Dale; MIT license.
