@@ -94,6 +94,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
@@ -217,7 +218,7 @@ supported by this class:</p>
 </tr>
 </tbody>
 </table>
-<p>:param See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.:</p>
+<p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -284,7 +285,7 @@ supported by this class:</p>
 </tr>
 </tbody>
 </table>
-<p>:param See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.:</p>
+<p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on other arguments.</p>
 </dd></dl>
 
 <dl class="method">
@@ -299,8 +300,10 @@ supported by this class:</p>
 <dd><p>Add [possibly many] parameters to the track.</p>
 <p>Parameters will be checked against known UCSC parameters and their
 supported formats.</p>
-<p>E.g.,</p>
-<p>add_params(color=‘128,0,0’, visibility=’dense’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">add_params</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -337,8 +340,10 @@ well.</p>
 <dt id="trackhub.ViewTrack.remove_params">
 <code class="descname">remove_params</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.ViewTrack.remove_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove [possibly many] parameters from the track.</p>
-<p>E.g.,</p>
-<p>remove_params(‘color’, ‘visibility’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">remove_params</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;visibility&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

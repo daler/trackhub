@@ -94,6 +94,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
@@ -198,7 +199,7 @@ size=&quot;8.0, 12.0&quot;;
 }
 <dl class="class">
 <dt id="trackhub.BaseTrack">
-<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">BaseTrack</code><span class="sig-paren">(</span><em>name</em>, <em>tracktype=None</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>parentonoff='on'</em>, <em>subgroups=None</em>, <em>source=None</em>, <em>filename=None</em>, <em>html_string=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">BaseTrack</code><span class="sig-paren">(</span><em>name</em>, <em>tracktype=None</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>parentonoff='on'</em>, <em>subgroups=None</em>, <em>source=None</em>, <em>filename=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents a single track stanza, base class for other track types.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -218,13 +219,13 @@ short_label. Alias for UCSC parameter “longLabel”.</li>
 <li><strong>subgroups</strong> (<em>dict</em>) – <p>A dictionary of <cite>{name: tag}</cite> where each <cite>name</cite> is the name of
 a SubGroupDefinition in a parent <a class="reference internal" href="trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> and each
 <cite>tag</cite> is a key in the SubGroupDefinition.mapping dictionary. The
-dictionary <a href="#id1"><span class="problematic" id="id2">`</span></a>{‘celltype’: ‘ES’} would end up looking like this in
+dictionary <cite>{‘celltype’: ‘ES’}</cite> would end up looking like this in
 the string representation:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroups</span> <span class="n">celltype</span><span class="o">=</span><span class="n">ES</span>
 </pre></div>
 </div>
-<p>or like this, if the track had been added to a ViewTrack with name
-<cite>aln</cite>:</p>
+<p>or like this, if the track had been added to a ViewTrack whose name
+is <cite>aln</cite>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroups</span> <span class="n">view</span><span class="o">=</span><span class="n">aln</span> <span class="n">celltype</span><span class="o">=</span><span class="n">ES</span>
 </pre></div>
 </div>
@@ -237,12 +238,17 @@ the remote filename.  If None, will use a filename of
 “&lt;name&gt;.tracktype&gt;” in the same directory as the TrackDb. By
 default, TrackDb goes in a directory named after the assembly of
 its parent Genome object.</li>
+<li><strong>html_string</strong> (<em>str</em>) – String containing documentation for a track. By default, the format
+is assumed to be ReStructured Text format, use
+<cite>html_string_format=”html”</cite> if the documentation is already in HTML
+format.</li>
+<li><strong>html_string_format</strong> (<em>'html'</em><em> or </em><em>'rst'</em>) – Indicates the format of <cite>html_string</cite>. If <cite>“html”</cite>, then use as-is;
+if <cite>“rst”</cite> then convert ReST to HTML.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>:param See docstring for <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> for details.:</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -290,7 +296,7 @@ its parent Genome object.</li>
 </table>
 <dl class="method">
 <dt id="trackhub.BaseTrack.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>tracktype=None</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>parentonoff='on'</em>, <em>subgroups=None</em>, <em>source=None</em>, <em>filename=None</em>, <em>html_string=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>tracktype=None</em>, <em>short_label=None</em>, <em>long_label=None</em>, <em>parentonoff='on'</em>, <em>subgroups=None</em>, <em>source=None</em>, <em>filename=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a single track stanza, base class for other track types.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -309,13 +315,13 @@ short_label. Alias for UCSC parameter “longLabel”.</li>
 <li><strong>subgroups</strong> (<em>dict</em>) – <p>A dictionary of <cite>{name: tag}</cite> where each <cite>name</cite> is the name of
 a SubGroupDefinition in a parent <a class="reference internal" href="trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-class docutils literal"><span class="pre">CompositeTrack</span></code></a> and each
 <cite>tag</cite> is a key in the SubGroupDefinition.mapping dictionary. The
-dictionary <a href="#id3"><span class="problematic" id="id4">`</span></a>{‘celltype’: ‘ES’} would end up looking like this in
+dictionary <cite>{‘celltype’: ‘ES’}</cite> would end up looking like this in
 the string representation:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroups</span> <span class="n">celltype</span><span class="o">=</span><span class="n">ES</span>
 </pre></div>
 </div>
-<p>or like this, if the track had been added to a ViewTrack with name
-<cite>aln</cite>:</p>
+<p>or like this, if the track had been added to a ViewTrack whose name
+is <cite>aln</cite>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroups</span> <span class="n">view</span><span class="o">=</span><span class="n">aln</span> <span class="n">celltype</span><span class="o">=</span><span class="n">ES</span>
 </pre></div>
 </div>
@@ -328,12 +334,17 @@ the remote filename.  If None, will use a filename of
 “&lt;name&gt;.tracktype&gt;” in the same directory as the TrackDb. By
 default, TrackDb goes in a directory named after the assembly of
 its parent Genome object.</li>
+<li><strong>html_string</strong> (<em>str</em>) – String containing documentation for a track. By default, the format
+is assumed to be ReStructured Text format, use
+<cite>html_string_format=”html”</cite> if the documentation is already in HTML
+format.</li>
+<li><strong>html_string_format</strong> (<em>'html'</em><em> or </em><em>'rst'</em>) – Indicates the format of <cite>html_string</cite>. If <cite>“html”</cite>, then use as-is;
+if <cite>“rst”</cite> then convert ReST to HTML.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>:param See docstring for <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal"><span class="pre">Track</span></code></a> for details.:</p>
 </dd></dl>
 
 <dl class="method">
@@ -348,8 +359,10 @@ its parent Genome object.</li>
 <dd><p>Add [possibly many] parameters to the track.</p>
 <p>Parameters will be checked against known UCSC parameters and their
 supported formats.</p>
-<p>E.g.,</p>
-<p>add_params(color=‘128,0,0’, visibility=’dense’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">add_params</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -362,6 +375,10 @@ supported formats.</p>
 <dt id="trackhub.BaseTrack.add_subgroups">
 <code class="descname">add_subgroups</code><span class="sig-paren">(</span><em>subgroups</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack.add_subgroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack.add_subgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the subgroups for this track.</p>
+<p>Note that in contrast to <a class="reference internal" href="trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-meth docutils literal"><span class="pre">CompositeTrack()</span></code></a>, which takes a list of
+<a class="reference internal" href="trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-class docutils literal"><span class="pre">SubGroupDefinition</span></code></a> objects representing the allowed subgroups,
+this method takes a single dictionary indicating the particular
+subgroups for this track.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -393,8 +410,10 @@ well.</p>
 <dt id="trackhub.BaseTrack.remove_params">
 <code class="descname">remove_params</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#BaseTrack.remove_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.BaseTrack.remove_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove [possibly many] parameters from the track.</p>
-<p>E.g.,</p>
-<p>remove_params(‘color’, ‘visibility’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">remove_params</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;visibility&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

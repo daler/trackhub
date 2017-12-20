@@ -94,6 +94,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
@@ -207,18 +208,9 @@ some extras.</p>
 <p>Add a view to this composite with <a class="reference internal" href="#trackhub.CompositeTrack.add_view" title="trackhub.CompositeTrack.add_view"><code class="xref py py-meth docutils literal"><span class="pre">add_view()</span></code></a>.</p>
 <p>Add a subtrack with <code class="xref py py-meth docutils literal"><span class="pre">add_track()</span></code>.</p>
 <p>Eventually, you’ll need to make a <code class="xref py py-class docutils literal"><span class="pre">trackdb.TrackDb</span></code> instance and
-add this composite to it with <code class="xref py py-meth docutils literal"><span class="pre">trackdb.TrackDb.add_tracks()</span></code>.</p>
-<p>If composite=True, then this track will be considered a composite
-parent for other tracks.  In this case, <cite>subgroups</cite> is a list of
-<a class="reference internal" href="trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-class docutils literal"><span class="pre">SubGroupDefinition</span></code></a> objects, each defining the possible
-values and display labels for the items in a group (for example,
-a celltype SubGroupDefinition would define the tags and titles for
-cell types).  In the string representation of this Track, subgroups
-end up looking like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroup1</span> <span class="n">view</span> <span class="n">Views</span> <span class="n">aln</span><span class="o">=</span><span class="n">Alignments</span> <span class="n">sig</span><span class="o">=</span><span class="n">Signal</span>
-<span class="n">subGroup2</span> <span class="n">celltype</span> <span class="n">Cell_Type</span> <span class="n">ES</span><span class="o">=</span><span class="n">embryonic</span> <span class="n">k562</span><span class="o">=</span><span class="n">K562</span>
-</pre></div>
-</div>
+add this composite to it with <code class="xref py py-meth docutils literal"><span class="pre">trackdb.TrackDb.add_tracks()</span></code>. If
+you’re using subgroups, use the <a class="reference internal" href="#trackhub.CompositeTrack.add_subgroups" title="trackhub.CompositeTrack.add_subgroups"><code class="xref py py-meth docutils literal"><span class="pre">CompositeTrack.add_subgroups()</span></code></a>
+method.</p>
 <p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on arguments. There are no
 additional arguments supported by this class.</p>
 <p class="rubric">Methods</p>
@@ -280,18 +272,9 @@ some extras.</p>
 <p>Add a view to this composite with <a class="reference internal" href="#trackhub.CompositeTrack.add_view" title="trackhub.CompositeTrack.add_view"><code class="xref py py-meth docutils literal"><span class="pre">add_view()</span></code></a>.</p>
 <p>Add a subtrack with <code class="xref py py-meth docutils literal"><span class="pre">add_track()</span></code>.</p>
 <p>Eventually, you’ll need to make a <code class="xref py py-class docutils literal"><span class="pre">trackdb.TrackDb</span></code> instance and
-add this composite to it with <code class="xref py py-meth docutils literal"><span class="pre">trackdb.TrackDb.add_tracks()</span></code>.</p>
-<p>If composite=True, then this track will be considered a composite
-parent for other tracks.  In this case, <cite>subgroups</cite> is a list of
-<a class="reference internal" href="trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-class docutils literal"><span class="pre">SubGroupDefinition</span></code></a> objects, each defining the possible
-values and display labels for the items in a group (for example,
-a celltype SubGroupDefinition would define the tags and titles for
-cell types).  In the string representation of this Track, subgroups
-end up looking like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subGroup1</span> <span class="n">view</span> <span class="n">Views</span> <span class="n">aln</span><span class="o">=</span><span class="n">Alignments</span> <span class="n">sig</span><span class="o">=</span><span class="n">Signal</span>
-<span class="n">subGroup2</span> <span class="n">celltype</span> <span class="n">Cell_Type</span> <span class="n">ES</span><span class="o">=</span><span class="n">embryonic</span> <span class="n">k562</span><span class="o">=</span><span class="n">K562</span>
-</pre></div>
-</div>
+add this composite to it with <code class="xref py py-meth docutils literal"><span class="pre">trackdb.TrackDb.add_tracks()</span></code>. If
+you’re using subgroups, use the <a class="reference internal" href="#trackhub.CompositeTrack.add_subgroups" title="trackhub.CompositeTrack.add_subgroups"><code class="xref py py-meth docutils literal"><span class="pre">CompositeTrack.add_subgroups()</span></code></a>
+method.</p>
 <p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">BaseTrack</span></code></a> for details on arguments. There are no
 additional arguments supported by this class.</p>
 </dd></dl>
@@ -308,8 +291,10 @@ additional arguments supported by this class.</p>
 <dd><p>Add [possibly many] parameters to the track.</p>
 <p>Parameters will be checked against known UCSC parameters and their
 supported formats.</p>
-<p>E.g.,</p>
-<p>add_params(color=‘128,0,0’, visibility=’dense’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">add_params</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;128,0,0&#39;</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -322,6 +307,10 @@ supported formats.</p>
 <dt id="trackhub.CompositeTrack.add_subgroups">
 <code class="descname">add_subgroups</code><span class="sig-paren">(</span><em>subgroups</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#CompositeTrack.add_subgroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.CompositeTrack.add_subgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a list of SubGroupDefinition objects to this composite.</p>
+<p>Note that in contrast to <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-meth docutils literal"><span class="pre">BaseTrack()</span></code></a>, which takes a single
+dictionary indicating the particular subgroups for the track, this
+method takes a list of <a class="reference internal" href="trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-class docutils literal"><span class="pre">SubGroupDefinition</span></code></a> objects representing
+the allowed subgroups for the composite.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -370,8 +359,10 @@ well.</p>
 <dt id="trackhub.CompositeTrack.remove_params">
 <code class="descname">remove_params</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.CompositeTrack.remove_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove [possibly many] parameters from the track.</p>
-<p>E.g.,</p>
-<p>remove_params(‘color’, ‘visibility’)</p>
+<p>E.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">remove_params</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;visibility&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

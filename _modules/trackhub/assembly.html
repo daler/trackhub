@@ -92,6 +92,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -240,6 +241,7 @@
                  <span class="n">trackdb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">genome_file_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">html_string_format</span><span class="o">=</span><span class="s1">&#39;rst&#39;</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a genome stanza within a &quot;genomes.txt&quot; file for a non-UCSC genome.</span>
@@ -260,6 +262,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_twobit</span><span class="p">(</span><span class="n">TwoBitFile</span><span class="p">(</span><span class="n">twobit_file</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span> <span class="o">=</span> <span class="n">html_string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span> <span class="o">=</span> <span class="n">html_string_format</span>
 
         <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
@@ -327,7 +330,7 @@
     <span class="k">def</span> <span class="nf">_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">_html</span> <span class="o">=</span> <span class="n">AssemblyHTMLDoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">)</span>
+        <span class="n">_html</span> <span class="o">=</span> <span class="n">AssemblyHTMLDoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span><span class="p">)</span>
         <span class="n">_html</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_html</span>
 

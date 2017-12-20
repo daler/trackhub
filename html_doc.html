@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documenting tracks in hubs &mdash; trackhub 0.1.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="trackhub 0.1.3 documentation" href="index.html"/>
+        <link rel="next" title="Assembly example" href="assembly_example.html"/>
+        <link rel="prev" title="Organizing larger track hubs" href="grouping.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> trackhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documenting tracks in hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">trackhub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Documenting tracks in hubs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/html_doc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documenting-tracks-in-hubs">
+<span id="htmldoc-example"></span><h1>Documenting tracks in hubs<a class="headerlink" href="#documenting-tracks-in-hubs" title="Permalink to this headline">¶</a></h1>
+<p><cite>trackhub</cite> supports documentation written in <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">ReStructured Text</a> that is
+automatically converted to HTML. Here we show examples of how this works.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_htmldoc_hub/htmldoc.hub.txt&amp;position=chr1%3A1-5000">load the HTML doc example on UCSC</a></li>
+<li><a class="reference external" href="https://github.com/daler/trackhub-demo/tree/master/example_htmldoc_hub">files in GitHub</a></li>
+</ul>
+<p>The composite track’s documentation as created below will look like this in the
+Genome Browser:</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/htmldoc.png"><img alt="_images/htmldoc.png" src="_images/htmldoc.png" style="width: 500px;" /></a>
+</div>
+<p>The UCSC Genome Browser shows the HTML documentation <strong>only</strong> for the top-level
+track-like object and ignores lower-level documentation. For example, if you
+have documentation for a track, and add it directly to the TrackDb, the track
+documentation will be displayed in the Genome Browser. However if you add the
+track to a ViewTrack (which is in turn added to a CompositeTrack, which is in
+turn added to the TrackDb), then the top-level track-like object is the
+CompositeTrack, so only the CompositeTrack’s documentation will be displayed
+and will override any ViewTrack or Track documentation.</p>
+<p>Similarly, adding a track to a SuperTrack will show the SuperTrack’s
+documentation for the track rather than the track’s documentation. The example
+below demonstrates both situations.</p>
+<p>This example is somewhat of an extension of <a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a>, so you may
+want to look at that first.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
+<span class="kn">import</span> <span class="nn">trackhub</span>
+
+<span class="c1"># Initialize the components of a track hub, already connected together</span>
+<span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;htmldoc&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example htmldoc hub&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;example htmldoc hub&#39;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;dalerr@niddk.nih.gov&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a composite track. The documentation we add here will also be used</span>
+<span class="c1"># for all child tracks that are added to the child ViewTracks.</span>
+<span class="n">composite</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">CompositeTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;composite&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal and regions&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+    <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Composite track</span>
+<span class="sd">    ---------------</span>
+
+<span class="sd">    This is a composite track that groups together signal (bigWig format)</span>
+<span class="sd">    and regions (bigBed format) into a single configurable container.</span>
+
+<span class="sd">    See `here &lt;https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html#compositeTrack&gt;`_</span>
+<span class="sd">    for details.</span>
+
+<span class="sd">    The following is a test of various ReStructured Text contstructs.</span>
+
+<span class="sd">    Here&#39;s a literal block::</span>
+
+<span class="sd">        #!/usr/bin/env python</span>
+<span class="sd">        import trackhub</span>
+
+<span class="sd">    Here&#39;s an example definition block:</span>
+
+<span class="sd">    :example definition:</span>
+<span class="sd">        Definition would go here.</span>
+
+<span class="sd">    A list:</span>
+
+<span class="sd">    - list item 1</span>
+<span class="sd">    - list item 2</span>
+
+<span class="sd">    A numbered list:</span>
+
+<span class="sd">    #. one</span>
+<span class="sd">    #. two</span>
+
+<span class="sd">        **bold**, *italic*, ``monospace``, all within a ReST block quote</span>
+
+<span class="sd">    A table:</span>
+
+<span class="sd">    ======== ========</span>
+<span class="sd">      col 1   col 2</span>
+<span class="sd">    ======== ========</span>
+<span class="sd">      item1   item2</span>
+<span class="sd">      item3   item4</span>
+<span class="sd">    ======== ========</span>
+
+<span class="sd">    See [1]_ for more.</span>
+
+<span class="sd">    .. [1] http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Add the composite track to the trackDb</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">composite</span><span class="p">)</span>
+
+<span class="c1"># A ViewTrack for signal.</span>
+<span class="n">signal_view</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">ViewTrack</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signalviewtrack&#39;</span><span class="p">,</span>
+    <span class="n">view</span><span class="o">=</span><span class="s1">&#39;signal&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal&#39;</span><span class="p">,</span>
+    <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Signal view docs</span>
+<span class="sd">    ----------------</span>
+<span class="sd">    While a file for this HTML documentation is created and uploaded, it</span>
+<span class="sd">    will be overridden by the CompositeView&#39;s documentation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">signal_view</span><span class="p">)</span>
+
+<span class="c1"># This multiWig overlay track will shows multiple bigWigs overlaying each</span>
+<span class="c1"># other in the same track</span>
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">AggregateTrack</span><span class="p">(</span>
+    <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;transparentOverlay&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
+    <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:80:128&#39;</span><span class="p">,</span>
+    <span class="n">showSubtrackColorOnUi</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;agg&#39;</span><span class="p">,</span>
+    <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Overlay</span>
+<span class="sd">    -------</span>
+<span class="sd">    This is a transparent overlay aggregate track. Over in the `grouping</span>
+<span class="sd">    example hub &lt;https://daler.github.io/trackhub/grouping.html&gt;`_, we had</span>
+<span class="sd">    added the overlay track to a SuperTrack. In that case, the SuperTrack&#39;s</span>
+<span class="sd">    documentation would override this documentation.</span>
+
+<span class="sd">    However, in this example, we are adding the overlay track directly to</span>
+<span class="sd">    the TrackDb and so this documentation will be displayed.</span>
+<span class="sd">    &#39;&#39;&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">overlay</span><span class="p">)</span>
+
+<span class="c1"># As in the README example, we grab all the example bigwigs</span>
+<span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s2">&quot;*hg38*.bw&quot;</span><span class="p">)):</span>
+    <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">)),</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+        <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
+        <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:50:128&#39;</span><span class="p">,</span>
+        <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Track as part of composite</span>
+<span class="sd">        --------------------------</span>
+<span class="sd">        While the HTML file is uploaded for this track, UCSC currently</span>
+<span class="sd">        displays the composite track&#39;s HTML instead.</span>
+
+<span class="sd">        This track was from {}&#39;&#39;&#39;</span>
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">signal_view</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+    <span class="c1"># For the multiWig overlay track, we need to add the track there as</span>
+    <span class="c1"># well. However it needs a different name. We have all the pieces,</span>
+    <span class="c1"># might as well just make another track object:</span>
+    <span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;agg&#39;</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>
+        <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+        <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">overlay</span><span class="o">.</span><span class="n">add_subtrack</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
+
+
+<span class="c1"># This is a single bigBed track we are adding directly to the TrackDb. This</span>
+<span class="c1"># track&#39;s documentation will be displayed.</span>
+<span class="n">bigbed</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;*hg38*.bigBed&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">single_track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigbed</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">bigbed</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">,</span>
+    <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Track docs</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Documentation for a single track. Since this track is added directly to</span>
+<span class="sd">    the trackdb, and not to a view or composite, its specific documentation</span>
+<span class="sd">    is retained.</span>
+<span class="sd">    &#39;&#39;&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">single_track</span><span class="p">)</span>
+
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_htmldoc_hub&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
+        <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span>
+        <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="assembly_example.html" class="btn btn-neutral float-right" title="Assembly example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="grouping.html" class="btn btn-neutral" title="Organizing larger track hubs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2012, Ryan Dale.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

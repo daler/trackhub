@@ -7,6 +7,7 @@ Contents:
 
     quickstart
     grouping
+    html_doc
     assembly_example
     autodocs
     changelog

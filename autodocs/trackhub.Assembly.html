@@ -94,6 +94,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
@@ -200,7 +201,7 @@ size=&quot;8.0, 12.0&quot;;
 }
 <dl class="class">
 <dt id="trackhub.Assembly">
-<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">trackhub.genome.Genome</span></code></p>
 <p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
@@ -266,7 +267,7 @@ size=&quot;8.0, 12.0&quot;;
 </table>
 <dl class="method">
 <dt id="trackhub.Assembly.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
 <table class="docutils field-list" frame="void" rules="none">

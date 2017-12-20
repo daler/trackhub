@@ -92,12 +92,14 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-2-nov-2017">Version 0.2 (Nov 2017)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overhaul-in-how-files-are-uploaded">Overhaul in how files are uploaded</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#local-fn-is-replaced-by-source"><code class="docutils literal"><span class="pre">local_fn</span></code> is replaced by <code class="docutils literal"><span class="pre">source</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improved-file-uploading">Improved file uploading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-fn-argument-is-now-replaced-by-source"><cite>local_fn</cite> argument is now replaced by <cite>source</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improved-documentation">Improved documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-1-3-nov-2015">Version 0.1.3 (Nov 2015)</a></li>
@@ -173,25 +175,68 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="version-0-2-nov-2017">
 <h2>Version 0.2 (Nov 2017)<a class="headerlink" href="#version-0-2-nov-2017" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="overhaul-in-how-files-are-uploaded">
-<h3>Overhaul in how files are uploaded<a class="headerlink" href="#overhaul-in-how-files-are-uploaded" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="improved-file-uploading">
+<h3>Improved file uploading<a class="headerlink" href="#improved-file-uploading" title="Permalink to this headline">¶</a></h3>
 <p>Instead of uploading files one-by-one, first the hub is rendered to a local
 “staging” directory and tracks are symlinked over to this directory. BAM and
 VCF indexes are also symlinked if needed, and any HTML documentation is also
 rendered to the staging directory.  This allows for inspecting the hub locally
 before uploading.  The entire directory can then be uploaded with <code class="docutils literal"><span class="pre">rsync</span></code>
 using the <code class="docutils literal"><span class="pre">-L</span></code> option to follow symlinks.</p>
+<div class="figure" id="id1">
+<img alt="_images/upload_strategy.png" src="_images/upload_strategy.png" />
+<p class="caption"><span class="caption-text">Diagram illustrating the changes in uploading strategies.</span></p>
+<div class="legend">
+<em>Using the old method, the hub, genomes, and trackdb files were rendered in
+the working directory, cluttering it. Each file was then individually
+rsynced to the host. In contrast, the new method first symlinks source
+files to a staging directory, and the hub, genomes, and trackdb files are
+rendered directly in that staging directory. The entire directory is then
+rsynced with a single call.</em></div>
 </div>
-<div class="section" id="local-fn-is-replaced-by-source">
-<h3><code class="docutils literal"><span class="pre">local_fn</span></code> is replaced by <code class="docutils literal"><span class="pre">source</span></code><a class="headerlink" href="#local-fn-is-replaced-by-source" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="local-fn-argument-is-now-replaced-by-source">
+<h3><cite>local_fn</cite> argument is now replaced by <cite>source</cite><a class="headerlink" href="#local-fn-argument-is-now-replaced-by-source" title="Permalink to this headline">¶</a></h3>
 <p>To better align the semantics of keyword arguments with this new uploading
-strategy, <code class="docutils literal"><span class="pre">local_fn</span></code> and <code class="docutils literal"><span class="pre">remote_fn</span></code> are deprecated as arguments to
-<code class="xref py py-class docutils literal"><span class="pre">Track</span></code> objects. Using them is still supported, but a DeprecationWarning
-will be raised. Instead, use <code class="docutils literal"><span class="pre">source</span></code> to point to a file on disk.  This
-allows support of the <code class="docutils literal"><span class="pre">url</span></code> argument, to provide a remote URL that you want
-to include in the hub but are not uploading yourself. If more control over the
-filename is required, use the <code class="docutils literal"><span class="pre">filename</span></code> argument. See the documentation for
-<a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">trackhub.BaseTrack</span></code></a> for details.</p>
+strategy, <cite>local_fn</cite> and <cite>remote_fn</cite> are deprecated as arguments to
+<code class="xref py py-class docutils literal"><span class="pre">Track</span></code> objects. With the new uploading strategy described aboved,
+<cite>local_fn</cite> becomes confusing because there are two “local” filenames – the
+original source file as well as the symlink created to that source file in the
+staging directory. Using <cite>local_fn</cite> and <cite>remote_fn</cite> is still supported, but
+a DeprecationWarning will be raised and support may eventually be removed in
+future releases.</p>
+<p>Instead, use <cite>source</cite> to point to an existing source file (bigWig, bigBed, etc)
+on disk. Sensible defaults are used for the symlink, but if you need more
+control over the symlink filename (and, by extension, the filename on the
+remote host), you can use the <cite>filename</cite> argument.</p>
+<p>Another advantage of using <cite>source</cite> is that it allows better support for remote
+tracks that are not uploaded as part of the hub but are stored elsewhere (e.g.,
+external tracks from ENCODE can be incorporated into a hub in this manner). Use
+the <cite>url</cite> argument instead of <cite>source</cite> for incorporating such tracks.</p>
+<p>Please see the documentation for <a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">trackhub.BaseTrack</span></code></a> for details on
+<cite>source</cite>, <cite>filename</cite>, and <cite>url</cite>.</p>
+</div>
+<div class="section" id="improved-documentation">
+<h3>Improved documentation<a class="headerlink" href="#improved-documentation" title="Permalink to this headline">¶</a></h3>
+<p>The documentation at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a> has been rewritten, and
+now includes example code for progressively more complex trackhubs that
+demonstrate different features of the package and track hubs in general.</p>
+<p>For example:</p>
+<ul class="simple">
+<li><a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart</span></a></li>
+<li><a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></li>
+<li><a class="reference internal" href="html_doc.html#htmldoc-example"><span class="std std-ref">Documenting tracks in hubs</span></a></li>
+<li><a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a></li>
+</ul>
+<p>Each one of these is automatically run and uploaded to the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo
+GitHub repository</a>, and the hubs can
+then be loaded in the UCSC Genome Browser from that repo. For example, the
+quickstart hub can be loaded by pasting this URL into the “My Hubs” section of
+the Genome Browser:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">daler</span><span class="o">/</span><span class="n">trackhub</span><span class="o">-</span><span class="n">demo</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">quickstart</span><span class="o">/</span><span class="n">quickstart</span><span class="o">.</span><span class="n">hub</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Or the hub can be loaded directly into UCSC with the following URL: <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000</a></p>
 </div>
 </div>
 <div class="section" id="version-0-1-3-nov-2015">

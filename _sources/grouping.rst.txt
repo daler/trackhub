@@ -9,7 +9,7 @@ compositeTracks, and superTracks. See UCSC's `grouping quick start
 background.
 
 * `load the grouping example on UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_
-* `files in GitHub <https://github.com/daler/trackhub/example_grouping_hub>`_
+* `files in GitHub <https://github.com/daler/trackhub-demo/tree/master/example_grouping_hub>`_
 
 Access the config page for the composite track to view the checkbox matrix and
 see other config options. Here are some screenshots:
