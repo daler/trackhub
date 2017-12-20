@@ -27,6 +27,7 @@ def deprecation_handler(source, filename, kwargs):
         filename = kwargs.pop('remote_fn')
     return source, filename
 
+
 class HubComponent(object):
     """
     Base class for various track hub components.  Several methods must be

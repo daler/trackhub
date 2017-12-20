@@ -21,6 +21,10 @@ Here, we'll set up a simple hub with 2 subtracks using data that comes with
 `trackhub` to illustrate the workflow. More complicated examples can be
 found in :ref:`assembly-example` and :ref:`grouping-example`.
 
+For the impatient:
+
+* `load the grouping example on UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&position=chr1%3A1-5000>`_
+* `files in GitHub <https://github.com/daler/trackhub-demo/tree/master/quickstart>`_
 
 Create hub components
 ~~~~~~~~~~~~~~~~~~~~~

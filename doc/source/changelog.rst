@@ -3,8 +3,8 @@ Changelog
 Version 0.2 (Nov 2017)
 ----------------------
 
-Overhaul in how files are uploaded
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Improved file uploading
+~~~~~~~~~~~~~~~~~~~~~~~
 Instead of uploading files one-by-one, first the hub is rendered to a local
 "staging" directory and tracks are symlinked over to this directory. BAM and
 VCF indexes are also symlinked if needed, and any HTML documentation is also
@@ -12,18 +12,63 @@ rendered to the staging directory.  This allows for inspecting the hub locally
 before uploading.  The entire directory can then be uploaded with ``rsync``
 using the ``-L`` option to follow symlinks.
 
+.. figure:: upload_strategy.png
 
-``local_fn`` is replaced by ``source``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Diagram illustrating the changes in uploading strategies.
+
+    *Using the old method, the hub, genomes, and trackdb files were rendered in
+    the working directory, cluttering it. Each file was then individually
+    rsynced to the host. In contrast, the new method first symlinks source
+    files to a staging directory, and the hub, genomes, and trackdb files are
+    rendered directly in that staging directory. The entire directory is then
+    rsynced with a single call.*
+
+`local_fn` argument is now replaced by `source`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To better align the semantics of keyword arguments with this new uploading
-strategy, ``local_fn`` and ``remote_fn`` are deprecated as arguments to
-:class:`Track` objects. Using them is still supported, but a DeprecationWarning
-will be raised. Instead, use ``source`` to point to a file on disk.  This
-allows support of the ``url`` argument, to provide a remote URL that you want
-to include in the hub but are not uploading yourself. If more control over the
-filename is required, use the ``filename`` argument. See the documentation for
-:class:`trackhub.BaseTrack` for details.
+strategy, `local_fn` and `remote_fn` are deprecated as arguments to
+:class:`Track` objects. With the new uploading strategy described aboved,
+`local_fn` becomes confusing because there are two "local" filenames -- the
+original source file as well as the symlink created to that source file in the
+staging directory. Using `local_fn` and `remote_fn` is still supported, but
+a DeprecationWarning will be raised and support may eventually be removed in
+future releases.
 
+Instead, use `source` to point to an existing source file (bigWig, bigBed, etc)
+on disk. Sensible defaults are used for the symlink, but if you need more
+control over the symlink filename (and, by extension, the filename on the
+remote host), you can use the `filename` argument.
+
+Another advantage of using `source` is that it allows better support for remote
+tracks that are not uploaded as part of the hub but are stored elsewhere (e.g.,
+external tracks from ENCODE can be incorporated into a hub in this manner). Use
+the `url` argument instead of `source` for incorporating such tracks.
+
+Please see the documentation for :class:`trackhub.BaseTrack` for details on
+`source`, `filename`, and `url`.
+
+Improved documentation
+~~~~~~~~~~~~~~~~~~~~~~
+The documentation at https://daler.github.io/trackhub has been rewritten, and
+now includes example code for progressively more complex trackhubs that
+demonstrate different features of the package and track hubs in general.
+
+For example:
+
+- :ref:`quickstart`
+- :ref:`grouping-example`
+- :ref:`htmldoc-example`
+- :ref:`assembly-example`
+
+Each one of these is automatically run and uploaded to the `trackhub-demo
+GitHub repository <https://github.com/daler/trackhub-demo>`_, and the hubs can
+then be loaded in the UCSC Genome Browser from that repo. For example, the
+quickstart hub can be loaded by pasting this URL into the "My Hubs" section of
+the Genome Browser::
+
+    https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt
+
+Or the hub can be loaded directly into UCSC with the following URL: http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&position=chr1%3A1-5000
 
 
 Version 0.1.3 (Nov 2015)

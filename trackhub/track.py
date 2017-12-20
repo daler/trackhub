@@ -123,13 +123,13 @@ class BaseTrack(HubComponent):
             A dictionary of `{name: tag}` where each `name` is the name of
             a SubGroupDefinition in a parent :class:`CompositeTrack` and each
             `tag` is a key in the SubGroupDefinition.mapping dictionary. The
-            dictionary `{'celltype': 'ES'} would end up looking like this in
+            dictionary `{'celltype': 'ES'}` would end up looking like this in
             the string representation::
 
                 subGroups celltype=ES
 
-            or like this, if the track had been added to a ViewTrack with name
-            `aln`::
+            or like this, if the track had been added to a ViewTrack whose name
+            is `aln`::
 
                 subGroups view=aln celltype=ES
 
@@ -268,9 +268,9 @@ class BaseTrack(HubComponent):
         Parameters will be checked against known UCSC parameters and their
         supported formats.
 
-        E.g.,
+        E.g.::
 
-        add_params(color='128,0,0', visibility='dense')
+            add_params(color='128,0,0', visibility='dense')
 
         """
         for k, v in kw.items():
@@ -289,9 +289,9 @@ class BaseTrack(HubComponent):
         """
         Remove [possibly many] parameters from the track.
 
-        E.g.,
+        E.g.::
 
-        remove_params('color', 'visibility')
+            remove_params('color', 'visibility')
         """
         for a in args:
             self._orig_kwargs.pop(a)
@@ -300,6 +300,11 @@ class BaseTrack(HubComponent):
     def add_subgroups(self, subgroups):
         """
         Update the subgroups for this track.
+
+        Note that in contrast to :meth:`CompositeTrack`, which takes a list of
+        :class:`SubGroupDefinition` objects representing the allowed subgroups,
+        this method takes a single dictionary indicating the particular
+        subgroups for this track.
 
         Parameters
         ----------
@@ -375,7 +380,7 @@ class BaseTrack(HubComponent):
                 os.path.dirname(self.trackdb.filename),
                 self.name + '.html')
         else:
-            raise ValuError(self.filename)
+            raise ValueError(self.filename)
 
 
 class Track(BaseTrack):
@@ -394,6 +399,7 @@ class Track(BaseTrack):
             used when using a remote track from some other provider or when you
             need lots of control over the URL. Otherwise the url will be
             automatically created based on `filename`.
+
 
         See :class:`BaseTrack` for details on other arguments.
         """
@@ -429,18 +435,9 @@ class CompositeTrack(BaseTrack):
         Add a subtrack with :meth:`add_track`.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
-        add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`.
-
-        If composite=True, then this track will be considered a composite
-        parent for other tracks.  In this case, `subgroups` is a list of
-        :class:`SubGroupDefinition` objects, each defining the possible
-        values and display labels for the items in a group (for example,
-        a celltype SubGroupDefinition would define the tags and titles for
-        cell types).  In the string representation of this Track, subgroups
-        end up looking like::
-
-            subGroup1 view Views aln=Alignments sig=Signal
-            subGroup2 celltype Cell_Type ES=embryonic k562=K562
+        add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`. If
+        you're using subgroups, use the :meth:`CompositeTrack.add_subgroups()`
+        method.
 
         See :class:`BaseTrack` for details on arguments. There are no
         additional arguments supported by this class.
@@ -457,6 +454,11 @@ class CompositeTrack(BaseTrack):
     def add_subgroups(self, subgroups):
         """
         Add a list of SubGroupDefinition objects to this composite.
+
+        Note that in contrast to :meth:`BaseTrack`, which takes a single
+        dictionary indicating the particular subgroups for the track, this
+        method takes a list of :class:`SubGroupDefinition` objects representing
+        the allowed subgroups for the composite.
 
         :param subgroups:
             List of SubGroupDefinition objects.
@@ -550,7 +552,9 @@ class ViewTrack(BaseTrack):
         view : str
             Unique name to use for the view.
 
+
         See :class:`BaseTrack` for details on other arguments.
+
         """
         self.view = view
         kwargs['view'] = view
@@ -666,6 +670,7 @@ class AggregateTrack(BaseTrack):
             "solidOverlay". See
             https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html#aggregate
             for details.
+
 
         See :class:`BaseTrack` for details on other arguments.
         """
