@@ -16,7 +16,7 @@ setup(
     packages=['trackhub',
               'trackhub.test',
               'trackhub.test.data',
-              'trackhub.scripts'],
+             ],
     author="Ryan Dale",
     description=long_description,
     long_description=long_description,
