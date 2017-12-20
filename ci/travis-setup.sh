@@ -28,7 +28,7 @@ pip install dist/trackhub-${VERSION}.tar.gz
 
 CONDA_ENV2=trackhub-test-env-py2
 conda env list | grep -q $CONDA_ENV2 && conda env remove -y -n $CONDA_ENV2
-conda create -y -n $CONDA_ENV2 python=3 --file requirements.txt --file test-requirements.txt
+conda create -y -n $CONDA_ENV2 python=2 --file requirements.txt --file test-requirements.txt
 set +x; source activate $CONDA_ENV2; set -x
 python setup.py clean sdist
 pip install dist/trackhub-${VERSION}.tar.gz
