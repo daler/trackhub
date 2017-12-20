@@ -72,7 +72,7 @@ in a directory. It is relatively simple; see these other examples from the
 documentation for more advanced usage:
 
 - `grouping example <https://daler.github.io/trackhub/grouping.html>`_ (`load the grouping example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_grouping_hub/grouping.hub.txt&position=chr1%3A1-5000>`_)
-- `html documentation example <https://daler.github.io/trackhub/html_doc.html>`_ (`load the assembly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_htmldoc_hub/htmldoc_hub.hub.txt>`_)
+- `html documentation example <https://daler.github.io/trackhub/html_doc.html>`_ (`load the HTML documentation example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_htmldoc_hub/htmldoc.hub.txt>`_)
 - `assembly example <https://daler.github.io/trackhub/assembly_example.html>`_ (`load the assembly example hub in UCSC <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_assembly_hub/assembly_hub.hub.txt>`_)
 
 This basis example is run automatically when the documentation is re-generated.
@@ -125,4 +125,4 @@ directly into UCSC to see what it looks like.
             remote_dir='/var/www/example_hub')
 
 
-Copyright 2012-1017 Ryan Dale; BSD 2-clause license.
+Copyright 2012-1017 Ryan Dale; MIT license.
