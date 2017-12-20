@@ -17,20 +17,17 @@ set -e
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 declare -A hubs
-hubs["example_hub"]="example_hub/hub.txt"
-#hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
 
+# Keys are the directory in the trackhub-demo repo that you'd like to store
+# them in. Values are the path to the hub.txt. The dirname of the hub.txt will
+# be copied into the trackhub-demo repo.
+hubs["example_hub"]="example_hub/myhub.hub.txt"
+hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
+hubs["example_grouping_hub"]="example_grouping_hub/grouping.hub.txt"
+hubs["example_htmldoc_hub"]="example_htmldoc_hub/htmldoc.hub.txt"
+hubs["quickstart"]="../doc/quickstart-staging/quickstart.hub.txt"
 
-(
-  cd $HERE
-
-  for hub in "${!hubs[@]}"; do
-      rm -rf $hub
-  done
-
-  python build_example.py
-
-  if [[ $TRAVIS == "true" ]]; then
+if [[ $TRAVIS == "true" ]]; then
     # Set up ssh key for push access on travis-ci.
     #
     # References:
@@ -46,17 +43,31 @@ hubs["example_hub"]="example_hub/hub.txt"
     chmod 600 key
     eval `ssh-agent -s`
     ssh-add key
-  fi
+fi
 
-  # We want the trackhub-demo repo's branch to match the current branch of
-  # trackhub, so grab the current trackhub branch now before we move to
-  # trackhub-demo.
+# We want the trackhub-demo repo's branch to match the current branch of
+# trackhub, so grab the current trackhub branch now before we move to
+# trackhub-demo repo
+if [[ ! -z $TRAVIS_BRANCH ]]; then
+  BRANCH=$TRAVIS_BRANCH
+else
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+fi
 
-  if [[ ! -z $TRAVIS_BRANCH ]]; then
-      BRANCH=$TRAVIS_BRANCH
-  else
-      BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  fi
+(
+  cd $HERE
+
+  for hub in "${!hubs[@]}"; do
+      rm -rf $hub
+  done
+
+  # Rebuild examples.
+  #
+  # The README is plain vanilla ReST, so we can't use .. testcode:: directives
+  # in it, and therefore must parse manually. The quickstart example is
+  # doctested, so that gets run by the make doctest.
+  (cd $HERE/../doc && make doctest)
+  python build_example.py
 
   SSH_REPO="git@github.com:daler/trackhub-demo.git"
   rm -rf trackhub-demo
@@ -68,12 +79,15 @@ hubs["example_hub"]="example_hub/hub.txt"
       git checkout -B $BRANCH
       git rm -rf ./*
 
+      # Make sure to use -L to follow symlinks
       for hub in "${!hubs[@]}"; do
-          cp -r ../$hub .
+          pth=${hubs[$hub]}
+          hubdir=$(dirname $pth)
+          cp -L -r ../$hubdir $hub
       done
 
       git add -f .
-      if git diff --quiet; then
+      if git diff origin/$BRANCH --quiet; then
           echo "no changes to push"
       else
           git commit -m "update hub"
@@ -82,14 +96,24 @@ hubs["example_hub"]="example_hub/hub.txt"
       set +x
   )
 
+  # Download hubCheck if we need it
   if [[ ! -e hubCheck ]]; then
       curl -O http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/hubCheck
       chmod +x hubCheck
   fi
+
   echo "Checking hubs..."
+
   for hub in "${!hubs[@]}"; do
-      pth=${hubs[$hub]}
-      set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$pth; set +x
+      pth=$(basename ${hubs[$hub]})
+      set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth; set +x
   done
+
+  for hub in "${!hubs[@]}"; do
+      pth=$(dirname ${hubs[$hub]})
+      rm -r $pth
+  done
+
+  #rm -rf $HERE/trackhub-demo
 
 )

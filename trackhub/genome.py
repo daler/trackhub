@@ -11,6 +11,18 @@ class Genome(HubComponent):
         Represents a 2-line genome stanza within a "genomes.txt" file.
 
         The file itself is represented by a :class:`GenomesFile` object.
+
+        Parameters
+        ----------
+
+        genome : str
+            One of the UCSC-supported assembly names (e.g., "hg38")
+
+        trackdb : TrackDb object
+            If not None, this object will be attached as the child track db
+
+        genome_file : GenomesFile object
+            If not None, this object will be attached as the parent GenomesFile
         """
         HubComponent.__init__(self)
         self.genome = genome
@@ -42,8 +54,8 @@ class Genome(HubComponent):
         s.append(
             'trackDb %s'
             % os.path.relpath(
-                self.trackdb.remote_fn,
-                os.path.dirname(self.genome_file_obj.remote_fn)
+                self.trackdb.filename,
+                os.path.dirname(self.genome_file_obj.filename)
             )
         )
         return '\n'.join(s) + '\n'
@@ -55,7 +67,7 @@ class Genome(HubComponent):
         if self.trackdb is None:
             raise ValidationError("No TrackDb objects provided")
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         No file is created from a Genome object -- only from its parent
         GenomesFile object.

@@ -43,10 +43,8 @@ clean:
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	cd $(BUILDDIR)/html && zip -r docs.zip .
 	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html,"
-	@echo "and a zip file is in $(BUILDDIR)/html/docs.zip."
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

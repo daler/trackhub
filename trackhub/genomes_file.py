@@ -6,24 +6,42 @@ from .base import HubComponent
 
 
 class GenomesFile(HubComponent):
-    def __init__(self, genome=None):
+    def __init__(self, genome=None, filename=None):
         """
-        Represents the genomes file on disk.  Can contain multiple
-        :class:`Genome` objects, each of which represent a stanza in this
-        file.
+        Represents the genomes file on disk.  Can contain multiple `Genome`
+        objects, each of which represent a stanza in this file.
 
-        The file ultimately created (with the self.render() method) will be
-        determined by the parent Hub's `genome_filename` attribute.  By
-        default, this is the hub name, plus ".genomes.txt"
+        Parameters
+        ----------
+
+        genome : list
+            List of Genome objects
+
+        filename : str
+            Filename relative to the hub file. If None, defaults to
+            "<hubname>.genomes.txt"
         """
         HubComponent.__init__(self)
-        self._local_fn = None
-        self._remote_fn = None
+        self.filename = filename
         self.genomes = []
         if genome is None:
             genome = []
         for genome in genome:
             self.add_genome(genome)
+
+        self._filename = filename
+
+    @property
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
+        if self.hub is None:
+            return None
+        return os.path.join(os.path.dirname(self.hub.filename), self.hub.hub + '.genomes.txt')
+
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     @property
     def hub(self):
@@ -35,36 +53,6 @@ class GenomesFile(HubComponent):
                 "Found a hub at %s levels away -- needs to be -1" % level)
         return hub
 
-    @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
-        if self.hub is None:
-            return None
-        return os.path.join(
-            os.path.dirname(self.hub.local_fn),
-            self.hub.hub + '.genomes.txt')
-
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-        if self.hub is None:
-            return None
-        return (
-            os.path.join(
-                os.path.dirname(self.hub.remote_fn),
-                self.hub.hub + '.genomes.txt')
-        )
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
-
     def add_genome(self, genome):
         self.add_child(genome)
         self.genomes = self.children
@@ -75,11 +63,10 @@ class GenomesFile(HubComponent):
             s.append(str(genome))
         return '\n'.join(s) + '\n'
 
-    def _render(self):
-        """
-        Renders the children Genome objects to file
-        """
-        fout = open(self.local_fn, 'w')
+    def _render(self, staging='staging'):
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

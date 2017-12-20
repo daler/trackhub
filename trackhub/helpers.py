@@ -26,6 +26,17 @@ def filter_composite_from_subgroups(s):
     """
     Given a sorted list of subgroups, return a string appropriate to provide as
     the a composite track's `filterComposite` argument
+
+    >>> import trackhub
+    >>> trackhub.helpers.filter_composite_from_subgroups(['cell', 'ab', 'lab', 'knockdown'])
+    'dimA dimB'
+
+    Parameters
+    ----------
+    s : list
+        A list representing the ordered subgroups, ideally the same list
+        provided to `dimensions_from_subgroups`. The values are not actually
+        used, just the number of items.
     """
     dims = []
     for letter, sg in zip('ABCDEFGHIJKLMNOPQRSTUVWZ', s[2:]):
@@ -38,6 +49,11 @@ def hex2rgb(h):
     """
     Convert hex colors to RGB tuples
 
+    Parameters
+    ----------
+    h : str
+        String hex color value
+
     >>> hex2rgb("#ff0033")
     '255,0,51'
     """
@@ -48,7 +64,6 @@ def hex2rgb(h):
         int(h[3:5], 16),
         int(h[5:7], 16),
     )))
-
 
 
 def sanitize(s, strict=True):
@@ -77,7 +92,7 @@ def sanitize(s, strict=True):
     if not strict:
         allowed += '-_.'
 
-    s = s.replace(' ', '_')
+    s = str(s).replace(' ', '_')
 
     return ''.join([i for i in s if i in allowed])
 
@@ -90,7 +105,7 @@ def auto_track_url(track):
 
         * the track must be fully connected, such that its root is a Hub object
         * the root Hub object must have the Hub.url attribute set
-        * the track must have the `local_fn` attribute set
+        * the track must have the `source` attribute set
     """
     hub = track.root(cls=Hub)
 
@@ -99,8 +114,8 @@ def auto_track_url(track):
             "track is not fully connected because the root is %s" % repr(hub))
     if hub.url is None:
         raise ValueError("hub.url is not set")
-    if track.local_fn is None:
-        raise ValueError("track.local_fn is not set")
+    if track.source is None:
+        raise ValueError("track.source is not set")
 
 
 def show_rendered_files(results_dict):

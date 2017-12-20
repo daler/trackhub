@@ -7,19 +7,23 @@ def test_example_data_md5s():
 
     data = [i.strip().split() for i in '''
     ba2fd8b22bcad65bb6583da937ff5222  newOrg1.2bit
-    a274a76ddfc2cb95e9db3751ca7cf82a  random-dm3-0.bigBed
-    c680c1f5b4242634889011a0d2289112  random-dm3-1.bigBed
-    797523ad6685db94044aebcfafc8fbec  random-dm3-2.bigBed
-    604f2ca028f476bb0baf6da6aeca0901  random-no1-0.bigBed
-    cdb1dc0d4a23980fed3e3b110aac635f  random-no1-1.bigBed
-    f8efe813e570a896df2df625c14dd30c  random-no1-2.bigBed
-    94cb83c18f73b713878c6ef28c19087d  sine-dm3-10000.bedgraph.bw
-    968df78a8a18c6e7d5b061e92fde8d83  sine-dm3-1000.bedgraph.bw
+    3735b696b3a416a59f8755eaf5664e5a  sine-hg38-0.bedgraph.bw
+    73ad8ba3590d0895810d069599b0e443  sine-hg38-1.bedgraph.bw
+    85478d1ecc5906405ccb43d1ca426d29  sine-hg38-2.bedgraph.bw
     55ac2603c31b232dacfdaba07d8a25eb  sine-no1-1000.bedgraph.bw
     b8c983862c58fee6afa99382634ab2d8  sine-no1-100.bedgraph.bw
+    35fa6ac3453e2bbd503c40a1d15afc65  random-hg38-0.bigBed
+    3c94c294f8376f625f3701dee7641997  random-hg38-1.bigBed
+    3bed0726e452d677f33979b2ed1c65d6  random-hg38-2.bigBed
+    72934b760f1f5ee8f99d596536ef8b4c  random-no1-0.bigBed
+    19116a3295e5679cb79ffc8904fa5abe  random-no1-1.bigBed
+    d628cd0d3b91d8426bb9d0f99b39be52  random-no1-2.bigBed
     '''.splitlines(False) if len(i.strip()) > 0]
 
+    success = True
     for md5, fn in data:
-        assert (
-            hashlib.md5(open(os.path.join(data_dir, fn), 'rb').read()).hexdigest() == md5
-        ), 'md5sum mismatch for {}'.format(fn)
+        fn = os.path.join(data_dir, fn)
+        obs = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+        success = success and (obs == md5)
+        print(obs, md5, fn)
+    assert success

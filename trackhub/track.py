@@ -3,7 +3,8 @@ from __future__ import absolute_import
 import os
 import re
 from collections import OrderedDict
-from .base import HubComponent
+from docutils.core import publish_parts
+from .base import HubComponent, deprecation_handler
 from . import hub
 from . import trackdb
 from . import constants
@@ -30,13 +31,16 @@ class SubGroupDefinition(object):
         Instances of this class are provided to a composite track in order to
         define options for the subtracks' groups.
 
-        :param name:
-            String; name for the subgroup (e.g., "celltype").
+        Parameters
+        ----------
 
-        :param label:
-            String; the label that will be displayed (e.g., "Cell_Type")
+        name : str
+            Name for the subgroup (e.g., "celltype").
 
-        :param mapping:
+        label : str
+            The label that will be displayed (e.g., "Cell_Type")
+
+        mapping : dict
             Dictionary of {tag: title}, where `tag` will be how subtracks
             access this group and `title` is how it will be displayed in the
             browser, e.g.::
@@ -52,12 +56,13 @@ class SubGroupDefinition(object):
             be a valid subgroup for a subtrack, but "celltype=other" would not
             since it's not in the mapping dict above.
 
-        :param default:
-            String; value to be used by subtracks if they don't explicitly
-            define this subgroup. Continuing the example, if a subtrack didn't
-            specify the "celltype" subgroup, then by default a "celltype=none"
-            value will be added.  This is necessary because subtracks must
-            define a value for all groups.
+        default : str
+            Value to be used by subtracks if they don't explicitly define this
+            subgroup. Continuing the example, if a subtrack didn't specify the
+            "celltype" subgroup, then by default a "celltype=none" value will
+            be added.  This is necessary because subtracks must define a value
+            for all groups.
+
         """
         self.name = name
         self.label = label
@@ -87,41 +92,72 @@ class BaseTrack(HubComponent):
     specific_params = OrderedDict()
 
     def __init__(self, name, tracktype=None, short_label=None,
-                 long_label=None, parentonoff="on", subgroups=None, local_fn=None,
-                 remote_fn=None, html_string=None, **kwargs):
+                 long_label=None, parentonoff="on", subgroups=None, source=None,
+                 filename=None, html_string=None, html_string_format="rst", **kwargs):
         """
-        Represents a single track stanza.
+        Represents a single track stanza, base class for other track types.
 
-        :param name: String; name of the track
+        Parameters
+        ----------
 
-        :param tracktype: String; type of the track (e.g., "bam")
+        name : str
+            Name of the track
 
-        :param url: String; full URL for the track (i.e., bigDataUrl)
+        tracktype : str
+            Type of the track (e.g., "bam", "bigWig"). The UCSC parameter name
+            is "type" which is a reserved Python keyword, hence using
+            "tracktype" here.
 
-        :param short_label: String; used for the left-hand side track label
+        short_label : str
+            Used for the left-hand side track label; alias for UCSC parameter
+            "shortLabel"
 
-        :param long_label:
-            String; used for the longer middle labels; if None will copy
-            short_label
+        long_label : str
+            Used for the longer middle labels; if None will copy
+            short_label. Alias for UCSC parameter "longLabel".
 
-        :param parentonoff:
-            String; used to determine individual track status on or off
+        parentonoff : 'on' | 'off'
+            Used to determine individual track status on or off
 
-        :param subgroups:
-
+        subgroups : dict
             A dictionary of `{name: tag}` where each `name` is the name of
             a SubGroupDefinition in a parent :class:`CompositeTrack` and each
-            `tag` is a key in the SubGroupDefinition.mapping dictionary.  They
-            end up looking like this in the string representation::
+            `tag` is a key in the SubGroupDefinition.mapping dictionary. The
+            dictionary `{'celltype': 'ES'}` would end up looking like this in
+            the string representation::
+
+                subGroups celltype=ES
+
+            or like this, if the track had been added to a ViewTrack whose name
+            is `aln`::
 
                 subGroups view=aln celltype=ES
 
-        :param local_fn:
-            String; Local path to the file (used for uploading)
+        source : str or None
+            Local path to the file. If None, then `url` must instead be used to
+            point to an already-existing filename or URL.
 
-        :param remote_fn:
-            String; path to upload the file to, over rsync and ssh.
+        filename : str or None
+            Path to upload the file to, over rsync and ssh, relative to the hub
+            directory. Typically only used when you need extensive control over
+            the remote filename.  If None, will use a filename of
+            "<name>.tracktype>" in the same directory as the TrackDb. By
+            default, TrackDb goes in a directory named after the assembly of
+            its parent Genome object.
+
+        html_string : str
+            String containing documentation for a track. By default, the format
+            is assumed to be ReStructured Text format, use
+            `html_string_format="html"` if the documentation is already in HTML
+            format.
+
+        html_string_format : 'html' or 'rst'
+            Indicates the format of `html_string`. If `"html"`, then use as-is;
+            if `"rst"` then convert ReST to HTML.
+
+
         """
+        source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
         _check_name(name)
         self.name = name
@@ -134,9 +170,10 @@ class BaseTrack(HubComponent):
         self.long_label = long_label
         self.parentonoff = parentonoff
 
-        self._local_fn = local_fn
-        self._remote_fn = remote_fn
+        self._source = source
+        self._filename = filename
         self.html_string = html_string
+        self.html_string_format = html_string_format
         self.subgroups = {}
         self.add_subgroups(subgroups)
 
@@ -154,7 +191,7 @@ class BaseTrack(HubComponent):
     def _html(self):
         if not self.html_string:
             return None
-        _html = HTMLDoc(self.html_string)
+        _html = HTMLDoc(self.html_string, self.html_string_format)
         _html.add_parent(self)
         return _html
 
@@ -167,32 +204,38 @@ class BaseTrack(HubComponent):
         return self.root(hub.Hub)[0]
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def source(self):
+        if self._source is not None:
+            return self._source
         return None
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
+    @source.setter
+    def source(self, fn):
+        self._source = fn
 
     @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-        # If remote_fn hasn't been assigned then make one automatically based
-        # on the track name and the trackhub's remote_fn (which, by the way,
-        # acts similarly, deferring up to the genomes_file.remote_fn . . . and
-        # so on up to the hub's remote_fn)
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
+
+        # If filename hasn't been assigned then make one automatically based
+        # on the track name and the trackhub's filename (which, by the way,
+        # acts similarly, deferring up to the genomes_file.filename . . . and
+        # so on up to the hub's filename).
+        #
+        # However, if source is None and URL is set, then this is an
+        # already-existing remote file and so should not have a filename.
         if self.trackdb:
-                return os.path.join(
-                    os.path.dirname(self.trackdb.remote_fn),
-                    self.name + '.' + self.tracktype.split(' ')[0])
+            if self.source is None and self._url is not None:
+                return None
+            return os.path.join(
+                os.path.dirname(self.trackdb.filename),
+                self.name + '.' + self.tracktype.split(' ')[0])
         return None
 
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     @property
     def tracktype(self):
@@ -225,9 +268,9 @@ class BaseTrack(HubComponent):
         Parameters will be checked against known UCSC parameters and their
         supported formats.
 
-        E.g.,
+        E.g.::
 
-        add_params(color='128,0,0', visibility='dense')
+            add_params(color='128,0,0', visibility='dense')
 
         """
         for k, v in kw.items():
@@ -246,9 +289,9 @@ class BaseTrack(HubComponent):
         """
         Remove [possibly many] parameters from the track.
 
-        E.g.,
+        E.g.::
 
-        remove_params('color', 'visibility')
+            remove_params('color', 'visibility')
         """
         for a in args:
             self._orig_kwargs.pop(a)
@@ -258,11 +301,19 @@ class BaseTrack(HubComponent):
         """
         Update the subgroups for this track.
 
-        :param subgroups:
+        Note that in contrast to :meth:`CompositeTrack`, which takes a list of
+        :class:`SubGroupDefinition` objects representing the allowed subgroups,
+        this method takes a single dictionary indicating the particular
+        subgroups for this track.
+
+        Parameters
+        ----------
+
+        subgroups : dict
             Dictionary of subgroups, e.g., {'celltype': 'K562', 'treatment':
-                'a'}.  Each key must match a SubGroupDefinition name in the
-                composite's subgroups list.  Each value must match a key in
-                that SubGroupDefinition.mapping dictionary.
+            'a'}.  Each key must match a SubGroupDefinition name in the
+            composite's subgroups list.  Each value must match a key in that
+            SubGroupDefinition.mapping dictionary.
         """
         if subgroups is None:
             subgroups = {}
@@ -302,11 +353,12 @@ class BaseTrack(HubComponent):
                 "Unhandled keyword arguments: %s" % self.kwargs)
 
         self.kwargs = self._orig_kwargs.copy()
+
         return '\n'.join(s)
 
-    def _render(self):
+    def _render(self, staging='staging'):
         if self._html:
-            self._html.render()
+            self._html.render(staging)
 
     def _str_subgroups(self):
         """
@@ -323,16 +375,34 @@ class BaseTrack(HubComponent):
 
     @property
     def html_fn(self):
-        if self.remote_fn and self.trackdb:
+        if self.filename and self.trackdb:
             return os.path.join(
-                os.path.dirname(self.trackdb.remote_fn),
+                os.path.dirname(self.trackdb.filename),
                 self.name + '.html')
         else:
-            return None
+            raise ValueError(self.filename)
 
 
 class Track(BaseTrack):
     def __init__(self, url=None, *args, **kwargs):
+        """
+        Represents a single track stanza along with the file it describes.
+
+        See :class:`BaseTrack` for details on arguments. Additional arguments
+        supported by this class:
+
+        Parameters
+        ----------
+
+        url : str
+            Full URL for the track (i.e., bigDataUrl). Typically this is only
+            used when using a remote track from some other provider or when you
+            need lots of control over the URL. Otherwise the url will be
+            automatically created based on `filename`.
+
+
+        See :class:`BaseTrack` for details on other arguments.
+        """
         kwargs['bigDataUrl'] = kwargs.get('bigDataUrl', url)
         super(Track, self).__init__(*args, **kwargs)
         self._url = url
@@ -341,11 +411,11 @@ class Track(BaseTrack):
     def url(self):
         if self._url is not None:
             return self._url
-        if self.remote_fn is None:
+        if self.filename is None:
             return None
         return os.path.relpath(
-            self.remote_fn,
-            start=os.path.dirname(self.trackdb.remote_fn)
+            self.filename,
+            start=os.path.dirname(self.trackdb.filename)
         )
 
     @url.setter
@@ -357,27 +427,20 @@ class CompositeTrack(BaseTrack):
 
     def __init__(self, *args, **kwargs):
         """
-        Represents a composite track.  Subclasses :class:`Track`, and adds some
-        extras.
+        Represents a composite track.  Subclasses :class:`BaseTrack`, and adds
+        some extras.
 
         Add a view to this composite with :meth:`add_view`.
 
         Add a subtrack with :meth:`add_track`.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
-        add this composite to it with that instance's :meth:`add_tracks`
+        add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`. If
+        you're using subgroups, use the :meth:`CompositeTrack.add_subgroups()`
         method.
 
-        If composite=True, then this track will be consider a composite
-        parent for other tracks.  In this case, `subgroups` is a list of
-        :class:`SubGroupDefinition` objects, each defining the possible
-        values and display labels for the items in a group (for example,
-        a celltype SubGroupDefinition would define the tags and titles for
-        cell types).  In the string representation of this Track, subgroups
-        end up looking like::
-
-            subGroup1 view Views aln=Alignments sig=Signal
-            subGroup2 celltype Cell_Type ES=embryonic k562=K562
+        See :class:`BaseTrack` for details on arguments. There are no
+        additional arguments supported by this class.
         """
         super(CompositeTrack, self).__init__(*args, **kwargs)
 
@@ -392,6 +455,11 @@ class CompositeTrack(BaseTrack):
         """
         Add a list of SubGroupDefinition objects to this composite.
 
+        Note that in contrast to :meth:`BaseTrack`, which takes a single
+        dictionary indicating the particular subgroups for the track, this
+        method takes a list of :class:`SubGroupDefinition` objects representing
+        the allowed subgroups for the composite.
+
         :param subgroups:
             List of SubGroupDefinition objects.
         """
@@ -405,7 +473,7 @@ class CompositeTrack(BaseTrack):
 
     def add_subtrack(self, subtrack):
         """
-        Add a child :class:`SubTrack`.
+        Add a child :class:`Track`.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
@@ -467,10 +535,26 @@ class CompositeTrack(BaseTrack):
 class ViewTrack(BaseTrack):
     def __init__(self, view, *args, **kwargs):
         """
-        Represents a View track.  Subclasses :class:`Track`, and adds some
+        Represents a View track.  Subclasses :class:`BaseTrack`, and adds some
         extras.
 
-        Upon being added to a CompositeTrack, the `view` tag will be checked.
+        This will need to be added to a :class:`track.CompositeTrack` with
+        :meth:`track.CompositeTrack.add_view()`.
+
+        Add tracks to this view with :meth:`track.ViewTrack.add_tracks()`.
+
+        See :class:`BaseTrack` for details on arguments. Additional arguments
+        supported by this class:
+
+        Parameters
+        ----------
+
+        view : str
+            Unique name to use for the view.
+
+
+        See :class:`BaseTrack` for details on other arguments.
+
         """
         self.view = view
         kwargs['view'] = view
@@ -485,9 +569,9 @@ class ViewTrack(BaseTrack):
 
     def add_tracks(self, subtracks):
         """
-        Add tracks to this view.
+        Add one or more tracks to this view.
 
-        :param subtracks:
+        subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
         if isinstance(subtracks, Track):
@@ -531,16 +615,23 @@ class SuperTrack(BaseTrack):
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this supertrack to it with that instance's :meth:`add_tracks`
         method.
+
+        See :class:`BaseTrack` for details on arguments.
         """
         super(SuperTrack, self).__init__(*args, **kwargs)
         self.subtracks = []
 
-    def add_track(self, subtrack):
+    def add_tracks(self, subtracks):
         """
-        Add a child :class:`SubTrack` to this supertrack.
+        Add one or more tracks.
+
+        subtrack : Track or iterable of Tracks
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        if isinstance(subtracks, BaseTrack):
+            subtracks = [subtracks]
+        for subtrack in subtracks:
+            self.add_child(subtrack)
+            self.subtracks.append(subtrack)
 
     def __str__(self):
 
@@ -568,8 +659,20 @@ class AggregateTrack(BaseTrack):
         track.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
-        add this supertrack to it with that instance's :meth:`add_tracks`
+        add this aggregate track to it with that instance's :meth:`add_tracks`
         method.
+
+        Parameters
+        ----------
+
+        aggregate : str
+            Aggregate type. One of "transparentOverlay", "stacked",
+            "solidOverlay". See
+            https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html#aggregate
+            for details.
+
+
+        See :class:`BaseTrack` for details on other arguments.
         """
 
         self.aggregate = aggregate
@@ -600,33 +703,48 @@ class AggregateTrack(BaseTrack):
 
 
 class HTMLDoc(HubComponent):
-    def __init__(self, contents):
+    def __init__(self, contents, html_string_format, filename=None):
         """
         Represents an HTML file used for documentation.
 
         Handles local/remote/url filenames when connected to a Track and
         CompositeTrack
+
+        Parameters
+        ----------
+
+        contents : str
+            String of contents for HTML file. Expected format determined by
+            `html_string_format`.
+
+        html_string_format : 'html' | 'rst'
+            If "html", write an HTML file with no additional modification. If
+            "rst", assumes `contents` is in ReStructured Text format and is
+            converted to HTML.
+
+        filename : str or None
+            If None, the rendered HTML filename will be the name of the parent
+            track with an ".html" extension, in the same directory as the
+            parent TrackDb.
         """
         self.contents = contents
-        self._local_fn = None
-        self._remote_fn = None
+        self.html_string_format = html_string_format
+        self._filename = None
         super(HTMLDoc, self).__init__()
 
     @property
-    def local_fn(self):
-        if (self.trackdb is None) or (self.track is None):
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
+        if self.trackdb is None or self.track is None:
             return None
         return os.path.join(
-            os.path.dirname(self.trackdb.local_fn),
+            os.path.dirname(self.trackdb.filename),
             self.track.name + '.html')
 
-    @property
-    def remote_fn(self):
-        if (self.trackdb is None) or (self.track is None):
-            return None
-        return os.path.join(
-            os.path.dirname(self.trackdb.remote_fn),
-            self.track.name + '.html')
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     @property
     def trackdb(self):
@@ -635,15 +753,14 @@ class HTMLDoc(HubComponent):
 
     @property
     def track(self):
-        obj, level = self.root(cls=BaseTrack)
-        return obj
+        return self.parent
 
-    def _render(self):
+    def _render(self, staging='staging'):
         self.validate()
-        dirname = os.path.dirname(self.local_fn)
+        dirname = os.path.dirname(self.filename)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
-        fout = open(self.local_fn, 'w')
+        fout = open(os.path.join(staging, self.filename), 'w')
         fout.write(str(self))
         fout.close()
         return fout.name
@@ -656,4 +773,16 @@ class HTMLDoc(HubComponent):
         return True
 
     def __str__(self):
+        if self.html_string_format == 'html':
+            return self.contents
+        elif self.html_string_format == 'rst':
+            parts = publish_parts(
+                self.contents, writer_name='html',
+                settings_overrides={'output_encoding': 'unicode'}
+            )
+            return parts['html_body']
+        else:
+            raise ValueError(
+                "html_string_format '{}' not supported".format(self.html_string_format)
+            )
         return self.contents

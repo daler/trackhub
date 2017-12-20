@@ -15,16 +15,19 @@ class GroupDefinition(object):
 
         Instances of this class are provided to an assembly.
 
-        :param name:
-            String; name for the group (e.g., "map").
+        Parameters
+        ----------
 
-        :param label:
-            String; the label that will be displayed (e.g., "Mapping")
+        name : str
+            Name for the group (e.g., "map").
 
-        :param priority:
+        label : str
+            The label that will be displayed (e.g., "Mapping")
+
+        priority : int
             Orders this track group with the other track groups
 
-        :param default_is_closed:
+        default_is_closed : 0 | 1
             Determines if this track group is expanded or closed by default. Values to use are 0 or 1
         """
         self.name = str(name)
@@ -48,18 +51,31 @@ class GroupDefinition(object):
 
 
 class GroupsFile(HubComponent):
-    def __init__(self, groups):
+    def __init__(self, groups, filename=None):
+        """
+        Represents the groups file on disk, used for assembly hubs.
+
+        Parameters
+        ----------
+        groups : list
+            List of GroupDefinition objects
+
+        filename : str
+            Filename to use, relative to the top-level hub. If None, default is
+            to use "<genome>/groups.txt"
+        """
         HubComponent.__init__(self)
-        self._local_fn = None
-        self._remote_fn = None
         self.groups = []
         self.add_groups(groups)
+        self._filename = filename
 
     def add_groups(self, groups):
         """
         Add a list of GroupDefinition objects.
 
-        :param groups:
+        Parameters
+        ----------
+        groups : list
             List of GroupDefinition objects.
         """
         self.groups.extend(groups)
@@ -89,9 +105,9 @@ class GroupsFile(HubComponent):
         return genome
 
     @property
-    def local_fn(self):
-        if self._local_fn is not None:
-            return self._local_fn
+    def filename(self):
+        if self._filename is not None:
+            return self._filename
 
         if self.genome is None:
             return None
@@ -100,41 +116,25 @@ class GroupsFile(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.local_fn),
+            return os.path.join(os.path.dirname(self.genomes_file.filename),
                                 self.genome.genome, 'groups.txt')
 
-    @local_fn.setter
-    def local_fn(self, fn):
-        self._local_fn = fn
-
-    @property
-    def remote_fn(self):
-        if self._remote_fn is not None:
-            return self._remote_fn
-
-        if self.genome is None:
-            return None
-
-        if self.genomes_file is None:
-            return None
-
-        return os.path.join(os.path.dirname(self.genomes_file.remote_fn),
-                            self.genome.genome, "groups.txt")
-
-    @remote_fn.setter
-    def remote_fn(self, fn):
-        self._remote_fn = fn
+    @filename.setter
+    def filename(self, fn):
+        self._filename = fn
 
     def validate(self):
         if self.genome is None:
             raise ValidationError("GroupsFile object must be attached to an Genome instance or subclass")
         pass
 
-    def _render(self):
+    def _render(self, staging='staging'):
         """
         Renders the children GroupDefinition objects to file
         """
-        fout = open(self.local_fn, 'w')
+        rendered_filename = os.path.join(staging, self.filename)
+        self.makedirs(rendered_filename)
+        fout = open(rendered_filename, 'w')
         fout.write(str(self))
         fout.close()
         return fout.name

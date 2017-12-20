@@ -54,6 +54,9 @@ class Parameter(object):
         True
 
         >>> Parameter("name", "the name to use", int).validate(999)
+        True
+
+        >>> Parameter("name", "the name to use", str).validate(999)
         False
     """
     def __init__(self, param, desc, values):

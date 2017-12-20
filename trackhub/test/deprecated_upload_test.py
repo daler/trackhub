@@ -24,19 +24,15 @@ class TestUpload(object):
             Track(
                 name='track1',
                 tracktype='bigBed',
-                source=os.path.join(d, 'random-hg38-0.bigBed')
+                local_fn=os.path.join(d, 'random-hg38-0.bigBed'),
+                remote_fn='1.bigbed',
             ),
             Track(
                 name='track2',
                 tracktype='bigWig',
-                source=os.path.join(d, 'sine-hg38-0.bedgraph.bw'),
+                local_fn=os.path.join(d, 'sine-hg38-0.bedgraph.bw'),
+                remote_fn='2.bw',
             ),
-            Track(
-                name='track3',
-                tracktype='bigWig',
-                source=os.path.join(d, 'sine-hg38-1.bedgraph.bw'),
-                filename='3.bw',
-            )
         ]
         self.hub.add_genomes_file(self.genomes_file)
         self.genomes_file.add_genome(self.genome)
@@ -61,10 +57,11 @@ class TestUpload(object):
             genomesFile example_hub.genomes.txt
             email none@example.com""")
 
+        print(staging_dir)
+
     #@unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
     def test_upload(self):
         d = tempfile.mkdtemp()
-        print(d)
         upload.upload_hub(
             hub=self.hub,
             remote_dir=d,
@@ -74,7 +71,8 @@ class TestUpload(object):
 
     def test_render(self):
         trackdb = str(self.trackdb)
+        print(self.trackdb)
         # make sure some of the trackdb rendered correctly
         assert 'track track1' in trackdb
-        assert 'bigDataUrl track1.bigBed' in trackdb
-        assert 'bigDataUrl ../3.bw' in trackdb
+        assert 'bigDataUrl ../1.bigbed' in trackdb
+        assert 'bigDataUrl ../2.bw' in trackdb
