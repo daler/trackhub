@@ -219,7 +219,7 @@ For example, at the command line::
 
     git clone https://github.com/user/repo.git
     cd repo
-    mv ../quickstart-staging .
+    rsync -L ../quickstart-staging .
     git add .
     git commit -m 'update hub'
     git push origin
