@@ -79,6 +79,7 @@ class Assembly(Genome):
                  trackdb=None,
                  genome_file_obj=None,
                  html_string=None,
+                 html_string_format='rst',
                  **kwargs):
         """
         Represents a genome stanza within a "genomes.txt" file for a non-UCSC genome.
@@ -99,6 +100,7 @@ class Assembly(Genome):
             self.add_twobit(TwoBitFile(twobit_file))
 
         self.html_string = html_string
+        self.html_string_format = html_string_format
 
         if groups is not None:
             self.add_groups(groups)
@@ -166,7 +168,7 @@ class Assembly(Genome):
     def _html(self):
         if not self.html_string:
             return None
-        _html = AssemblyHTMLDoc(self.html_string)
+        _html = AssemblyHTMLDoc(self.html_string, self.html_string_format)
         _html.add_parent(self)
         return _html
 

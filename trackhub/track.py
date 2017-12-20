@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import os
 import re
 from collections import OrderedDict
+from docutils.core import publish_parts
 from .base import HubComponent, deprecation_handler
 from . import hub
 from . import trackdb
@@ -61,6 +62,7 @@ class SubGroupDefinition(object):
             "celltype" subgroup, then by default a "celltype=none" value will
             be added.  This is necessary because subtracks must define a value
             for all groups.
+
         """
         self.name = name
         self.label = label
@@ -91,7 +93,7 @@ class BaseTrack(HubComponent):
 
     def __init__(self, name, tracktype=None, short_label=None,
                  long_label=None, parentonoff="on", subgroups=None, source=None,
-                 filename=None, html_string=None, **kwargs):
+                 filename=None, html_string=None, html_string_format="rst", **kwargs):
         """
         Represents a single track stanza, base class for other track types.
 
@@ -143,7 +145,17 @@ class BaseTrack(HubComponent):
             default, TrackDb goes in a directory named after the assembly of
             its parent Genome object.
 
-        See docstring for :class:`Track` for details.
+        html_string : str
+            String containing documentation for a track. By default, the format
+            is assumed to be ReStructured Text format, use
+            `html_string_format="html"` if the documentation is already in HTML
+            format.
+
+        html_string_format : 'html' or 'rst'
+            Indicates the format of `html_string`. If `"html"`, then use as-is;
+            if `"rst"` then convert ReST to HTML.
+
+
         """
         source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
@@ -161,6 +173,7 @@ class BaseTrack(HubComponent):
         self._source = source
         self._filename = filename
         self.html_string = html_string
+        self.html_string_format = html_string_format
         self.subgroups = {}
         self.add_subgroups(subgroups)
 
@@ -178,7 +191,7 @@ class BaseTrack(HubComponent):
     def _html(self):
         if not self.html_string:
             return None
-        _html = HTMLDoc(self.html_string)
+        _html = HTMLDoc(self.html_string, self.html_string_format)
         _html.add_parent(self)
         return _html
 
@@ -362,7 +375,7 @@ class BaseTrack(HubComponent):
                 os.path.dirname(self.trackdb.filename),
                 self.name + '.html')
         else:
-            return None
+            raise ValuError(self.filename)
 
 
 class Track(BaseTrack):
@@ -685,14 +698,32 @@ class AggregateTrack(BaseTrack):
 
 
 class HTMLDoc(HubComponent):
-    def __init__(self, contents, filename=None):
+    def __init__(self, contents, html_string_format, filename=None):
         """
         Represents an HTML file used for documentation.
 
         Handles local/remote/url filenames when connected to a Track and
         CompositeTrack
+
+        Parameters
+        ----------
+
+        contents : str
+            String of contents for HTML file. Expected format determined by
+            `html_string_format`.
+
+        html_string_format : 'html' | 'rst'
+            If "html", write an HTML file with no additional modification. If
+            "rst", assumes `contents` is in ReStructured Text format and is
+            converted to HTML.
+
+        filename : str or None
+            If None, the rendered HTML filename will be the name of the parent
+            track with an ".html" extension, in the same directory as the
+            parent TrackDb.
         """
         self.contents = contents
+        self.html_string_format = html_string_format
         self._filename = None
         super(HTMLDoc, self).__init__()
 
@@ -717,8 +748,7 @@ class HTMLDoc(HubComponent):
 
     @property
     def track(self):
-        obj, level = self.root(cls=BaseTrack)
-        return obj
+        return self.parent
 
     def _render(self, staging='staging'):
         self.validate()
@@ -738,4 +768,16 @@ class HTMLDoc(HubComponent):
         return True
 
     def __str__(self):
+        if self.html_string_format == 'html':
+            return self.contents
+        elif self.html_string_format == 'rst':
+            parts = publish_parts(
+                self.contents, writer_name='html',
+                settings_overrides={'output_encoding': 'unicode'}
+            )
+            return parts['html_body']
+        else:
+            raise ValueError(
+                "html_string_format '{}' not supported".format(self.html_string_format)
+            )
         return self.contents
