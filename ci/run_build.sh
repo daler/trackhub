@@ -16,11 +16,11 @@ set -e
 
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-declare -A hubs
 
 # Keys are the directory in the trackhub-demo repo that you'd like to store
 # them in. Values are the path to the hub.txt. The dirname of the hub.txt will
 # be copied into the trackhub-demo repo.
+declare -A hubs
 hubs["example_hub"]="example_hub/myhub.hub.txt"
 hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
 hubs["example_grouping_hub"]="example_grouping_hub/grouping.hub.txt"
@@ -55,6 +55,8 @@ else
 fi
 
 (
+
+  # Clean existing hubs first
   cd $HERE
 
   for hub in "${!hubs[@]}"; do
@@ -65,10 +67,13 @@ fi
   #
   # The README is plain vanilla ReST, so we can't use .. testcode:: directives
   # in it, and therefore must parse manually. The quickstart example is
-  # doctested, so that gets run by the make doctest.
+  # doctested, so that gets run by the make doctest...
   (cd $HERE/../doc && make doctest)
+
+  # ...but the others in the `hubs` array get built using `build_example.py`.
   python build_example.py
 
+  # Clone the trackhub-demo repo and move those just-built hubs over.
   SSH_REPO="git@github.com:daler/trackhub-demo.git"
   rm -rf trackhub-demo
   git clone $SSH_REPO
@@ -114,6 +119,7 @@ fi
       rm -r $pth
   done
 
-  #rm -rf $HERE/trackhub-demo
+  # clean up
+  rm -rf $HERE/trackhub-demo
 
 )
