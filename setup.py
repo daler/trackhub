@@ -1,6 +1,6 @@
 import os
 import sys
-from setuptools import setup
+from distutils.core import setup
 
 version_py = os.path.join(os.path.dirname(__file__), 'trackhub', 'version.py')
 version = open(version_py).read().strip().split('=')[-1].replace('"','')
