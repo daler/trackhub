@@ -5,7 +5,6 @@ from .base import HubComponent
 from .genomes_file import GenomesFile
 from .hub import Hub
 from .genome import Genome
-from . import track as _track
 
 
 class TrackDb(HubComponent):
@@ -84,7 +83,8 @@ class TrackDb(HubComponent):
             Iterable of :class:`Track` objects, or a single :class:`Track`
             object.
         """
-        if isinstance(track, _track.BaseTrack):
+        from trackhub import BaseTrack
+        if isinstance(track, BaseTrack):
             self.add_child(track)
             self._tracks.append(track)
         else:
@@ -94,7 +94,8 @@ class TrackDb(HubComponent):
 
     @property
     def tracks(self):
-        return [i for i, level in self.leaves(_track.Track)]
+        from trackhub import Track
+        return [i for i, level in self.leaves(Track)]
 
     def add_genome(self, genome):
         self.add_parent(genome)
