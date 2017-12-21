@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.track &mdash; trackhub 0.2 documentation</title>
+  <title>trackhub.track &mdash; trackhub 0.2.2 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="trackhub 0.2 documentation" href="../../index.html"/>
+    <link rel="top" title="trackhub 0.2.2 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.2
+                0.2.2
               </div>
             
           
@@ -166,10 +166,9 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">docutils.core</span> <span class="k">import</span> <span class="n">publish_parts</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">HubComponent</span><span class="p">,</span> <span class="n">deprecation_handler</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">hub</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">trackdb</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">trackhub.base</span> <span class="k">import</span> <span class="n">HubComponent</span><span class="p">,</span> <span class="n">deprecation_handler</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">hub</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">constants</span>
 
 
 <span class="n">TRACKTYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span> <span class="s1">&#39;bam&#39;</span><span class="p">,</span> <span class="s1">&#39;bigBed&#39;</span><span class="p">,</span> <span class="s1">&#39;vcfTabix&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -359,7 +358,8 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">trackdb</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">TrackDb</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">TrackDb</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">hub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -910,7 +910,8 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">obj</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">trackdb</span><span class="o">.</span><span class="n">TrackDb</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">TrackDb</span>
+        <span class="n">obj</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">TrackDb</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span>
 
     <span class="nd">@property</span>
@@ -984,7 +985,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2',
+            VERSION:'0.2.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
