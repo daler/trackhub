@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Version 0.2.1 (Nov 2017)
+Version 0.2.1 (Dec 2017)
 ------------------------
 
 Improved file uploading
@@ -70,6 +70,13 @@ the Genome Browser::
     https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt
 
 Or the hub can be loaded directly into UCSC with the following URL: http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&position=chr1%3A1-5000
+
+
+Python 2 and 3 support
+~~~~~~~~~~~~~~~~~~~~~~
+Since we are no longer using `fabric` as a dependency (which is only available
+under Python 2), `trackhub` now supports Python 2 and Python 3 and is tested on
+both versions.
 
 
 Version 0.1.3 (Nov 2015)
