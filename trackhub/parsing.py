@@ -1,5 +1,6 @@
 import requests
 import ruamel.yaml as yaml
+from ruamel.yaml.scalarstring import PreservedScalarString, preserve_literal
 import bs4
 from collections import OrderedDict, defaultdict
 from pprint import pprint
@@ -8,17 +9,7 @@ from textwrap import dedent
 q = requests.get('https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html')
 soup = bs4.BeautifulSoup(q.text, 'lxml')
 
-
-
-import ruamel.yaml
-from ruamel.yaml.scalarstring import PreservedScalarString, preserve_literal
-
-
-# TODO:
-#
-#
-#   Dump to YAML, then try to figure out good ways of validating.
-
+# This is where it appears the params and formats are defined
 lib = soup.find('div', id='library')
 
 # Identify which types are valid for hubs. We will filter out those params that
@@ -54,13 +45,14 @@ for div in divs:
             continue
         d['types'] = types
 
-        # A handful of the fields are
+        # A handful of the fields are required or are required for hubs only.
         req = div.find('p', attrs={'class': 'isRequired'})
         if req:
             d['required'] = req.text.replace('Required: ', '')
         else:
             d['required'] = False
 
+        # kind of a tricky part here
         txt = []
         for tag in div.find_all(['p', 'pre']):
             if not tag.has_attr('class'):
@@ -92,6 +84,7 @@ with open('params.json', 'w') as fout:
     import json
     json.dump(ds, fout)
 
+# This should get us started on something to edit for a proper params.py
 with open('params_autogen.py', 'w') as fout:
     type_params = defaultdict(list)
     params = {}
