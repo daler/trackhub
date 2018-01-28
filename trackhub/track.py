@@ -9,8 +9,9 @@ from trackhub import hub
 from trackhub import constants
 
 
-TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
-
+TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', 'bigNarrowPeak', None,
+              'bigBarChart', 'bigChain', 'bigGenePred', 'bigNarrowPeak',
+              'bigMaf', 'bigPsl', 'halSnake']
 
 def _check_name(name):
     regex = re.compile('[^a-zA-Z0-9-_]')
@@ -322,7 +323,6 @@ class BaseTrack(HubComponent):
 
     def __str__(self):
         s = []
-
         specific = []
         for name, parameter_obj in self.specific_params.items():
             value = self.kwargs.pop(name, None)
