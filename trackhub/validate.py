@@ -68,13 +68,13 @@ class Parameter(object):
     Represents a generic parameter. Validates based on the provided possible
     values, e.g.::
 
-        >>> Parameter("name", "the name to use", str).validate("asdf")
+        >>> Parameter("name", str).validate("asdf")
         True
 
-        >>> Parameter("name", "the name to use", int).validate(999)
+        >>> Parameter("name", int).validate(999)
         True
 
-        >>> Parameter("name", "the name to use", str).validate(999)
+        >>> Parameter("name", str).validate(999)
         False
     """
     def __init__(self, param, values, restrictions=None):
@@ -106,6 +106,7 @@ class Parameter(object):
 
         elif value == self.values:
             return True
+        return False
 
 
 @validator("tag=value")
