@@ -42,6 +42,9 @@ _params = {i.name:i for i in [
         'pack',
         'full'])),
 
+    # Not specified in the database document, but is used in assembly hubs.
+    Parameter("group", str),
+
     # Common optional settings
     Parameter("color", validate.RGB),
     Parameter("priority", float),

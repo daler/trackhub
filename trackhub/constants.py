@@ -49,6 +49,7 @@ track_fields = OrderedDict((i, _params[i]) for i in [
         'shortLabel',
         'longLabel',
         'visibility',
+        'group',
         'html',
         'boxedCfg',
         'color',
