@@ -10,6 +10,7 @@ exactly one string character:
     def one_char(v):
         return isinstance(v, string_types) and len(v) == 1
 """
+import warnings
 from textwrap import dedent
 from .compatibility import string_types
 
@@ -236,7 +237,9 @@ def alphanumeric_(v):
 def short_label(v):
     assert isinstance(v, string_types)
     if len(v) > 17:
-        raise ValueError("shortLabel is limited to 17 characters")
+        warnings.warn(
+            "shortLabel is limited to 17 characters "
+            "in the browser, some characters will be truncated")
     return True
 
 
@@ -244,7 +247,9 @@ def short_label(v):
 def long_label(v):
     assert isinstance(v, string_types)
     if len(v)> 76:
-        raise ValueError("longLable is limited to 76 characters")
+        warnings.warn(
+            "longLabel is limited to 76 characters "
+            "in the browser, some characters will be truncated")
     return True
 
 
