@@ -574,7 +574,7 @@ class ViewTrack(BaseTrack):
         subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
-        if isinstance(subtracks, Track):
+        if isinstance(subtracks, BaseTrack):
             subtracks = [subtracks]
         for subtrack in subtracks:
             subtrack.subgroups['view'] = self.view
