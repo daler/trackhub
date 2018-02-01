@@ -47,9 +47,7 @@ def validator(*example):
                 try:
                     result = func(v)
                 except Exception as e:
-                    raise ValidationError(
-                        '%s; %s'
-                        % (e.message, example_string))
+                    result = False
                 if not result:
                     raise ValidationError(
                         '{0} failed validation using {1}; '
