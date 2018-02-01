@@ -48,7 +48,7 @@ _params = {i.name:i for i in [
     # Common optional settings
     Parameter("color", validate.RGB),
     Parameter("priority", float),
-    Parameter("altColor", validate.RGBList),
+    Parameter("altColor", validate.RGB),
     Parameter("boxedCfg", set(['on', 'off'])),
     Parameter("chromosomes", str,),
     Parameter("darkerLabels", set(['on'])),
