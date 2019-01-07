@@ -136,7 +136,7 @@ param_defs = [
         fmt=['barChartColors <color1 color2...>'],
         types=['bigBarChart'],
         required=False,
-        validator=str),
+        validator=.validate.hex_or_named),
 
     Param(
         name="barChartLabel",
@@ -497,7 +497,7 @@ param_defs = [
         fmt=['longLabel'],
         types=['all'],
         required=True,
-        validator=str),
+        validator=validate.long_label),
 
     Param(
         name="maxHeightPixels",
@@ -722,7 +722,7 @@ param_defs = [
         fmt=['shortLabel'],
         types=['all'],
         required=True,
-        validator=str),
+        validator=validate.short_label),
 
     Param(
         name="showDiffBasesAllScales",
