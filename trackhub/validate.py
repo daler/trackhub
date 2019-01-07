@@ -47,49 +47,6 @@ def validator(*example):
         return Validator()
     return wrapper
 
-class Parameter(object):
-    """
-    Represents a generic parameter. Validates based on the provided possible
-    values, e.g.::
-
-        >>> Parameter("name", "the name to use", str).validate("asdf")
-        True
-
-        >>> Parameter("name", "the name to use", int).validate(999)
-        True
-
-        >>> Parameter("name", "the name to use", str).validate(999)
-        False
-    """
-    def __init__(self, param, desc, values):
-        self.param = param
-        self.desc = " ".join(dedent(desc).splitlines(False))
-        self.values = values
-
-    def __str__(self):
-        return '<%s "%s" at %s>' \
-            % (self.__class__.__name__, self.param, id(self))
-
-    def validate(self, value):
-
-        if isinstance(self.values, set):
-            if value in self.values:
-                return True
-
-        if isinstance(self.values, type):
-            if isinstance(value, self.values):
-                return True
-            else:
-                # Otherwise, allow any exceptions to propagate up.
-                self.values(value)
-                return True
-
-        if hasattr(self.values, '__call__'):
-            return self.values(value)
-
-        elif value == self.values:
-            return True
-
 
 class Param(object):
     def __init__(self, name, fmt, types, required, validator, min_bed_fields=None):
