@@ -136,7 +136,7 @@ param_defs = [
         fmt=['barChartColors <color1 color2...>'],
         types=['bigBarChart'],
         required=False,
-        validator=.validate.hex_or_named),
+        validator=validate.hex_or_named),
 
     Param(
         name="barChartLabel",
