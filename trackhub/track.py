@@ -788,9 +788,13 @@ class HTMLDoc(HubComponent):
             return self.contents
         elif self.html_string_format == 'rst':
 
-                self.contents, writer_name='html',
-                settings_overrides={'output_encoding': 'unicode'}
-            )
+            # docutils still internally uses a "U" mode for opening files.
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore')
+                parts = publish_parts(
+                    self.contents, writer_name='html',
+                    settings_overrides={'output_encoding': 'unicode'}
+                )
             return parts['html_body']
         else:
             raise ValueError(
