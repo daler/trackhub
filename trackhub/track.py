@@ -10,8 +10,9 @@ from trackhub import hub
 from trackhub import constants
 
 
-TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', None]
-
+TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', 'bigNarrowPeak', None,
+              'bigBarChart', 'bigChain', 'bigGenePred', 'bigNarrowPeak',
+              'bigMaf', 'bigPsl', 'halSnake']
 
 def _check_name(name):
     regex = re.compile('[^a-zA-Z0-9-_]')
@@ -593,7 +594,7 @@ class ViewTrack(BaseTrack):
         subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
-        if isinstance(subtracks, Track):
+        if isinstance(subtracks, BaseTrack):
             subtracks = [subtracks]
         for subtrack in subtracks:
             subtrack.subgroups['view'] = self.view

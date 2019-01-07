@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Version 0.2.3 (Dec 2017)
+Version 0.2.4 (Dec 2017)
 ------------------------
 
 Improved file uploading
