@@ -316,7 +316,7 @@ param_defs = [
 
     Param(
         name="dimensionAchecked",
-        fmt=['dimension<?>checked <mTag1a> [mTag1b …]'],
+        fmt=['dimension<?>checked <mTag1a> [mTag1b ...]'],
         types=['subGroups'],
         required=False,
         validator=str),
