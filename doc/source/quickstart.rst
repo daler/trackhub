@@ -167,10 +167,10 @@ Now that we have added tracks to the `trackdb` object, printing it should show t
     shortLabel Signal 2
     longLabel Signal track for sample 2
     type bigWig
-    visibility full
     color 128,0,0
     maxHeightPixels 8:50:128
     viewLimits -2:2
+    visibility full
 
 Render (stage) the hub
 ~~~~~~~~~~~~~~~~~~~~~~

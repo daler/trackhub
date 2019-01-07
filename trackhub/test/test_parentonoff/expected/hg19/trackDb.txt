@@ -10,27 +10,27 @@ compositeTrack on
     shortLabel testviewtrack
     longLabel testviewtrack
     type bigWig
-    visibility full
     parent testcomposite on
     view view1
+    visibility full
     
             track E003DNase
             bigDataUrl http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E003-DNase.pval.signal.bigwig
             shortLabel E003DNase
             longLabel E003DNase
             type bigWig
+            parent testviewtrack off
             visibility full
             subGroups view=view1
-            parent testviewtrack off
     
             track E004DNase
             bigDataUrl http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E004-DNase.pval.signal.bigwig
             shortLabel E004DNase
             longLabel E004DNase
             type bigWig
+            parent testviewtrack on
             visibility full
             subGroups view=view1
-            parent testviewtrack on
     
             track E005DNase
             bigDataUrl http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/E005-DNase.pval.signal.bigwig
@@ -39,4 +39,3 @@ compositeTrack on
             type bigWig
             visibility full
             subGroups view=view1
-            parent testviewtrack on
