@@ -89,68 +89,68 @@ param_defs = [
         required=False,
         validator=set(['on', 'off'])),
 
-   Param(
-       name="autoScale",
-       fmt=['autoScale <off/on>'],
-       types=['bigWig'],
-       required=False,
-       validator=set(['on', 'off'])),
+    Param(
+        name="autoScale",
+        fmt=['autoScale <off/on>'],
+        types=['bigWig'],
+        required=False,
+        validator=set(['on', 'off'])),
 
-   Param(
-       name="bamColorMode",
-       fmt=['bamColorMode <strand/gray/tag/off>'],
-       types=['bam'],
-       required=False,
-       validator=set(['strand', 'gray', 'tag', 'off'])),
+    Param(
+        name="bamColorMode",
+        fmt=['bamColorMode <strand/gray/tag/off>'],
+        types=['bam'],
+        required=False,
+        validator=set(['strand', 'gray', 'tag', 'off'])),
 
-   Param(
-       name="bamColorTag",
-       fmt=['bamColorTag <XX>'],
-       types=['bam'],
-       required=False,
-       validator=str),
+    Param(
+        name="bamColorTag",
+        fmt=['bamColorTag <XX>'],
+        types=['bam'],
+        required=False,
+        validator=str),
 
-   Param(
-       name="bamGrayMode",
-       fmt=['bamGrayMode <aliQual/baseQual/unpaired>', 'aliQualRange <min:max>', 'baseQualRange <min:max>'],
-       types=['bam'],
-       required=False,
-       validator=set(['aliQual', 'baseQual', 'unpaired'])),
+    Param(
+        name="bamGrayMode",
+        fmt=['bamGrayMode <aliQual/baseQual/unpaired>', 'aliQualRange <min:max>', 'baseQualRange <min:max>'],
+        types=['bam'],
+        required=False,
+        validator=set(['aliQual', 'baseQual', 'unpaired'])),
 
-   Param(
-       name="bamSkipPrintQualScore",
-       fmt=['bamSkipPrintQualScore .'],
-       types=['bam'],
-       required=False,
-       validator=set(['.'])),
+    Param(
+        name="bamSkipPrintQualScore",
+        fmt=['bamSkipPrintQualScore .'],
+        types=['bam'],
+        required=False,
+        validator=set(['.'])),
 
-   Param(
-       name="barChartBars",
-       fmt=['barChartBars <label1 label2...>'],
-       types=['bigBarChart'],
-       required=False,
-       validator=str),
+    Param(
+        name="barChartBars",
+        fmt=['barChartBars <label1 label2...>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
-   Param(
-       name="barChartColors",
-       fmt=['barChartColors <color1 color2...>'],
-       types=['bigBarChart'],
-       required=False,
-       validator=str),
+    Param(
+        name="barChartColors",
+        fmt=['barChartColors <color1 color2...>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
-   Param(
-       name="barChartLabel",
-       fmt=['barChartLabel <label>'],
-       types=['bigBarChart'],
-       required=False,
-       validator=str),
+    Param(
+        name="barChartLabel",
+        fmt=['barChartLabel <label>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
-   Param(
-       name="barChartMatrixUrl",
-       fmt=['barChartMatrixUrl <url>'],
-       types=['bigBarChart'],
-       required=False,
-       validator=str),
+    Param(
+        name="barChartMatrixUrl",
+        fmt=['barChartMatrixUrl <url>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
     Param(
         name="barChartMetric",

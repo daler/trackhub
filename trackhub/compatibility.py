@@ -18,7 +18,8 @@ if PY2:
 def py2_unicode(cls):
     if PY2:
         if '__str__' not in cls.__dict__:
-            raise ValueError('no __str__method defined for {}'.format(cls.__name__))
+            raise ValueError(
+                'no __str__method defined for {}'.format(cls.__name__))
         cls.__unicode__ = cls.__str__
         cls.__str__ = lambda self: self.__unicode__().encode('utf-8')
     return cls

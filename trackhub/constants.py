@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from collections import OrderedDict
 from .parsed_params import param_defs, TRACKTYPES
 
 # http://genome-source.cse.ucsc.edu/gitweb/
@@ -11,7 +10,7 @@ param_dict = {i.name: i for i in param_defs}
 # These should at least be first...
 initial_params = ['track', 'bigDataUrl', 'shortLabel', 'longLabel', 'type']
 
-track_fields = {i:initial_params[:] for i in TRACKTYPES}
+track_fields = {i: initial_params[:] for i in TRACKTYPES}
 
 observed_types = set()
 for param in param_defs:

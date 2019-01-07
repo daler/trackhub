@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import os
+import warnings
 from .validate import ValidationError
 from .base import HubComponent
 
@@ -43,7 +44,8 @@ class Hub(HubComponent):
         HubComponent.__init__(self)
         if url is not None:
             self.url = url
-            warnings.DeprecationWarning('url is no longer used for Hub objects')
+            warnings.DeprecationWarning(
+                'url is no longer used for Hub objects')
         self.hub = hub
         if not short_label:
             short_label = hub

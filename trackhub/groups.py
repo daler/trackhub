@@ -28,7 +28,8 @@ class GroupDefinition(object):
             Orders this track group with the other track groups
 
         default_is_closed : 0 | 1
-            Determines if this track group is expanded or closed by default. Values to use are 0 or 1
+            Determines if this track group is expanded or closed by default.
+            Values to use are 0 or 1
         """
         self.name = str(name)
         if label is None:
@@ -125,7 +126,9 @@ class GroupsFile(HubComponent):
 
     def validate(self):
         if self.genome is None:
-            raise ValidationError("GroupsFile object must be attached to an Genome instance or subclass")
+            raise ValidationError(
+                "GroupsFile object must be attached to an Genome instance "
+                "or subclass")
         pass
 
     def _render(self, staging='staging'):

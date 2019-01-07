@@ -19,7 +19,8 @@ def dimensions_from_subgroups(s):
     s : list of SubGroup objects (or anything with a `name` attribute)
     """
     letters = 'XYABCDEFGHIJKLMNOPQRSTUVWZ'
-    return ' '.join(['dim{0}={1}'.format(dim, sg.name) for dim, sg in zip(letters, s)])
+    return ' '.join(['dim{0}={1}'.format(dim, sg.name)
+                     for dim, sg in zip(letters, s)])
 
 
 def filter_composite_from_subgroups(s):

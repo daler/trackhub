@@ -1,16 +1,14 @@
 import re
 from trackhub import constants
 import bs4
-from textwrap import dedent
 import requests
-
-import argparse
 
 # It's a pretty complex, auto-generated HTML file. Turns out BeautifulSoup's
 # html.parser, lxml, and xml don't completely parse. Initial workarounds
 # chopped up the file and parsed individually, but the most lenient html5lib
 # parse seems to do the trick.
-response = requests.get('https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html')
+response = requests.get(
+    'https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html')
 soup = bs4.BeautifulSoup(response.text, 'html5lib')
 
 # There is a table that stores the supported filetypes. It contains links of
@@ -36,7 +34,8 @@ for ul in ol.find_all('ul'):
     for a in ul.find_all('a'):
         ref = a['href'].replace('#', '')
 
-        # some have text like "#bigMaf_-_Multiple_Alignments", so split on the '_'
+        # some have text like "#bigMaf_-_Multiple_Alignments", so split on the
+        # '_'
         ref = ref.split('_')[0]
         supported_types.append(ref)
 
@@ -64,8 +63,6 @@ for t in settings_tables:
             continue
         support = code['class']
         support_levels[key] = support
-
-
 
 
 # ANATOMY OF A DIV...
@@ -125,6 +122,8 @@ def keep(tag):
         if 'types' in tag['class']:
             if 'customTracks' not in tag['class']:
                 return True
+
+
 d = soup.find_all(keep)
 
 specs = {}
@@ -157,7 +156,6 @@ for i in d:
         for i in required_p:
             if 'yes' in i.text.lower() or 'for hubs' in i.text.lower():
                 required = True
-
 
     # Some, like bamGrayMode, have several "sub names" like bamGrayMode,
     # aliQualRnage, baseQualRange. Handle those here.
