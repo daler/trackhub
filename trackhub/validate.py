@@ -7,6 +7,9 @@ class ValidationError(Exception):
 
 
 def validator(*example):
+    """
+    Decorator that runs a self-test on the validator it decorates
+    """
     def wrapper(func):
 
         # Try running validation on the function's own example . . . it better
@@ -44,7 +47,6 @@ def validator(*example):
         return Validator()
     return wrapper
 
-
 class Parameter(object):
     """
     Represents a generic parameter. Validates based on the provided possible
@@ -77,7 +79,10 @@ class Parameter(object):
         if isinstance(self.values, type):
             if isinstance(value, self.values):
                 return True
-            return False
+            else:
+                # Otherwise, allow any exceptions to propagate up.
+                self.values(value)
+                return True
 
         if hasattr(self.values, '__call__'):
             return self.values(value)
@@ -86,7 +91,76 @@ class Parameter(object):
             return True
 
 
-@validator("tag=value")
+class Param(object):
+    def __init__(self, name, fmt, types, required, validator, min_bed_fields=None):
+        """
+        Parameters
+        ----------
+
+        name : str
+            Name of the parameter
+
+        fmt : list
+            List of strings parsed from the "format" section of the spec from
+            UCSC. Mostly used as an informal guide to the format.
+
+        types : list
+            List of track types this parameter applies to
+
+        required : bool or list
+            If True, all tracks must have it. If list, only those types must
+            have it.
+
+        validator : callable, set, or type
+            Validation to run on user-provided values. If callable, must return
+            True if the value passes. If set, validation will pass if the value
+            is in the provided set.
+
+        min_bed_fields : int
+            Some parameters only work for a certain number of BED fields. Specify that here.
+
+        Examples
+        --------
+
+        >>> Param(name='test', fmt=['test <#>'], types=['bigBed'], required=False, validator=int).validate(999)
+        True
+
+        >>> Param(name='test', fmt=['test <#>'], types=['bigBed'], required=False, validator=int).validate('999')
+        True
+
+        >>> Param(name='test', fmt=['test <#>'], types=['bigBed'], required=False, validator=int).validate(0)
+        """
+        self.name = name
+        self.fmt = fmt
+        self.types = types
+        self.required = required
+        self.validator = validator
+
+    def __str__(self):
+        return '<%s "%s" at %s>' \
+            % (self.__class__.__name__, self.name, id(self))
+
+    def validate(self, value):
+
+        if isinstance(self.validator, set):
+            if value in self.validator:
+                return True
+
+        if isinstance(self.validator, type):
+            if isinstance(value, self.validator):
+                return True
+            else:
+                # Otherwise, allow any exceptions to propagate up.
+                self.validator(value)
+                return True
+
+        if hasattr(self.validator, '__call__'):
+            return self.validator(value)
+
+        elif value == self.validator:
+            return True
+
+@validator("tag=value", "tag1=val1 tag2=val2")
 def key_val(v):
     try:
         assert '=' in v
@@ -177,4 +251,3 @@ def ucsc_position(v):
     assert end >= 0, "end position must be a positive integer"
     assert start < end, "start must be less than end"
     return True
-
