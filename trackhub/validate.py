@@ -11,7 +11,6 @@ exactly one string character:
         return isinstance(v, string_types) and len(v) == 1
 """
 import warnings
-from textwrap import dedent
 from .compatibility import string_types
 
 
@@ -46,6 +45,7 @@ def validator(*example):
             Class to wrap a function and display an example value.
             """
             _func = func
+
             def __call__(self, v):
                 try:
                     result = func(v)
@@ -66,7 +66,8 @@ def validator(*example):
 
 
 class Param(object):
-    def __init__(self, name, fmt, types, required, validator, min_bed_fields=None):
+    def __init__(self, name, fmt, types, required, validator,
+                 min_bed_fields=None):
         """
         Parameters
         ----------
@@ -91,7 +92,8 @@ class Param(object):
             is in the provided set.
 
         min_bed_fields : int
-            Some parameters only work for a certain number of BED fields. Specify that here.
+            Some parameters only work for a certain number of BED fields.
+            Specify that here.
 
         Examples
         --------
@@ -135,6 +137,7 @@ class Param(object):
             return True
         return False
 
+
 @validator("tag=value", "tag1=val1 tag2=val2")
 def key_val(v):
     try:
@@ -149,7 +152,7 @@ def key_val(v):
 
 @validator("a,b,c")
 def CSV(v):
-    #TODO: is a one-item list "chr1," or "chr1"?
+    # TODO: is a one-item list "chr1," or "chr1"?
     if isinstance(v, string_types):
         return True
     raise ValidationError
@@ -230,6 +233,7 @@ def off_or_int(v):
             return True
         raise
 
+
 @validator("chr21:33031596-33033258")
 def ucsc_position(v):
     try:
@@ -243,8 +247,6 @@ def ucsc_position(v):
     assert end >= 0, "end position must be a positive integer"
     assert start < end, "start must be less than end"
     return True
-<<<<<<< HEAD
-=======
 
 
 @validator('asdf1234_33', 'AZ90')
@@ -273,7 +275,7 @@ def short_label(v):
 @validator('a' * 76, 'four five six')
 def long_label(v):
     assert isinstance(v, string_types)
-    if len(v)> 76:
+    if len(v) > 76:
         warnings.warn(
             "longLabel is limited to 76 characters "
             "in the browser, some characters will be truncated")
