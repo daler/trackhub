@@ -1,1 +1,3 @@
 docutils
+requests
+beautifulsoup4
