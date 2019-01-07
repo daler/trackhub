@@ -775,7 +775,7 @@ param_defs = [
 
     Param(
         name="sortOrder",
-        fmt=['sortOrder <gTag#=+/-> [gTag#=- …]'],
+        fmt=['sortOrder <gTag#=+/-> [gTag#=- ...]'],
         types=['subGroups'],
         required=False,
         validator=validate.key_val),
