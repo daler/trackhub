@@ -105,6 +105,7 @@ class Param(object):
         True
 
         >>> Param(name='test', fmt=['test <#>'], types=['bigBed'], required=False, validator=int).validate(0)
+        True
         """
         self.name = name
         self.fmt = fmt
