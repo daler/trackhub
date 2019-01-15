@@ -3,7 +3,6 @@ from __future__ import absolute_import
 import os
 import re
 import warnings
-from collections import OrderedDict
 from docutils.core import publish_parts
 from trackhub.base import HubComponent, deprecation_handler
 from trackhub import hub
@@ -13,6 +12,7 @@ from trackhub import constants
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', 'bigNarrowPeak', None,
               'bigBarChart', 'bigChain', 'bigGenePred', 'bigNarrowPeak',
               'bigMaf', 'bigPsl', 'halSnake']
+
 
 def _check_name(name):
     regex = re.compile('[^a-zA-Z0-9-_]')
@@ -51,7 +51,6 @@ def update_list(existing, new, first=constants.initial_params):
     end = sorted(combined.difference(first))
 
     return beginning + end
-
 
 
 class SubGroupDefinition(object):
@@ -177,15 +176,16 @@ class BaseTrack(HubComponent):
         _check_name(name)
         self.name = name
 
-        # Dictionary where keys are parameter names (e.g., "color") and values are
-        # Param objects.  These are defined in the constants module. To start, we
-        # add the params valid for all tracks.
+        # Dictionary where keys are parameter names (e.g., "color") and values
+        # are Param objects.  These are defined in the constants module. To
+        # start, we add the params valid for all tracks.
         #
         # The Track subclass will add its own parameters when the track type is
         # set. Other subclasses (Composite and View) will add their own special
         # params in the class definition.
         self.track_field_order = []
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields['all'])
+        self.track_field_order = update_list(self.track_field_order,
+                                             constants.track_fields['all'])
 
         # NOTE: when setting track type, it will update the track field order
         # according to the known params for that track...so
@@ -214,7 +214,6 @@ class BaseTrack(HubComponent):
         self.kwargs = kwargs
 
         self._orig_kwargs = kwargs.copy()
-
 
     @property
     def _html(self):
@@ -283,7 +282,8 @@ class BaseTrack(HubComponent):
                 tracktype = 'bigBed'
             elif 'wig' in tracktype.lower():
                 tracktype = 'bigWig'
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields[tracktype])
+        self.track_field_order = update_list(self.track_field_order,
+                                             constants.track_fields[tracktype])
 
     def add_trackdb(self, trackdb):
         """
@@ -364,7 +364,6 @@ class BaseTrack(HubComponent):
                 # fall back to `url` if set
                 value = getattr(self, 'url', None)
 
-
             if value is not None:
                 if constants.param_dict[name].validate(value):
                     s.append("%s %s" % (name, value))
@@ -375,7 +374,8 @@ class BaseTrack(HubComponent):
 
         if len(self.kwargs) > 0:
             raise ParameterError(
-                "The following parameters are unknown for track type {0}: {1}".format(self.tracktype, self.kwargs))
+                "The following parameters are unknown for track type {0}: "
+                "{1}".format(self.tracktype, self.kwargs))
 
         self.kwargs = self._orig_kwargs.copy()
 
@@ -469,7 +469,8 @@ class CompositeTrack(BaseTrack):
         """
         super(CompositeTrack, self).__init__(*args, **kwargs)
 
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields['compositeTrack'])
+        self.track_field_order = update_list(
+            self.track_field_order, constants.track_fields['compositeTrack'])
 
         # TODO: are subtracks and views mutually exclusive, or can a composite
         # have both "view-ed" and "non-view-ed" subtracks?
@@ -584,7 +585,8 @@ class ViewTrack(BaseTrack):
         self.view = view
         kwargs['view'] = view
         super(ViewTrack, self).__init__(*args, **kwargs)
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields['view'])
+        self.track_field_order = update_list(
+            self.track_field_order, constants.track_fields['view'])
         self.subtracks = []
 
     def add_tracks(self, subtracks):
@@ -628,7 +630,8 @@ class SuperTrack(BaseTrack):
         See :class:`BaseTrack` for details on arguments.
         """
         super(SuperTrack, self).__init__(*args, **kwargs)
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields['superTrack'])
+        self.track_field_order = update_list(
+            self.track_field_order, constants.track_fields['superTrack'])
 
         self.subtracks = []
 
@@ -689,7 +692,8 @@ class AggregateTrack(BaseTrack):
         self.aggregate = aggregate
         kwargs['aggregate'] = aggregate
         super(AggregateTrack, self).__init__(*args, **kwargs)
-        self.track_field_order = update_list(self.track_field_order, constants.track_fields['multiWig'])
+        self.track_field_order = update_list(
+            self.track_field_order, constants.track_fields['multiWig'])
         self.subtracks = []
 
     def add_subtrack(self, subtrack):
@@ -799,6 +803,7 @@ class HTMLDoc(HubComponent):
             return parts['html_body']
         else:
             raise ValueError(
-                "html_string_format '{}' not supported".format(self.html_string_format)
+                "html_string_format '{}' not supported".format(
+                    self.html_string_format)
             )
         return self.contents
