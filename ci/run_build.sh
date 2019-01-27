@@ -25,6 +25,7 @@ hubs["example_hub"]="example_hub/myhub.hub.txt"
 hubs["example_assembly_hub"]="example_assembly_hub/assembly_hub.hub.txt"
 hubs["example_grouping_hub"]="example_grouping_hub/grouping.hub.txt"
 hubs["example_htmldoc_hub"]="example_htmldoc_hub/htmldoc.hub.txt"
+hubs["example_barchart_hub"]="example_barchart_hub/barchart_hub.hub.txt"
 hubs["quickstart"]="../doc/quickstart-staging/quickstart.hub.txt"
 
 if [[ $TRAVIS == "true" ]]; then
