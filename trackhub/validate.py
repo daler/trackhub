@@ -12,6 +12,7 @@ exactly one string character:
 """
 import warnings
 from .compatibility import string_types
+from . import settings
 
 
 class ValidationError(Exception):
@@ -51,10 +52,10 @@ def validator(*example):
                     result = func(v)
                 except Exception as e:
                     result = False
-                if not result:
+                if not result and settings.VALIDATE:
                     raise ValidationError(
-                        '{0} failed validation using {1}; '
-                        '{2}'.format(v, func.__name__, example_string))
+                        'Value {0} failed {1} validation; {2}'
+                        .format(v, func.__name__, example_string))
                 return result
 
             def __str__(self):
@@ -159,7 +160,7 @@ def CSV(v):
     raise ValidationError
 
 
-@validator("a:b:c")
+@validator("a:b:c", "0:10:100")
 def ColSV3(v):
     nvalues = 3
     if not isinstance(v, string_types):

@@ -7,6 +7,7 @@ from docutils.core import publish_parts
 from trackhub.base import HubComponent, deprecation_handler
 from trackhub import hub
 from trackhub import constants
+from trackhub import settings
 
 
 TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', 'bigNarrowPeak', None,
@@ -315,13 +316,16 @@ class BaseTrack(HubComponent):
 
         """
         for k, v in kw.items():
-            if k not in self.track_field_order:
+            if k not in self.track_field_order and constants.VALIDATE:
                 raise ParameterError(
                     '"{0}" is not a valid parameter for {1} with '
                     'tracktype {2}'
                     .format(k, self.__class__.__name__, self.tracktype)
                 )
-            constants.param_dict[k].validate(v)
+            if not constants.param_dict[k].validate(v) and constants.VALIDATE:
+                raise ParameterError(
+                    'value "{0}" did not validate for parameter "{1}"'
+                    .format(k, v))
 
         self._orig_kwargs.update(kw)
         self.kwargs = self._orig_kwargs.copy()
@@ -363,9 +367,9 @@ class BaseTrack(HubComponent):
 
     def __str__(self):
         s = []
-
+        kwargs = self.kwargs.copy()
         for name in self.track_field_order:
-            value = self.kwargs.pop(name, None)
+            value = kwargs.pop(name, None)
             if name == 'parent':
                 if isinstance(self.parent, BaseTrack):
                     if value is not None:
@@ -379,7 +383,7 @@ class BaseTrack(HubComponent):
                 value = getattr(self, 'url', None)
 
             if value is not None:
-                if constants.param_dict[name].validate(value):
+                if constants.param_dict[name].validate(value) or not settings.VALIDATE:
                     s.append("%s %s" % (name, value))
 
                 else:
@@ -390,10 +394,14 @@ class BaseTrack(HubComponent):
         # track or not.
         s.extend(self._str_subgroups())
 
-        if len(self.kwargs) > 0:
-            raise ParameterError(
-                "The following parameters are unknown for track type {0}: "
-                "{1}".format(self.tracktype, self.kwargs))
+        if settings.VALIDATE:
+            if len(kwargs) > 0:
+                raise ParameterError(
+                    "The following parameters are unknown for track type {0}: "
+                    "{1}".format(self.tracktype, kwargs))
+        else:
+            for k, v in kwargs.items():
+                s.append("%s %s" % (k, v))
 
         self.kwargs = self._orig_kwargs.copy()
 
