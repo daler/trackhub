@@ -136,7 +136,7 @@ param_defs = [
         fmt=['barChartColors <color1 color2...>'],
         types=['bigBarChart'],
         required=False,
-        validator=validate.hex_or_named),
+        validator=str),
 
     Param(
         name="barChartLabel",
@@ -958,6 +958,15 @@ param_defs = [
         types=TRACKTYPES,
         required=True,
         validator=set(TRACKTYPES)),
+
+    # Add a param for group, which is used in assembly hubs (but not documented
+    # in the Track Hub Database Definition document)
+    Param(
+        name='group',
+        fmt='',
+        types=TRACKTYPES,
+        required=False,
+        validator=str),
 
     ]
 
