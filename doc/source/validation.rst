@@ -71,6 +71,7 @@ about. In that case, we can disable the validation by setting
 
 
 .. testoutput::
+    :options: +NORMALIZE_WHITESPACE
 
     track signal1
     bigDataUrl signal1.bigWig
