@@ -3,7 +3,7 @@ set -e
 
 # Python 2 testing
 source activate trackhub-test-env-py2
-pytest -v --doctest-modules trackhub
+pytest -vv --doctest-modules trackhub
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 (
   cd $HERE/../doc && make doctest
@@ -12,7 +12,7 @@ source deactivate
 
 # Python 3 testing
 source activate trackhub-test-env-py3
-pytest -v --doctest-modules trackhub
+pytest -vv --doctest-modules trackhub
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 (
   cd $HERE/../doc && make doctest
