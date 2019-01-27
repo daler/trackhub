@@ -371,7 +371,10 @@ class BaseTrack(HubComponent):
 
             if name == 'parent':
                 if isinstance(self.parent, BaseTrack):
-                    s.append('parent {0} {1}'.format(self.parent.name, value))
+                    if value is not None:
+                        s.append('parent {0} {1}'.format(self.parent.name, value))
+                    else:
+                        s.append('parent {0}'.format(self.parent.name))
                 continue
 
             if name == 'bigDataUrl' and value is None:

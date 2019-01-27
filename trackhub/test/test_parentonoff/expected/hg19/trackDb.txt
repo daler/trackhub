@@ -37,5 +37,6 @@ compositeTrack on
             shortLabel E005DNase
             longLabel E005DNase
             type bigWig
+            parent testviewtrack
             visibility full
             subGroups view=view1
