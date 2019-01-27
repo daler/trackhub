@@ -274,17 +274,18 @@ def print_parsed(specs):
         s.append("    '{}',".format(i))
     s.append(']')
     print('\n'.join(s) + '\n')
-
+    print('param_defs = [')
+    print()
     for k, v in sorted(specs.items()):
         print(
             (
     '''
-        Param(
-            name="{k}",
-            fmt={v[format]},
-            types={v[types]},
-            required={v[required]},
-            validator=str),'''.format(**locals())
+    Param(
+        name="{k}",
+        fmt={v[format]},
+        types={v[types]},
+        required={v[required]},
+        validator=str),'''.format(**locals())
             )
         )
 

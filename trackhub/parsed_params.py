@@ -915,6 +915,8 @@ param_defs = [
         required=False,
         validator=set(['on', 'off'])),
 
+    # NOTE: Assembly parameters are not defined in the database, so they need
+    # to be added separately here.
     Param(
         name='description',
         fmt='',
