@@ -327,3 +327,8 @@ def hex_or_named(v):
     except AssertionError:
         return False
     return True
+
+
+@validator('bigBed', 'bigBed 6+3')
+def tracktypes(v):
+    return True

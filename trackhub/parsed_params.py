@@ -957,7 +957,7 @@ param_defs = [
         fmt='',
         types=TRACKTYPES,
         required=True,
-        validator=set(TRACKTYPES)),
+        validator=validate.tracktypes),
 
     # Add a param for group, which is used in assembly hubs (but not documented
     # in the Track Hub Database Definition document)

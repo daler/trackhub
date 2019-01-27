@@ -119,7 +119,7 @@ to the `trackdb` as well:
     track1 = trackhub.Track(
         name="signal1",
         source=os.path.join(trackhub.helpers.data_dir(), 'sine-hg38-0.bedgraph.bw'),
-        tracktype='bigWig',
+        tracktype='bigWig -2 2',
     )
 
     trackdb.add_tracks(track1)
@@ -160,7 +160,7 @@ Now that we have added tracks to the `trackdb` object, printing it should show t
     bigDataUrl signal1.bigWig
     shortLabel signal1
     longLabel signal1
-    type bigWig
+    type bigWig -2 2
 
     track signal2
     bigDataUrl signal2.bigWig

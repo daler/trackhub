@@ -284,18 +284,16 @@ class BaseTrack(HubComponent):
         need to be set as well.
         """
         self._tracktype = tracktype
-        if tracktype is not None:
-            if 'bed' in tracktype.lower():
-                tracktype = 'bigBed'
-            elif 'wig' in tracktype.lower():
-                tracktype = 'bigWig'
+
+        # E.g., bigBed 6+3
+        base_tracktype = tracktype.split()[0]
 
         fields = []
         if self.track_type_override:
             for t in self.track_type_override:
                 fields.extend(constants.track_fields[t])
         else:
-            fields.extend(constants.track_fields[tracktype])
+            fields.extend(constants.track_fields[base_tracktype])
         self.track_field_order = update_list(self.track_field_order, fields)
 
     def add_trackdb(self, trackdb):
@@ -368,7 +366,6 @@ class BaseTrack(HubComponent):
 
         for name in self.track_field_order:
             value = self.kwargs.pop(name, None)
-
             if name == 'parent':
                 if isinstance(self.parent, BaseTrack):
                     if value is not None:
@@ -385,6 +382,10 @@ class BaseTrack(HubComponent):
                 if constants.param_dict[name].validate(value):
                     s.append("%s %s" % (name, value))
 
+                else:
+                    raise ParameterError(
+                        "The value '{0}' did not validate for parameter '{1}'"
+                        .format(value, name))
         # Handle subgroups differently depending on if this is a composite
         # track or not.
         s.extend(self._str_subgroups())
