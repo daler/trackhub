@@ -369,8 +369,9 @@ class BaseTrack(HubComponent):
         for name in self.track_field_order:
             value = self.kwargs.pop(name, None)
 
-            if name == 'parent' and value is not None:
-                s.append('parent {0} {1}'.format(self.parent.name, value))
+            if name == 'parent':
+                if isinstance(self.parent, BaseTrack):
+                    s.append('parent {0} {1}'.format(self.parent.name, value))
                 continue
 
             if name == 'bigDataUrl' and value is None:
