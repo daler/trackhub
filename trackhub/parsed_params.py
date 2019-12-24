@@ -27,6 +27,7 @@ TRACKTYPES = [
     'bigWig',
     'compositeTrack',
     'halSnake',
+    'hic',
     'multiWig',
     'subGroups',
     'superTrack',
@@ -48,6 +49,7 @@ DATA_TRACKTYPES = [
     'bigMaf',
     'bigPsl',
     'bigWig',
+    'hic',
     'vcfTabix',
 ]
 
@@ -153,6 +155,13 @@ param_defs = [
         validator=str),
 
     Param(
+        name="barChartMaxSize",
+        fmt=['barChartMaxSize <small/medium/large>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=['small', 'medium', 'large']),
+
+    Param(
         name="barChartMetric",
         fmt=['barChartMetric <metric>'],
         types=['bigBarChart'],
@@ -218,7 +227,8 @@ param_defs = [
     Param(
         name="bigDataUrl",
         fmt=['bigDataUrl <url/relativePath>'],
-        types=['bam', 'bigBarChart', 'bigBed', 'bigChain', 'bigInteract', 'bigMaf', 'bigPsl', 'bigWig', 'vcfTabix'],
+        types=['bam', 'bigBarChart', 'bigBed', 'bigChain', 'bigInteract',
+               'bigMaf', 'bigPsl', 'bigWig', 'hic', 'vcfTabix'],
         required=True,
         validator=str),
 
@@ -354,12 +364,83 @@ param_defs = [
         fmt=['dragAndDrop subTracks'],
         types=['compositeTrack'],
         required=False,
-        validator=set(['subTracks'])),
+        validator=str),
+
+    Param(
+        name="filter",
+        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filter.<fieldName>",
+        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterByRange.<fieldName>",
+        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
 
     Param(
         name="filterComposite",
         fmt=['filterComposite <dim[A/B/C][=one]> [dimB dimC ...]'],
         types=['subGroups'],
+        required=False,
+        validator=str),
+
+
+    Param(
+        name="filterLimits.<fieldName>",
+        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterText",
+        fmt=['filterText.<fieldName> [<default search string>]', 'filterType.<fieldName> <wildcard/regexp>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterText.<fieldName>",
+        fmt=['filterText.<fieldName> [<default search string>]', 'filterType.<fieldName> <wildcard/regexp>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterType.<fieldName>",
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterValues",
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterValues.<fieldName>",
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="filterValuesDefault.<fieldName>",
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        types=['bigBed'],
         required=False,
         validator=str),
 
@@ -382,7 +463,21 @@ param_defs = [
         fmt=['yLineMark <#>', 'yLineOnOff <off/on>', 'gridDefault   on'],
         types=['bigWig'],
         required=False,
-        validator=set(['on'])),
+        validator=str),
+
+    Param(
+        name="hideEmptySubtracks",
+        fmt=['hideEmptySubtracks <on/default> [multiBed.bb multiBedSources.tab]'],
+        types=['compositeTrack'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="hideEmptySubtracksLabel",
+        fmt=['hideEmptySubtracks <label>'],
+        types=['compositeTrack'],
+        required=False,
+        validator=str),
 
     Param(
         name="html",
@@ -438,8 +533,14 @@ param_defs = [
         fmt=['interactDirectional <true|offsetSource|offsetTarget|clusterSource|clusterTarget>'],
         types=['bigInteract'],
         required=False,
-        validator=set(['true', 'offsetSource', 'offsetTarget', 'clusterSource',
-                      'clusterTarget'])),
+        validator=str),
+
+    Param(
+        name="interactMultiRegion",
+        fmt=['interactMultiRegion <true|padding>'],
+        types=['bigInteract'],
+        required=False,
+        validator=str),
 
     Param(
         name="interactUp",
@@ -613,13 +714,17 @@ param_defs = [
         required=False,
         validator=int),
 
-    # NOTE in the spec there is "parent_container" as well as "parent" so as to
-    # have unique div names in the HTML. They apply to different track types
-    # (multiWig, superTrack, compositeTrack). In addition, subtracks of various
-    # types can use the parent param to control visibility, though there is no
-    # div that sets "parent" to "all" track types.
+    # NOTE in the spec there is "parent_container", "parent_supertrack", and
+    # "parent". The reason appears to be so that there are unique div
+    # names in the HTML, but they all refer to the parameter "parent".
+    # In addition, subtracks of various types can use the parent param to
+    # control visibility, though there is no div that sets "parent" to "all"
+    # track types.
     #
-    # To cover all these cases, we set types to "all" and just validate on str.
+    # To cover all these cases, we:
+    #   - remove the Params for "parent_container" and "parent_supertrack"
+    #   - include the Param for "parent"
+    #   - set types to "all" and just validate on str
 
     Param(
         name="parent",
@@ -807,7 +912,14 @@ param_defs = [
         fmt=['superTrack on'],
         types=['superTrack'],
         required=False,
-        validator=set(['on'])),
+        validator=str),
+
+    Param(
+        name="tableBrowser",
+        fmt=['tableBrowser <off/on/noGenome> [table1 ...]'],
+        types=['all'],
+        required=False,
+        validator=str),
 
     Param(
         name="thickDrawItem",
