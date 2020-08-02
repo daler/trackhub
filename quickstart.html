@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; trackhub 0.2.3 documentation</title>
+  <title>Quickstart &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,46 +21,38 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="index.html"/>
-        <link rel="next" title="Organizing larger track hubs" href="grouping.html"/>
-        <link rel="prev" title="trackhub" href="index.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Validation" href="validation.html" />
+    <link rel="prev" title="trackhub" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> trackhub
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -66,7 +62,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -83,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -98,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#render-stage-the-hub">Render (stage) the hub</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
@@ -108,13 +106,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">trackhub</a>
@@ -122,9 +121,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -145,7 +145,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Quickstart</li>
     
@@ -184,8 +184,8 @@ example below demonstrates this.</p>
 found in <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a> and <a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a>.</p>
 <p>For the impatient:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">load the grouping example on UCSC</a></li>
-<li><a class="reference external" href="https://github.com/daler/trackhub-demo/tree/master/quickstart">files in GitHub</a></li>
+<li><p><a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">load the grouping example on UCSC</a></p></li>
+<li><p><a class="reference external" href="https://github.com/daler/trackhub-demo/tree/master/quickstart">files in GitHub</a></p></li>
 </ul>
 </div>
 <div class="section" id="create-hub-components">
@@ -195,10 +195,10 @@ The hub file points to a genomes file, which points to a trackDb file, which
 points to the various data tracks.</p>
 <p>In <cite>trackhub</cite>, these are modeled as classes with parents and children. The hub
 is the parent of the genomes file, which is the parent of the trackDb file, and
-so on. In this quickstart, we use the <code class="xref py py-func docutils literal"><span class="pre">default_hub()</span></code> function to get all of
+so on. In this quickstart, we use the <code class="xref py py-func docutils literal notranslate"><span class="pre">default_hub()</span></code> function to get all of
 these components already connected. See <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a> for connecting
 them one-by-one or for more control over filenames.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
@@ -210,10 +210,10 @@ them one-by-one or for more control over filenames.</p>
 <p>We can indvidually print each object to see the contents of the text file that
 will be created. Note that until a hub is “rendered” (see below), the files
 won’t actually exist.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>hub hub
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hub hub
 shortLabel quickstart
 longLabel quickstart
 genomesFile quickstart.genomes.txt
@@ -223,18 +223,18 @@ email you@email.com
 <p>Note that we could have specified the short_label and long_label kwargs, but by
 default the hub name is carried over to the shortLabel and longLabel lines.
 Furthermore, the genomes.txt file’s name is prefixed by the hub name.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>genome hg38
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>genome hg38
 trackDb hg38/trackDb.txt
 </pre></div>
 </div>
 <p>So far, the <cite>trackdb</cite> object has no tracks added:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -252,15 +252,15 @@ Unlike the objects we made above which don’t yet exist as a file, a Track
 object must point to an existing file. Sometimes you might want to include
 a file from a different hub in your own hub. In this case, instead of <cite>source</cite>,
 use the <cite>url</cite> kwarg.</p>
-<p>Here were are using the <a class="reference internal" href="autodocs/trackhub.helpers.data_dir.html#trackhub.helpers.data_dir" title="trackhub.helpers.data_dir"><code class="xref py py-func docutils literal"><span class="pre">helpers.data_dir()</span></code></a> function to get the path to
+<p>Here were are using the <a class="reference internal" href="autodocs/trackhub.helpers.data_dir.html#trackhub.helpers.data_dir" title="trackhub.helpers.data_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">helpers.data_dir()</span></code></a> function to get the path to
 the example data shipped with trackhub. In practice, these paths would be
 inside your analysis directories.</p>
 <p>First, the simplest track to add: a name, source, and type. Note that we add it
 to the <cite>trackdb</cite> as well:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
     <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig -2 2&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track1</span><span class="p">)</span>
@@ -270,7 +270,7 @@ to the <cite>trackdb</cite> as well:</p>
 color, and view limits as well as sets nicer labels. See the <a class="reference external" href="https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html">Track Database
 Definition</a>
 page for more details as well as all the other settings that are possible.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signal2&#39;</span><span class="p">,</span>
     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal 2&#39;</span><span class="p">,</span>
     <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;Signal track for sample 2&#39;</span><span class="p">,</span>
@@ -286,24 +286,24 @@ page for more details as well as all the other settings that are possible.</p>
 </pre></div>
 </div>
 <p>Now that we have added tracks to the <cite>trackdb</cite> object, printing it should show the updates:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>track signal1
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>track signal1
 bigDataUrl signal1.bigWig
 shortLabel signal1
 longLabel signal1
-type bigWig
+type bigWig -2 2
 
 track signal2
 bigDataUrl signal2.bigWig
 shortLabel Signal 2
 longLabel Signal track for sample 2
 type bigWig
-visibility full
 color 128,0,0
 maxHeightPixels 8:50:128
 viewLimits -2:2
+visibility full
 </pre></div>
 </div>
 </div>
@@ -313,12 +313,12 @@ viewLimits -2:2
 the track source files into a local directory. This allows us to inspect the
 hub before uploading.</p>
 <p>By default the staging directory is a temporary directory, but here to be more
-explicit we will set <code class="docutils literal"><span class="pre">staging=&quot;quickstart-staging&quot;</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;quickstart-staging&quot;</span><span class="p">)</span>
+explicit we will set <code class="docutils literal notranslate"><span class="pre">staging=&quot;quickstart-staging&quot;</span></code></p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;quickstart-staging&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <cite>quickstart-staging</cite> should have these contents:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>quickstart-staging/
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>quickstart-staging/
   quickstart.genomes.txt
   quickstart.hub.txt
 quickstart-staging/hg38/
@@ -328,14 +328,14 @@ quickstart-staging/hg38/
 </pre></div>
 </div>
 <p>This directory is now ready for transferring to a host to serve it. You can
-either use rsync directly from the terminal (be sure to use the <code class="docutils literal"><span class="pre">-L</span></code>
+either use rsync directly from the terminal (be sure to use the <code class="docutils literal notranslate"><span class="pre">-L</span></code>
 argument, which follows symlinks), or use the
-<a class="reference internal" href="autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub" title="trackhub.upload.upload_hub"><code class="xref py py-func docutils literal"><span class="pre">trackhub.upload.upload_hub()</span></code></a> function.</p>
+<a class="reference internal" href="autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub" title="trackhub.upload.upload_hub"><code class="xref py py-func docutils literal notranslate"><span class="pre">trackhub.upload.upload_hub()</span></code></a> function.</p>
 <p>Another workflow would be to <a class="reference external" href="https://help.github.com/articles/create-a-repo/">create a Github repo</a>, then either set the path
 to the repo as the <cite>staging</cite> diretory, or move the contents of the staging
 directory into the repo:</p>
 <p>For example, at the command line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">repo</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">repo</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">repo</span>
 <span class="n">rsync</span> <span class="o">-</span><span class="n">L</span> <span class="o">../</span><span class="n">quickstart</span><span class="o">-</span><span class="n">staging</span> <span class="o">.</span>
 <span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
@@ -348,18 +348,16 @@ directory into the repo:</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="grouping.html" class="btn btn-neutral float-right" title="Organizing larger track hubs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="validation.html" class="btn btn-neutral float-right" title="Validation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="trackhub" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="trackhub" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -368,11 +366,19 @@ directory into the repo:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -384,37 +390,15 @@ directory into the repo:</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

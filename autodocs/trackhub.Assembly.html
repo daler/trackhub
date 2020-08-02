@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.Assembly &mdash; trackhub 0.2.3 documentation</title>
+  <title>trackhub.Assembly &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,47 +21,38 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="../index.html"/>
-        <link rel="up" title="API documentation" href="../autodocs.html"/>
-        <link rel="next" title="trackhub.upload.stage_hub" href="trackhub.upload.stage_hub.html"/>
-        <link rel="prev" title="trackhub.GroupDefinition" href="trackhub.GroupDefinition.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.upload.stage_hub" href="trackhub.upload.stage_hub.html" />
+    <link rel="prev" title="trackhub.GroupDefinition" href="trackhub.GroupDefinition.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> trackhub
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -67,7 +62,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,6 +89,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
@@ -109,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trackhub.constants.Parameter.html">trackhub.constants.Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.Assembly</a></li>
@@ -128,13 +124,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">trackhub</a>
@@ -142,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -165,7 +163,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../autodocs.html">API documentation</a> &raquo;</li>
         
@@ -191,151 +189,151 @@
   <div class="section" id="trackhub-assembly">
 <h1>trackhub.Assembly<a class="headerlink" href="#trackhub-assembly" title="Permalink to this headline">¶</a></h1>
 digraph inheritance6fc99b999d {
+bgcolor=transparent;
 rankdir=LR;
 size=&quot;8.0, 12.0&quot;;
-  &quot;trackhub.assembly.Assembly&quot; [fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;trackhub.assembly.Assembly&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
   &quot;trackhub.genome.Genome&quot; -&gt; &quot;trackhub.assembly.Assembly&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
-  &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
-  &quot;trackhub.genome.Genome&quot; [fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
+  &quot;trackhub.genome.Genome&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
   &quot;trackhub.base.HubComponent&quot; -&gt; &quot;trackhub.genome.Genome&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
 }
-<dl class="class">
+<dl class="py class">
 <dt id="trackhub.Assembly">
-<em class="property">class </em><code class="descclassname">trackhub.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">trackhub.genome.Genome</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">Assembly</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">twobit_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string_format</span><span class="o">=</span><span class="default_value">'rst'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.genome.Genome</span></code></p>
 <p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p>
-<p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>genome</strong> (<em>str</em>) – The genome assembly name to use for this assembly</li>
-<li><strong>twobit_file</strong> (<em>str</em>) – Local path to 2bit file.</li>
+<p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenomesFile</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>genome</strong> (<em>str</em>) – The genome assembly name to use for this assembly</p></li>
+<li><p><strong>twobit_file</strong> (<em>str</em>) – Local path to 2bit file.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#trackhub.Assembly.__init__" title="trackhub.Assembly.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(genome[,&nbsp;twobit_file,&nbsp;groups,&nbsp;…])</td>
-<td>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Assembly.__init__" title="trackhub.Assembly.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(genome[, twobit_file, groups, …])</p></td>
+<td><p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#trackhub.Assembly.add_child" title="trackhub.Assembly.add_child"><code class="xref py py-obj docutils literal"><span class="pre">add_child</span></code></a>(child)</td>
-<td>Adds self as parent to child, and then adds child.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Assembly.add_child" title="trackhub.Assembly.add_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_child</span></code></a>(child)</p></td>
+<td><p>Adds self as parent to child, and then adds child.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add_groups</span></code>(groups)</td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_groups</span></code>(groups)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#trackhub.Assembly.add_params" title="trackhub.Assembly.add_params"><code class="xref py py-obj docutils literal"><span class="pre">add_params</span></code></a>(**kw)</td>
-<td>Add [possibly many] parameters to the Assembly.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Assembly.add_params" title="trackhub.Assembly.add_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_params</span></code></a>(**kw)</p></td>
+<td><p>Add [possibly many] parameters to the Assembly.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#trackhub.Assembly.add_parent" title="trackhub.Assembly.add_parent"><code class="xref py py-obj docutils literal"><span class="pre">add_parent</span></code></a>(parent)</td>
-<td>Adds self as child of parent, then adds parent.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Assembly.add_parent" title="trackhub.Assembly.add_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_parent</span></code></a>(parent)</p></td>
+<td><p>Adds self as child of parent, then adds parent.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">add_trackdb</span></code>(trackdb)</td>
-<td></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trackdb</span></code>(trackdb)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add_twobit</span></code>(twobit)</td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_twobit</span></code>(twobit)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#trackhub.Assembly.leaves" title="trackhub.Assembly.leaves"><code class="xref py py-obj docutils literal"><span class="pre">leaves</span></code></a>(cls[,&nbsp;level,&nbsp;intermediate])</td>
-<td>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Assembly.leaves" title="trackhub.Assembly.leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaves</span></code></a>(cls[, level, intermediate])</p></td>
+<td><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">makedirs</span></code>(fn)</td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">makedirs</span></code>(fn)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#trackhub.Assembly.remove_params" title="trackhub.Assembly.remove_params"><code class="xref py py-obj docutils literal"><span class="pre">remove_params</span></code></a>(*args)</td>
-<td>Remove [possibly many] parameters from the Assembly.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Assembly.remove_params" title="trackhub.Assembly.remove_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_params</span></code></a>(*args)</p></td>
+<td><p>Remove [possibly many] parameters from the Assembly.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#trackhub.Assembly.render" title="trackhub.Assembly.render"><code class="xref py py-obj docutils literal"><span class="pre">render</span></code></a>([staging])</td>
-<td>Renders the object to file, returning a list of created files.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Assembly.render" title="trackhub.Assembly.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>([staging])</p></td>
+<td><p>Renders the object to file, returning a list of created files.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#trackhub.Assembly.root" title="trackhub.Assembly.root"><code class="xref py py-obj docutils literal"><span class="pre">root</span></code></a>([cls,&nbsp;level])</td>
-<td>Returns the top-most HubComponent in the hierarchy.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Assembly.root" title="trackhub.Assembly.root"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root</span></code></a>([cls, level])</p></td>
+<td><p>Returns the top-most HubComponent in the hierarchy.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">validate</span></code>()</td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Assembly.validate" title="trackhub.Assembly.validate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate</span></code></a>()</p></td>
+<td><p>Runs validation, raising exceptions as needed.</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>genome</em>, <em>twobit_file=None</em>, <em>groups=None</em>, <em>trackdb=None</em>, <em>genome_file_obj=None</em>, <em>html_string=None</em>, <em>html_string_format='rst'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">twobit_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string_format</span><span class="o">=</span><span class="default_value">'rst'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p>
-<p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal"><span class="pre">GenomesFile</span></code></a> object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>genome</strong> (<em>str</em>) – The genome assembly name to use for this assembly</li>
-<li><strong>twobit_file</strong> (<em>str</em>) – Local path to 2bit file.</li>
+<p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenomesFile</span></code></a> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>genome</strong> (<em>str</em>) – The genome assembly name to use for this assembly</p></li>
+<li><p><strong>twobit_file</strong> (<em>str</em>) – Local path to 2bit file.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.add_child">
-<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.add_child" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as parent to child, and then adds child.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.add_params">
-<code class="descname">add_params</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.add_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.add_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.add_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.add_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add [possibly many] parameters to the Assembly.</p>
 <p>Parameters will be checked against known UCSC parameters and their
 supported formats.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.add_parent">
-<code class="descname">add_parent</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.add_parent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.add_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.leaves">
-<code class="descname">leaves</code><span class="sig-paren">(</span><em>cls</em>, <em>level=0</em>, <em>intermediate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.leaves" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">leaves</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">intermediate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.leaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.remove_params">
-<code class="descname">remove_params</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.remove_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.remove_params" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.remove_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.remove_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove [possibly many] parameters from the Assembly.</p>
 <p>E.g.,</p>
 <p>remove_params(‘color’, ‘visibility’)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.render">
-<code class="descname">render</code><span class="sig-paren">(</span><em>staging=None</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">staging</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
-<code class="xref py py-class docutils literal"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
+<code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="trackhub.Assembly.root">
-<code class="descname">root</code><span class="sig-paren">(</span><em>cls=None</em>, <em>level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.root" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Assembly.root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the top-most HubComponent in the hierarchy.</p>
 <p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
 that is an instance of class <cite>cls</cite>.</p>
 <p>For a fully-constructed track hub (and <cite>cls=None</cite>), this should return
 a a Hub object for every component in the hierarchy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trackhub.Assembly.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs validation, raising exceptions as needed.  Must be overridden by
+subclass.</p>
 </dd></dl>
 
 </dd></dl>
@@ -344,9 +342,7 @@ a a Hub object for every component in the hierarchy.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -355,7 +351,7 @@ a a Hub object for every component in the hierarchy.</p>
         <a href="trackhub.upload.stage_hub.html" class="btn btn-neutral float-right" title="trackhub.upload.stage_hub" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="trackhub.GroupDefinition.html" class="btn btn-neutral" title="trackhub.GroupDefinition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="trackhub.GroupDefinition.html" class="btn btn-neutral float-left" title="trackhub.GroupDefinition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -364,11 +360,19 @@ a a Hub object for every component in the hierarchy.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -380,37 +384,15 @@ a a Hub object for every component in the hierarchy.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

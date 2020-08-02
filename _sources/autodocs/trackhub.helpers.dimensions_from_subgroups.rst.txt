@@ -1,5 +1,5 @@
-trackhub\.helpers\.dimensions\_from\_subgroups
-==============================================
+trackhub.helpers.dimensions\_from\_subgroups
+============================================
 
 .. currentmodule:: trackhub.helpers
 

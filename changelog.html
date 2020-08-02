@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; trackhub 0.2.3 documentation</title>
+  <title>Changelog &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,45 +21,37 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="index.html"/>
-        <link rel="prev" title="trackhub.helpers.data_dir" href="autodocs/trackhub.helpers.data_dir.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="trackhub.helpers.data_dir" href="autodocs/trackhub.helpers.data_dir.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> trackhub
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -65,7 +61,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -82,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -91,12 +88,13 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-2-3-dec-2017">Version 0.2.3 (Dec 2017)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-2-4-dec-2017">Version 0.2.4 (Dec 2017)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#improved-file-uploading">Improved file uploading</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-fn-argument-is-now-replaced-by-source"><cite>local_fn</cite> argument is now replaced by <cite>source</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#improved-documentation">Improved documentation</a></li>
@@ -114,13 +112,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">trackhub</a>
@@ -128,9 +127,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -151,7 +151,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Changelog</li>
     
@@ -174,33 +174,34 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="version-0-2-3-dec-2017">
-<h2>Version 0.2.3 (Dec 2017)<a class="headerlink" href="#version-0-2-3-dec-2017" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-0-2-4-dec-2017">
+<h2>Version 0.2.4 (Dec 2017)<a class="headerlink" href="#version-0-2-4-dec-2017" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="improved-file-uploading">
 <h3>Improved file uploading<a class="headerlink" href="#improved-file-uploading" title="Permalink to this headline">¶</a></h3>
 <p>Instead of uploading files one-by-one, first the hub is rendered to a local
 “staging” directory and tracks are symlinked over to this directory. BAM and
 VCF indexes are also symlinked if needed, and any HTML documentation is also
 rendered to the staging directory.  This allows for inspecting the hub locally
-before uploading.  The entire directory can then be uploaded with <code class="docutils literal"><span class="pre">rsync</span></code>
-using the <code class="docutils literal"><span class="pre">-L</span></code> option to follow symlinks.</p>
-<div class="figure" id="id1">
+before uploading.  The entire directory can then be uploaded with <code class="docutils literal notranslate"><span class="pre">rsync</span></code>
+using the <code class="docutils literal notranslate"><span class="pre">-L</span></code> option to follow symlinks.</p>
+<div class="figure align-default" id="id1">
 <img alt="_images/upload_strategy.png" src="_images/upload_strategy.png" />
-<p class="caption"><span class="caption-text">Diagram illustrating the changes in uploading strategies.</span></p>
+<p class="caption"><span class="caption-text">Diagram illustrating the changes in uploading strategies.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 <div class="legend">
-<em>Using the old method, the hub, genomes, and trackdb files were rendered in
+<p><em>Using the old method, the hub, genomes, and trackdb files were rendered in
 the working directory, cluttering it. Each file was then individually
 rsynced to the host. In contrast, the new method first symlinks source
 files to a staging directory, and the hub, genomes, and trackdb files are
 rendered directly in that staging directory. The entire directory is then
-rsynced with a single call.</em></div>
+rsynced with a single call.</em></p>
+</div>
 </div>
 </div>
 <div class="section" id="local-fn-argument-is-now-replaced-by-source">
 <h3><cite>local_fn</cite> argument is now replaced by <cite>source</cite><a class="headerlink" href="#local-fn-argument-is-now-replaced-by-source" title="Permalink to this headline">¶</a></h3>
 <p>To better align the semantics of keyword arguments with this new uploading
 strategy, <cite>local_fn</cite> and <cite>remote_fn</cite> are deprecated as arguments to
-<code class="xref py py-class docutils literal"><span class="pre">Track</span></code> objects. With the new uploading strategy described aboved,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code> objects. With the new uploading strategy described aboved,
 <cite>local_fn</cite> becomes confusing because there are two “local” filenames – the
 original source file as well as the symlink created to that source file in the
 staging directory. Using <cite>local_fn</cite> and <cite>remote_fn</cite> is still supported, but
@@ -214,7 +215,7 @@ remote host), you can use the <cite>filename</cite> argument.</p>
 tracks that are not uploaded as part of the hub but are stored elsewhere (e.g.,
 external tracks from ENCODE can be incorporated into a hub in this manner). Use
 the <cite>url</cite> argument instead of <cite>source</cite> for incorporating such tracks.</p>
-<p>Please see the documentation for <a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal"><span class="pre">trackhub.BaseTrack</span></code></a> for details on
+<p>Please see the documentation for <a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.BaseTrack</span></code></a> for details on
 <cite>source</cite>, <cite>filename</cite>, and <cite>url</cite>.</p>
 </div>
 <div class="section" id="improved-documentation">
@@ -224,17 +225,17 @@ now includes example code for progressively more complex trackhubs that
 demonstrate different features of the package and track hubs in general.</p>
 <p>For example:</p>
 <ul class="simple">
-<li><a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart</span></a></li>
-<li><a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></li>
-<li><a class="reference internal" href="html_doc.html#htmldoc-example"><span class="std std-ref">Documenting tracks in hubs</span></a></li>
-<li><a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a></li>
+<li><p><a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quickstart</span></a></p></li>
+<li><p><a class="reference internal" href="grouping.html#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></p></li>
+<li><p><a class="reference internal" href="html_doc.html#htmldoc-example"><span class="std std-ref">Documenting tracks in hubs</span></a></p></li>
+<li><p><a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a></p></li>
 </ul>
 <p>Each one of these is automatically run and uploaded to the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo
 GitHub repository</a>, and the hubs can
 then be loaded in the UCSC Genome Browser from that repo. For example, the
 quickstart hub can be loaded by pasting this URL into the “My Hubs” section of
 the Genome Browser:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">daler</span><span class="o">/</span><span class="n">trackhub</span><span class="o">-</span><span class="n">demo</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">quickstart</span><span class="o">/</span><span class="n">quickstart</span><span class="o">.</span><span class="n">hub</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">daler</span><span class="o">/</span><span class="n">trackhub</span><span class="o">-</span><span class="n">demo</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">quickstart</span><span class="o">/</span><span class="n">quickstart</span><span class="o">.</span><span class="n">hub</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 <p>Or the hub can be loaded directly into UCSC with the following URL: <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000</a></p>
@@ -249,37 +250,37 @@ both versions.</p>
 <div class="section" id="version-0-1-3-nov-2015">
 <h2>Version 0.1.3 (Nov 2015)<a class="headerlink" href="#version-0-1-3-nov-2015" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>fixed bug where local rsync operations were not using the provided rsync options</li>
-<li>docs now at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a></li>
-<li>tests now on travis-ci using Docker</li>
+<li><p>fixed bug where local rsync operations were not using the provided rsync options</p></li>
+<li><p>docs now at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a></p></li>
+<li><p>tests now on travis-ci using Docker</p></li>
 </ul>
 </div>
 <div class="section" id="version-0-1-2-jan-2-2015">
 <h2>Version 0.1.2 (Jan 2 2015)<a class="headerlink" href="#version-0-1-2-jan-2-2015" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>always use the remote filename of a BAM when uploading the corresponding .bai</li>
-<li>add support for BAM parameters <cite>baseColorUseSequence</cite>, <cite>baseColorDefault</cite>,
-and <cite>showDiffBasesAllScales</cite></li>
-<li>add <cite>fabric</cite> as a dependency upon install</li>
-<li>better example in the README</li>
-<li>use local path of trackdb to be relative to the hub local filename (thanks
-Jakob Goldman)</li>
+<li><p>always use the remote filename of a BAM when uploading the corresponding .bai</p></li>
+<li><p>add support for BAM parameters <cite>baseColorUseSequence</cite>, <cite>baseColorDefault</cite>,
+and <cite>showDiffBasesAllScales</cite></p></li>
+<li><p>add <cite>fabric</cite> as a dependency upon install</p></li>
+<li><p>better example in the README</p></li>
+<li><p>use local path of trackdb to be relative to the hub local filename (thanks
+Jakob Goldman)</p></li>
 </ul>
 </div>
 <div class="section" id="version-0-1-1-dec-19-2012">
 <h2>Version 0.1.1 (Dec 19 2012)<a class="headerlink" href="#version-0-1-1-dec-19-2012" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Initial support for SuperTracks (Venkat Malladi)</li>
-<li>Support for vcfTabix format (Venkat Malladi)</li>
-<li>Support for most known UCSC parameters (in constants.py) (Venkat Malladi)</li>
-<li>Support for aggregate tracks (Venkat Malladi)</li>
-<li><cite>default_hub()</cite> function for creating a fully-connected set of components</li>
-<li><cite>long_label</cite> for tracks defaults to <cite>short_label</cite></li>
-<li><cite>run_local</cite> kwarg for upload functions to upload hubs/data locally</li>
-<li>various typo and consistency fixes in docs</li>
-<li>improvements to automatic track URL handling</li>
-<li>better support for adding single tracks</li>
-<li>subgroups incrementally updated rather than replaced</li>
+<li><p>Initial support for SuperTracks (Venkat Malladi)</p></li>
+<li><p>Support for vcfTabix format (Venkat Malladi)</p></li>
+<li><p>Support for most known UCSC parameters (in constants.py) (Venkat Malladi)</p></li>
+<li><p>Support for aggregate tracks (Venkat Malladi)</p></li>
+<li><p><cite>default_hub()</cite> function for creating a fully-connected set of components</p></li>
+<li><p><cite>long_label</cite> for tracks defaults to <cite>short_label</cite></p></li>
+<li><p><cite>run_local</cite> kwarg for upload functions to upload hubs/data locally</p></li>
+<li><p>various typo and consistency fixes in docs</p></li>
+<li><p>improvements to automatic track URL handling</p></li>
+<li><p>better support for adding single tracks</p></li>
+<li><p>subgroups incrementally updated rather than replaced</p></li>
 </ul>
 </div>
 <div class="section" id="version-0-1-oct-30-2012">
@@ -290,16 +291,14 @@ Jakob Goldman)</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="autodocs/trackhub.helpers.data_dir.html" class="btn btn-neutral" title="trackhub.helpers.data_dir" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="autodocs/trackhub.helpers.data_dir.html" class="btn btn-neutral float-left" title="trackhub.helpers.data_dir" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -308,11 +307,19 @@ Jakob Goldman)</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -324,37 +331,15 @@ Jakob Goldman)</li>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

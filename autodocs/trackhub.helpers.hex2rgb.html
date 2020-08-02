@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.helpers.hex2rgb &mdash; trackhub 0.2.3 documentation</title>
+  <title>trackhub.helpers.hex2rgb &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,47 +21,38 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="../index.html"/>
-        <link rel="up" title="API documentation" href="../autodocs.html"/>
-        <link rel="next" title="trackhub.helpers.sanitize" href="trackhub.helpers.sanitize.html"/>
-        <link rel="prev" title="trackhub.helpers.filter_composite_from_subgroups" href="trackhub.helpers.filter_composite_from_subgroups.html"/> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.helpers.sanitize" href="trackhub.helpers.sanitize.html" />
+    <link rel="prev" title="trackhub.helpers.filter_composite_from_subgroups" href="trackhub.helpers.filter_composite_from_subgroups.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> trackhub
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -67,7 +62,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -84,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,6 +89,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
@@ -109,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trackhub.constants.Parameter.html">trackhub.constants.Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.Assembly.html">trackhub.Assembly</a></li>
@@ -128,13 +124,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">trackhub</a>
@@ -142,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -165,7 +163,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../autodocs.html">API documentation</a> &raquo;</li>
         
@@ -190,32 +188,26 @@
             
   <div class="section" id="trackhub-helpers-hex2rgb">
 <h1>trackhub.helpers.hex2rgb<a class="headerlink" href="#trackhub-helpers-hex2rgb" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="trackhub.helpers.hex2rgb">
-<code class="descclassname">trackhub.helpers.</code><code class="descname">hex2rgb</code><span class="sig-paren">(</span><em>h</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/helpers.html#hex2rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.helpers.hex2rgb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">trackhub.helpers.</code><code class="sig-name descname">hex2rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">h</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/helpers.html#hex2rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.helpers.hex2rgb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert hex colors to RGB tuples</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>h</strong> (<em>str</em>) – String hex color value</li>
-<li><strong>hex2rgb</strong><strong>(</strong><strong>&quot;#ff0033&quot;</strong><strong>)</strong> (<em>&gt;&gt;&gt;</em>) – </li>
-<li><strong>'255</strong><strong>,</strong><strong>0</strong><strong>,</strong><strong>51'</strong> – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> (<em>str</em>) – String hex color value</p></li>
+<li><p><strong>hex2rgb</strong><strong>(</strong><strong>&quot;#ff0033&quot;</strong><strong>)</strong> (<em>&gt;&gt;&gt;</em>) – </p></li>
+<li><p><strong>'255</strong><strong>,</strong><strong>0</strong><strong>,</strong><strong>51'</strong> – </p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -224,7 +216,7 @@
         <a href="trackhub.helpers.sanitize.html" class="btn btn-neutral float-right" title="trackhub.helpers.sanitize" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="trackhub.helpers.filter_composite_from_subgroups.html" class="btn btn-neutral" title="trackhub.helpers.filter_composite_from_subgroups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="trackhub.helpers.filter_composite_from_subgroups.html" class="btn btn-neutral float-left" title="trackhub.helpers.filter_composite_from_subgroups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -233,11 +225,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -249,37 +249,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

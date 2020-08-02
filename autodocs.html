@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API documentation &mdash; trackhub 0.2.3 documentation</title>
+  <title>API documentation &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,46 +21,38 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="index.html"/>
-        <link rel="next" title="trackhub.base.HubComponent" href="autodocs/trackhub.base.HubComponent.html"/>
-        <link rel="prev" title="Assembly example" href="assembly_example.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="trackhub.base.HubComponent" href="autodocs/trackhub.base.HubComponent.html" />
+    <link rel="prev" title="Assembly example" href="assembly_example.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> trackhub
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -66,7 +62,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -83,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,6 +89,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
@@ -108,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.constants.Parameter.html">trackhub.constants.Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.Assembly.html">trackhub.Assembly</a></li>
@@ -127,13 +124,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">trackhub</a>
@@ -141,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -164,7 +163,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>API documentation</li>
     
@@ -188,98 +187,95 @@
   <div class="section" id="api-documentation">
 <span id="autodoc"></span><h1>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
 <p class="rubric">Classes:</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.base.HubComponent</span></code></a>()</td>
-<td>Base class for various track hub components.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.base.HubComponent</span></code></a>()</p></td>
+<td><p>Base class for various track hub components.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Hub</span></code></a>(hub[,&nbsp;short_label,&nbsp;long_label,&nbsp;…])</td>
-<td>Represents a top-level track hub container.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.Hub.html#trackhub.Hub" title="trackhub.Hub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.Hub</span></code></a>(hub[, short_label, long_label, …])</p></td>
+<td><p>Represents a top-level track hub container.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.GenomesFile</span></code></a>([genome,&nbsp;filename])</td>
-<td>Represents the genomes file on disk.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.GenomesFile</span></code></a>([genome, filename])</p></td>
+<td><p>Represents the genomes file on disk.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Genome</span></code></a>(genome[,&nbsp;trackdb,&nbsp;…])</td>
-<td>Represents a 2-line genome stanza within a “genomes.txt” file.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.Genome.html#trackhub.Genome" title="trackhub.Genome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.Genome</span></code></a>(genome[, trackdb, …])</p></td>
+<td><p>Represents a 2-line genome stanza within a “genomes.txt” file.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.TrackDb</span></code></a>([tracks,&nbsp;filename])</td>
-<td>Represents the file containing one or more Track objects (which each represent a stanza).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.TrackDb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.TrackDb</span></code></a>([tracks, filename])</p></td>
+<td><p>Represents the file containing one or more Track objects (which each represent a stanza).</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.BaseTrack</span></code></a>(name[,&nbsp;tracktype,&nbsp;…])</td>
-<td>Represents a single track stanza, base class for other track types.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.BaseTrack</span></code></a>(name[, tracktype, …])</p></td>
+<td><p>Represents a single track stanza, base class for other track types.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Track</span></code></a>([url])</td>
-<td>Represents a single track stanza along with the file it describes.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.Track</span></code></a>([url])</p></td>
+<td><p>Represents a single track stanza along with the file it describes.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.CompositeTrack</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td>Represents a composite track.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.CompositeTrack</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Represents a composite track.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.ViewTrack</span></code></a>(view,&nbsp;*args,&nbsp;**kwargs)</td>
-<td>Represents a View track.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack" title="trackhub.ViewTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.ViewTrack</span></code></a>(view, *args, **kwargs)</p></td>
+<td><p>Represents a View track.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack" title="trackhub.SuperTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.SuperTrack</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td>Represents a Super track.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack" title="trackhub.SuperTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.SuperTrack</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Represents a Super track.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack" title="trackhub.AggregateTrack"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.AggregateTrack</span></code></a>(aggregate,&nbsp;*args,&nbsp;…)</td>
-<td>Represents an Aggregate or Overlay track.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack" title="trackhub.AggregateTrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.AggregateTrack</span></code></a>(aggregate, *args, …)</p></td>
+<td><p>Represents an Aggregate or Overlay track.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.SubGroupDefinition</span></code></a>(name,&nbsp;label,&nbsp;mapping)</td>
-<td>Represents a subgroup line in a composite track.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.constants.Parameter.html#trackhub.constants.Parameter" title="trackhub.constants.Parameter"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.constants.Parameter</span></code></a>(param,&nbsp;desc,&nbsp;values)</td>
-<td>Represents a generic parameter.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.SubGroupDefinition</span></code></a>(name, label, mapping)</p></td>
+<td><p>Represents a subgroup line in a composite track.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Classes specific to assembly hubs:</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.GroupsFile.html#trackhub.GroupsFile" title="trackhub.GroupsFile"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.GroupsFile</span></code></a>(groups[,&nbsp;filename])</td>
-<td>Represents the groups file on disk, used for assembly hubs.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.GroupsFile.html#trackhub.GroupsFile" title="trackhub.GroupsFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.GroupsFile</span></code></a>(groups[, filename])</p></td>
+<td><p>Represents the groups file on disk, used for assembly hubs.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.GroupDefinition.html#trackhub.GroupDefinition" title="trackhub.GroupDefinition"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.GroupDefinition</span></code></a>(name[,&nbsp;label,&nbsp;…])</td>
-<td>Represents a group of tracks in a trackhub.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.GroupDefinition.html#trackhub.GroupDefinition" title="trackhub.GroupDefinition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.GroupDefinition</span></code></a>(name[, label, …])</p></td>
+<td><p>Represents a group of tracks in a trackhub.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.Assembly.html#trackhub.Assembly" title="trackhub.Assembly"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.Assembly</span></code></a>(genome[,&nbsp;twobit_file,&nbsp;…])</td>
-<td>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.Assembly.html#trackhub.Assembly" title="trackhub.Assembly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.Assembly</span></code></a>(genome[, twobit_file, …])</p></td>
+<td><p>Represents a genome stanza within a “genomes.txt” file for a non-UCSC genome.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Functions</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.upload.stage_hub.html#trackhub.upload.stage_hub" title="trackhub.upload.stage_hub"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.upload.stage_hub</span></code></a>(hub[,&nbsp;staging])</td>
-<td>Stage a hub by symlinking all its connected files to a local directory.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.upload.stage_hub.html#trackhub.upload.stage_hub" title="trackhub.upload.stage_hub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.upload.stage_hub</span></code></a>(hub[, staging])</p></td>
+<td><p>Stage a hub by symlinking all its connected files to a local directory.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub" title="trackhub.upload.upload_hub"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.upload.upload_hub</span></code></a>(hub,&nbsp;host,&nbsp;remote_dir)</td>
-<td>Renders, stages, and uploads a hub.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub" title="trackhub.upload.upload_hub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.upload.upload_hub</span></code></a>(hub, host, remote_dir)</p></td>
+<td><p>Renders, stages, and uploads a hub.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.helpers.dimensions_from_subgroups.html#trackhub.helpers.dimensions_from_subgroups" title="trackhub.helpers.dimensions_from_subgroups"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.helpers.dimensions_from_subgroups</span></code></a>(s)</td>
-<td>Given a sorted list of subgroups, return a string appropriate to provide as a composite track’s <cite>dimensions</cite> arg.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.helpers.dimensions_from_subgroups.html#trackhub.helpers.dimensions_from_subgroups" title="trackhub.helpers.dimensions_from_subgroups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.helpers.dimensions_from_subgroups</span></code></a>(s)</p></td>
+<td><p>Given a sorted list of subgroups, return a string appropriate to provide as a composite track’s <cite>dimensions</cite> arg.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.helpers.filter_composite_from_subgroups.html#trackhub.helpers.filter_composite_from_subgroups" title="trackhub.helpers.filter_composite_from_subgroups"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.helpers.filter_composite_from_subgroups</span></code></a>(s)</td>
-<td>Given a sorted list of subgroups, return a string appropriate to provide as</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.helpers.filter_composite_from_subgroups.html#trackhub.helpers.filter_composite_from_subgroups" title="trackhub.helpers.filter_composite_from_subgroups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.helpers.filter_composite_from_subgroups</span></code></a>(s)</p></td>
+<td><p>Given a sorted list of subgroups, return a string appropriate to provide as the a composite track’s <cite>filterComposite</cite> argument</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.helpers.hex2rgb.html#trackhub.helpers.hex2rgb" title="trackhub.helpers.hex2rgb"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.helpers.hex2rgb</span></code></a>(h)</td>
-<td>Convert hex colors to RGB tuples</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.helpers.hex2rgb.html#trackhub.helpers.hex2rgb" title="trackhub.helpers.hex2rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.helpers.hex2rgb</span></code></a>(h)</p></td>
+<td><p>Convert hex colors to RGB tuples</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="autodocs/trackhub.helpers.sanitize.html#trackhub.helpers.sanitize" title="trackhub.helpers.sanitize"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.helpers.sanitize</span></code></a>(s[,&nbsp;strict])</td>
-<td>Sanitize a string.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="autodocs/trackhub.helpers.sanitize.html#trackhub.helpers.sanitize" title="trackhub.helpers.sanitize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.helpers.sanitize</span></code></a>(s[, strict])</p></td>
+<td><p>Sanitize a string.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="autodocs/trackhub.helpers.data_dir.html#trackhub.helpers.data_dir" title="trackhub.helpers.data_dir"><code class="xref py py-obj docutils literal"><span class="pre">trackhub.helpers.data_dir</span></code></a>()</td>
-<td>Returns the data directory that contains example files for tests and documentation.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="autodocs/trackhub.helpers.data_dir.html#trackhub.helpers.data_dir" title="trackhub.helpers.data_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trackhub.helpers.data_dir</span></code></a>()</p></td>
+<td><p>Returns the data directory that contains example files for tests and documentation.</p></td>
 </tr>
 </tbody>
 </table>
@@ -287,9 +283,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -298,7 +292,7 @@
         <a href="autodocs/trackhub.base.HubComponent.html" class="btn btn-neutral float-right" title="trackhub.base.HubComponent" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="assembly_example.html" class="btn btn-neutral" title="Assembly example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="assembly_example.html" class="btn btn-neutral float-left" title="Assembly example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -307,11 +301,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -323,37 +325,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>

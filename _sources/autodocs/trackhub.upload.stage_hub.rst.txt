@@ -1,5 +1,5 @@
-trackhub\.upload\.stage\_hub
-============================
+trackhub.upload.stage\_hub
+==========================
 
 .. currentmodule:: trackhub.upload
 

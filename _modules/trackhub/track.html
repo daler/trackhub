@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>trackhub.track &mdash; trackhub 0.2.3 documentation</title>
+  <title>trackhub.track &mdash; trackhub 0.2.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
 
   
   
@@ -17,45 +21,36 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="trackhub 0.2.3 documentation" href="../../index.html"/>
-        <link rel="up" title="Module code" href="../index.html"/> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../index.html" class="icon icon-home"> trackhub
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> trackhub
           
 
           
@@ -65,7 +60,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.2.4
               </div>
             
           
@@ -82,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -91,6 +87,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../assembly_example.html">Assembly example</a></li>
@@ -101,13 +98,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">trackhub</a>
@@ -115,9 +113,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -138,7 +137,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -146,8 +145,6 @@
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
         
       </li>
     
@@ -160,18 +157,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for trackhub.track</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">docutils.core</span> <span class="k">import</span> <span class="n">publish_parts</span>
-<span class="kn">from</span> <span class="nn">trackhub.base</span> <span class="k">import</span> <span class="n">HubComponent</span><span class="p">,</span> <span class="n">deprecation_handler</span>
-<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">hub</span>
-<span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">constants</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">docutils.core</span> <span class="kn">import</span> <span class="n">publish_parts</span>
+<span class="kn">from</span> <span class="nn">trackhub.base</span> <span class="kn">import</span> <span class="n">HubComponent</span><span class="p">,</span> <span class="n">deprecation_handler</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">hub</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">settings</span>
 
 
-<span class="n">TRACKTYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span> <span class="s1">&#39;bam&#39;</span><span class="p">,</span> <span class="s1">&#39;bigBed&#39;</span><span class="p">,</span> <span class="s1">&#39;vcfTabix&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">TRACKTYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span> <span class="s1">&#39;bam&#39;</span><span class="p">,</span> <span class="s1">&#39;bigBed&#39;</span><span class="p">,</span> <span class="s1">&#39;vcfTabix&#39;</span><span class="p">,</span> <span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span> <span class="s1">&#39;bigChain&#39;</span><span class="p">,</span> <span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span> <span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;bigMaf&#39;</span><span class="p">,</span> <span class="s1">&#39;bigPsl&#39;</span><span class="p">,</span> <span class="s1">&#39;halSnake&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -184,8 +184,37 @@
     <span class="k">pass</span>
 
 
+<span class="k">def</span> <span class="nf">update_list</span><span class="p">(</span><span class="n">existing</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">initial_params</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extend a list, but with constraints.</span>
+
+<span class="sd">    Returned list is sorted alphabetically, except for any items that are in</span>
+<span class="sd">    `first`, which will come first regardless of sorting.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    existing : list</span>
+<span class="sd">        List to extend</span>
+
+<span class="sd">    new : list</span>
+<span class="sd">        Update `existing` with this</span>
+
+<span class="sd">    first : list or None</span>
+<span class="sd">        If provided, ensure that this list occurs at the beginning. Items must</span>
+<span class="sd">        already be in `existing` or `new`, others are ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">combined</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">existing</span> <span class="o">+</span> <span class="n">new</span><span class="p">)</span>
+    <span class="n">beginning</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combined</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">combined</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">first</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">beginning</span> <span class="o">+</span> <span class="n">end</span>
+
+
 <div class="viewcode-block" id="SubGroupDefinition"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition">[docs]</a><span class="k">class</span> <span class="nc">SubGroupDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<div class="viewcode-block" id="SubGroupDefinition.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SubGroupDefinition.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a subgroup line in a composite track.</span>
 
@@ -230,7 +259,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span></div>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
@@ -239,22 +268,9 @@
 
 
 <div class="viewcode-block" id="BaseTrack"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack">[docs]</a><span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
-
-    <span class="c1"># Dictionary where keys are parameter names (e.g., &quot;color&quot;) and values are</span>
-    <span class="c1"># Parameter objects.  These are defined in the constants module.</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-    <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">)</span>
-    <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">)</span>
-
-    <span class="c1"># For a plain &#39;ol Track, there&#39;s nothing specific.  But CompositeTracks and</span>
-    <span class="c1"># ViewTracks can have addtional specific parameters (e.g., filterComposite</span>
-    <span class="c1"># for CompositeTracks) that need to be handled separately.  Make some space</span>
-    <span class="c1"># for that here.</span>
-    <span class="n">specific_params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-
-<div class="viewcode-block" id="BaseTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parentonoff</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">subgroups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string_format</span><span class="o">=</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subgroups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string_format</span><span class="o">=</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="n">track_type_override</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a single track stanza, base class for other track types.</span>
 
@@ -276,9 +292,6 @@
 <span class="sd">        long_label : str</span>
 <span class="sd">            Used for the longer middle labels; if None will copy</span>
 <span class="sd">            short_label. Alias for UCSC parameter &quot;longLabel&quot;.</span>
-
-<span class="sd">        parentonoff : &#39;on&#39; | &#39;off&#39;</span>
-<span class="sd">            Used to determine individual track status on or off</span>
 
 <span class="sd">        subgroups : dict</span>
 <span class="sd">            A dictionary of `{name: tag}` where each `name` is the name of</span>
@@ -316,12 +329,33 @@
 <span class="sd">            Indicates the format of `html_string`. If `&quot;html&quot;`, then use as-is;</span>
 <span class="sd">            if `&quot;rst&quot;` then convert ReST to HTML.</span>
 
+<span class="sd">        track_type_override : str</span>
+<span class="sd">            Composite tracks can specify a tracktype of their children, but we</span>
+<span class="sd">            also need to know that it&#39;s a composite track. For composite tracks,</span>
+<span class="sd">            this can be set to &quot;compositeTrack&quot;:</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">deprecation_handler</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+        <span class="c1"># Dictionary where keys are parameter names (e.g., &quot;color&quot;) and values</span>
+        <span class="c1"># are Param objects.  These are defined in the constants module. To</span>
+        <span class="c1"># start, we add the params valid for all tracks.</span>
+        <span class="c1">#</span>
+        <span class="c1"># The Track subclass will add its own parameters when the track type is</span>
+        <span class="c1"># set. Other subclasses (Composite and View) will add their own special</span>
+        <span class="c1"># params in the class definition.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span>
+                                             <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span> <span class="o">=</span> <span class="n">track_type_override</span>
+
+        <span class="c1"># NOTE: when setting track type, it will update the track field order</span>
+        <span class="c1"># according to the known params for that track...so</span>
+        <span class="c1"># self.track_field_order needs to exist first.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">=</span> <span class="n">tracktype</span>
         <span class="k">if</span> <span class="n">short_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">short_label</span> <span class="o">=</span> <span class="n">name</span>
@@ -329,7 +363,6 @@
         <span class="k">if</span> <span class="n">long_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">long_label</span> <span class="o">=</span> <span class="n">short_label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">long_label</span> <span class="o">=</span> <span class="n">long_label</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parentonoff</span> <span class="o">=</span> <span class="n">parentonoff</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span> <span class="o">=</span> <span class="n">filename</span>
@@ -348,6 +381,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">:</span>
@@ -358,7 +392,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">TrackDb</span>
+        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">TrackDb</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">TrackDb</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
@@ -410,12 +444,17 @@
 <span class="sd">        need to be set as well.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tracktype</span> <span class="o">=</span> <span class="n">tracktype</span>
-        <span class="k">if</span> <span class="n">tracktype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;bed&#39;</span> <span class="ow">in</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigBed&#39;</span>
-            <span class="k">elif</span> <span class="s1">&#39;wig&#39;</span> <span class="ow">in</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigWig&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_typespecific_fields</span><span class="p">[</span><span class="n">tracktype</span><span class="p">])</span>
+
+        <span class="c1"># E.g., bigBed 6+3</span>
+        <span class="n">base_tracktype</span> <span class="o">=</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span><span class="p">:</span>
+                <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">base_tracktype</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseTrack.add_trackdb"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_trackdb">[docs]</a>    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -436,13 +475,16 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot; is not a valid parameter for </span><span class="si">%s</span><span class="s1">&#39;</span>
-                                     <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="ow">and</span> <span class="n">constants</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
+                    <span class="s1">&#39;&quot;</span><span class="si">{0}</span><span class="s1">&quot; is not a valid parameter for </span><span class="si">{1}</span><span class="s1"> with &#39;</span>
+                    <span class="s1">&#39;tracktype </span><span class="si">{2}</span><span class="s1">&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">constants</span><span class="o">.</span><span class="n">param_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">and</span> <span class="n">constants</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
+                    <span class="s1">&#39;value &quot;</span><span class="si">{0}</span><span class="s1">&quot; did not validate for parameter &quot;</span><span class="si">{1}</span><span class="s1">&quot;&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
@@ -482,37 +524,43 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgroups</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;parent&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">BaseTrack</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;parent </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;parent </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">continue</span>
 
-        <span class="n">specific</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                    <span class="n">specific</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;bigDataUrl&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;bigDataUrl&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># fall back to `url` if set</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">constants</span><span class="o">.</span><span class="n">param_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
                     <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
 
-        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">specific</span><span class="p">)</span>
-
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
+                        <span class="s2">&quot;The value &#39;</span><span class="si">{0}</span><span class="s2">&#39; did not validate for parameter &#39;</span><span class="si">{1}</span><span class="s2">&#39;&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
         <span class="c1"># Handle subgroups differently depending on if this is a composite</span>
         <span class="c1"># track or not.</span>
         <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_str_subgroups</span><span class="p">())</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">BaseTrack</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;parent </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentonoff</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
-                <span class="s2">&quot;Unhandled keyword arguments: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ParameterError</span><span class="p">(</span>
+                    <span class="s2">&quot;The following parameters are unknown for track type </span><span class="si">{0}</span><span class="s2">: &quot;</span>
+                    <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracktype</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -532,8 +580,8 @@
                 <span class="o">%</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span>
                            <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">items</span><span class="p">()])]</span>
 
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<div class="viewcode-block" id="BaseTrack.validate"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">html_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -546,7 +594,7 @@
 
 
 <div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="Track.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Track.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a single track stanza along with the file it describes.</span>
 
@@ -587,7 +635,7 @@
 
 <div class="viewcode-block" id="CompositeTrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack">[docs]</a><span class="k">class</span> <span class="nc">CompositeTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
 
-<div class="viewcode-block" id="CompositeTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a composite track.  Subclasses :class:`BaseTrack`, and adds</span>
 <span class="sd">        some extras.</span>
@@ -604,9 +652,13 @@
 <span class="sd">        See :class:`BaseTrack` for details on arguments. There are no</span>
 <span class="sd">        additional arguments supported by this class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span>
+              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_type_override</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;compositeTrack&#39;</span><span class="p">,</span>
+                                                  <span class="s1">&#39;subGroups&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">composite_track_fields</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;compositeTrack&#39;</span><span class="p">])</span>
 
         <span class="c1"># TODO: are subtracks and views mutually exclusive, or can a composite</span>
         <span class="c1"># have both &quot;view-ed&quot; and &quot;non-view-ed&quot; subtracks?</span>
@@ -675,7 +727,7 @@
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;subGroup</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">subgroup</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">s</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -695,7 +747,7 @@
 
 
 <div class="viewcode-block" id="ViewTrack"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack">[docs]</a><span class="k">class</span> <span class="nc">ViewTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="ViewTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a View track.  Subclasses :class:`BaseTrack`, and adds some</span>
 <span class="sd">        extras.</span>
@@ -721,13 +773,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ViewTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
-
-    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">subgroups</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not sure if Views can have subgroups?&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ViewTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtracks</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -736,27 +784,16 @@
 <span class="sd">        subtracks : Track or iterable of Tracks</span>
 <span class="sd">            A single Track instance or an iterable of them.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtracks</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtracks</span><span class="p">,</span> <span class="n">BaseTrack</span><span class="p">):</span>
             <span class="n">subtracks</span> <span class="o">=</span> <span class="p">[</span><span class="n">subtracks</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="n">subtracks</span><span class="p">:</span>
             <span class="n">subtrack</span><span class="o">.</span><span class="n">subgroups</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_str_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">view_specific</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter_obj</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">view_track_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">parameter_obj</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                    <span class="n">view_specific</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">ViewTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">view_specific</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -766,7 +803,7 @@
 
 
 <div class="viewcode-block" id="SuperTrack"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack">[docs]</a><span class="k">class</span> <span class="nc">SuperTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="SuperTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a Super track. Subclasses :class:`Track`, and adds some</span>
 <span class="sd">        extras.</span>
@@ -780,7 +817,10 @@
 
 <span class="sd">        See :class:`BaseTrack` for details on arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SuperTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SuperTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;superTrack&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;superTrack&#39;</span><span class="p">])</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="SuperTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtracks</span><span class="p">):</span>
@@ -795,7 +835,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -812,7 +852,7 @@
 
 
 <div class="viewcode-block" id="AggregateTrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack">[docs]</a><span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="AggregateTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents an Aggregate or Overlay track. Subclasses :class:`Track`,</span>
 <span class="sd">        adds some extras.</span>
@@ -840,7 +880,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span> <span class="o">=</span> <span class="n">aggregate</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;aggregate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aggregate</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AggregateTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">specific_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">aggregate_track_fields</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;multiWig&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="AggregateTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
@@ -850,7 +891,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -865,7 +906,7 @@
 
 
 <span class="k">class</span> <span class="nc">HTMLDoc</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contents</span><span class="p">,</span> <span class="n">html_string_format</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contents</span><span class="p">,</span> <span class="n">html_string_format</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents an HTML file used for documentation.</span>
 
@@ -910,7 +951,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="k">import</span> <span class="n">TrackDb</span>
+        <span class="kn">from</span> <span class="nn">trackhub</span> <span class="kn">import</span> <span class="n">TrackDb</span>
         <span class="n">obj</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">TrackDb</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span>
 
@@ -935,26 +976,29 @@
                              <span class="s2">&quot;instance&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span> <span class="o">==</span> <span class="s1">&#39;html&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span> <span class="o">==</span> <span class="s1">&#39;rst&#39;</span><span class="p">:</span>
-            <span class="n">parts</span> <span class="o">=</span> <span class="n">publish_parts</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">,</span> <span class="n">writer_name</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">,</span>
-                <span class="n">settings_overrides</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;output_encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;unicode&#39;</span><span class="p">}</span>
-            <span class="p">)</span>
+
+            <span class="c1"># docutils still internally uses a &quot;U&quot; mode for opening files.</span>
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">publish_parts</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">,</span> <span class="n">writer_name</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">,</span>
+                    <span class="n">settings_overrides</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;output_encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;unicode&#39;</span><span class="p">}</span>
+                <span class="p">)</span>
             <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="s1">&#39;html_body&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;html_string_format &#39;</span><span class="si">{}</span><span class="s2">&#39; not supported&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span><span class="p">)</span>
+                <span class="s2">&quot;html_string_format &#39;</span><span class="si">{}</span><span class="s2">&#39; not supported&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">html_string_format</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
 </pre></div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -963,11 +1007,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2012, Ryan Dale.
+        
+        &copy; Copyright 2012, Ryan Dale
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -979,37 +1031,15 @@
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'0.2.3',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
