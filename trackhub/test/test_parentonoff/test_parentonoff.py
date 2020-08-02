@@ -25,7 +25,8 @@ def test_parentonoff():
         name="testviewtrack",
         view="view1",
         tracktype="bigWig",
-        visibility="full"
+        visibility="full",
+        parent="on",
     )
 
     trackoff = trackhub.track.Track(
@@ -37,7 +38,7 @@ def test_parentonoff():
         short_label="E003DNase",
         long_label="E003DNase",
         visibility="full",
-        parentonoff="off"
+        parent="off"
         )
     trackon = trackhub.track.Track(
         name="E004DNase",
@@ -48,7 +49,7 @@ def test_parentonoff():
         short_label="E004DNase",
         long_label="E004DNase",
         visibility="full",
-        parentonoff="on"
+        parent="on"
         )
     trackdefault = trackhub.track.Track(
         name="E005DNase",

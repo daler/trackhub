@@ -8,6 +8,7 @@ from . import track
 from . import genome
 from . import base
 from . import trackdb
+from . import compatibility
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,6 +40,7 @@ def symlink(target, linkname):
     """
     target = os.path.abspath(target)
     linkname = os.path.abspath(linkname)
+
     if not os.path.exists(target):
         raise ValueError("target {} not found".format(target))
 
@@ -46,7 +48,23 @@ def symlink(target, linkname):
     if not os.path.exists(link_dir):
         os.makedirs(link_dir)
 
-    run(['ln', '-s', '-f', target, linkname])
+    if os.path.exists(linkname):
+        if os.path.islink(linkname):
+            os.remove(linkname)
+
+    os.symlink(target, linkname)
+
+    # If possible, we modify the symlink's mtime to be that of the target.
+    mtime = os.stat(target).st_mtime
+
+    # Python 2.7 does not support modifying symlink modification time, which
+    # will 
+    if compatibility.PY == 3:
+        try:
+            os.utime(target, (mtime, mtime), follow_symlinks=False)
+        except NotImplementedError:
+            pass
+
     return linkname
 
 

@@ -112,7 +112,9 @@ class HubComponent(object):
                 raise StopIteration
 
         for child in self.children:
-            for leaf, _level in child.leaves(cls, level + 1, intermediate=intermediate):
+            for leaf, _level in child.leaves(
+                cls, level + 1, intermediate=intermediate
+            ):
                     yield leaf, _level
 
     def render(self, staging=None):

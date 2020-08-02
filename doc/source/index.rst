@@ -6,6 +6,7 @@ Contents:
     :maxdepth: 2
 
     quickstart
+    validation
     grouping
     html_doc
     assembly_example

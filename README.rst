@@ -1,6 +1,8 @@
 trackhub
 ========
 
+See the documentation at https://daler.github.io/trackhub for more details.
+
 Data visualization is critical at all steps of genomic data analysis, from QC
 through final figure preparation.  A `track hub
 <https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html>`_ is way of
@@ -21,8 +23,6 @@ itself, the common Python package `docutils`, and the availability of ``rsync``
 (a standard Unix command-line tool for remotely transferring files). It is
 availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
 documentation ensure high-quality code and help.
-
-See the documentation at https://daler.github.io/trackhub for more details.
 
 Installation
 ------------

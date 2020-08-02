@@ -8,7 +8,7 @@ from .genome import Genome
 from .genomes_file import GenomesFile
 from .groups import GroupsFile
 from .trackdb import TrackDb
-from .constants import assembly_fields
+from . import constants
 from .track import HTMLDoc
 
 
@@ -68,10 +68,6 @@ class TwoBitFile(HubComponent):
 
 
 class Assembly(Genome):
-
-    params = OrderedDict()
-    params.update(assembly_fields)
-
     def __init__(self,
                  genome,
                  twobit_file=None,
@@ -109,6 +105,9 @@ class Assembly(Genome):
 
         self._orig_kwargs = kwargs
 
+        self.track_field_order = []
+        self.track_field_order.extend(constants.track_fields['assembly'])
+
         self.add_params(**kwargs)
 
     def add_twobit(self, twobit):
@@ -143,11 +142,13 @@ class Assembly(Genome):
         supported formats.
         """
         for k, v in kw.items():
-            if k not in self.params:
-                raise ValidationError(
-                    '"%s" is not a valid parameter for %s'
-                    % (k, self.__class__.__name__))
-            self.params[k].validate(v)
+            if k not in self.track_field_order:
+                raise ParameterError(
+                    '"{0}" is not a valid parameter for {1} with '
+                    'tracktype {2}'
+                    .format(k, self.__class__.__name__, self.tracktype)
+                )
+            constants.param_dict[k].validate(v)
 
         self._orig_kwargs.update(kw)
         self.kwargs = self._orig_kwargs.copy()
@@ -186,10 +187,10 @@ class Assembly(Genome):
         if self.groups is not None:
             s.append('groups %s' % self.groups.filename)
 
-        for name, parameter_obj in self.params.items():
+        for name in self.track_field_order:
             value = self.kwargs.pop(name, None)
             if value is not None:
-                if parameter_obj.validate(value):
+                if constants.param_dict[name].validate(value):
                     s.append("%s %s" % (name, value))
 
         if self._html is not None:

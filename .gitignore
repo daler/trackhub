@@ -15,3 +15,4 @@ ci/trackhub-demo/
 .cache
 dist/
 ci/hubCheck
+build

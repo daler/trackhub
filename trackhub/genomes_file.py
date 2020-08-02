@@ -37,7 +37,9 @@ class GenomesFile(HubComponent):
             return self._filename
         if self.hub is None:
             return None
-        return os.path.join(os.path.dirname(self.hub.filename), self.hub.hub + '.genomes.txt')
+        return os.path.join(
+            os.path.dirname(self.hub.filename),
+            self.hub.hub + '.genomes.txt')
 
     @filename.setter
     def filename(self, fn):
