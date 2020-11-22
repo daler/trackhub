@@ -1,4 +1,4 @@
-trackhub.CompositeTrack
+﻿trackhub.CompositeTrack
 =======================
 
 .. currentmodule:: trackhub

@@ -1,4 +1,4 @@
-trackhub.base.HubComponent
+﻿trackhub.base.HubComponent
 ==========================
 
 .. currentmodule:: trackhub.base

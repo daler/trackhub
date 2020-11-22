@@ -1,4 +1,4 @@
-trackhub.helpers.data\_dir
+﻿trackhub.helpers.data\_dir
 ==========================
 
 .. currentmodule:: trackhub.helpers

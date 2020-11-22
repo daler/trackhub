@@ -1,4 +1,4 @@
-trackhub.Assembly
+﻿trackhub.Assembly
 =================
 
 .. currentmodule:: trackhub

@@ -1,4 +1,4 @@
-trackhub.helpers.filter\_composite\_from\_subgroups
+﻿trackhub.helpers.filter\_composite\_from\_subgroups
 ===================================================
 
 .. currentmodule:: trackhub.helpers

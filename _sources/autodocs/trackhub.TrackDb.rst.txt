@@ -1,4 +1,4 @@
-trackhub.TrackDb
+﻿trackhub.TrackDb
 ================
 
 .. currentmodule:: trackhub

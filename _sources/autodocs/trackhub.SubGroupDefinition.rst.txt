@@ -1,4 +1,4 @@
-trackhub.SubGroupDefinition
+﻿trackhub.SubGroupDefinition
 ===========================
 
 .. currentmodule:: trackhub

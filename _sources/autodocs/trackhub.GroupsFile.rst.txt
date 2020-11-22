@@ -1,4 +1,4 @@
-trackhub.GroupsFile
+﻿trackhub.GroupsFile
 ===================
 
 .. currentmodule:: trackhub

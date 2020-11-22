@@ -1,4 +1,4 @@
-trackhub.GenomesFile
+﻿trackhub.GenomesFile
 ====================
 
 .. currentmodule:: trackhub
