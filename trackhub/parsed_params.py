@@ -93,10 +93,10 @@ param_defs = [
 
     Param(
         name="autoScale",
-        fmt=['autoScale <off/on>'],
-        types=['bigWig'],
+        fmt=['autoScale <off/on/group>'],
+        types=['bigWig', 'compositeTrack'],
         required=False,
-        validator=set(['on', 'off'])),
+        validator=set(['on', 'off', 'group'])),
 
     Param(
         name="bamColorMode",
