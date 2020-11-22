@@ -37,6 +37,9 @@ def default_hub(hub_name, genome, email, short_label=None, long_label=None, defa
 
     long_label : str
         Long label for the hub. If None, defaults to the value of `short_label`.
+
+    defaultPos : str
+        Default position for the hub
     """
     if short_label is None:
         short_label = hub_name
@@ -49,7 +52,10 @@ def default_hub(hub_name, genome, email, short_label=None, long_label=None, defa
         long_label=long_label,
         email=email)
 
-    genome = Genome(genome, defaultPos=defaultPos)
+    genome_kwargs = {}
+    if defaultPos:
+        genome_kwargs['defaultPos'] = defaultPos
+    genome = Genome(genome, **genome_kwargs)
     genomes_file = GenomesFile()
     trackdb = TrackDb()
     hub.add_genomes_file(genomes_file)
