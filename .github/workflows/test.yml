@@ -39,7 +39,7 @@ jobs:
         cp -r /tmp/docs/* .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit add .
+        git add .
         git commit -m 'update docs'
 
     - name: push docs
