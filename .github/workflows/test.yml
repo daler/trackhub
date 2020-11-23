@@ -15,3 +15,11 @@ jobs:
           source activate ./test-env
           pytest -vv --doctest-modules trackhub
           conda deactivate
+  pip-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          python setup.py sdist
+          pip install dist/*.tar.gz
+          python -c 'import trackhub'
