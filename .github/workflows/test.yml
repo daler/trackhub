@@ -1,0 +1,8 @@
+name: test
+on: [push]
+jobs:
+  conda-env:
+    runs-on: continuumio/miniconda3
+    steps:
+      - uses: actions/checkout@v2
+      - run: conda install -y --file requirements.txt
