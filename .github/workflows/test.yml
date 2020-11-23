@@ -1,10 +1,13 @@
 name: test
 on: [push]
+defaults:
+  run:
+    shell: bash -l {0}
+
 jobs:
   conda-env:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash -l {0}
       - uses: actions/checkout@v2
       - run: |
           conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
