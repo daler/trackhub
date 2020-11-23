@@ -18,7 +18,6 @@ jobs:
         eval "$(conda shell.bash hook)"
         conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
     - name: test-and-run
-      uses: actions/checkout@v2
       run: |
           set -e
           eval "$(conda shell.bash hook)"
