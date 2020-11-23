@@ -17,16 +17,16 @@ jobs:
       run: |
         eval "$(conda shell.bash hook)"
         conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
-#    - name: test-and-run
-#      uses: actions/checkout@v2
-#      run: |
-#          set -e
-#          eval "$(conda shell.bash hook)"
-#          source activate ./test-env
-#          python setup.py install
-#          pytest -vv --doctest-modules trackhub
-#          cd doc && make doctest html
-#          conda deactivate
+    - name: test-and-run
+      uses: actions/checkout@v2
+      run: |
+          set -e
+          eval "$(conda shell.bash hook)"
+          source activate ./test-env
+          python setup.py install
+          pytest -vv --doctest-modules trackhub
+          cd doc && make doctest html
+          conda deactivate
 #      uses: actions/upload-artifact@v2
 #      with:
 #        name: docs
