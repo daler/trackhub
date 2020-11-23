@@ -3,11 +3,10 @@ on: [push]
 jobs:
   conda-env:
     runs-on: ubuntu-latest
-    container: continuumio/miniconda3
     steps:
       - uses: actions/checkout@v2
       - run: |
-          conda create -n test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
-          conda activate test-env
+          conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
+          conda activate ./test-env
           pytest -vv --doctest-modules trackhub
           conda deactivate
