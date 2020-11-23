@@ -7,4 +7,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: conda install -y --file requirements.txt pytest sphinx
-      - run: pytest -vv --doctest-modules trackhub
+      - run: conda install -n test-env -y --file requirements.txt --file test-requirements.txt
+      - run: conda activate test-env && pytest -vv --doctest-modules trackhub && conda deactivate
