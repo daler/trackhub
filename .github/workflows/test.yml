@@ -6,4 +6,5 @@ jobs:
     container: continuumio/miniconda3
     steps:
       - uses: actions/checkout@v2
-      - run: conda install -y --file requirements.txt
+      - run: conda install -y --file requirements.txt pytest sphinx
+      - run: pytest -vv --doctest-modules trackhub
