@@ -6,5 +6,8 @@ jobs:
     container: continuumio/miniconda3
     steps:
       - uses: actions/checkout@v2
-      - run: conda create -n test-env -y --file requirements.txt --file test-requirements.txt
-      - run: conda activate test-env && pytest -vv --doctest-modules trackhub && conda deactivate
+      - run: |
+        conda create -n test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
+        conda activate test-env
+        pytest -vv --doctest-modules trackhub
+        conda deactivate
