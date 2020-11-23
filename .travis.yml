@@ -1,9 +1,0 @@
-install: "ci/travis-setup.sh"
-before_script:
-  - export PATH=/tmp/miniconda/bin:$PATH
-script: "ci/travis-run.sh"
-env:
-  global:
-    - ENCRYPTION_LABEL: "8609f8a4dd98"
-    - ENCRYPTION_LABEL_DOCS: "5bd4582c5923"
-    - COMMIT_AUTHOR_EMAIL: "dalerr@niddk.nih.gov"
