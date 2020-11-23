@@ -11,6 +11,7 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
           source activate ./test-env
+          python setup.py install
           pytest -vv --doctest-modules trackhub
           cd doc && make doctest html
           conda deactivate
