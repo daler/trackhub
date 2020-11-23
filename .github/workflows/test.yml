@@ -31,12 +31,12 @@ jobs:
       with:
         name: docs
         path: doc/build/html
-#  pip-install:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - run: python setup.py sdist
-#      - run: pip install dist/*.tar.gz
-#      - run: python -c 'import trackhub'
-#
+  pip-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: python setup.py sdist
+      - run: pip install dist/*.tar.gz
+      - run: python -c 'import trackhub'
+
 
