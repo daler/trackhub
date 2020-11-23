@@ -26,10 +26,11 @@ jobs:
           pytest -vv --doctest-modules trackhub
           cd doc && make doctest html
           conda deactivate
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: docs
-#        path: doc/build/html
+    - name: upload-artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: docs
+        path: doc/build/html
 #  pip-install:
 #    runs-on: ubuntu-latest
 #    steps:
