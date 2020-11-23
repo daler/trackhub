@@ -34,7 +34,7 @@ jobs:
     - name: cp docs
       run: |
         cp -r doc/build/html /tmp/docs
-        git checkout -b test-gh-pages
+        git checkout test-gh-pages2 || git checkout --orpha test-gh-pages2
         rm -rf ./*
         cp -r /tmp/docs/* .
         git config --local user.email "action@github.com"
@@ -47,7 +47,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: test-gh-pages
+        branch: test-gh-pages2
   pip-install:
     runs-on: ubuntu-latest
     steps:
