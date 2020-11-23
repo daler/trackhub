@@ -35,7 +35,7 @@ jobs:
       run: |
         cp -r doc/build/html /tmp/docs
         git checkout -b test-gh-pages
-        rm -rf .
+        rm -rf ./*
         cp -r /tmp/docs/* .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
