@@ -1,0 +1,6 @@
+﻿trackhub.helpers.dimensions\_from\_subgroups
+============================================
+
+.. currentmodule:: trackhub.helpers
+
+.. autofunction:: dimensions_from_subgroups

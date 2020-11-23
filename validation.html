@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Validation &mdash; trackhub 0.2.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Organizing larger track hubs" href="grouping.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> trackhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#updating-parameters">Updating parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">trackhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Validation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/validation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="validation">
+<span id="id1"></span><h1>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h1>
+<p>By default, parameters for tracks are validated to catch errors at creation
+time rather than upload time.</p>
+<p>In this example, we set <cite>fake_param</cite>. Note that track object is created with no
+errors…</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">trackhub</span>
+
+<span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;quickstart&quot;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;you@email.com&quot;</span><span class="p">)</span>
+
+<span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
+    <span class="n">fake_param</span><span class="o">=</span><span class="s1">&#39;asdf&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig -2 2&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>…but when we render the track either by printing it directly, or indirectly
+by rendering any of its parents, we get validation errors:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+trackhub.track.ParameterError: The following parameters are unknown for track type bigWig -2 2: {&#39;fake_param&#39;: &#39;asdf&#39;}
+</pre></div>
+</div>
+<p>If we specify a correct parameter name, but the value is incorrect, we get
+a ValidationError (<cite>maxHeightPixels</cite> should be a colon-separated values, not an
+integer):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
+    <span class="n">maxHeightPixels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig -2 2&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
+trackhub.validate.ValidationError: Value 15 failed ColSV3 validation; Example value(s): &#39;a:b:c&#39; or &#39;0:10:100&#39;
+</pre></div>
+</div>
+<p>Sometimes the validation is too picky, or perhaps you’re using a beta version
+of the Genome Browser with additional features that trackhub does not yet know
+about. In that case, we can disable the validation by setting
+<cite>settings.VALIDATE</cite> to False:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>track signal1
+bigDataUrl signal1.bigWig
+shortLabel signal1
+longLabel signal1
+type bigWig -2 2
+fake_param asdf
+
+track signal1
+bigDataUrl signal1.bigWig
+shortLabel signal1
+longLabel signal1
+type bigWig -2 2
+maxHeightPixels 15
+</pre></div>
+</div>
+<div class="section" id="updating-parameters">
+<h2>Updating parameters<a class="headerlink" href="#updating-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The track hub specification changes. In order to stay up-to-date with these
+changes, the <cite>trackhub.parse</cite> module can be used to parse the HTML of the Track
+Database Definition page and create the corresponding <cite>Param</cite> objects.</p>
+<p>The general workflow is to run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python trackhub/parse.py &gt; parsed_results.py
+</pre></div>
+</div>
+<p>And then use a diff tool (<cite>meld</cite>, <cite>vim -d</cite>, etc) to manually evaluate the
+difference between the existing <cite>parsed_params.py</cite> module and the output
+generated by <cite>trackhub/parse.py</cite>. In general, mostly only the validators will
+be different, although there are some params that are not defined in the
+database documnet and had to be added manually.</p>
+<p>After making the necessary changes, please either open an issue or create
+a pull request on <a class="reference external" href="https://github.com/daler/trackhub">the GitHub repository</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="grouping.html" class="btn btn-neutral float-right" title="Organizing larger track hubs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2012, Ryan Dale
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

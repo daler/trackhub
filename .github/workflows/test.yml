@@ -1,0 +1,58 @@
+name: test
+on: [push]
+
+jobs:
+  conda-env:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: cache env
+      id: cache-env
+      uses: actions/cache@v2
+      with:
+        path: test-env
+        key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
+    - name: build env
+      if: steps.cache-env.outputs.cache-hit != 'true'
+      run: |
+        eval "$(conda shell.bash hook)"
+        conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
+    - name: test-and-run
+      run: |
+          set -e
+          eval "$(conda shell.bash hook)"
+          source activate ./test-env
+          python setup.py install
+          pytest -vv --doctest-modules trackhub
+          cd doc && make doctest html
+          conda deactivate
+    - name: upload-artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: docs
+        path: doc/build/html
+    - name: cp docs
+      run: |
+        cp -r doc/build/html /tmp/docs
+        git checkout test-gh-pages2 || git checkout --orpha test-gh-pages2
+        rm -rf ./*
+        cp -r /tmp/docs/* .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m 'update docs'
+
+    - name: push docs
+      #if: ${{ github.ref == 'refs/heads/master' }}
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: test-gh-pages2
+  pip-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: python setup.py sdist
+      - run: pip install dist/*.tar.gz
+      - run: python -c 'import trackhub'
+

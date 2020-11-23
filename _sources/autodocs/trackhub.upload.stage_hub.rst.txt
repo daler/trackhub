@@ -1,0 +1,6 @@
+﻿trackhub.upload.stage\_hub
+==========================
+
+.. currentmodule:: trackhub.upload
+
+.. autofunction:: stage_hub
