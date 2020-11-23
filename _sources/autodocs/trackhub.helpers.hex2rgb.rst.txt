@@ -1,0 +1,6 @@
+﻿trackhub.helpers.hex2rgb
+========================
+
+.. currentmodule:: trackhub.helpers
+
+.. autofunction:: hex2rgb

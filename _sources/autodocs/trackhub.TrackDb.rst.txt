@@ -1,0 +1,29 @@
+﻿trackhub.TrackDb
+================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: TrackDb
+
+.. autoclass:: TrackDb
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~TrackDb.__init__
+        ~TrackDb.add_child
+        ~TrackDb.add_genome
+        ~TrackDb.add_parent
+        ~TrackDb.add_tracks
+        ~TrackDb.leaves
+        ~TrackDb.makedirs
+        ~TrackDb.render
+        ~TrackDb.root
+        ~TrackDb.validate
+    
+    .. automethod:: __init__ 

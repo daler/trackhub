@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>trackhub.GroupDefinition &mdash; trackhub 0.2.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.Assembly" href="trackhub.Assembly.html" />
+    <link rel="prev" title="trackhub.GroupsFile" href="trackhub.GroupsFile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> trackhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Hub.html">trackhub.Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GenomesFile.html">trackhub.GenomesFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Genome.html">trackhub.Genome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.TrackDb.html">trackhub.TrackDb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.BaseTrack.html">trackhub.BaseTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Track.html">trackhub.Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.CompositeTrack.html">trackhub.CompositeTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.ViewTrack.html">trackhub.ViewTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.GroupDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Assembly.html">trackhub.Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.stage_hub.html">trackhub.upload.stage_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.upload_hub.html">trackhub.upload.upload_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.dimensions_from_subgroups.html">trackhub.helpers.dimensions_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.filter_composite_from_subgroups.html">trackhub.helpers.filter_composite_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.hex2rgb.html">trackhub.helpers.hex2rgb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.sanitize.html">trackhub.helpers.sanitize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.data_dir.html">trackhub.helpers.data_dir</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">trackhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../autodocs.html">API documentation</a> &raquo;</li>
+        
+      <li>trackhub.GroupDefinition</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/autodocs/trackhub.GroupDefinition.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="trackhub-groupdefinition">
+<h1>trackhub.GroupDefinition<a class="headerlink" href="#trackhub-groupdefinition" title="Permalink to this headline">¶</a></h1>
+digraph inheritance415fc95d1e {
+bgcolor=transparent;
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;trackhub.groups.GroupDefinition&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
+}
+<dl class="py class">
+<dt id="trackhub.GroupDefinition">
+<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">GroupDefinition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">default_is_closed</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupDefinition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.GroupDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a group of tracks in a trackhub.</p>
+<p>Instances of this class are provided to an assembly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name for the group (e.g., “map”).</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – The label that will be displayed (e.g., “Mapping”)</p></li>
+<li><p><strong>priority</strong> (<em>int</em>) – Orders this track group with the other track groups</p></li>
+<li><p><strong>default_is_closed</strong> (<em>0 | 1</em>) – Determines if this track group is expanded or closed by default.
+Values to use are 0 or 1</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.GroupDefinition.__init__" title="trackhub.GroupDefinition.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(name[, label, priority, …])</p></td>
+<td><p>Represents a group of tracks in a trackhub.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="trackhub.GroupDefinition.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">default_is_closed</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupDefinition.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.GroupDefinition.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a group of tracks in a trackhub.</p>
+<p>Instances of this class are provided to an assembly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name for the group (e.g., “map”).</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – The label that will be displayed (e.g., “Mapping”)</p></li>
+<li><p><strong>priority</strong> (<em>int</em>) – Orders this track group with the other track groups</p></li>
+<li><p><strong>default_is_closed</strong> (<em>0 | 1</em>) – Determines if this track group is expanded or closed by default.
+Values to use are 0 or 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="trackhub.Assembly.html" class="btn btn-neutral float-right" title="trackhub.Assembly" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="trackhub.GroupsFile.html" class="btn btn-neutral float-left" title="trackhub.GroupsFile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2012, Ryan Dale
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
