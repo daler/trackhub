@@ -11,7 +11,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: test-env
-        key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt')-v1
+        key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
     - name: build env
       if: steps.cache-env.outputs.cache-hit != 'true'
       run: |
