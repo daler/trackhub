@@ -5,6 +5,7 @@ jobs:
   conda-env:
     runs-on: ubuntu-latest
     steps:
+      - name: build env, install trackhub, build docs
       - uses: actions/checkout@v2
       - run: |
           set -e
