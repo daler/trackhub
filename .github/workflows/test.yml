@@ -7,6 +7,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
-          conda activate ./test-env
+          source activate ./test-env
           pytest -vv --doctest-modules trackhub
           conda deactivate
