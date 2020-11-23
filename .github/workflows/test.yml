@@ -5,12 +5,23 @@ jobs:
   conda-env:
     runs-on: ubuntu-latest
     steps:
-      - name: build env, install trackhub, build docs
+    - uses: actions/checkout@v2
+    - name: cache env
+      id: cache-env
+      uses: actions/cache@v2
+      with:
+        path: test-env
+        key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt')-v1
+    - name: build env
+      if: steps.cache-env.outputs.cache-hit != 'true'
+      run: |
+        eval "$(conda shell.bash hook)"
+        conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
+    - name: test-and-run
       - uses: actions/checkout@v2
       - run: |
           set -e
           eval "$(conda shell.bash hook)"
-          conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
           source activate ./test-env
           python setup.py install
           pytest -vv --doctest-modules trackhub
@@ -27,3 +38,5 @@ jobs:
       - run: python setup.py sdist
       - run: pip install dist/*.tar.gz
       - run: python -c 'import trackhub'
+
+
