@@ -28,9 +28,9 @@ jobs:
           cd doc && make doctest html
           conda deactivate
       uses: actions/upload-artifact@v2
-        with:
-          name: docs
-          path: doc/build/html
+      with:
+        name: docs
+        path: doc/build/html
   pip-install:
     runs-on: ubuntu-latest
     steps:
