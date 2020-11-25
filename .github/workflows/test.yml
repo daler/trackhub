@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-artifact
-        path: doc/build/doctest
+        path: doc/build
 
     # Commit the changes to the gh-pages branch. This will only be pushed in
     # the next step if we're on the master branch
