@@ -64,18 +64,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
 
-
-  # Separate, parallel job for testing pip installation
-  pip-install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: python setup.py sdist
-      - run: pip install dist/*.tar.gz
-      - run: python -c 'import trackhub'
-
-
-  push-to-trackhub-demo:
     - name: decrypt
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
@@ -111,3 +99,16 @@ jobs:
       run: |
         ssh-add -D
         rm -Rf  *
+
+
+  # Separate, parallel job for testing pip installation
+  pip-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: python setup.py sdist
+      - run: pip install dist/*.tar.gz
+      - run: python -c 'import trackhub'
+
+
+
