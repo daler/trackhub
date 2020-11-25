@@ -80,7 +80,7 @@ jobs:
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       run: |
-        openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1
+        openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
 
     - name: ssh agent
       env:
