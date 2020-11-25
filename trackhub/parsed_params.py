@@ -39,6 +39,10 @@ TRACKTYPES = [
     # assembly tracks are not defined in the document; we need to add
     # separately.
     'assembly',
+
+    # neither are genome objects, but we want to support arguments like
+    # defaultPos so it needs to be added here.
+    'genome',
 ]
 
 # Tracks for which the definition specifies bigDataUrl
@@ -98,7 +102,7 @@ param_defs = [
     Param(
         name="autoScale",
         fmt=['autoScale <off/on/group>'],
-        types=['bigWig', 'hic'],
+        types=['bigWig', 'hic', 'compositeTrack'],
         required=False,
         validator=set(['on', 'off', 'group'])),
 
@@ -1226,7 +1230,7 @@ param_defs = [
     Param(
         'defaultPos',
         fmt='',
-        types=['assembly'],
+        types=['all','assembly', 'genome'],
         required=False,
         validator=validate.ucsc_position),
 
@@ -1255,3 +1259,8 @@ param_defs = [
 # - exonArrows
 # - exonNumbers
 #
+
+# NOTE: there are other allowed parameters for things like Assembly or Genome
+# objects that require more complexity to find/create/validate. For example,
+# trackDb filenames are figured out on the fly. Those params with extra
+# complexity are not included here.
