@@ -70,6 +70,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
 
+  # Thanks to https://tabris.com/using-deploy-keys-on-github-actions for the
+  # various steps
   push-to-trackhub-demo:
     runs-on: ubuntu-latest
     needs: conda-env
