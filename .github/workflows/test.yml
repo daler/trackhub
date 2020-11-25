@@ -79,6 +79,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: test-artifact
+        path: /tmp/artifact
     - name: decrypt
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
@@ -102,7 +103,7 @@ jobs:
         git config --global user.email "actions@github.com"
         git config --global user.name "trackhub repo's GitHub Action"
         git clone git@github.com:daler/trackhub-demo.git
-        ls -l
+        ls -l /tmp/artifact
         cd trackhub-demo
         git checkout -B github-action-test
         git pull origin github-action-test
