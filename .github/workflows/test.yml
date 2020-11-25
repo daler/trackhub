@@ -106,7 +106,7 @@ jobs:
         git config --global user.name "trackhub repo's GitHub Action"
         git clone git@github.com:daler/trackhub-demo.git
         echo ${{steps.downloadi-artifact.outputs.download-path }}
-        ls -l /tmp/artifact/output.txt >> a.txt
+        ls -l /tmp/artifact >> a.txt
         cd trackhub-demo
         git checkout -B github-action-test
         git pull origin github-action-test
