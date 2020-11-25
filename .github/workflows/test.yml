@@ -103,6 +103,7 @@ jobs:
         git config --global user.email "actions@github.com"
         git config --global user.name "trackhub repo's GitHub Action"
         git clone git@github.com:daler/trackhub-demo.git
+        echo ${{steps.downloadi-artifact.outputs.download-path }}
         ls -l /tmp/artifact
         cd trackhub-demo
         git checkout -B github-action-test
