@@ -64,51 +64,51 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
 
-    - name: decrypt
-      env:
-        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-      run: |
-        openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
-
-    - name: ssh agent
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
-        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-        chmod 0600 .github/workflows/secrets/id_rsa
-        ssh-add .github/workflows/secrets/id_rsa
-
-    - name: checkout trackhub-demo
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        git clone git@github.com/daler/trackhub-demo.git
-        cd trackhub-demo
-        git checkout -B github-action-test
-        touch a.txt
-        git add a.txt
-        git commit -m 'add a.txt'
-        git push origin github-action-test
-
-    - name: cleanup
-      if: always()
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        ssh-add -D
-        rm -Rf  *
-
-
-  # Separate, parallel job for testing pip installation
-  pip-install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: python setup.py sdist
-      - run: pip install dist/*.tar.gz
-      - run: python -c 'import trackhub'
-
-
-
+        #    - name: decrypt
+        #      env:
+        #        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        #      run: |
+        #        openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
+        #
+        #    - name: ssh agent
+        #      env:
+        #        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        #      run: |
+        #        mkdir -p ~/.ssh
+        #        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        #        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        #        chmod 0600 .github/workflows/secrets/id_rsa
+        #        ssh-add .github/workflows/secrets/id_rsa
+        #
+        #    - name: checkout trackhub-demo
+        #      env:
+        #        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        #      run: |
+        #        git clone git@github.com/daler/trackhub-demo.git
+        #        cd trackhub-demo
+        #        git checkout -B github-action-test
+        #        touch a.txt
+        #        git add a.txt
+        #        git commit -m 'add a.txt'
+        #        git push origin github-action-test
+        #
+        #    - name: cleanup
+        #      if: always()
+        #      env:
+        #        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        #      run: |
+        #        ssh-add -D
+        #        rm -Rf  *
+        #
+        #
+        #  # Separate, parallel job for testing pip installation
+        #  pip-install:
+        #    runs-on: ubuntu-latest
+        #    steps:
+        #      - uses: actions/checkout@v2
+        #      - run: python setup.py sdist
+        #      - run: pip install dist/*.tar.gz
+        #      - run: python -c 'import trackhub'
+        #
+        #
+        #
