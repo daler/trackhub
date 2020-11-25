@@ -198,7 +198,7 @@ size=&quot;8.0, 12.0&quot;;
 }
 <dl class="py class">
 <dt id="trackhub.Genome">
-<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">Genome</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">Genome</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents a 2-line genome stanza within a “genomes.txt” file.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenomesFile</span></code></a> object.</p>
@@ -224,17 +224,23 @@ size=&quot;8.0, 12.0&quot;;
 <tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Genome.add_child" title="trackhub.Genome.add_child"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_child</span></code></a>(child)</p></td>
 <td><p>Adds self as parent to child, and then adds child.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Genome.add_parent" title="trackhub.Genome.add_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_parent</span></code></a>(parent)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Genome.add_params" title="trackhub.Genome.add_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_params</span></code></a>(**kw)</p></td>
+<td><p>Add [possibly many] parameters to the Genome.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Genome.add_parent" title="trackhub.Genome.add_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_parent</span></code></a>(parent)</p></td>
 <td><p>Adds self as child of parent, then adds parent.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trackdb</span></code>(trackdb)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trackdb</span></code>(trackdb)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Genome.leaves" title="trackhub.Genome.leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaves</span></code></a>(cls[, level, intermediate])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Genome.leaves" title="trackhub.Genome.leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaves</span></code></a>(cls[, level, intermediate])</p></td>
 <td><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">makedirs</span></code>(fn)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">makedirs</span></code>(fn)</p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#trackhub.Genome.remove_params" title="trackhub.Genome.remove_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_params</span></code></a>(*args)</p></td>
+<td><p>Remove [possibly many] parameters from the Genome.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.Genome.render" title="trackhub.Genome.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a>([staging])</p></td>
 <td><p>Renders the object to file, returning a list of created files.</p></td>
@@ -249,7 +255,7 @@ size=&quot;8.0, 12.0&quot;;
 </table>
 <dl class="py method">
 <dt id="trackhub.Genome.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a 2-line genome stanza within a “genomes.txt” file.</p>
 <p>The file itself is represented by a <a class="reference internal" href="trackhub.GenomesFile.html#trackhub.GenomesFile" title="trackhub.GenomesFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenomesFile</span></code></a> object.</p>
 <dl class="field-list simple">
@@ -270,6 +276,14 @@ size=&quot;8.0, 12.0&quot;;
 </dd></dl>
 
 <dl class="py method">
+<dt id="trackhub.Genome.add_params">
+<code class="sig-name descname">add_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome.add_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome.add_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add [possibly many] parameters to the Genome.</p>
+<p>Parameters will be checked against known UCSC parameters and their
+supported formats.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="trackhub.Genome.add_parent">
 <code class="sig-name descname">add_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Genome.add_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
@@ -281,6 +295,14 @@ size=&quot;8.0, 12.0&quot;;
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="trackhub.Genome.remove_params">
+<code class="sig-name descname">remove_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/genome.html#Genome.remove_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Genome.remove_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove [possibly many] parameters from the Genome.</p>
+<p>E.g.,</p>
+<p>remove_params(‘color’, ‘visibility’)</p>
 </dd></dl>
 
 <dl class="py method">

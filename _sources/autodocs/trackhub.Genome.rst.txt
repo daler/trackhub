@@ -17,10 +17,12 @@
     
         ~Genome.__init__
         ~Genome.add_child
+        ~Genome.add_params
         ~Genome.add_parent
         ~Genome.add_trackdb
         ~Genome.leaves
         ~Genome.makedirs
+        ~Genome.remove_params
         ~Genome.render
         ~Genome.root
         ~Genome.validate
