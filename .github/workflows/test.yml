@@ -84,7 +84,7 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
-        git clone git@github.com/daler/trackhub-demo.git
+        git clone git@github.com:daler/trackhub-demo.git
         cd trackhub-demo
         git checkout -B github-action-test
         touch a.txt
