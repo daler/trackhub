@@ -99,7 +99,7 @@ jobs:
         source activate /tmp/test-env
         ci/build_example.py
 
-    - name:
+    - name: push built hubs to trackhub-demo repo
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
@@ -111,7 +111,7 @@ jobs:
         cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
         if git diff origin $BRANCH --quiet; then
-          echo "no changes to push";
+          echo "no changes to push to branch $BRANCH!";
         else
           git commit -m 'update hub'
           git push origin $BRANCH --force
