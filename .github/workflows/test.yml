@@ -43,12 +43,6 @@ jobs:
         name: docs
         path: doc/build/html
 
-    - name: upload the just-built hubs as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-artifact
-        path: doc/build
-
     - name: commit built docs to gh-pages branch
       run: |
         cp -r doc/build/html /tmp/docs
@@ -70,13 +64,6 @@ jobs:
 
   # Thanks to https://tabris.com/using-deploy-keys-on-github-actions for the
   # various steps
-
-    - name: download artifact for built hubs
-      uses: actions/download-artifact@v2
-      id: download
-      with:
-        name: test-artifact
-        path: /tmp/artifact
 
     - name: decrypt id_rsa key
       env:
@@ -100,6 +87,8 @@ jobs:
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "trackhub repo's GitHub Action"
+        pwd
+        ls -R
         eval "$(conda shell.bash hook)"
         source activate ./test-env
         bash ci/run_build.sh
