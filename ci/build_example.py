@@ -27,8 +27,8 @@ target = workdir / 'example_hubs'
 target.mkdir(exist_ok=True)
 
 
-def extract_and_run(relpath):
-    rst = '..' / HERE / relpath
+def extract_and_run(source, dest):
+    rst = workdir / source
     doctree = publish_doctree(open(rst).read())
     for i in doctree.traverse():
         if i.tagname == "literal_block":
@@ -39,7 +39,13 @@ def extract_and_run(relpath):
     s = i.astext()
     exec(s,  _globals)
 
+    # Save a copy of the script too
+    with open(dest / 'source.py', 'w') as fout:
+        fout.write(s)
+
 
 for line in open(HERE / "example_hubs.tsv"):
-    filename = workdir / line.strip().split("\t")[0]
-    extract_and_run(filename)
+    source, dest = line.strip().split('\t')
+    source = Path(source)
+    dest = Path(dest)
+    extract_and_run(source, dest)
