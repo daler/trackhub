@@ -108,7 +108,7 @@ jobs:
         cd /tmp/trackhub-demo
         git checkout -B $BRANCH
         git rm -rf ./*
-        cp -rL $here/ci/example_hubs/* /tmp/trackhub-demo
+        cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
         if git diff origin $BRANCH --quiet; then
           echo "no changes to push";
