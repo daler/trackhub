@@ -105,6 +105,8 @@ jobs:
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "trackhub repo's GitHub Action"
+        eval "$(conda shell.bash hook)"
+        source activate ./test-env
         bash ci/run_build.sh
 
     - name: add built-hubs artifact to trackhub-demo and push
