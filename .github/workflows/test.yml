@@ -94,18 +94,6 @@ jobs:
         source activate /tmp/test-env
         bash ci/run_build.sh
 
-    - name: add built-hubs artifact to trackhub-demo and push
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        cd trackhub-demo
-        git checkout -B github-action-test
-        git pull origin github-action-test
-        echo "a" >> a.txt
-        git add a.txt
-        git commit -m 'add a.txt'
-        git push origin github-action-test
-
     - name: cleanup
       if: always()
       env:
