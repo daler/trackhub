@@ -87,13 +87,31 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
       chmod +x hubCheck
   fi
 
-  set -x
   echo "Checking hubs..."
 
+  set +e
+  set -x
+
+  ALL_OK=0
   for hub in "${!hubs[@]}"; do
       pth=$(basename ${hubs[$hub]})
-      set -x; set +e;  ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth; set +x; set -e
+
+      # hubCheck exits 1 even with just warnings.
+      ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth > /tmp/$hub.log
+      cat /tmp/$hub.log
+
+      if grep -Ev "warning|Found" /tmp/$hub.log; then
+        ALL_OK=1
+        echo $hub >> /tmp/problems
+        cat /tmp/$hub.log >> /tmp/problems
+      fi
+
   done
+
+  if [[ $ALL_OK == 1 ]]; then
+      cat /tmp/problems
+      exit 1
+  fi
 
   for hub in "${!hubs[@]}"; do
       pth=$(dirname ${hubs[$hub]})
