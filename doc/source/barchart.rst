@@ -35,7 +35,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
         barChartSampleUrl='http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleSampleData.txt',
         barChartLabel='Tissues',
         barChartMetric='median',
-        visibility='full',
+        visibility='pack',
     )
     trackdb.add_tracks(track)
 
