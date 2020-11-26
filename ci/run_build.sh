@@ -115,9 +115,9 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
       ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth > /tmp/$hub.log
       cat /tmp/$hub.log
 
-      if grep -Ev "warning" /tmp/$hub.log; then
+      if grep -Ev "^warning:|^Found" /tmp/$hub.log; then
         ALL_OK=1
-        echo $hub >> /tmp/problems
+        echo "Problem with $hub!" >> /tmp/problems
         cat /tmp/$hub.log >> /tmp/problems
       fi
 
