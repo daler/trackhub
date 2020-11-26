@@ -92,7 +92,7 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
   for hub in "${!hubs[@]}"; do
       pth=$(basename ${hubs[$hub]})
-      set -x; ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth; set +x
+      set -x; set +e;  ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth; set +x; set -e
   done
 
   for hub in "${!hubs[@]}"; do
