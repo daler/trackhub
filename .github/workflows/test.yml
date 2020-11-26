@@ -70,11 +70,6 @@ jobs:
 
   # Thanks to https://tabris.com/using-deploy-keys-on-github-actions for the
   # various steps
-  push-to-trackhub-demo:
-    runs-on: ubuntu-latest
-    needs: conda-env
-    steps:
-    - uses: actions/checkout@v2
 
     - name: download artifact for built hubs
       uses: actions/download-artifact@v2
