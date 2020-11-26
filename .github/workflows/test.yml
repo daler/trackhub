@@ -7,23 +7,28 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # Use the cached conda env if it exists (key is based on requirements plus
-    # a hard-coded version string)
-    - name: load cached env
+    # Load cached env.
+    #   This looks for a cache based on the hash of requirements.txt and
+    #   test-requirements.txt; if it's found the cached directory is restored.
+    - name: load cached conda env
       id: cache-env
       uses: actions/cache@v2
       with:
         path: test-env
         key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
 
-    # Only build the env if there was a cache miss
-    - name: build conda env
+    # Build cache if needed
+    #   Only runs if there was a cache miss. If this is created. there's
+    #   a "Post load cached env" job that will load this into the cache for use
+    #   next time.
+    - name: build new conda env
       if: steps.cache-env.outputs.cache-hit != 'true'
       run: |
         eval "$(conda shell.bash hook)"
         conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
 
-    - name: run pytests and build/test docs
+    # Pretty much all of the testing happens here
+    - name: run pytests; build and test docs
       run: |
         eval "$(conda shell.bash hook)"
         source activate ./test-env
@@ -32,13 +37,13 @@ jobs:
         cd doc && make doctest html
         conda deactivate
 
-    - name: upload built docs as artifact
+    - name: upload the just-built docs as an artifact
       uses: actions/upload-artifact@v2
       with:
         name: docs
         path: doc/build/html
 
-    - name: upload built hubs as artifact
+    - name: upload the just-built hubs as artifact
       uses: actions/upload-artifact@v2
       with:
         name: test-artifact
@@ -70,19 +75,21 @@ jobs:
     needs: conda-env
     steps:
     - uses: actions/checkout@v2
-    - name: download-artifact
+
+    - name: download artifact for built hubs
       uses: actions/download-artifact@v2
       id: download
       with:
         name: test-artifact
         path: /tmp/artifact
-    - name: decrypt
+
+    - name: decrypt id_rsa key
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       run: |
         openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
 
-    - name: ssh agent
+    - name: start ssh agent
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
@@ -92,15 +99,18 @@ jobs:
         chmod 0600 .github/workflows/secrets/id_rsa
         ssh-add .github/workflows/secrets/id_rsa
 
-    - name: checkout trackhub-demo
+    - name: checkout trackhub-demo repo
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "trackhub repo's GitHub Action"
         git clone git@github.com:daler/trackhub-demo.git
-        echo ${{ steps.download.outputs.download-path }}
-        ls -l /tmp/artifact
+
+    - name: add built-hubs artifact to trackhub-demo and push
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
         cd trackhub-demo
         git checkout -B github-action-test
         git pull origin github-action-test
