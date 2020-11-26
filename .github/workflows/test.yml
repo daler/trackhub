@@ -50,8 +50,8 @@ jobs:
         rm -rf ./*
         cp -r /tmp/docs/* .
         touch .nojekyll
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
         git add .
         git commit -m 'update docs'
 
@@ -85,8 +85,8 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "trackhub repo's GitHub Action"
+        # checkout the original (non gh-pages) branch
+        git checkout ${GITHUB_REF##*/}
         pwd
         ls -R
         eval "$(conda shell.bash hook)"
