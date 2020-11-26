@@ -43,6 +43,15 @@ jobs:
         name: docs
         path: doc/build/html
 
+
+    - name: git setup
+      id: git-setup
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+
     - name: commit built docs to gh-pages branch
       run: |
         cp -r doc/build/html /tmp/docs
@@ -50,8 +59,6 @@ jobs:
         rm -rf ./*
         cp -r /tmp/docs/* .
         touch .nojekyll
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
         git add .
         git commit -m 'update docs'
 
@@ -87,7 +94,7 @@ jobs:
       run: |
         # checkout the original (non gh-pages) branch
         git branch
-        git checkout ${GITHUB_REF##*/}
+        git checkout $BRANCH
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
         ci/build_example.py
@@ -96,7 +103,6 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
-        BRANCH=${GITHUB_REF##*/}
         here=$(pwd)
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
