@@ -81,18 +81,18 @@ jobs:
         chmod 0600 .github/workflows/secrets/id_rsa
         ssh-add .github/workflows/secrets/id_rsa
 
-        #- name: checkout trackhub-demo repo
-        #  env:
-        #    SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        #  run: |
-        #    # checkout the original (non gh-pages) branch
-        #    git branch
-        #    git checkout ${GITHUB_REF##*/}
-        #    pwd
-        #    ls -R
-        #    eval "$(conda shell.bash hook)"
-        #    source activate /tmp/test-env
-        #    bash ci/run_build.sh
+    - name: checkout trackhub-demo repo
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+        # checkout the original (non gh-pages) branch
+        git branch
+        git checkout ${GITHUB_REF##*/}
+        pwd
+        ls -R
+        eval "$(conda shell.bash hook)"
+        source activate /tmp/test-env
+        bash ci/run_build.sh
 
     - name: cleanup
       if: always()
