@@ -86,7 +86,8 @@ jobs:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
         # checkout the original (non gh-pages) branch
-        git checkout @{-1}-
+        git branch
+        git checkout ${GITHUB_REF##*/}
         pwd
         ls -R
         eval "$(conda shell.bash hook)"
