@@ -40,4 +40,4 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
     trackdb.add_tracks(track)
 
     # Example of "uploading" the hub locally, to be pushed to github later:
-    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_barchart_hub')
+    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_barchart_hub')

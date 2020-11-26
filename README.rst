@@ -105,7 +105,7 @@ directly into UCSC to see what it looks like.
     # point to your own files. In this example we use the path to the data
     # included with trackhub.
 
-    for bigwig in glob.glob('../trackhub/test/data/sine-hg38-*.bw'):
+    for bigwig in glob.glob('trackhub/test/data/sine-hg38-*.bw'):
         name = trackhub.helpers.sanitize(os.path.basename(bigwig))
         track = trackhub.Track(
             name=name,          # track names can't have any spaces or special chars.
@@ -122,7 +122,7 @@ directly into UCSC to see what it looks like.
     # In this example we "upload" the hub locally. Files are created in the
     # "example_hub" directory, along with symlinks to the tracks' data files.
     # This directory can then be pushed to GitHub or rsynced to a server.
-    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hub')
+    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_hub')
 
     # Alternatively, we could upload directly to a web server (not run in this
     # example):

@@ -202,7 +202,7 @@ want to look at that first.
     )
     trackdb.add_tracks(single_track)
 
-    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_htmldoc_hub')
+    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_htmldoc_hub')
 
     if 0:
         trackhub.upload.upload_hub(
