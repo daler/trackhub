@@ -96,11 +96,26 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
   for hub in "${!hubs[@]}"; do
       pth=$(basename ${hubs[$hub]})
 
-      # hubCheck exits 1 even with just warnings.
+      # hubCheck exits 1 even with just warnings. For example, the assembly hub
+      # gives these warnings:
+      #
+      #   Found 7 problems:
+      #   warning: missing description page for track: 'randomno10'
+      #   warning: missing description page for track: 'randomno11'
+      #   warning: missing description page for track: 'randomno12'
+      #   warning: missing description page for track: 'sineno1100'
+      #   warning: missing description page for track: 'sineno11000'
+      #   warning: missing htmlPath setting for assembly hub 'newOrg1'
+      #   warning: missing hub overview descripton page (descriptionUrl setting)
+      #
+      # In order to deal with this, we save output to a log file, check to see
+      # if it has any lines not containing "warning" or "Found", and if so
+      # print that.
+
       ./hubCheck https://raw.githubusercontent.com/daler/trackhub-demo/${BRANCH}/$hub/$pth > /tmp/$hub.log
       cat /tmp/$hub.log
 
-      if grep -Ev "warning|Found" /tmp/$hub.log; then
+      if grep -Ev "warning" /tmp/$hub.log; then
         ALL_OK=1
         echo $hub >> /tmp/problems
         cat /tmp/$hub.log >> /tmp/problems
@@ -112,6 +127,9 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
       cat /tmp/problems
       exit 1
   fi
+
+  set -e
+  set +x
 
   for hub in "${!hubs[@]}"; do
       pth=$(dirname ${hubs[$hub]})
