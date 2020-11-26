@@ -82,6 +82,7 @@ jobs:
         ssh-add .github/workflows/secrets/id_rsa
 
     - name: checkout trackhub-demo repo
+      if: never()
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
