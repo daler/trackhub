@@ -9,7 +9,7 @@ jobs:
 
     # Use the cached conda env if it exists (key is based on requirements plus
     # a hard-coded version string)
-    - name: cache env
+    - name: load cached env
       id: cache-env
       uses: actions/cache@v2
       with:
@@ -17,39 +17,34 @@ jobs:
         key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
 
     # Only build the env if there was a cache miss
-    - name: build env
+    - name: build conda env
       if: steps.cache-env.outputs.cache-hit != 'true'
       run: |
         eval "$(conda shell.bash hook)"
         conda create -p ./test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
-        eval "$(conda shell.bash hook)"
 
-    # Activate conda env, run tests, build docs. Most of the actual testing
-    # work happens here....
-    - name: pytests, doctests, and build docs
+    - name: run pytests and build/test docs
       run: |
+        eval "$(conda shell.bash hook)"
         source activate ./test-env
         python setup.py install
         pytest -vv --doctest-modules trackhub
         cd doc && make doctest html
         conda deactivate
 
-    # Upload the built docs as an artifact for inspection
-    - name: upload-artifact
+    - name: upload built docs as artifact
       uses: actions/upload-artifact@v2
       with:
         name: docs
         path: doc/build/html
 
-    - name: upload-built-hubs
+    - name: upload built hubs as artifact
       uses: actions/upload-artifact@v2
       with:
         name: test-artifact
         path: doc/build
 
-    # Commit the changes to the gh-pages branch. This will only be pushed in
-    # the next step if we're on the master branch
-    - name: commit to gh-pages
+    - name: commit built docs to gh-pages branch
       run: |
         cp -r doc/build/html /tmp/docs
         git checkout gh-pages || git checkout --orphan gh-pages
@@ -61,9 +56,7 @@ jobs:
         git add .
         git commit -m 'update docs'
 
-    # Actually push the committed changes to gh-pages branch, thereby updating
-    # the hosted docs at https://github.io/daler/trackhub
-    - name: push docs
+    - name: push docs to gh-pages branch
       if: ${{ github.ref == 'refs/heads/master' }}
       uses: ad-m/github-push-action@master
       with:
