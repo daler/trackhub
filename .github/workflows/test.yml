@@ -7,6 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+
     - name: git setup
       # Set up git and export the $BRANCH env var to be used in later steps.
       #   Note the unconventional mechanism for exporting envs by appending to
@@ -16,6 +17,7 @@ jobs:
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
         echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
 
     - name: load cached conda env
       # Load cached env.
@@ -29,6 +31,7 @@ jobs:
         path: /tmp/test-env
         key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
 
+
     - name: build new conda env
       # Build cache if needed
       #   Only runs if there was a cache miss. If this is created. there's
@@ -38,6 +41,7 @@ jobs:
       run: |
         eval "$(conda shell.bash hook)"
         conda create -p /tmp/test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
+
 
     - name: run pytests; build and test docs
       # Pretty much all of the testing happens here.
@@ -50,6 +54,7 @@ jobs:
         cd doc && make doctest html
         conda deactivate
 
+
     - name: upload the just-built docs as an artifact
       # The built docs will be uploaded as a zip file (called docs.zip).
       #   This file will be available on the Actions page anc can be used to
@@ -60,6 +65,7 @@ jobs:
       with:
         name: docs
         path: doc/build/html
+
 
     - name: commit built docs to gh-pages branch
       # Commit to the gh-pages branch
@@ -75,8 +81,10 @@ jobs:
         git add .
         git commit -m 'update docs'
 
+
     - name: push docs to gh-pages branch
-      # Push to gh-pages if we're on the master branch
+      # Push to gh-pages
+      #   (but only if we're on the master branch)
       if: ${{ github.ref == 'refs/heads/master' }}
       uses: ad-m/github-push-action@master
       with:
@@ -87,6 +95,10 @@ jobs:
     - name: start ssh agent
       # Start the SSH agent so that subsequent steps don't need additional SSH
       # setup.
+      #   The private key has been added as a secret to the trackhub repo, and
+      #   the public key has been added as an allowed deploy key for the
+      #   trackhub-demo repo. Note that the key is never saved to disk, and
+      #   GitHub Actions automatically protects the secrets from being echo'd.
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
@@ -94,6 +106,7 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+
 
     - name: build example hubs
       # Build example hubs into the "example_hubs" directory.
@@ -108,6 +121,7 @@ jobs:
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
         ci/build_examples.py
+
 
     - name: push built hubs to trackhub-demo repo
       # Push to the trackhub-demo repo
@@ -132,6 +146,7 @@ jobs:
           git push origin $BRANCH --force
         fi
 
+
     - name: hubChecks
       # Check hubs
       #   Once hubs are uploaded to trackhub-demo repo, we need to check them
@@ -142,6 +157,7 @@ jobs:
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
         ci/check_hubs.py
+
 
     - name: cleanup
       # Remove all the ssh stuff we set up.
