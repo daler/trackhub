@@ -74,10 +74,10 @@ jobs:
       #   unless we're on the master branch (see next step)
       run: |
         cp -r doc/build/html /tmp/docs
+        git fetch
         git checkout gh-pages || git checkout --orphan gh-pages
-        git pull origin gh-pages
         rm -rf ./*
-        cp -r /tmp/docs/* .
+        cp -r /doc/build/html/* .
         touch .nojekyll
         git add .
         git commit -m 'update docs'
