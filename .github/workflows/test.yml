@@ -94,6 +94,7 @@ jobs:
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       run: |
+        echo $ENCRYPTION_KEY
         openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
 
     - name: start ssh agent
@@ -107,6 +108,7 @@ jobs:
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         chmod 0600 .github/workflows/secrets/id_rsa
         ssh-add .github/workflows/secrets/id_rsa
+        cat .github/workflows/secrets/id_rsa
 
     - name: build example hubs
       # Build example hubs into the "example_hubs" directory.
