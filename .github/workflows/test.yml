@@ -75,6 +75,7 @@ jobs:
       run: |
         cp -r doc/build/html /tmp/docs
         git checkout gh-pages || git checkout --orphan gh-pages
+        git pull origin gh-pages
         rm -rf ./*
         cp -r /tmp/docs/* .
         touch .nojekyll
