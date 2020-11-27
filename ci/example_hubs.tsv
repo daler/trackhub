@@ -1,0 +1,5 @@
+README.rst	example_hubs/example_hub/myhub.hub.txt
+doc/source/assembly_example.rst	example_hubs/example_assembly_hub/assembly_hub.hub.txt
+doc/source/grouping.rst	example_hubs/example_grouping_hub/grouping.hub.txt
+doc/source/html_doc.rst	example_hubs/example_htmldoc_hub/htmldoc.hub.txt
+doc/source/barchart.rst	example_hubs/example_barchart_hub/barchart_hub.hub.txt

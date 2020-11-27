@@ -91,4 +91,4 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
         track.add_params(group="example_tracks")
 
     trackhub.upload.upload_hub(hub=hub, host='localhost',
-        remote_dir='example_assembly_hub')
+        remote_dir='example_hubs/example_assembly_hub')
