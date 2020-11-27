@@ -251,7 +251,7 @@ see other config options. Here are some screenshots:
 
 
     # Example of "uploading" the hub locally, to be pushed to github later:
-    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_grouping_hub')
+    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_grouping_hub')
 
     # Example uploading to a web server (not run):
     if 0:

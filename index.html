@@ -250,7 +250,7 @@ directly into UCSC to see what it looks like.</p>
 <span class="c1"># point to your own files. In this example we use the path to the data</span>
 <span class="c1"># included with trackhub.</span>
 
-<span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;../trackhub/test/data/sine-hg38-*.bw&#39;</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;trackhub/test/data/sine-hg38-*.bw&#39;</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>          <span class="c1"># track names can&#39;t have any spaces or special chars.</span>
@@ -267,7 +267,7 @@ directly into UCSC to see what it looks like.</p>
 <span class="c1"># In this example we &quot;upload&quot; the hub locally. Files are created in the</span>
 <span class="c1"># &quot;example_hub&quot; directory, along with symlinks to the tracks&#39; data files.</span>
 <span class="c1"># This directory can then be pushed to GitHub or rsynced to a server.</span>
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_hub&#39;</span><span class="p">)</span>
 
 <span class="c1"># Alternatively, we could upload directly to a web server (not run in this</span>
 <span class="c1"># example):</span>
