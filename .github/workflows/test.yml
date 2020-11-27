@@ -89,11 +89,6 @@ jobs:
       run: |
         git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" gh-pages
 
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-
 
     - name: start ssh agent
       # Start the SSH agent so that subsequent steps don't need additional SSH
