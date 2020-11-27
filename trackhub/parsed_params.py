@@ -21,6 +21,7 @@ TRACKTYPES = [
     'bigChain',
     'bigGenePred',
     'bigInteract',
+    'bigLolly',
     'bigMaf',
     'bigNarrowPeak',
     'bigPsl',
@@ -31,6 +32,7 @@ TRACKTYPES = [
     'multiWig',
     'subGroups',
     'superTrack',
+    'vcfPhasedTrio',
     'vcfTabix',
     'view',
 
@@ -50,10 +52,12 @@ DATA_TRACKTYPES = [
     'bigBed',
     'bigChain',
     'bigInteract',
+    'bigLolly',
     'bigMaf',
     'bigPsl',
     'bigWig',
     'hic',
+    'vcfPhasedTrio',
     'vcfTabix',
 ]
 
@@ -98,7 +102,7 @@ param_defs = [
     Param(
         name="autoScale",
         fmt=['autoScale <off/on/group>'],
-        types=['bigWig', 'compositeTrack'],
+        types=['bigWig', 'hic', 'compositeTrack'],
         required=False,
         validator=set(['on', 'off', 'group'])),
 
@@ -133,6 +137,13 @@ param_defs = [
     Param(
         name="barChartBars",
         fmt=['barChartBars <label1 label2...>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="barChartCategoryUrl",
+        fmt=['barChartCategoryUrl <url>'],
         types=['bigBarChart'],
         required=False,
         validator=str),
@@ -175,6 +186,13 @@ param_defs = [
     Param(
         name="barChartSampleUrl",
         fmt=['barChartSampleUrl <url>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="barChartSizeWindows",
+        fmt=['barChartSizeWindows <largeMax> <smallMin>'],
         types=['bigBarChart'],
         required=False,
         validator=str),
@@ -224,7 +242,7 @@ param_defs = [
     Param(
         name="bigDataIndex",
         fmt=['bigDataIndex <url/relativePath>'],
-        types=['bam', 'vcfTabix'],
+        types=['bam', 'vcfPhasedTrio', 'vcfTabix'],
         required=False,
         validator=str),
 
@@ -232,7 +250,8 @@ param_defs = [
         name="bigDataUrl",
         fmt=['bigDataUrl <url/relativePath>'],
         types=['bam', 'bigBarChart', 'bigBed', 'bigChain', 'bigInteract',
-               'bigMaf', 'bigPsl', 'bigWig', 'hic', 'vcfTabix'],
+               'bigLolly', 'bigMaf', 'bigPsl', 'bigWig', 'hic',
+               'vcfPhasedTrio', 'vcfTabix'],
         required=True,
         validator=str),
 
@@ -371,22 +390,36 @@ param_defs = [
         validator=str),
 
     Param(
+        name="drawMode",
+        fmt=['drawMode <triangle|square|arc>'],
+        types=['hic'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="exonNumbers",
+        fmt=['exonNumbers <on/off>'],
+        types=['bigBed', 'bigGenePred'],
+        required=False,
+        validator=str),
+
+    Param(
         name="filter",
-        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        fmt=['filter.<fieldName> <default integer>', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filter.<fieldName>",
-        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        fmt=['filter.<fieldName> <default integer>', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterByRange.<fieldName>",
-        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        fmt=['filter.<fieldName> <default integer>', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
         types=['bigBed'],
         required=False,
         validator=str),
@@ -398,52 +431,66 @@ param_defs = [
         required=False,
         validator=str),
 
+    Param(
+        name="filterLabel",
+        fmt=['filterLabel.<fieldName> <label>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
 
     Param(
         name="filterLimits.<fieldName>",
-        fmt=['filter.<fieldName> [<default integer>]', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
+        fmt=['filter.<fieldName> <default integer>', 'filterByRange.<fieldName> <off/on>', 'filterLimits.<fieldName> <low>[:<high>]'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterText",
-        fmt=['filterText.<fieldName> [<default search string>]', 'filterType.<fieldName> <wildcard/regexp>'],
+        fmt=['filterText.<fieldName> <default search string>', 'filterType.<fieldName> <wildcard/regexp>'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterText.<fieldName>",
-        fmt=['filterText.<fieldName> [<default search string>]', 'filterType.<fieldName> <wildcard/regexp>'],
+        fmt=['filterText.<fieldName> <default search string>', 'filterType.<fieldName> <wildcard/regexp>'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterType.<fieldName>",
-        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>',
+             'filterValuesDefault.<fieldName> <value1,value2,value3...>',
+             'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd/multipleListOnlyOr/multipleListOnlyAnd>'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterValues",
-        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>',
+             'filterValuesDefault.<fieldName> <value1,value2,value3...>',
+             'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd/multipleListOnlyOr/multipleListOnlyAnd>'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterValues.<fieldName>",
-        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>',
+             'filterValuesDefault.<fieldName> <value1,value2,value3...>',
+             'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd/multipleListOnlyOr/multipleListOnlyAnd>'],
         types=['bigBed'],
         required=False,
         validator=str),
 
     Param(
         name="filterValuesDefault.<fieldName>",
-        fmt=['filterValues.<fieldName> <value1,value2,value3...>', 'filterValuesDefault.<fieldName> <value1,value2,value3...>', 'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd>'],
+        fmt=['filterValues.<fieldName> <value1,value2,value3...>',
+             'filterValuesDefault.<fieldName> <value1,value2,value3...>',
+             'filterType.<fieldName> <singleList/multipleListOr/multipleListAnd/multipleListOnlyOr/multipleListOnlyAnd>'],
         types=['bigBed'],
         required=False,
         validator=str),
@@ -452,6 +499,13 @@ param_defs = [
         name="frames",
         fmt=['frames <table/url>'],
         types=['bigMaf'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="geneTrack",
+        fmt=['geneTrack <track>'],
+        types=['vcfPhasedTrio'],
         required=False,
         validator=str),
 
@@ -471,14 +525,28 @@ param_defs = [
 
     Param(
         name="hideEmptySubtracks",
-        fmt=['hideEmptySubtracks <on/default> [multiBed.bb multiBedSources.tab]'],
+        fmt=['hideEmptySubtracks <on/off>'],
         types=['compositeTrack'],
         required=False,
         validator=str),
 
     Param(
         name="hideEmptySubtracksLabel",
-        fmt=['hideEmptySubtracks <label>'],
+        fmt=['hideEmptySubtracksLabel <label>'],
+        types=['compositeTrack'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="hideEmptySubtracksMultiBedUrl",
+        fmt=['hideEmptySubtracksMultiBedUrl file.bb'],
+        types=['compositeTrack'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="hideEmptySubtracksSourcesUrl",
+        fmt=['hideEmptySubtracksSourcesUrl file.tab'],
         types=['compositeTrack'],
         required=False,
         validator=str),
@@ -595,7 +663,28 @@ param_defs = [
         fmt=['linkIdInName on'],
         types=['bigBed'],
         required=False,
-        validator=set(['on'])),
+        validator=str),
+
+    Param(
+        name="lollyField",
+        fmt=['lollyField <integer>'],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="lollyMaxSize",
+        fmt=['lollyMaxSize <integer>'],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="lollySizeField",
+        fmt=['lollySizeField <integer>'],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
 
     Param(
         name="longLabel",
@@ -638,7 +727,14 @@ param_defs = [
         fmt=['maxWindowToQuery <integer>'],
         types=['bigWig'],
         required=False,
-        validator=int),
+        validator=str),
+
+    Param(
+        name="mergeSpannedItems",
+        fmt=['mergeSpannedItems <on/off>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
 
     Param(
         name="meta",
@@ -659,7 +755,14 @@ param_defs = [
         fmt=['minGrayLevel  <1-9>'],
         types=['bigBed'],
         required=False,
-        validator=set(range(1, 10))),
+        validator=str),
+
+    Param(
+        name="mouseOver",
+        fmt=['mouseOver <pattern>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
 
     Param(
         name="mouseOverField",
@@ -688,7 +791,21 @@ param_defs = [
         fmt=['noColorTag .'],
         types=['bam'],
         required=False,
-        validator=set(['.'])),
+        validator=str),
+
+    Param(
+        name="noStems",
+        fmt=['noStems <on/off>'],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="normalization",
+        fmt=['normalization <NONE|VC|VC_SQRT|KR>'],
+        types=['hic'],
+        required=False,
+        validator=str),
 
     Param(
         name="otherDb",
@@ -739,7 +856,7 @@ param_defs = [
 
     Param(
         name="pennantIcon",
-        fmt=['pennantIcon <iconFile>/<text color> [html [tip]]'],
+        fmt=['pennantIcon <iconFile>/<text color> [html [tip]] \n[; <iconFile>/<text color> [html [tip]]]'],
         types=['all'],
         required=False,
         validator=str),
@@ -766,7 +883,20 @@ param_defs = [
         required=False,
         validator=str),
 
-    # TODO: worth a custom validator?
+    Param(
+        name="resolution",
+        fmt=['resolution <Auto|integer>'],
+        types=['hic'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="saturationScore",
+        fmt=['saturationScore <float>'],
+        types=['hic'],
+        required=False,
+        validator=str),
+
     Param(
         name="scoreFilter",
         fmt=['scoreFilter <low>[:<high>]', 'scoreFilterLimits <low>[:<high>]'],
@@ -973,7 +1103,28 @@ param_defs = [
         fmt=['urls <fieldName1>="<url1>" <fieldName2>="<url2>" ...'],
         types=['bigBarChart', 'bigBed'],
         required=False,
-        validator=validate.key_val),
+        validator=str),
+
+    Param(
+        name="vcfChildSample",
+        fmt=['vcfChildSample <sampleName|altName>'],
+        types=['vcfPhasedTrio'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="vcfParentSamples",
+        fmt=['vcfParentSamples <sampleName|altName,sampleName|altName>'],
+        types=['vcfPhasedTrio'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="vcfUseAltSampleNames",
+        fmt=['vcfUseAltSampleNames <on/off>'],
+        types=['vcfPhasedTrio'],
+        required=False,
+        validator=str),
 
     Param(
         name='view',
@@ -981,6 +1132,7 @@ param_defs = [
         types=['view'],
         required=False,
         validator=str),
+
 
     Param(
         name="viewLimits",
@@ -1016,6 +1168,20 @@ param_defs = [
         types=['bigWig'],
         required=False,
         validator=set(['mean', 'mean+whiskers', 'maximum', 'minimum'])),
+
+    Param(
+        name="yAxisLabel",
+        fmt=['yAxisLabel.<integer> <integer> <on/off> <R,G,B> <string> '],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="yAxisNumLabels",
+        fmt=['yAxisNumLabels.<on/off> <integer>'],
+        types=['bigLolly'],
+        required=False,
+        validator=str),
 
     Param(
         name="yLineMark",
