@@ -86,6 +86,9 @@ jobs:
       # Push to gh-pages
       #   (but only if we're on the master branch)
       if: ${{ github.ref == 'refs/heads/master' }}
+      run: |
+        git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" gh-pages
+
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
