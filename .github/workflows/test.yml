@@ -84,19 +84,6 @@ jobs:
         branch: gh-pages
 
 
-    - name: decrypt id_rsa key
-      # Decrypts the SSH key using the encryption key stored as a secret via
-      # the GitHub interface for this repo.
-      #   The decrypted key's public key has been added as an allowed deploy
-      #   key in the trackhub-demo repo. Thanks to
-      #   https://tabris.com/using-deploy-keys-on-github-actions for
-      #   the various steps.
-      env:
-        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-      run: |
-        echo $ENCRYPTION_KEY
-        openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
-
     - name: start ssh agent
       # Start the SSH agent so that subsequent steps don't need additional SSH
       # setup.
@@ -106,9 +93,7 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-        chmod 0600 .github/workflows/secrets/id_rsa
-        ssh-add .github/workflows/secrets/id_rsa
-        cat .github/workflows/secrets/id_rsa
+        ssh-add - >>> "${{ secrets.SSH_PRIVATE_KEY }}"
 
     - name: build example hubs
       # Build example hubs into the "example_hubs" directory.
