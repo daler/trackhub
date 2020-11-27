@@ -19,33 +19,38 @@ from docutils.core import publish_doctree
 
 HERE = Path(__file__).resolve().parent
 
-workdir = HERE.parent
+repo_top = HERE.parent
 
-os.chdir(workdir)
-
-target = workdir / 'example_hubs'
-target.mkdir(exist_ok=True)
-
-
-def extract_and_run(source, dest):
-    rst = workdir / source
-    doctree = publish_doctree(open(rst).read())
-    for i in doctree.traverse():
-        if i.tagname == "literal_block":
-            break
-
-    # Thanks https://stackoverflow.com/a/28482312 for empty globals dict
-    _globals = {}
-    s = i.astext()
-    exec(s,  _globals)
-
-    # Save a copy of the script too
-    with open(dest / 'source.py', 'w') as fout:
-        fout.write(s)
+orig_dir = os.getcwd()
 
 
 for line in open(HERE / "example_hubs.tsv"):
     source, dest = line.strip().split('\t')
     source = Path(source)
     dest = Path(dest)
-    extract_and_run(source, dest)
+    dest_dir = dest.parent
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    # Use docutils to convert rst to doctree and pull out the first literal
+    # block encountered.
+    rst = repo_top / source
+    doctree = publish_doctree(open(rst).read())
+    block = None
+    for i in doctree.traverse():
+        if i.tagname == "literal_block":
+            block = i
+            break
+
+    # Thanks https://stackoverflow.com/a/28482312 for empty globals dict
+    _globals = {}
+    s = block.astext()
+    try:
+        os.chdir(repo_top)
+        exec(s,  _globals)
+    finally:
+        os.chdir(orig_dir)
+
+
+    # Save a copy of the script too
+    with open(dest_dir / 'source.py', 'w') as fout:
+        fout.write(s)

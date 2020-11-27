@@ -7,28 +7,41 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # Load cached env.
-    #   This looks for a cache based on the hash of requirements.txt and
-    #   test-requirements.txt; if it's found the cached directory is restored.
+    - name: git setup
+      # Set up git and export the $BRANCH env var to be used in later steps.
+      #   Note the unconventional mechanism for exporting envs by appending to
+      #   $GITHUB_ENV.
+      id: git-setup
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
     - name: load cached conda env
+      # Load cached env.
+      #   This looks for a cache based on the hash of requirements.txt and
+      #   test-requirements.txt; if it's found the cached directory is
+      #   restored. There's an extra "v1" on the end so it can be forced to be
+      #   regenerated when needed.
       id: cache-env
       uses: actions/cache@v2
       with:
         path: /tmp/test-env
         key: ${{ hashFiles('requirements.txt') }}-${{ hashFiles('test-requirements.txt') }}-v1
 
-    # Build cache if needed
-    #   Only runs if there was a cache miss. If this is created. there's
-    #   a "Post load cached env" job that will load this into the cache for use
-    #   next time.
     - name: build new conda env
+      # Build cache if needed
+      #   Only runs if there was a cache miss. If this is created. there's
+      #   a "Post load cached env" job that will load this into the cache for
+      #   use next time.
       if: steps.cache-env.outputs.cache-hit != 'true'
       run: |
         eval "$(conda shell.bash hook)"
         conda create -p /tmp/test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
 
-    # Pretty much all of the testing happens here
     - name: run pytests; build and test docs
+      # Pretty much all of the testing happens here.
+      #   pytests, doctests, and documentation is built.
       run: |
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
@@ -38,21 +51,21 @@ jobs:
         conda deactivate
 
     - name: upload the just-built docs as an artifact
+      # The built docs will be uploaded as a zip file (called docs.zip).
+      #   This file will be available on the Actions page anc can be used to
+      #   inspect the results. This is useful when building on a branch and for
+      #   contributors to make corrections to the docs without needing to set
+      #   everything up locally.
       uses: actions/upload-artifact@v2
       with:
         name: docs
         path: doc/build/html
 
-
-    - name: git setup
-      id: git-setup
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-
     - name: commit built docs to gh-pages branch
+      # Commit to the gh-pages branch
+      #   Note that this is not restricted to the master branch, which lets us
+      #   better test this process. The changes aren't actually pushed though
+      #   unless we're on the master branch (see next step)
       run: |
         cp -r doc/build/html /tmp/docs
         git checkout gh-pages || git checkout --orphan gh-pages
@@ -63,22 +76,29 @@ jobs:
         git commit -m 'update docs'
 
     - name: push docs to gh-pages branch
+      # Push to gh-pages if we're on the master branch
       if: ${{ github.ref == 'refs/heads/master' }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages
 
-    # Thanks to https://tabris.com/using-deploy-keys-on-github-actions for the
-    # various steps
 
     - name: decrypt id_rsa key
+      # Decrypts the SSH key using the encryption key stored as a secret via
+      # the GitHub interface for this repo.
+      #   The decrypted key's public key has been added as an allowed deploy
+      #   key in the trackhub-demo repo. Thanks to
+      #   https://tabris.com/using-deploy-keys-on-github-actions for
+      #   the various steps.
       env:
         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       run: |
         openssl aes-256-cbc -in .github/workflows/secrets/id_rsa.enc -out .github/workflows/secrets/id_rsa -pass pass:$ENCRYPTION_KEY -d -md sha1 -iter 75
 
     - name: start ssh agent
+      # Start the SSH agent so that subsequent steps don't need additional SSH
+      # setup.
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
@@ -89,17 +109,25 @@ jobs:
         ssh-add .github/workflows/secrets/id_rsa
 
     - name: build example hubs
+      # Build example hubs into the "example_hubs" directory.
+      #   See the ci/build_examples.py script for details. Also note that since
+      #   we were last on the gh-pages branch, we need to check out the branch
+      #   that this PR is for.
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
-        # checkout the original (non gh-pages) branch
         git branch
         git checkout $BRANCH
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
-        ci/build_example.py
+        ci/build_examples.py
 
     - name: push built hubs to trackhub-demo repo
+      # Push to the trackhub-demo repo
+      #   This creates a matching branch on the trackhub-demo repo, cleans out
+      #   everything, and copies over the contents of the just-built
+      #   "example_hubs" directory to that branch. This lets us inspect the
+      #   hubs and correct them if needed on a branch before merging to master.
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
@@ -117,7 +145,19 @@ jobs:
           git push origin $BRANCH --force
         fi
 
+    - name: hubChecks
+      # Check hubs
+      #   Once hubs are uploaded to trackhub-demo repo, we need to check them
+      #   to make sure they're accessible and have no glaring errors. See
+      #   ci/check_hubs.py for details.
+      run: |
+        git checkout $BRANCH
+        eval "$(conda shell.bash hook)"
+        source activate /tmp/test-env
+        ci/check_hubs.py
+
     - name: cleanup
+      # Remove all the ssh stuff we set up.
       if: always()
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -126,8 +166,8 @@ jobs:
         rm -Rf  *
 
 
-  # Separate, parallel job for testing pip installation
   pip-install:
+    # Separate, parallel job for testing pip installation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
