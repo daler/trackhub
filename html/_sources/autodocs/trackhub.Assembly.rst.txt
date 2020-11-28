@@ -1,0 +1,32 @@
+﻿trackhub.Assembly
+=================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: Assembly
+
+.. autoclass:: Assembly
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~Assembly.__init__
+        ~Assembly.add_child
+        ~Assembly.add_groups
+        ~Assembly.add_params
+        ~Assembly.add_parent
+        ~Assembly.add_trackdb
+        ~Assembly.add_twobit
+        ~Assembly.leaves
+        ~Assembly.makedirs
+        ~Assembly.remove_params
+        ~Assembly.render
+        ~Assembly.root
+        ~Assembly.validate
+    
+    .. automethod:: __init__ 

@@ -1,6 +1,0 @@
-trackhub.helpers.data\_dir
-==========================
-
-.. currentmodule:: trackhub.helpers
-
-.. autofunction:: data_dir

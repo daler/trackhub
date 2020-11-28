@@ -1,0 +1,31 @@
+﻿trackhub.BaseTrack
+==================
+
+.. currentmodule:: trackhub
+
+.. inheritance-diagram:: BaseTrack
+
+.. autoclass:: BaseTrack
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~BaseTrack.__init__
+        ~BaseTrack.add_child
+        ~BaseTrack.add_params
+        ~BaseTrack.add_parent
+        ~BaseTrack.add_subgroups
+        ~BaseTrack.add_trackdb
+        ~BaseTrack.leaves
+        ~BaseTrack.makedirs
+        ~BaseTrack.remove_params
+        ~BaseTrack.render
+        ~BaseTrack.root
+        ~BaseTrack.validate
+    
+    .. automethod:: __init__ 
