@@ -93,6 +93,7 @@ directly into UCSC to see what it looks like.
     import trackhub
 
     # First we initialize the components of a track hub
+
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
         hub_name="myhub",
         short_label='myhub',
@@ -106,10 +107,17 @@ directly into UCSC to see what it looks like.
     # data.
 
     for bigwig in glob.glob('trackhub/test/data/sine-hg38-*.bw'):
+
         # track names can't have any spaces or special characters. Since we'll
         # be using filenames as names, and filenames have non-alphanumeric
         # characters, we use the sanitize() function to remove them.
+
         name = trackhub.helpers.sanitize(os.path.basename(bigwig))
+
+        # We're keeping this relatively simple, but arguments can be
+        # programmatically determined (color tracks based on sample; change scale
+        # based on criteria, etc).
+
         track = trackhub.Track(
             name=name,          # track names can't have any spaces or special chars.
             source=bigwig,      # filename to build this track from
@@ -120,15 +128,18 @@ directly into UCSC to see what it looks like.
         )
 
         # Each track is added to the trackdb
+
         trackdb.add_tracks(track)
 
     # In this example we "upload" the hub locally. Files are created in the
     # "example_hub" directory, along with symlinks to the tracks' data files.
     # This directory can then be pushed to GitHub or rsynced to a server.
+
     trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_hub')
 
     # Alternatively, we could upload directly to a web server (not run in this
     # example):
+
     if 0:
         trackhub.upload.upload_hub(
             hub=hub, host='example.com', user='username',
