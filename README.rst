@@ -1,6 +1,8 @@
 trackhub
 ========
 
+.. image:: https://github.com/daler/trackhub/workflows/main/badge.svg
+
 See the documentation at https://daler.github.io/trackhub for more details.
 
 Data visualization is critical at all steps of genomic data analysis, from QC
