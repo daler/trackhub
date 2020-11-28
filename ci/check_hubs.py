@@ -34,9 +34,12 @@ if not Path(hubcheck).exists():
     hubcheck.chmod(0o700)
 
 for line in open(args.tsv):
+    line = line.strip()
+    if line.startswith('#') or not line:
+        continue
 
     # Dest in trackhub demo is the second column of TSV, without the initial directory
-    dest = line.strip().split("\t")[1]
+    dest = line.split("\t")[1]
     dest = Path(dest)
     dest = Path(*dest.parts[1:])
 

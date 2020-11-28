@@ -1,3 +1,16 @@
+# This file maps ReStructured Text documentation files containing embedded
+# examples (first column) to the hub.txt files created by that example code
+# (second column).
+#
+# The .rst files are parsed and executed by build_examples.py.
+#
+# The .rst file must contain exactly one .. code-block:: python block.
+#
+# The example should end with a call to upload() and the remote_dir should be
+# set to "example_hubs/<descriptive name>". For example:
+#
+#    trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_barchart_hub')
+#
 README.rst	example_hubs/example_hub/myhub.hub.txt
 doc/source/assembly_example.rst	example_hubs/example_assembly_hub/assembly_hub.hub.txt
 doc/source/grouping.rst	example_hubs/example_grouping_hub/grouping.hub.txt

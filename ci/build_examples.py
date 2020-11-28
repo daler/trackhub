@@ -25,7 +25,10 @@ orig_dir = os.getcwd()
 
 
 for line in open(HERE / "example_hubs.tsv"):
-    source, dest = line.strip().split('\t')
+    line = line,strip()
+    if line.startswith('#') or not line:
+        continue
+    source, dest = line.split('\t')
     source = Path(source)
     dest = Path(dest)
     dest_dir = dest.parent
