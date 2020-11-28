@@ -17,6 +17,7 @@ jobs:
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
         echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+        echo "WORKDIR=$(pwd)" >> $GITHUB_ENV
 
 
     - name: load cached conda env
@@ -69,9 +70,11 @@ jobs:
 
     - name: commit built docs to gh-pages branch
       # Commit to the gh-pages branch
-      #   Note that this is not restricted to the master branch, which lets us
-      #   better test this process. The changes aren't actually pushed though
-      #   unless we're on the master branch (see next step)
+      #   Note that this step is not restricted to the master branch, which
+      #   lets us better test this process. The changes aren't actually pushed
+      #   though unless we're on the master branch (see next step).
+      #   Cloning just the gh-pages branch to a new directory ended up being
+      #   easier than staying in this directory.
       run: |
         git clone --single-branch --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" /tmp/docs
         rm -rf /tmp/docs/*
@@ -80,6 +83,7 @@ jobs:
         cd /tmp/docs
         git add .
         git commit -m 'update docs'
+        cd $WORKDIR
 
 
     - name: push docs to gh-pages branch
@@ -87,7 +91,9 @@ jobs:
       #   (but only if we're on the master branch)
       if: ${{ github.ref == 'refs/heads/master' }}
       run: |
-        git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" gh-pages
+        cd /tmp/docs
+        git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/daler/trackhub" gh-pages
+        cd $WORKDIR
 
 
     - name: start ssh agent
