@@ -161,7 +161,8 @@
             
   <div class="section" id="trackhub">
 <h1>trackhub<a class="headerlink" href="#trackhub" title="Permalink to this headline">¶</a></h1>
-<img alt="https://github.com/daler/trackhub/workflows/main/badge.svg" src="https://github.com/daler/trackhub/workflows/main/badge.svg" /><p>See the documentation at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a> for more details.</p>
+<a class="reference external image-reference" href="https://github.com/daler/trackhub/actions?query=workflow%3Amain"><img alt="https://github.com/daler/trackhub/workflows/main/badge.svg" src="https://github.com/daler/trackhub/workflows/main/badge.svg" /></a>
+<p>See the documentation at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a> for more details.</p>
 <p>Data visualization is critical at all steps of genomic data analysis, from QC
 through final figure preparation.  A <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html">track hub</a> is way of
 organizing large numbers of of genomic data “tracks” (data files in a supported
@@ -181,8 +182,8 @@ availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
 documentation ensure high-quality code and help.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>Using <a class="reference external" href="https://bioconda.github.io">bioconda</a>: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">trackhub</span></code></p>
 <p>Using pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">trackhub</span></code></p>
+<p>Using <a class="reference external" href="https://bioconda.github.io">bioconda</a>: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">trackhub</span></code></p>
 </div>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
@@ -226,14 +227,9 @@ in the documentation is run as part of the test suite to guarantee correctness.<
 <span id="id1"></span><h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
 <p>The following code demonstrates a track hub built out of all bigWig files found
 in a directory. It is relatively simple; see these other examples from the
-documentation for more advanced usage:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://daler.github.io/trackhub/grouping.html">grouping example</a> (<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_grouping_hub/grouping.hub.txt&amp;position=chr1%3A1-5000">load the grouping example hub in UCSC</a>)</p></li>
-<li><p><a class="reference external" href="https://daler.github.io/trackhub/html_doc.html">html documentation example</a> (<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_htmldoc_hub/htmldoc.hub.txt">load the HTML documentation example hub in UCSC</a>)</p></li>
-<li><p><a class="reference external" href="https://daler.github.io/trackhub/assembly_example.html">assembly example</a> (<a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_assembly_hub/assembly_hub.hub.txt">load the assembly example hub in UCSC</a>)</p></li>
-</ul>
-<p>This basis example is run automatically when the documentation is re-generated.
-You can view the uploaded files in the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> GitHub repository, and <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/total-refactor/example_hub/myhub.hub.txt&amp;position=chr1%3A1-5000">load the hub</a>
+documentation for complex usage.</p>
+<p>This basic example is run automatically when the documentation is re-generated.
+You can view the uploaded files in the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> GitHub repository, and <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hub/myhub.hub.txt&amp;position=chr1%3A1-5000">load the hub</a>
 directly into UCSC to see what it looks like.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">trackhub</span>
@@ -244,13 +240,17 @@ directly into UCSC to see what it looks like.</p>
     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;myhub&#39;</span><span class="p">,</span>
     <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;myhub&#39;</span><span class="p">,</span>
     <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;dalerr@niddk.nih.gov&quot;</span><span class="p">)</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;ryan.dale@nih.gov&quot;</span><span class="p">)</span>
 
-<span class="c1"># Next, we add a track for every bigwig found.  In practice, you would</span>
-<span class="c1"># point to your own files. In this example we use the path to the data</span>
-<span class="c1"># included with trackhub.</span>
+<span class="c1"># Next we add tracks for some bigWigs. These can be anywhere on the</span>
+<span class="c1"># filesystem; symlinks will be made to them. Here we use some example data</span>
+<span class="c1"># included with the trackhub package; in practice you&#39;d point to your own</span>
+<span class="c1"># data.</span>
 
 <span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;trackhub/test/data/sine-hg38-*.bw&#39;</span><span class="p">):</span>
+    <span class="c1"># track names can&#39;t have any spaces or special characters. Since we&#39;ll</span>
+    <span class="c1"># be using filenames as names, and filenames have non-alphanumeric</span>
+    <span class="c1"># characters, we use the sanitize() function to remove them.</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span>
     <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>          <span class="c1"># track names can&#39;t have any spaces or special chars.</span>
@@ -277,7 +277,7 @@ directly into UCSC to see what it looks like.</p>
         <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Copyright 2012-2017 Ryan Dale; MIT license.</p>
+<p>Copyright 2012-2020 Ryan Dale; MIT license.</p>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
