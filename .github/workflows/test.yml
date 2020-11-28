@@ -73,12 +73,11 @@ jobs:
       #   better test this process. The changes aren't actually pushed though
       #   unless we're on the master branch (see next step)
       run: |
+        git clone --single-branch --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" /tmp/docs
+        rm -rf /tmp/docs/*
         cp -r doc/build/html /tmp/docs
-        git fetch
-        git checkout gh-pages || git checkout --orphan gh-pages
-        rm -rf ./*
-        cp -r /tmp/docs/* .
-        touch .nojekyll
+        touch /tmp/docs/.nojekyll
+        cd /tmp/docs
         git add .
         git commit -m 'update docs'
 
