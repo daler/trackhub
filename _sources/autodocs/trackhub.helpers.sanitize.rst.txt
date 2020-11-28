@@ -1,4 +1,4 @@
-﻿trackhub.helpers.sanitize
+trackhub.helpers.sanitize
 =========================
 
 .. currentmodule:: trackhub.helpers

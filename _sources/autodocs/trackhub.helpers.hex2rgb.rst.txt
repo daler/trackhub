@@ -1,4 +1,4 @@
-﻿trackhub.helpers.hex2rgb
+trackhub.helpers.hex2rgb
 ========================
 
 .. currentmodule:: trackhub.helpers

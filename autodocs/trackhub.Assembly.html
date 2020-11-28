@@ -188,17 +188,10 @@
             
   <div class="section" id="trackhub-assembly">
 <h1>trackhub.Assembly<a class="headerlink" href="#trackhub-assembly" title="Permalink to this headline">¶</a></h1>
-digraph inheritance6fc99b999d {
-bgcolor=transparent;
-rankdir=LR;
-size=&quot;8.0, 12.0&quot;;
-  &quot;trackhub.assembly.Assembly&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
-  &quot;trackhub.genome.Genome&quot; -&gt; &quot;trackhub.assembly.Assembly&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
-  &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
-  &quot;trackhub.genome.Genome&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
-  &quot;trackhub.base.HubComponent&quot; -&gt; &quot;trackhub.genome.Genome&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
-}
-<dl class="py class">
+<div class="graphviz"><img src="../_images/inheritance-c1e27621ceef37df4001ed37a98b09288860887d.png" alt="Inheritance diagram of Assembly" usemap="#inheritance6fc99b999d" class="inheritance graphviz" /></div>
+<map id="inheritance6fc99b999d" name="inheritance6fc99b999d">
+<area shape="rect" id="node3" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" target="_top" title="Base class for various track hub components. &#160;Several methods must be" alt="" coords="5,5,224,31"/>
+</map><dl class="py class">
 <dt id="trackhub.Assembly">
 <em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">Assembly</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genome</span></em>, <em class="sig-param"><span class="n">twobit_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trackdb</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genome_file_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">html_string_format</span><span class="o">=</span><span class="default_value">'rst'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/assembly.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.genome.Genome</span></code></p>

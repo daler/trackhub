@@ -1,4 +1,4 @@
-﻿trackhub.Track
+trackhub.Track
 ==============
 
 .. currentmodule:: trackhub
