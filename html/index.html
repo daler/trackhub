@@ -235,6 +235,7 @@ directly into UCSC to see what it looks like.</p>
 <span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="c1"># First we initialize the components of a track hub</span>
+
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
     <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;myhub&quot;</span><span class="p">,</span>
     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;myhub&#39;</span><span class="p">,</span>
@@ -248,10 +249,17 @@ directly into UCSC to see what it looks like.</p>
 <span class="c1"># data.</span>
 
 <span class="k">for</span> <span class="n">bigwig</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;trackhub/test/data/sine-hg38-*.bw&#39;</span><span class="p">):</span>
+
     <span class="c1"># track names can&#39;t have any spaces or special characters. Since we&#39;ll</span>
     <span class="c1"># be using filenames as names, and filenames have non-alphanumeric</span>
     <span class="c1"># characters, we use the sanitize() function to remove them.</span>
+
     <span class="n">name</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bigwig</span><span class="p">))</span>
+
+    <span class="c1"># We&#39;re keeping this relatively simple, but arguments can be</span>
+    <span class="c1"># programmatically determined (color tracks based on sample; change scale</span>
+    <span class="c1"># based on criteria, etc).</span>
+
     <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>          <span class="c1"># track names can&#39;t have any spaces or special chars.</span>
         <span class="n">source</span><span class="o">=</span><span class="n">bigwig</span><span class="p">,</span>      <span class="c1"># filename to build this track from</span>
@@ -262,15 +270,18 @@ directly into UCSC to see what it looks like.</p>
     <span class="p">)</span>
 
     <span class="c1"># Each track is added to the trackdb</span>
+
     <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
 <span class="c1"># In this example we &quot;upload&quot; the hub locally. Files are created in the</span>
 <span class="c1"># &quot;example_hub&quot; directory, along with symlinks to the tracks&#39; data files.</span>
 <span class="c1"># This directory can then be pushed to GitHub or rsynced to a server.</span>
+
 <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_hub&#39;</span><span class="p">)</span>
 
 <span class="c1"># Alternatively, we could upload directly to a web server (not run in this</span>
 <span class="c1"># example):</span>
+
 <span class="k">if</span> <span class="mi">0</span><span class="p">:</span>
     <span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
         <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span>
