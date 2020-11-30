@@ -83,7 +83,7 @@ jobs:
           /tmp/docs
         # recall that this does leave hidden files
         rm -rf /tmp/docs/*
-        cp -r doc/build/html /tmp/docs
+        cp -r doc/build/html/* /tmp/docs
         touch /tmp/docs/.nojekyll
         cd /tmp/docs
         git add .
