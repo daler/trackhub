@@ -36,8 +36,9 @@ jobs:
     - name: build new conda env
       # Build cache if needed.
       #   Only runs if there was a cache miss. If this is created. there's
-      #   a "Post load cached env" job that will load this into the cache for
-      #   use next time.
+      #   a "Post load cached env" job (which is automatically created, it's
+      #   not defined here) that  will load this into the cache for use next
+      #   time.
       if: steps.cache-env.outputs.cache-hit != 'true'
       run: |
         eval "$(conda shell.bash hook)"
@@ -58,10 +59,10 @@ jobs:
 
     - name: upload the just-built docs as an artifact
       # The built docs will be uploaded as a zip file (called docs.zip).
-      #   This file will be available on the Actions page anc can be used to
-      #   inspect the results. This is useful when building on a branch and for
-      #   contributors to make corrections to the docs without needing to set
-      #   everything up locally.
+      #   This file will be available on the Actions page and can be used to
+      #   inspect the final rendered docs. This is useful when building on
+      #   a branch and for contributors to make corrections to the docs without
+      #   needing to set everything up locally.
       uses: actions/upload-artifact@v2
       with:
         name: docs
@@ -71,7 +72,7 @@ jobs:
     - name: commit built docs to gh-pages branch
       # Commit to the gh-pages branch.
       #   Note that this step is not restricted to the master branch, which
-      #   lets us better test this process. The changes aren't actually pushed
+      #   lets us better test the process. The changes aren't actually pushed
       #   though unless we're on the master branch (see next step).  Cloning
       #   just the gh-pages branch to a new directory ended up being easier
       #   than staying in this directory and copying stuff around within it.
@@ -117,10 +118,12 @@ jobs:
     - name: start ssh agent
       # Start the SSH agent so that subsequent steps don't need additional SSH
       # setup.
-      #   The private key has been added as a secret to the trackhub repo, and
-      #   the public key has been added as an allowed deploy key for the
-      #   trackhub-demo repo. Note that the key is never saved to disk, and
-      #   GitHub Actions automatically protects the secrets from being echo'd.
+      #   The private key has been added as a secret to the trackhub repo (the
+      #   one running these tests), and the public key has been added as an
+      #   allowed deploy key for the trackhub-demo repo (the one accepting
+      #   pushes from this test). Note that this method ensures that the key is
+      #   never saved to disk, and GitHub Actions automatically protects the
+      #   secrets from being echoed.
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
