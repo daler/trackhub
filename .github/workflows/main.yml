@@ -87,11 +87,13 @@ jobs:
         touch /tmp/docs/.nojekyll
         cd /tmp/docs
         git add .
-        if git diff --quiet; then
+
+        if git diff --cached --quiet; then
           echo "no changes; nothing to commit"
         else
           git commit -m 'update docs'
         fi
+
         cd $WORKDIR
 
 
