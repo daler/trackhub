@@ -17,8 +17,8 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
 
     import trackhub
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
-        hub_name="hic_example",
-        defaultPos= 'chr21:32000000-35000000'
+        hub_name="hic",
+        defaultPos= 'chr21:32000000-35000000',
         short_label="hic_example",
         long_label="hic_example",
         genome="hg19",
