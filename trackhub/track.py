@@ -454,6 +454,10 @@ class Track(BaseTrack):
 
         See :class:`BaseTrack` for details on other arguments.
         """
+
+        if 'bigDataUrl' in kwargs and url is not None:
+            raise ValueError('Only one of bigDataUrl or url should be specified')
+
         kwargs['bigDataUrl'] = kwargs.get('bigDataUrl', url)
         super(Track, self).__init__(*args, **kwargs)
         self._url = kwargs['bigDataUrl']
