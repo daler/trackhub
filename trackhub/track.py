@@ -456,7 +456,7 @@ class Track(BaseTrack):
         """
         kwargs['bigDataUrl'] = kwargs.get('bigDataUrl', url)
         super(Track, self).__init__(*args, **kwargs)
-        self._url = url
+        self._url = kwargs['bigDataUrl']
 
     @property
     def url(self):
