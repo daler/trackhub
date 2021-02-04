@@ -9,7 +9,7 @@ from .genomes_file import GenomesFile
 from .groups import GroupsFile
 from .trackdb import TrackDb
 from . import constants
-from .track import HTMLDoc
+from .track import HTMLDoc, ParameterError
 
 
 class TwoBitFile(HubComponent):
