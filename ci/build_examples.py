@@ -43,6 +43,7 @@ for line in open(HERE / "example_hubs.tsv"):
         if i.tagname == "literal_block":
             block = i
             break
+    print(f'Running {rst}')
 
     # Thanks https://stackoverflow.com/a/28482312 for empty globals dict
     _globals = {}
