@@ -15,5 +15,15 @@ README.rst	example_hubs/example_hub/myhub.hub.txt
 doc/source/assembly_example.rst	example_hubs/example_assembly_hub/assembly_hub.hub.txt
 doc/source/grouping.rst	example_hubs/example_grouping_hub/grouping.hub.txt
 doc/source/html_doc.rst	example_hubs/example_htmldoc_hub/htmldoc.hub.txt
-doc/source/barchart.rst	example_hubs/example_barchart_hub/barchart_hub.hub.txt
-#doc/source/hic.rst	example_hubs/example_hic_hub/hic.hub.txt
+doc/source/hic.rst	example_hubs/example_hic_hub/hic.hub.txt
+doc/source/bam.rst	example_hubs/example_bam_hub/bam.hub.txt
+doc/source/bigBarChart.rst	example_hubs/example_bigBarChart_hub/bigBarChart.hub.txt
+doc/source/bigGenePred.rst	example_hubs/example_bigGenePred_hub/bigGenePred.hub.txt
+doc/source/bigInteract.rst	example_hubs/example_bigInteract_hub/bigInteract.hub.txt
+doc/source/bigMaf.rst	example_hubs/example_bigMaf_hub/bigMaf.hub.txt
+doc/source/bigNarrowPeak.rst	example_hubs/example_bigNarrowPeak_hub/bigNarrowPeak.hub.txt
+doc/source/bigPsl.rst	example_hubs/example_bigPsl_hub/bigPsl.hub.txt
+doc/source/bigWig.rst	example_hubs/example_bigWig_hub/bigWig.hub.txt
+doc/source/bigChain.rst	example_hubs/example_bigChain_hub/bigChain.hub.txt
+doc/source/vcfTabix.rst	example_hubs/example_vcfTabix_hub/vcfTabix.hub.txt
+doc/source/bigLolly.rst	example_hubs/example_bigLolly_hub/bigLolly.hub.txt
