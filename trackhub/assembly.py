@@ -107,6 +107,7 @@ class Assembly(Genome):
 
         self.track_field_order = []
         self.track_field_order.extend(constants.track_fields['assembly'])
+        self.track_field_order.extend(constants.track_fields['all'])
 
         self.add_params(**kwargs)
 
@@ -144,9 +145,8 @@ class Assembly(Genome):
         for k, v in kw.items():
             if k not in self.track_field_order:
                 raise ParameterError(
-                    '"{0}" is not a valid parameter for {1} with '
-                    'tracktype {2}'
-                    .format(k, self.__class__.__name__, self.tracktype)
+                    '"{0}" is not a valid parameter for {1}'
+                    .format(k, self.__class__.__name__)
                 )
             constants.param_dict[k].validate(v)
 
