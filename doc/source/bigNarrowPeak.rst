@@ -16,9 +16,9 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
     import trackhub
 
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
-        hub_name="bigNarrowPeak_example",
-        short_label="bigNarrowPeak_example",
-        long_label="bigNarrowPeak_example",
+        hub_name="bigNarrowPeak",
+        short_label="bigNarrowPeak",
+        long_label="bigNarrowPeak",
         genome="hg38",
         email="eva.jason@nih.gov")
 
