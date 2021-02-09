@@ -23,7 +23,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
         email='eva.jason@nih.gov')
 
     track = trackhub.Track(
-        name = 'bigGenePred',
+        name='bigGenePred',
         bigDataUrl = 'http://genome.ucsc.edu/goldenPath/help/examples/bigGenePredEx4.bb',
         shortLabel = 'bigGenePred',
         longLabel ='bigGenePred',
