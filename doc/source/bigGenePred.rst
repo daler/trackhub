@@ -16,9 +16,9 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
     import trackhub
 
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
-        hub_name='genePred',
-        short_label='genePred',
-        long_label='genePred',
+        hub_name='bigGenePred',
+        short_label='bigGenePred',
+        long_label='bigGenePred',
         genome='hg38',
         email='eva.jason@nih.gov')
 
