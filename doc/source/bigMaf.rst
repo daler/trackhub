@@ -16,9 +16,9 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
      import trackhub
 
      hub, genome, genomes_file,trackdb = trackhub.default_hub(
-          hub_name='Maf_example',
-          short_label='Maf_example',
-          long_label='Maf_example',
+          hub_name='bigMaf',
+          short_label='bigMaf',
+          long_label='bigMaf',
           genome='hg38',
           email='eva.jason@nih.gov')
 
