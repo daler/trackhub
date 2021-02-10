@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>trackhub.upload &mdash; trackhub 0.2.4 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -50,7 +52,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> trackhub
+            <a href="../../index.html" class="icon icon-home"> trackhub
           
 
           
@@ -118,6 +120,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -216,12 +220,15 @@
     <span class="c1"># If possible, we modify the symlink&#39;s mtime to be that of the target.</span>
     <span class="n">mtime</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">st_mtime</span>
 
-    <span class="c1"># Python 2.7 does not support modifying symlink modification time, which</span>
-    <span class="c1"># will </span>
+    <span class="c1"># Python 2.7 does not support modifying symlink modification time</span>
     <span class="k">if</span> <span class="n">compatibility</span><span class="o">.</span><span class="n">PY</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="n">mtime</span><span class="p">,</span> <span class="n">mtime</span><span class="p">),</span> <span class="n">follow_symlinks</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+
+        <span class="c1"># In some cases (the reason is still unclear), in Python 3 we can still</span>
+        <span class="c1"># get a PermissionError. That&#39;s still OK, and we&#39;ll handle it as if it</span>
+        <span class="c1"># were Py27, that is, leave the symlink itself unchanged.</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">,</span> <span class="ne">PermissionError</span><span class="p">):</span>
             <span class="k">pass</span>
 
     <span class="k">return</span> <span class="n">linkname</span>
@@ -384,28 +391,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2012, Ryan Dale
+        &#169; Copyright 2012, Ryan Dale.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

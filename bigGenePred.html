@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>bigBarChart example &mdash; trackhub 0.2.4 documentation</title>
+  <title>bigGenePred example &mdash; trackhub 0.2.4 documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -50,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> trackhub
+            <a href="index.html" class="icon icon-home"> trackhub
           
 
           
@@ -133,19 +135,21 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>bigBarChart example</li>
+      <li>bigGenePred example</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/barchart.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/bigGenePred.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,40 +162,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bigbarchart-example">
-<span id="barchart-example"></span><h1>bigBarChart example<a class="headerlink" href="#bigbarchart-example" title="Permalink to this headline">¶</a></h1>
-<p>You can read more about preparing the files necessary for a bigBarChart track
-on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/barChart.html">UCSC’s bigBarChart help page</a>. The following code
+  <div class="section" id="biggenepred-example">
+<span id="biggenepred"></span><h1>bigGenePred example<a class="headerlink" href="#biggenepred-example" title="Permalink to this headline">¶</a></h1>
+<p>You can read more about preparing the files necessary for a bigGenePred track
+on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/bigGenePred.html">UCSC’s bigBarChart help page</a>. The following code
 uses the example files provided by UCSC.</p>
 <p>This code is automatically run and the built trackhub is uploaded to the
 <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
-view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_assembly_hub/assembly_hub.hub.txt&amp;position=chr14%3A95060967%2D95501030">this link</a>.</p>
+view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigGenePred_hub/bigGenePred_hub.hub.txt&amp;position=chr14%3A95060967%2D95501030">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 
-<span class="c1"># Initialize the components of a track hub, already connected together</span>
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
-    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;barchart_hub&quot;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;example barChart&#39;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;example barChart&#39;</span><span class="p">,</span>
-    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;dalerr@niddk.nih.gov&quot;</span><span class="p">)</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s1">&#39;hg38&#39;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bar1&#39;</span><span class="p">,</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-    <span class="n">barChartBars</span><span class="o">=</span><span class="s1">&#39;adiposeSubcut breastMamTissue colonTransverse muscleSkeletal wholeBlood&#39;</span><span class="p">,</span>
-    <span class="n">barChartColors</span><span class="o">=</span><span class="s1">&#39;#FF6600 #33CCCC #CC9955 #AAAAFF #FF00BB&#39;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/hg38.gtexTranscripts.bb&#39;</span><span class="p">,</span>
-    <span class="n">barChartMatrixUrl</span><span class="o">=</span><span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleMatrix.txt&#39;</span><span class="p">,</span>
-    <span class="n">barChartSampleUrl</span><span class="o">=</span><span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleSampleData.txt&#39;</span><span class="p">,</span>
-    <span class="n">barChartLabel</span><span class="o">=</span><span class="s1">&#39;Tissues&#39;</span><span class="p">,</span>
-    <span class="n">barChartMetric</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span>
-    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;pack&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">bigDataUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigGenePredEx4.bb&#39;</span><span class="p">,</span>
+    <span class="n">shortLabel</span> <span class="o">=</span> <span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">longLabel</span> <span class="o">=</span><span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigGenePred&#39;</span><span class="p">,</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="s1">&#39;pack&#39;</span><span class="p">)</span>
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="c1"># Example of &quot;uploading&quot; the hub locally, to be pushed to github later:</span>
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_barchart_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_bigGenePred_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -201,28 +198,25 @@ view the live hub using <a class="reference external" href="http://genome.ucsc.e
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2012, Ryan Dale
+        &#169; Copyright 2012, Ryan Dale.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
