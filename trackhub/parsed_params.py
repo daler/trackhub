@@ -718,7 +718,7 @@ param_defs = [
     Param(
         name="maxWindowToDraw",
         fmt=['maxWindowToDraw <integer>'],
-        types=['bam', 'bigWig'],
+        types=['bam', 'bigWig','vcfTabix'],
         required=False,
         validator=int),
 
@@ -1202,7 +1202,7 @@ param_defs = [
     Param(
         name='description',
         fmt='',
-        types=['assembly'],
+        types=['all'],
         required=False,
         validator=str),
 

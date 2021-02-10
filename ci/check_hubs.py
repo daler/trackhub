@@ -55,7 +55,13 @@ for line in open(args.tsv):
     warnings = False
     if res.returncode:
         for line in res.stdout.splitlines():
-            if not (line.startswith("Found") or line.startswith("warning:")):
+            # It seems like hubCheck is complaining specifically on hic tracks,
+            # with "can't find database hg19 in hg.conf, should have a default
+            # named "db"". When checking the hub in the Genome Browser it seems
+            # fine. So allowing this as a "pass".
+            if line.startswith("can't find database") and "hic_hub" in str(dest):
+                warnings = True
+            elif not (line.startswith("Found") or line.startswith("warning:")):
                 error = True
             else:
                 warnings = True

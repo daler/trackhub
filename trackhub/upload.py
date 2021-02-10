@@ -57,12 +57,15 @@ def symlink(target, linkname):
     # If possible, we modify the symlink's mtime to be that of the target.
     mtime = os.stat(target).st_mtime
 
-    # Python 2.7 does not support modifying symlink modification time, which
-    # will 
+    # Python 2.7 does not support modifying symlink modification time
     if compatibility.PY == 3:
         try:
             os.utime(target, (mtime, mtime), follow_symlinks=False)
-        except NotImplementedError:
+
+        # In some cases (the reason is still unclear), in Python 3 we can still
+        # get a PermissionError. That's still OK, and we'll handle it as if it
+        # were Py27, that is, leave the symlink itself unchanged.
+        except (NotImplementedError, PermissionError):
             pass
 
     return linkname
