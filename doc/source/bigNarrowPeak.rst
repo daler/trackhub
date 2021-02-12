@@ -26,8 +26,8 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         tracktype='bigNarrowPeak',
         name='bigNarrowPeak', 
         bigDataUrl='http://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.bb',
-        shortLabel='bigNPk',
-        longLabel='bigNarrowPeakExample',
+        shortLabel='bigNarrowPeak',
+        longLabel='bigNarrowPeak',
         visibility='full')
     trackdb.add_tracks(track)
 
