@@ -2,11 +2,11 @@
 
 bigLolly example
 ----------------
-You can read more about preparing the files necessary for a bam track
+You can read more about preparing the files necessary for a bigLolly track
 on `UCSC's bigLolly help page
 <https://genome.ucsc.edu/goldenPath/help/bigLolly.html>`_. The following code uses the example files provided by UCSC.
 
-This code is automatically run and the built trackhub is uploaded to the `trackhub-demo <https://github.com/daler/trackhub-demo>`_ repository. You canview the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/bigLolly_assembly_hub/bigLolly_hub.hub.txt&position=chr14%3A95060967%2D95501030>`_.
+This code is automatically run and the built trackhub is uploaded to the `trackhub-demo <https://github.com/daler/trackhub-demo>`_ repository. You can view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigLolly_hub/bigLolly.hub.txt&position=chr21:25891755-25891870>`_.
 
 .. code-block:: python
 

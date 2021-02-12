@@ -2,19 +2,18 @@
 
 bigMaf example
 --------------
-You can read more about preparing the files necessary for a bigGenePred track
+You can read more about preparing the files necessary for a bigMaf track
 on `UCSC's bigMaf help page
 <https://genome.ucsc.edu/goldenPath/help/bigMaf.html>`_. The following code
 uses the example files provided by UCSC.
 
 This code is automatically run and the built trackhub is uploaded to the
 `trackhub-demo <https://github.com/daler/trackhub-demo>`_ repository. You can
-view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&hgHubConnect.remakeTrackHub=on&hgHub_do_firstDb=1&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigMaf_hub/bigMaf_hub.hub.txt&position=chr14%3A95060967%2D95501030>`_.
+view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigMaf_hub/bigMaf.hub.txt&position=chr22_KI270731v1_random>`_.
 
 .. code-block:: python
 
      import trackhub
-
      hub, genome, genomes_file,trackdb = trackhub.default_hub(
           hub_name='bigMaf',
           short_label='bigMaf',
