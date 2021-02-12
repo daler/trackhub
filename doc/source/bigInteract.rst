@@ -9,7 +9,7 @@ uses the example files provided by UCSC.
 
 This code is automatically run and the built trackhub is uploaded to the
 `trackhub-demo <https://github.com/daler/trackhub-demo>`_ repository. You can
-view the live hub using `this link http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigInteract_hub/bigInteract.hub.txt&position=chr3:63820967-63880091>`_.
+view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigInteract_hub/bigInteract.hub.txt&position=chr3:63820967-63880091>`_.
 
 .. code-block:: python
 
