@@ -582,12 +582,12 @@ class CompositeTrack(BaseTrack):
         for view in self.views:
             s.append("")
             for line in str(view).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
 
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
         return "\n".join(s)
 
 
@@ -643,7 +643,7 @@ class ViewTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('        ' + line)
+                s.append(constants.INDENT + line)
         return '\n'.join(s)
 
 
@@ -692,7 +692,7 @@ class SuperTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append(line)
+                s.append(constants.INDENT + line)
         return '\n'.join(s)
 
 
@@ -746,7 +746,7 @@ class AggregateTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
         return "\n".join(s)
 
 
