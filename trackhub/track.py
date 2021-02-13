@@ -718,7 +718,7 @@ class AggregateTrack(BaseTrack):
 
     def add_subtrack(self, subtrack):
         """
-        Add a child :class:`SubTrack` to this aggregrate.
+        Add a child :class:`SubTrack` to this aggregate.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
