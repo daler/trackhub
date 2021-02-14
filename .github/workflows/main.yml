@@ -157,7 +157,7 @@ jobs:
         cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
 
-        if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; 
+        if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
           echo "remote branch $BRANCH does not exist -- pushing"
           git commit -m 'update hub'
           git push origin $BRANCH --force
