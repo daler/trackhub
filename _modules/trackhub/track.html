@@ -274,7 +274,7 @@
 <div class="viewcode-block" id="BaseTrack"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack">[docs]</a><span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
 <div class="viewcode-block" id="BaseTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subgroups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string_format</span><span class="o">=</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="n">track_type_override</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                 <span class="n">html_string</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">html_string_format</span><span class="o">=</span><span class="s2">&quot;rst&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a single track stanza, base class for other track types.</span>
 
@@ -332,12 +332,6 @@
 <span class="sd">        html_string_format : &#39;html&#39; or &#39;rst&#39;</span>
 <span class="sd">            Indicates the format of `html_string`. If `&quot;html&quot;`, then use as-is;</span>
 <span class="sd">            if `&quot;rst&quot;` then convert ReST to HTML.</span>
-
-<span class="sd">        track_type_override : str</span>
-<span class="sd">            Composite tracks can specify a tracktype of their children, but we</span>
-<span class="sd">            also need to know that it&#39;s a composite track. For composite tracks,</span>
-<span class="sd">            this can be set to &quot;compositeTrack&quot;:</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">deprecation_handler</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -354,8 +348,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span>
                                              <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">])</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span> <span class="o">=</span> <span class="n">track_type_override</span>
 
         <span class="c1"># NOTE: when setting track type, it will update the track field order</span>
         <span class="c1"># according to the known params for that track...so</span>
@@ -453,11 +445,7 @@
         <span class="n">base_tracktype</span> <span class="o">=</span> <span class="n">tracktype</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_type_override</span><span class="p">:</span>
-                <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">base_tracktype</span><span class="p">])</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">base_tracktype</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseTrack.add_trackdb"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_trackdb">[docs]</a>    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
@@ -660,13 +648,12 @@
 <span class="sd">        See :class:`BaseTrack` for details on arguments. There are no</span>
 <span class="sd">        additional arguments supported by this class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span>
-              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_type_override</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;compositeTrack&#39;</span><span class="p">,</span>
-                                                  <span class="s1">&#39;subGroups&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
-                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CompositeTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;compositeTrack&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="s1">&#39;subGroups&#39;</span><span class="p">])</span>
 
         <span class="c1"># TODO: are subtracks and views mutually exclusive, or can a composite</span>
         <span class="c1"># have both &quot;view-ed&quot; and &quot;non-view-ed&quot; subtracks?</span>
@@ -745,12 +732,12 @@
         <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">view</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
@@ -806,7 +793,7 @@
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;        &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
@@ -855,7 +842,7 @@
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
@@ -894,7 +881,7 @@
 
 <div class="viewcode-block" id="AggregateTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a child :class:`SubTrack` to this aggregrate.</span>
+<span class="sd">        Add a child :class:`SubTrack` to this aggregate.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
@@ -909,7 +896,7 @@
         <span class="k">for</span> <span class="n">subtrack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="p">:</span>
             <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
-                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
