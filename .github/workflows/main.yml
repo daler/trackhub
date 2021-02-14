@@ -156,13 +156,18 @@ jobs:
         git rm -rf ./*
         cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
-        if git diff origin/$BRANCH --quiet; then
-          echo "no changes to push to branch $BRANCH!";
+
+        if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; 
+          echo "remote branch $BRANCH does not exist -- pushing"
+          git commit -m 'update hub'
+          git push origin $BRANCH --force
+        else if git diff origin/$BRANCH --quiet; then
+            echo "no changes to push to branch $BRANCH!";
         else
+          echo "Diffs will be pushed to remote branch $BRANCH"
           git commit -m 'update hub'
           git push origin $BRANCH --force
         fi
-
 
     - name: hubChecks
       # Check hubs
