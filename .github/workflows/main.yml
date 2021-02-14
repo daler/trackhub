@@ -45,15 +45,22 @@ jobs:
         conda create -p /tmp/test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
 
 
-    - name: run pytests; build and test docs
-      # Pretty much all of the testing happens here.
-      #   pytests, doctests, and documentation is built.
+    - name: run pytests
+      # pytests and doctests happen here
       run: |
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
         python setup.py install
         pytest -vv --doctest-modules trackhub
-        cd doc && make doctest html
+
+    - name: build docs
+      run: |
+        # To make sure that the links in the built docs refer to the correct
+        # branch on the trackhub-demo repo, we replace the branch names in the
+        # .rst files. Note if we're on master branch then this is a no-op.
+        cd doc
+        find . -name "*.rst" | xargs sed -i "s|trackhub-demo/master|trackhub-demo/$BRANCH|g"
+        make doctest html
         conda deactivate
 
 
