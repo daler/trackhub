@@ -81,13 +81,12 @@ Furthermore, the genomes.txt file's name is prefixed by the hub name.
 
 So far, the `trackdb` object has no tracks added:
 
-.. testcode::
+.. doctest::
 
-    print(trackdb)
-
-.. testoutput::
-    :options: +NORMALIZE_WHITESPACE
-    
+    >>> print(trackdb)
+    Traceback (most recent call last):
+      ...
+    ValueError: No Track objects specified
     
 
 Adding tracks
