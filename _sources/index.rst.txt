@@ -10,5 +10,6 @@ Contents:
     grouping
     html_doc
     assembly_example
+    tracktypes
     autodocs
     changelog

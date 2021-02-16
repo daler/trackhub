@@ -2,7 +2,7 @@
 
 vcfTabix example
 ----------------
-You can read more about preparing the files necessary for a bigGenePred track
+You can read more about preparing the files necessary for a vcfTabix track
 on `UCSC's bigInteract help page
 <https://genome.ucsc.edu/goldenPath/help/vcf.html>`_. The following code
 uses the example files provided by UCSC.
@@ -26,9 +26,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgHubConnect?
     track = trackhub.Track(
         tracktype = 'vcfTabix',
         name="VCF_Example_One",
-        #description="VCF Ex. 1: 1000 Genomes phase 1 interim SNVs",
         chromosomes='chr21',
-        #maxWindowToDraw=200000,
         visibility='pack',
         url='http://genome.ucsc.edu/goldenPath/help/examples/vcfExample.vcf.gz')
     trackdb.add_tracks(track)
