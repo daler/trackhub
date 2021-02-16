@@ -45,17 +45,21 @@ jobs:
         conda create -p /tmp/test-env -y --file requirements.txt --file test-requirements.txt --channel conda-forge --channel bioconda
 
 
-    - name: run pytests; build and test docs
-      # Pretty much all of the testing happens here.
-      #   pytests, doctests, and documentation is built.
+    - name: run pytests and build docs
+      # pytests and doctests happen here
       run: |
         eval "$(conda shell.bash hook)"
         source activate /tmp/test-env
         python setup.py install
         pytest -vv --doctest-modules trackhub
-        cd doc && make doctest html
-        conda deactivate
 
+        # To make sure that the links in the built docs refer to the correct
+        # branch on the trackhub-demo repo, we replace the branch names in the
+        # .rst files. Note if we're on master branch then this is a no-op.
+        cd doc
+        find . -name "*.rst" | xargs sed -i "s|trackhub-demo/master|trackhub-demo/$BRANCH|g"
+        make doctest html
+        conda deactivate
 
     - name: upload the just-built docs as an artifact
       # The built docs will be uploaded as a zip file (called docs.zip).
@@ -73,14 +77,17 @@ jobs:
       # Commit to the gh-pages branch.
       #   Note that this step is not restricted to the master branch, which
       #   lets us better test the process. The changes aren't actually pushed
-      #   though unless we're on the master branch (see next step).  Cloning
-      #   just the gh-pages branch to a new directory ended up being easier
-      #   than staying in this directory and copying stuff around within it.
+      #   though unless we're on the master branch (see next step).
+      #
+      #   Note that cloning just the gh-pages branch to a new directory ended
+      #   up being easier than staying in this directory and copying stuff
+      #   around within it.
       run: |
         git clone \
           --single-branch \
           --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY" \
           /tmp/docs
+
         # recall that this does leave hidden files
         rm -rf /tmp/docs/*
         cp -r doc/build/html/* /tmp/docs
@@ -111,8 +118,8 @@ jobs:
     - name: build example hubs
       # Build example hubs into the "example_hubs" directory.
       #   See the ci/build_examples.py script for details. Also note that since
-      #   we were last on the gh-pages branch, we need to check out the branch
-      #   that this PR is for.
+      #   we were last on the gh-pages branch from the last step, we need to
+      #   explicitly check out the branch that this PR is for.
       run: |
         git branch
         git checkout $BRANCH
@@ -154,21 +161,36 @@ jobs:
         cd /tmp/trackhub-demo
         git checkout -B $BRANCH
         git rm -rf ./*
+
+        # Note -L to follow links
         cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
+
+        # It's possible that the $BRANCH here in the trackhub repo does not yet
+        # exist over in the trackhub-demo repo. In that case, we should be good
+        # to push.
+        if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
+          echo "remote branch $BRANCH does not exist -- pushing"
+          git commit -m 'update hub'
+          git push origin $BRANCH --force
+          exit 0
+        fi
+
+        # Otherwise, only push if there are changes.
         if git diff origin/$BRANCH --quiet; then
-          echo "no changes to push to branch $BRANCH!";
+            echo "no changes to push to branch $BRANCH!";
         else
+          echo "Diffs will be pushed to remote branch $BRANCH"
           git commit -m 'update hub'
           git push origin $BRANCH --force
         fi
 
-
     - name: hubChecks
       # Check hubs
       #   Once hubs are uploaded to trackhub-demo repo, we need to check them
-      #   to make sure they're accessible and have no glaring errors. See
-      #   ci/check_hubs.py for details.
+      #   to make sure they're accessible and have no glaring errors.
+      #
+      #   See ci/check_hubs.py for details.
       run: |
         git checkout $BRANCH
         eval "$(conda shell.bash hook)"

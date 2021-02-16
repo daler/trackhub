@@ -2,7 +2,7 @@
 
 bigWig example
 ----------------
-You can read more about preparing the files necessary for a bigGenePred track
+You can read more about preparing the files necessary for a bigWig track
 on `UCSC's bigWig help page
 <https://genome.ucsc.edu/goldenPath/help/bigWig.html>`_. The following code
 uses the example files provided by UCSC.
