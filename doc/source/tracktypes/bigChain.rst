@@ -31,5 +31,5 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
           tracktype = 'bigChain',
           visibility = 'pack')
      trackdb.add_tracks(track)
-     
+
      trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_bigChain_hub')

@@ -21,3 +21,5 @@ for tracktype in observed_types:
     for param in param_defs:
         if tracktype in param.types:
             lst.append(param.name)
+
+INDENT = '    '

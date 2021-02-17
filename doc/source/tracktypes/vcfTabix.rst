@@ -2,7 +2,7 @@
 
 vcfTabix example
 ----------------
-You can read more about preparing the files necessary for a bigGenePred track
+You can read more about preparing the files necessary for a vcfTabix track
 on `UCSC's bigInteract help page
 <https://genome.ucsc.edu/goldenPath/help/vcf.html>`_. The following code
 uses the example files provided by UCSC.

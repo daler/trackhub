@@ -101,9 +101,14 @@ class TrackDb(HubComponent):
         self.add_parent(genome)
 
     def __str__(self):
+        self.validate()
         s = []
         for track in self._tracks:
-            s.append(str(track) + '\n')
+            for line in str(track).splitlines(False):
+                line = line.rstrip()
+                s.append(line)
+            s.append('')
+
         return '\n'.join(s)
 
     def validate(self):

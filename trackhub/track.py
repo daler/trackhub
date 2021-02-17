@@ -111,7 +111,7 @@ class SubGroupDefinition(object):
 class BaseTrack(HubComponent):
     def __init__(self, name, tracktype=None, short_label=None,
                  long_label=None, subgroups=None, source=None, filename=None,
-                 html_string=None, html_string_format="rst", track_type_override=None, **kwargs):
+                 html_string=None, html_string_format="rst", **kwargs):
         """
         Represents a single track stanza, base class for other track types.
 
@@ -169,12 +169,6 @@ class BaseTrack(HubComponent):
         html_string_format : 'html' or 'rst'
             Indicates the format of `html_string`. If `"html"`, then use as-is;
             if `"rst"` then convert ReST to HTML.
-
-        track_type_override : str
-            Composite tracks can specify a tracktype of their children, but we
-            also need to know that it's a composite track. For composite tracks,
-            this can be set to "compositeTrack":
-
         """
         source, filename = deprecation_handler(source, filename, kwargs)
         HubComponent.__init__(self)
@@ -191,8 +185,6 @@ class BaseTrack(HubComponent):
         self.track_field_order = []
         self.track_field_order = update_list(self.track_field_order,
                                              constants.track_fields['all'])
-
-        self.track_type_override = track_type_override
 
         # NOTE: when setting track type, it will update the track field order
         # according to the known params for that track...so
@@ -290,11 +282,7 @@ class BaseTrack(HubComponent):
         base_tracktype = tracktype.split()[0]
 
         fields = []
-        if self.track_type_override:
-            for t in self.track_type_override:
-                fields.extend(constants.track_fields[t])
-        else:
-            fields.extend(constants.track_fields[base_tracktype])
+        fields.extend(constants.track_fields[base_tracktype])
         self.track_field_order = update_list(self.track_field_order, fields)
 
     def add_trackdb(self, trackdb):
@@ -497,13 +485,12 @@ class CompositeTrack(BaseTrack):
         See :class:`BaseTrack` for details on arguments. There are no
         additional arguments supported by this class.
         """
-        super(CompositeTrack,
-              self).__init__(track_type_override=['compositeTrack',
-                                                  'subGroups'], *args,
-                             **kwargs)
+        super(CompositeTrack, self).__init__(*args, **kwargs)
 
         self.track_field_order = update_list(
             self.track_field_order, constants.track_fields['compositeTrack'])
+        self.track_field_order = update_list(
+            self.track_field_order, constants.track_fields['subGroups'])
 
         # TODO: are subtracks and views mutually exclusive, or can a composite
         # have both "view-ed" and "non-view-ed" subtracks?
@@ -582,12 +569,12 @@ class CompositeTrack(BaseTrack):
         for view in self.views:
             s.append("")
             for line in str(view).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
 
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
         return "\n".join(s)
 
 
@@ -643,7 +630,7 @@ class ViewTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('        ' + line)
+                s.append(constants.INDENT + line)
         return '\n'.join(s)
 
 
@@ -692,7 +679,7 @@ class SuperTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append(line)
+                s.append(constants.INDENT + line)
         return '\n'.join(s)
 
 
@@ -731,7 +718,7 @@ class AggregateTrack(BaseTrack):
 
     def add_subtrack(self, subtrack):
         """
-        Add a child :class:`SubTrack` to this aggregrate.
+        Add a child :class:`SubTrack` to this aggregate.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
@@ -746,7 +733,7 @@ class AggregateTrack(BaseTrack):
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
-                s.append('    ' + line)
+                s.append(constants.INDENT + line)
         return "\n".join(s)
 
 
