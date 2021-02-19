@@ -27,8 +27,6 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         name = 'bigWig',
         tracktype = 'bigWig',
         bigDataUrl = 'http://genome.ucsc.edu/goldenPath/help/examples/bigWigExample.bw',
-        shortLabel = 'Example Hub',
-        longLabel ='Example Hub',
         visibility = 'full')
     trackdb.add_tracks(track)
 

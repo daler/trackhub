@@ -15,12 +15,12 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
 
      import trackhub
      hub, genomes_file, genome, trackdb = trackhub.default_hub(
-          hub_name="hic",
+          hub_name = 'hic',
           defaultPos= 'chr21:32000000-35000000',
-          short_label="hic_example",
-          long_label="hic_example",
-          genome="hg19",
-          email="eva.jason@nih.gov")
+          short_label = 'hic',
+          long_label = 'hic',
+          genome = 'hg19',
+          email = 'eva.jason@nih.gov')
 
      track = trackhub.Track(
           name = 'examplehicTrack',
@@ -31,4 +31,4 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
           longLabel = 'This hic file shows in situ Hi-C data from Rao et al. (2014) on the GM12878 cell line')
 
      trackdb.add_tracks(track)
-     trackhub.upload.upload_hub(hub=hub, host='localhost', remote_dir='example_hubs/example_hic_hub')
+     trackhub.upload.upload_hub(hub = hub, host = 'localhost', remote_dir = 'example_hubs/example_hic_hub')
