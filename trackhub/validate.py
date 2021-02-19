@@ -333,3 +333,14 @@ def hex_or_named(v):
 @validator('bigBed', 'bigBed 6+3')
 def tracktypes(v):
     return True
+
+@validator(1.0)
+def ensure_float(v):
+    if '.' not in str(v):
+        raise ValueError("Not a float")
+    try:
+        float(v)
+
+    except ValueError:
+        raise ValueError("Does not appear to be a float")
+    return True

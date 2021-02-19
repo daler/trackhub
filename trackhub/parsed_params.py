@@ -874,7 +874,7 @@ param_defs = [
         fmt=['priority <float>'],
         types=['all'],
         required=False,
-        validator=float),
+        validator=validate.ensure_float),
 
     Param(
         name="refUrl",
