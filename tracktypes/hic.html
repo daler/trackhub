@@ -183,31 +183,30 @@
             
   <div class="section" id="hi-c-example">
 <span id="hic-example"></span><h1>Hi-C example<a class="headerlink" href="#hi-c-example" title="Permalink to this headline">¶</a></h1>
-<p>You can read more about preparing the files necessary for a bigBarChart track
+<p>You can read more about preparing the files necessary for a Hi-C track
 on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/hic.html">UCSC’s hic help page</a>. The following code
 uses the example files provided by UCSC.</p>
 <p>This code is automatically run and the built trackhub is uploaded to the
 <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
-view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hubs/example_hic_hub/hic_example.hub.txt">this link</a>.</p>
+view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_hic_hub/hic.hub.txt">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
-     <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;hic&quot;</span><span class="p">,</span>
+     <span class="n">hub_name</span> <span class="o">=</span> <span class="s1">&#39;hic&#39;</span><span class="p">,</span>
      <span class="n">defaultPos</span><span class="o">=</span> <span class="s1">&#39;chr21:32000000-35000000&#39;</span><span class="p">,</span>
-     <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;hic_example&quot;</span><span class="p">,</span>
-     <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;hic_example&quot;</span><span class="p">,</span>
-     <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg19&quot;</span><span class="p">,</span>
-     <span class="n">email</span><span class="o">=</span><span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">)</span>
+     <span class="n">short_label</span> <span class="o">=</span> <span class="s1">&#39;hic&#39;</span><span class="p">,</span>
+     <span class="n">long_label</span> <span class="o">=</span> <span class="s1">&#39;hic&#39;</span><span class="p">,</span>
+     <span class="n">genome</span> <span class="o">=</span> <span class="s1">&#39;hg19&#39;</span><span class="p">,</span>
+     <span class="n">email</span> <span class="o">=</span> <span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;examplehicTrack&#39;</span><span class="p">,</span>
      <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;hic&#39;</span><span class="p">,</span>
      <span class="n">visibility</span> <span class="o">=</span> <span class="s1">&#39;dense&#39;</span><span class="p">,</span>
      <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/hic/GSE63525_GM12878_insitu_primary+replicate_combined.hic&#39;</span><span class="p">,</span>
-     <span class="n">shortLabel</span> <span class="o">=</span> <span class="s1">&#39;hic example&#39;</span><span class="p">,</span>
      <span class="n">longLabel</span> <span class="o">=</span> <span class="s1">&#39;This hic file shows in situ Hi-C data from Rao et al. (2014) on the GM12878 cell line&#39;</span><span class="p">)</span>
 
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_hic_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span> <span class="o">=</span> <span class="n">hub</span><span class="p">,</span> <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span> <span class="o">=</span> <span class="s1">&#39;example_hubs/example_hic_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

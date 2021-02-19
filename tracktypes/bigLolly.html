@@ -183,35 +183,37 @@
             
   <div class="section" id="biglolly-example">
 <span id="biglolly"></span><h1>bigLolly example<a class="headerlink" href="#biglolly-example" title="Permalink to this headline">¶</a></h1>
-<p>You can read more about preparing the files necessary for a bam track
-on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/bigLolly.html">UCSC’s bigLolly help page</a>. The following code uses the example files provided by UCSC.</p>
-<p>This code is automatically run and the built trackhub is uploaded to the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You canview the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/bigLolly_assembly_hub/bigLolly_hub.hub.txt&amp;position=chr14%3A95060967%2D95501030">this link</a>.</p>
+<p>You can read more about preparing the files necessary for a bigLolly track
+on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/bigLolly.html">UCSC’s bigLolly help page</a>. The following code uses the example files provided by UCSC.
+This track type uses non-standard names for some parameters. These paramters can be added as a dictionary and setting
+<cite>trackhub.settings.VALIDATE = False</cite>.</p>
+<p>This code is automatically run and the built trackhub is uploaded to the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigLolly_hub/bigLolly.hub.txt&amp;position=chr21:25891755-25891870">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">trackhub</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">hub</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span><span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
-     <span class="n">hub_name</span><span class="o">=</span><span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
-     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
-     <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
-     <span class="n">genome</span><span class="o">=</span><span class="s1">&#39;hg38&#39;</span><span class="p">,</span>
+     <span class="n">hub_name</span> <span class="o">=</span> <span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
+     <span class="n">short_label</span> <span class="o">=</span> <span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
+     <span class="n">long_label</span> <span class="o">=</span> <span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
+     <span class="n">genome</span> <span class="o">=</span> <span class="s1">&#39;hg38&#39;</span><span class="p">,</span>
      <span class="n">defaultPos</span> <span class="o">=</span> <span class="s1">&#39;chr21:25891755-25891870&#39;</span><span class="p">,</span>
-     <span class="n">email</span><span class="o">=</span><span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
+     <span class="n">email</span> <span class="o">=</span> <span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
 
 <span class="n">add_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;yAxisLabel.1&#39;</span><span class="p">:</span> <span class="s1">&#39;0 on 30,30,190 0&#39;</span><span class="p">,</span>
               <span class="s1">&#39;yAxisLabel.1&#39;</span> <span class="p">:</span> <span class="s1">&#39;5 on 30,30,190 5&#39;</span><span class="p">}</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
      <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
-     <span class="n">bigDataUrl</span><span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigLollyExample3.bb&#39;</span><span class="p">,</span>
+     <span class="n">bigDataUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigLollyExample3.bb&#39;</span><span class="p">,</span>
      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bigLolly&#39;</span><span class="p">,</span>
-     <span class="n">lollySizeField</span><span class="o">=</span><span class="s1">&#39;lollySize&#39;</span><span class="p">,</span>
-     <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
-     <span class="n">noStems</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>
-     <span class="n">lollyMaxSize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+     <span class="n">lollySizeField</span> <span class="o">=</span> <span class="s1">&#39;lollySize&#39;</span><span class="p">,</span>
+     <span class="n">visibility</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span>
+     <span class="n">noStems</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+     <span class="n">lollyMaxSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
      <span class="o">**</span><span class="n">add_kwargs</span><span class="p">)</span>
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_bigLolly_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span> <span class="o">=</span> <span class="n">hub</span><span class="p">,</span> <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span> <span class="o">=</span> <span class="s1">&#39;example_hubs/example_bigLolly_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

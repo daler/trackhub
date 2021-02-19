@@ -184,11 +184,11 @@
   <div class="section" id="bigchain-example">
 <span id="bigchain"></span><h1>bigChain example<a class="headerlink" href="#bigchain-example" title="Permalink to this headline">¶</a></h1>
 <p>You can read more about preparing the files necessary for a bigChain track
-on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/barChain.html">UCSC’s bigBarChart help page</a>. The following code
+on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/bigChain.html">UCSC’s bigChain help page</a>. The following code
 uses the example files provided by UCSC.</p>
 <p>This code is automatically run and the built trackhub is uploaded to the
 <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
-view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigChain_hub/bigChain_hub.hub.txt&amp;position=chr14%3A95060967%2D95501030">this link</a>.</p>
+view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigChain_hub/bigChain.hub.txt&amp;position=chr22_KI270731v1_random">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
@@ -196,12 +196,12 @@ view the live hub using <a class="reference external" href="http://genome.ucsc.e
      <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;bigChain&#39;</span><span class="p">,</span>
      <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;bigChain&#39;</span><span class="p">,</span>
      <span class="n">genome</span><span class="o">=</span><span class="s1">&#39;hg38&#39;</span><span class="p">,</span>
-     <span class="n">defaultPos</span> <span class="o">=</span> <span class="s1">&#39;chr22:1-150754&#39;</span><span class="p">,</span>
      <span class="n">email</span><span class="o">=</span><span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bigChain&#39;</span><span class="p">,</span>
      <span class="n">bigDataUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigChain.bb&#39;</span><span class="p">,</span>
+     <span class="n">linkDataUrl</span><span class="o">=</span><span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigChain.link.bb&#39;</span><span class="p">,</span>
      <span class="n">shortLabel</span> <span class="o">=</span> <span class="s1">&#39;bigChain&#39;</span><span class="p">,</span>
      <span class="n">longLabel</span> <span class="o">=</span><span class="s1">&#39;bigChain Example Hub&#39;</span><span class="p">,</span>
      <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigChain&#39;</span><span class="p">,</span>

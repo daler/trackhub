@@ -188,30 +188,30 @@ on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/b
 uses the example files provided by UCSC.</p>
 <p>This code is automatically run and the built trackhub is uploaded to the
 <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
-view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgHubConnect?hgHub_do_redirect=on&amp;hgHubConnect.remakeTrackHub=on&amp;hgHub_do_firstDb=1&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigInteract_hub/bigInteract_hub.hub.txt&amp;position=chr14%3A95060967%2D95501030">this link</a>.</p>
+view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigInteract_hub/bigInteract.hub.txt&amp;position=chr3:63820967-63880091">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
-    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
+    <span class="n">hub_name</span> <span class="o">=</span> <span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
     <span class="n">defaultPos</span> <span class="o">=</span> <span class="s1">&#39;chr3:63820967-63880091&#39;</span><span class="p">,</span>
-    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
-    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
-    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg19&quot;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">)</span>
+    <span class="n">short_label</span> <span class="o">=</span> <span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span> <span class="o">=</span> <span class="s2">&quot;bigInteract&quot;</span><span class="p">,</span>
+    <span class="n">genome</span> <span class="o">=</span> <span class="s2">&quot;hg19&quot;</span><span class="p">,</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">)</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bigInteract&#39;</span><span class="p">,</span>
     <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigInteract&#39;</span><span class="p">,</span>
     <span class="n">bigDataUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/interact/interactExample3.inter.bb&#39;</span><span class="p">,</span>
     <span class="n">shortLabel</span> <span class="o">=</span> <span class="s1">&#39;bigInteract&#39;</span><span class="p">,</span>
-    <span class="n">longLabel</span> <span class="o">=</span><span class="s1">&#39;bigInteract&#39;</span><span class="p">,</span>
+    <span class="n">longLabel</span>  <span class="o">=</span> <span class="s1">&#39;bigInteract&#39;</span><span class="p">,</span>
     <span class="n">visibility</span> <span class="o">=</span> <span class="s1">&#39;pack&#39;</span><span class="p">,</span>
     <span class="n">spectrum</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span>
     <span class="n">scoreMin</span> <span class="o">=</span> <span class="s1">&#39;175&#39;</span><span class="p">,</span>
     <span class="n">maxHeightPixels</span> <span class="o">=</span> <span class="s1">&#39;300:150:20&#39;</span><span class="p">)</span>
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_bigInteract_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span> <span class="o">=</span> <span class="n">hub</span><span class="p">,</span> <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="n">remote_dir</span> <span class="o">=</span> <span class="s1">&#39;example_hubs/example_bigInteract_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
