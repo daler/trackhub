@@ -27,7 +27,6 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
           tracktype = 'hic',
           visibility = 'dense',
           url = 'http://hgdownload.soe.ucsc.edu/gbdb/hg19/bbi/hic/GSE63525_GM12878_insitu_primary+replicate_combined.hic',
-          shortLabel = 'hic example',
           longLabel = 'This hic file shows in situ Hi-C data from Rao et al. (2014) on the GM12878 cell line')
 
      trackdb.add_tracks(track)
