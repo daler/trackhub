@@ -1,6 +1,6 @@
 import trackhub
 
-""" tests to see if a mix of object types can be handled by add_tracks
+""" Tests to see if a mix of object types can be handled by add_tracks
 in the class CompositeTrack"""
 def test_composite_args():
 
@@ -11,7 +11,8 @@ def test_composite_args():
 
     d = {'track1': t1, 'track2': t2}
 
-    c1 = trackhub.track.CompositeTrack(name='testcomposite', tracktype='bigWig') c1.add_tracks(v1, [t1, t2])
+    c1 = trackhub.track.CompositeTrack(name='testcomposite', tracktype='bigWig')
+    c1.add_tracks(v1, [t1, t2])
     res1 = str(c1)
 
     c2 = trackhub.track.CompositeTrack(name='testcomposite', tracktype='bigWig')
@@ -28,7 +29,7 @@ def test_composite_args():
 
     assert res1 == res2 == res3 == res4
 
-""" tests for backward compatibility. Compares the output of the
+""" Tests for backward compatibility. Compares the output of the
 old method 'add_subtracks' with the new one 'add_tracks'"""
 def test_agg_args():
 
@@ -43,7 +44,7 @@ def test_agg_args():
     agg2 = str(a2)
     assert agg1 == agg2
 
-""" tests to see if a mix of object types can be handled by add_tracks in the class AggregateTrack"""
+""" Tests to see if a mix of object types can be handled by 'add_tracks' in the class AggregateTrack"""
 def test_add_multiple_agg_args():
 
     a1 = trackhub.track.AggregateTrack(name='testagg',tracktype='bigWig',aggregate='transparentOverlay')
@@ -115,7 +116,7 @@ compositeTrack on
     parent testcomposite"""
 
 
-""" Tests to see if a mix of object types can be handled by 'add_tracks' in the class SuperTrack"""
+""" Tests to see if different object types can be handled by 'add_tracks' in the class SuperTrack"""
 def test_multiple_super_track():
     s1 = trackhub.track.SuperTrack(name="super")
     s2 = trackhub.track.SuperTrack(name="super")
@@ -135,7 +136,7 @@ def test_multiple_super_track():
     sup4 = str(s4)
     assert sup1 == sup2 == sup3 == sup4
 
-""" Tes to make sure changes to 'add_tracks' produces the same results as beforeit was updated to accept different types of object"""
+""" Test to make sure changes to 'add_tracks' produces the same results as before it was updated to accept different types of objects"""
 def test_super_track():
     s = trackhub.track.SuperTrack(name="super")
 
@@ -168,3 +169,54 @@ superTrack on
     longLabel test3
     type bigWig
     parent super"""
+
+""" Tests to see if different object types can be handled by 'add_tracks' in the class ViewTrack"""
+def test_add_tracks_view():
+
+    t1 = trackhub.track.Track(name='testtrack', tracktype='bigWig')
+    t2 = trackhub.track.Track(name='testtrack', tracktype='bigWig')
+    t3 = trackhub.track.Track(name='testtrack', tracktype='bigWig')
+    v1 = trackhub.track.ViewTrack(name='a', view='v', tracktype='bigWig')
+    v2 = trackhub.track.ViewTrack(name='a', view='v', tracktype='bigWig')
+    v3 = trackhub.track.ViewTrack(name='a', view='v', tracktype='bigWig')
+    v4 = trackhub.track.ViewTrack(name='a', view='v', tracktype='bigWig')
+
+
+    v1.add_tracks([t1,t2,t3])
+    view1 = str(v1)
+    v2.add_tracks(t1,[t2,t3])
+    view2 = str(v2)
+    v3.add_tracks(t1,t2,t3)
+    view3 = str(v3)
+
+    dview = {'t1': t1, 't2': t2, 't3': t3}
+    v4.add_tracks(dview.values())
+    view4 = str(v4)
+
+    assert view1 == view2 == view3 == view4 == \
+"""track a
+shortLabel a
+longLabel a
+type bigWig
+view v
+
+    track testtrack
+    shortLabel testtrack
+    longLabel testtrack
+    type bigWig
+    parent a
+    subGroups view=v
+
+    track testtrack
+    shortLabel testtrack
+    longLabel testtrack
+    type bigWig
+    parent a
+    subGroups view=v
+
+    track testtrack
+    shortLabel testtrack
+    longLabel testtrack
+    type bigWig
+    parent a
+    subGroups view=v"""
