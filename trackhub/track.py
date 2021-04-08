@@ -626,20 +626,20 @@ class ViewTrack(BaseTrack):
             self.track_field_order, constants.track_fields['view'])
         self.subtracks = []
 
-    def add_tracks(self,subtracks):
+    def add_tracks(self,*args):
         """
         Add one or more tracks to this view.
 
         subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
-
-        if isinstance(subtracks, BaseTrack):
-            subtracks = [subtracks]
-        for subtrack in subtracks:
-            subtrack.subgroups['view'] = self.view
-            self.add_child(subtrack)
-            self.subtracks.append(subtrack)
+        for arg in args:
+            if isinstance(arg, BaseTrack):
+                arg = [arg]
+            for track in arg:
+                track.subgroups['view'] = self.view
+                self.add_child(track)
+                self.subtracks.append(track)
 
     def __str__(self):
         s = []
