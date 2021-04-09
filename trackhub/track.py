@@ -53,7 +53,6 @@ def update_list(existing, new, first=constants.initial_params):
 
 class SubGroupDefinition(object):
     def __init__(self, name, label, mapping, default="none"):
-        #
         """
         Represents a subgroup line in a composite track.
 
