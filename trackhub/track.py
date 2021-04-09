@@ -315,7 +315,7 @@ class BaseTrack(HubComponent):
 
         self._orig_kwargs.update(kw)
         self.kwargs = self._orig_kwargs.copy()
-    #what's the purpose of this?
+
     def remove_params(self, *args):
         """
         Remove [possibly many] parameters from the track.
@@ -406,7 +406,6 @@ class BaseTrack(HubComponent):
         return ['subGroups %s'
                 % ' '.join(['%s=%s' % (k, v) for (k, v) in
                            self.subgroups.items()])]
-    #what does this do?
     def validate(self):
         pass
 
