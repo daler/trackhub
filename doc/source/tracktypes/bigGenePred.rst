@@ -13,15 +13,16 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
 
 .. code-block:: python
 
-
     import trackhub
 
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
-        hub_name="genePred",
-        short_label="genePred",
-        long_label="genePred",
+        hub_name="bigGenePred",
+        short_label="bigGenePred",
+        long_label="bigGenePred",
+        defaultPos="chr19:44905790-44909388",
         genome="hg38",
-        email="eva.jason@nih.gov")
+        email="eva.jason@nih.gov",
+    )
 
     track = trackhub.Track(
         name="bigGenePred",
@@ -29,8 +30,10 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         shortLabel="bigGenePred",
         longLabel="bigGenePred",
         tracktype="bigGenePred",
-        visibility="pack")
+        visibility="pack",
+    )
     trackdb.add_tracks(track)
 
-    trackhub.upload.upload_hub(hub=hub, host="localhost",
-                               remote_dir="example_hubs/example_bigGenePred_hub")
+    trackhub.upload.upload_hub(
+        hub=hub, host="localhost", remote_dir="example_hubs/example_bigGenePred_hub"
+    )

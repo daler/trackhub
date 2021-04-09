@@ -21,7 +21,8 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         short_label="bigInteract",
         long_label="bigInteract",
         genome="hg19",
-        email="eva.jason@nih.gov")
+        email="eva.jason@nih.gov",
+    )
 
     track = trackhub.Track(
         name="bigInteract",
@@ -32,8 +33,10 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         visibility="pack",
         spectrum="on",
         scoreMin="175",
-        maxHeightPixels="300:150:20")
+        maxHeightPixels="300:150:20",
+    )
     trackdb.add_tracks(track)
 
-    trackhub.upload.upload_hub(hub=hub, host="localhost",
-                               remote_dir="example_hubs/example_bigInteract_hub")
+    trackhub.upload.upload_hub(
+        hub=hub, host="localhost", remote_dir="example_hubs/example_bigInteract_hub"
+    )

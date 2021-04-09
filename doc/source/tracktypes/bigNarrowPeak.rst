@@ -20,15 +20,19 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
         short_label="bigNarrowPeak",
         long_label="bigNarrowPeak",
         genome="hg38",
-        email="eva.jason@nih.gov")
+        email="eva.jason@nih.gov",
+    )
 
     track = trackhub.Track(
-        tracktype='bigNarrowPeak',
-        name='bigNarrowPeak', 
-        bigDataUrl='http://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.bb',
-        shortLabel='bigNarrowPeak',
-        longLabel='bigNarrowPeak',
-        visibility='full')
+        tracktype="bigNarrowPeak",
+        name="bigNarrowPeak",
+        bigDataUrl="http://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.bb",
+        shortLabel="bigNarrowPeak",
+        longLabel="bigNarrowPeak",
+        visibility="full",
+    )
     trackdb.add_tracks(track)
 
-    trackhub.upload.upload_hub(hub=hub, host='localhost',remote_dir='example_hubs/example_bigNarrowPeak_hub')
+    trackhub.upload.upload_hub(
+        hub=hub, host="localhost", remote_dir="example_hubs/example_bigNarrowPeak_hub"
+    )
