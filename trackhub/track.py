@@ -14,12 +14,10 @@ TRACKTYPES = ['bigWig', 'bam', 'bigBed', 'vcfTabix', 'bigNarrowPeak', None,
               'bigBarChart', 'bigChain', 'bigGenePred', 'bigNarrowPeak',
               'bigMaf', 'bigPsl', 'halSnake']
 
-
 def _check_name(name):
     regex = re.compile('[^a-zA-Z0-9-_]')
     if regex.search(name):
         raise ValueError('Non-alphanumeric character in name "%s"' % name)
-
 
 class ParameterError(Exception):
     pass
@@ -50,7 +48,6 @@ def update_list(existing, new, first=constants.initial_params):
     combined = set(existing + new)
     beginning = [i for i in first if i in combined]
     end = sorted(combined.difference(first))
-
     return beginning + end
 
 
@@ -408,7 +405,6 @@ class BaseTrack(HubComponent):
         return ['subGroups %s'
                 % ' '.join(['%s=%s' % (k, v) for (k, v) in
                            self.subgroups.items()])]
-
     def validate(self):
         pass
 
@@ -535,6 +531,25 @@ class CompositeTrack(BaseTrack):
         self.add_child(view)
         self.views.append(view)
 
+    def add_tracks(self, *args):
+        """This method allows for both view and subtracks to be added to
+        a composite at the same time. It will accept a list or an
+        instance of BaseTrack.
+
+        Add one or more tracks to this view.
+
+        """
+        for arg in args:
+            if isinstance(arg, BaseTrack):
+                arg = [arg]
+
+            for track in arg:
+                if isinstance(track, ViewTrack):
+                    self.add_view(track)
+                if isinstance(track, Track):
+                    self.add_subtrack(track)
+
+
     def _str_subgroups(self):
         """
         renders subgroups to a list of strings
@@ -609,19 +624,20 @@ class ViewTrack(BaseTrack):
             self.track_field_order, constants.track_fields['view'])
         self.subtracks = []
 
-    def add_tracks(self, subtracks):
+    def add_tracks(self,*args):
         """
         Add one or more tracks to this view.
 
         subtracks : Track or iterable of Tracks
             A single Track instance or an iterable of them.
         """
-        if isinstance(subtracks, BaseTrack):
-            subtracks = [subtracks]
-        for subtrack in subtracks:
-            subtrack.subgroups['view'] = self.view
-            self.add_child(subtrack)
-            self.subtracks.append(subtrack)
+        for arg in args:
+            if isinstance(arg, BaseTrack):
+                arg = [arg]
+            for track in arg:
+                track.subgroups['view'] = self.view
+                self.add_child(track)
+                self.subtracks.append(track)
 
     def __str__(self):
         s = []
@@ -655,17 +671,18 @@ class SuperTrack(BaseTrack):
 
         self.subtracks = []
 
-    def add_tracks(self, subtracks):
+    def add_tracks(self,*args):
         """
         Add one or more tracks.
 
         subtrack : Track or iterable of Tracks
         """
-        if isinstance(subtracks, BaseTrack):
-            subtracks = [subtracks]
-        for subtrack in subtracks:
-            self.add_child(subtrack)
-            self.subtracks.append(subtrack)
+        for arg in args:
+            if isinstance(arg, BaseTrack):
+                arg = [arg]
+            for track in arg:
+                self.add_child(track)
+                self.subtracks.append(track)
 
     def __str__(self):
 
@@ -674,8 +691,6 @@ class SuperTrack(BaseTrack):
         s.append(super(SuperTrack, self).__str__())
         s.append('superTrack on')
 
-        # Removed subtracks for Supertrack because composite tracks can be
-        # within the supertrack.  This is also the recommendation from UCSC
         for subtrack in self.subtracks:
             s.append("")
             for line in str(subtrack).splitlines(False):
@@ -723,6 +738,13 @@ class AggregateTrack(BaseTrack):
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
 
+    def add_tracks(self,*args):
+        for arg in args:
+            if isinstance(arg,BaseTrack):
+                arg = [arg]
+            for track in arg:
+               self.add_subtrack(track)
+
     def __str__(self):
 
         s = []
@@ -735,7 +757,6 @@ class AggregateTrack(BaseTrack):
             for line in str(subtrack).splitlines(False):
                 s.append(constants.INDENT + line)
         return "\n".join(s)
-
 
 class HTMLDoc(HubComponent):
     def __init__(self, contents, html_string_format, filename=None):
