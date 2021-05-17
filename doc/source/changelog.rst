@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Fixed Inconsistant Method Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The code has been updated so that there is one naming convention, `add_tracks`,
+rather than multiple methods names that perform this for different track types.
+`add_view` and `add_subtracks` can now simply be replaced with `add_tracks`.
+These methods will accept track objects, a list of track object, and
+a combination of the two.
+
 Version 0.2.4 (Dec 2017)
 ------------------------
 
