@@ -1,3 +1,6 @@
+
+.. _tracktypes:
+
 Examples of hubs using various supported track types
 ====================================================
 
