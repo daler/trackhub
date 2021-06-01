@@ -469,9 +469,7 @@ class CompositeTrack(BaseTrack):
         Represents a composite track.  Subclasses :class:`BaseTrack`, and adds
         some extras.
 
-        Add a view to this composite with :meth:`add_view`.
-
-        Add a subtrack with :meth:`add_track`.
+        Add a view or subtrack to this composite with :meth:`add_tracks`.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`. If
@@ -516,6 +514,9 @@ class CompositeTrack(BaseTrack):
     def add_subtrack(self, subtrack):
         """
         Add a child :class:`Track`.
+
+        Deprecated in favor of the more generic `add_tracks` method, but
+        maintained for backwards compatibility.
         """
         self.add_child(subtrack)
         self.subtracks.append(subtrack)
@@ -523,6 +524,9 @@ class CompositeTrack(BaseTrack):
     def add_view(self, view):
         """
         Add a ViewTrack object to this composite.
+
+        Deprecated in favor of the more generic `add_tracks` method, but
+        maintained for backwards compatibility.
 
         :param view:
             A ViewTrack object.
@@ -532,12 +536,17 @@ class CompositeTrack(BaseTrack):
         self.views.append(view)
 
     def add_tracks(self, *args):
-        """This method allows for both view and subtracks to be added to
-        a composite at the same time. It will accept a list or an
-        instance of BaseTrack.
+        """
+        This method allows for both view and subtracks to be added to
+        a composite at the same time. `args` can be arbitrary BaseTrack objects
+        (typically Track or View objects), either singly or as a list. For
+        example any of the following are supported::
 
-        Add one or more tracks to this view.
+            add_tracks(view)
 
+            add_tracks(view, [track1, track2])
+
+            add_tracks(track1, track2)
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -628,8 +637,11 @@ class ViewTrack(BaseTrack):
         """
         Add one or more tracks to this view.
 
-        subtracks : Track or iterable of Tracks
-            A single Track instance or an iterable of them.
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -675,7 +687,11 @@ class SuperTrack(BaseTrack):
         """
         Add one or more tracks.
 
-        subtrack : Track or iterable of Tracks
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -739,6 +755,16 @@ class AggregateTrack(BaseTrack):
         self.subtracks.append(subtrack)
 
     def add_tracks(self,*args):
+        """
+        Add one or more tracks.
+
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
+        """
+
         for arg in args:
             if isinstance(arg,BaseTrack):
                 arg = [arg]
