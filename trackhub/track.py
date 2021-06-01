@@ -518,8 +518,7 @@ class CompositeTrack(BaseTrack):
         Deprecated in favor of the more generic `add_tracks` method, but
         maintained for backwards compatibility.
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        self.add_tracks(subtrack)
 
     def add_view(self, view):
         """
@@ -531,9 +530,7 @@ class CompositeTrack(BaseTrack):
         :param view:
             A ViewTrack object.
         """
-
-        self.add_child(view)
-        self.views.append(view)
+        self.add_tracks(view)
 
     def add_tracks(self, *args):
         """
@@ -554,10 +551,11 @@ class CompositeTrack(BaseTrack):
 
             for track in arg:
                 if isinstance(track, ViewTrack):
-                    self.add_view(track)
+                    self.add_child(view)
+                    self.views.append(view)
                 if isinstance(track, Track):
-                    self.add_subtrack(track)
-
+                    self.add_child(track)
+                    self.subtracks.append(track)
 
     def _str_subgroups(self):
         """
@@ -751,8 +749,7 @@ class AggregateTrack(BaseTrack):
         """
         Add a child :class:`SubTrack` to this aggregate.
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        self.add_tracks(subtrack)
 
     def add_tracks(self,*args):
         """
@@ -766,10 +763,11 @@ class AggregateTrack(BaseTrack):
         """
 
         for arg in args:
-            if isinstance(arg,BaseTrack):
+            if isinstance(arg, BaseTrack):
                 arg = [arg]
             for track in arg:
-               self.add_subtrack(track)
+                self.add_child(track)
+                self.subtracks.append(track)
 
     def __str__(self):
 
