@@ -469,9 +469,7 @@ class CompositeTrack(BaseTrack):
         Represents a composite track.  Subclasses :class:`BaseTrack`, and adds
         some extras.
 
-        Add a view to this composite with :meth:`add_view`.
-
-        Add a subtrack with :meth:`add_track`.
+        Add a view or subtrack to this composite with :meth:`add_tracks`.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
         add this composite to it with :meth:`trackdb.TrackDb.add_tracks()`. If
@@ -516,28 +514,36 @@ class CompositeTrack(BaseTrack):
     def add_subtrack(self, subtrack):
         """
         Add a child :class:`Track`.
+
+        Deprecated in favor of the more generic `add_tracks` method, but
+        maintained for backwards compatibility.
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        self.add_tracks(subtrack)
 
     def add_view(self, view):
         """
         Add a ViewTrack object to this composite.
 
+        Deprecated in favor of the more generic `add_tracks` method, but
+        maintained for backwards compatibility.
+
         :param view:
             A ViewTrack object.
         """
-
-        self.add_child(view)
-        self.views.append(view)
+        self.add_tracks(view)
 
     def add_tracks(self, *args):
-        """This method allows for both view and subtracks to be added to
-        a composite at the same time. It will accept a list or an
-        instance of BaseTrack.
+        """
+        This method allows for both view and subtracks to be added to
+        a composite at the same time. `args` can be arbitrary BaseTrack objects
+        (typically Track or View objects), either singly or as a list. For
+        example any of the following are supported::
 
-        Add one or more tracks to this view.
+            add_tracks(view)
 
+            add_tracks(view, [track1, track2])
+
+            add_tracks(track1, track2)
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -545,10 +551,11 @@ class CompositeTrack(BaseTrack):
 
             for track in arg:
                 if isinstance(track, ViewTrack):
-                    self.add_view(track)
+                    self.add_child(track)
+                    self.views.append(track)
                 if isinstance(track, Track):
-                    self.add_subtrack(track)
-
+                    self.add_child(track)
+                    self.subtracks.append(track)
 
     def _str_subgroups(self):
         """
@@ -624,12 +631,15 @@ class ViewTrack(BaseTrack):
             self.track_field_order, constants.track_fields['view'])
         self.subtracks = []
 
-    def add_tracks(self,*args):
+    def add_tracks(self, *args):
         """
         Add one or more tracks to this view.
 
-        subtracks : Track or iterable of Tracks
-            A single Track instance or an iterable of them.
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -656,7 +666,7 @@ class SuperTrack(BaseTrack):
         Represents a Super track. Subclasses :class:`Track`, and adds some
         extras.
 
-        Super tracks are container tracks (Folders) that group tracks. They are
+        Super tracks are container tracks (folders) that group tracks. They are
         used to control visualization of a set of related data.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
@@ -671,11 +681,15 @@ class SuperTrack(BaseTrack):
 
         self.subtracks = []
 
-    def add_tracks(self,*args):
+    def add_tracks(self, *args):
         """
         Add one or more tracks.
 
-        subtrack : Track or iterable of Tracks
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
         """
         for arg in args:
             if isinstance(arg, BaseTrack):
@@ -735,15 +749,25 @@ class AggregateTrack(BaseTrack):
         """
         Add a child :class:`SubTrack` to this aggregate.
         """
-        self.add_child(subtrack)
-        self.subtracks.append(subtrack)
+        self.add_tracks(subtrack)
 
     def add_tracks(self,*args):
+        """
+        Add one or more tracks.
+
+        Parameters
+        ----------
+
+        args : Track or iterable of Tracks
+
+        """
+
         for arg in args:
-            if isinstance(arg,BaseTrack):
+            if isinstance(arg, BaseTrack):
                 arg = [arg]
             for track in arg:
-               self.add_subtrack(track)
+                self.add_child(track)
+                self.subtracks.append(track)
 
     def __str__(self):
 
