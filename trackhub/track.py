@@ -551,8 +551,8 @@ class CompositeTrack(BaseTrack):
 
             for track in arg:
                 if isinstance(track, ViewTrack):
-                    self.add_child(view)
-                    self.views.append(view)
+                    self.add_child(track)
+                    self.views.append(track)
                 if isinstance(track, Track):
                     self.add_child(track)
                     self.subtracks.append(track)
@@ -631,7 +631,7 @@ class ViewTrack(BaseTrack):
             self.track_field_order, constants.track_fields['view'])
         self.subtracks = []
 
-    def add_tracks(self,*args):
+    def add_tracks(self, *args):
         """
         Add one or more tracks to this view.
 
@@ -666,7 +666,7 @@ class SuperTrack(BaseTrack):
         Represents a Super track. Subclasses :class:`Track`, and adds some
         extras.
 
-        Super tracks are container tracks (Folders) that group tracks. They are
+        Super tracks are container tracks (folders) that group tracks. They are
         used to control visualization of a set of related data.
 
         Eventually, you'll need to make a :class:`trackdb.TrackDb` instance and
@@ -681,7 +681,7 @@ class SuperTrack(BaseTrack):
 
         self.subtracks = []
 
-    def add_tracks(self,*args):
+    def add_tracks(self, *args):
         """
         Add one or more tracks.
 
