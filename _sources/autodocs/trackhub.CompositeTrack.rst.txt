@@ -22,6 +22,7 @@
         ~CompositeTrack.add_subgroups
         ~CompositeTrack.add_subtrack
         ~CompositeTrack.add_trackdb
+        ~CompositeTrack.add_tracks
         ~CompositeTrack.add_view
         ~CompositeTrack.leaves
         ~CompositeTrack.makedirs

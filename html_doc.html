@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documenting tracks in hubs &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -165,7 +169,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="documenting-tracks-in-hubs">
+  <section id="documenting-tracks-in-hubs">
 <span id="htmldoc-example"></span><h1>Documenting tracks in hubs<a class="headerlink" href="#documenting-tracks-in-hubs" title="Permalink to this headline">¶</a></h1>
 <p><cite>trackhub</cite> supports documentation written in <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">ReStructured Text</a> that is
 automatically converted to HTML. Here we show examples of how this works.</p>
@@ -175,9 +179,9 @@ automatically converted to HTML. Here we show examples of how this works.</p>
 </ul>
 <p>The composite track’s documentation as created below will look like this in the
 Genome Browser:</p>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/htmldoc.png"><img alt="_images/htmldoc.png" src="_images/htmldoc.png" style="width: 500px;" /></a>
-</div>
+</figure>
 <p>The UCSC Genome Browser shows the HTML documentation <strong>only</strong> for the top-level
 track-like object and ignores lower-level documentation. For example, if you
 have documentation for a track, and add it directly to the TrackDb, the track
@@ -279,7 +283,7 @@ want to look at that first.</p>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="p">)</span>
 <span class="p">)</span>
-<span class="n">composite</span><span class="o">.</span><span class="n">add_view</span><span class="p">(</span><span class="n">signal_view</span><span class="p">)</span>
+<span class="n">composite</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">signal_view</span><span class="p">)</span>
 
 <span class="c1"># This multiWig overlay track will shows multiple bigWigs overlaying each</span>
 <span class="c1"># other in the same track</span>
@@ -368,7 +372,7 @@ want to look at that first.</p>
         <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>

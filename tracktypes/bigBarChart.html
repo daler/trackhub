@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>bigBarChart example &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -181,7 +185,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bigbarchart-example">
+  <section id="bigbarchart-example">
 <span id="id1"></span><h1>bigBarChart example<a class="headerlink" href="#bigbarchart-example" title="Permalink to this headline">¶</a></h1>
 <p>You can read more about preparing the files necessary for a bigBarChart track
 on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/barChart.html">UCSC’s bigBarChart help page</a>. The following code
@@ -190,33 +194,38 @@ uses the example files provided by UCSC.</p>
 <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository. You can
 view the live hub using <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/example_bigBarChart_hub/bigBarChart.hub.txt&amp;position=chr14:95081796-95436280">this link</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trackhub</span>
+
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
-     <span class="n">hub_name</span><span class="o">=</span><span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">genome</span><span class="o">=</span><span class="s1">&#39;hg38&#39;</span><span class="p">,</span>
-     <span class="n">defaultPos</span><span class="o">=</span><span class="s1">&#39;chr14:95081796-95436280&#39;</span><span class="p">,</span>
-     <span class="n">email</span><span class="o">=</span><span class="s1">&#39;eva.jason@nih.gov&#39;</span><span class="p">)</span>
+    <span class="n">hub_name</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
+    <span class="n">defaultPos</span><span class="o">=</span><span class="s2">&quot;chr14:95081796-95436280&quot;</span><span class="p">,</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
-     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">tracktype</span> <span class="o">=</span> <span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">visibility</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span>
-     <span class="n">shortLabel</span> <span class="o">=</span> <span class="s1">&#39;bigBarChart&#39;</span><span class="p">,</span>
-     <span class="n">longLabel</span> <span class="o">=</span> <span class="s1">&#39;Simple example bar chart track&#39;</span><span class="p">,</span>
-     <span class="n">barChartBars</span> <span class="o">=</span> <span class="s1">&#39;adiposeSubcut breastMamTissue colonTransverse muscleSkeletal wholeBlood&#39;</span><span class="p">,</span>
-     <span class="n">barChartColors</span> <span class="o">=</span> <span class="s1">&#39;#FF6600 #33CCCC #CC9955 #AAAAFF #FF00BB&#39;</span><span class="p">,</span>
-     <span class="n">barChartLabel</span> <span class="o">=</span> <span class="s1">&#39;Tissues&#39;</span><span class="p">,</span>
-     <span class="n">barChartMetric</span> <span class="o">=</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span>
-     <span class="n">barChartUnit</span> <span class="o">=</span> <span class="s1">&#39;RPKM&#39;</span><span class="p">,</span>
-     <span class="n">bigDataUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/hg38.gtexTranscripts.bb&#39;</span><span class="p">,</span>
-     <span class="n">barChartMatrixUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleMatrix.txt&#39;</span><span class="p">,</span>
-     <span class="n">barChartSampleUrl</span> <span class="o">=</span> <span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleSampleData.txt&#39;</span><span class="p">)</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="n">shortLabel</span><span class="o">=</span><span class="s2">&quot;bigBarChart&quot;</span><span class="p">,</span>
+    <span class="n">longLabel</span><span class="o">=</span><span class="s2">&quot;Simple example bar chart track&quot;</span><span class="p">,</span>
+    <span class="n">barChartBars</span><span class="o">=</span><span class="s2">&quot;adiposeSubcut breastMamTissue colonTransverse muscleSkeletal wholeBlood&quot;</span><span class="p">,</span>
+    <span class="n">barChartColors</span><span class="o">=</span><span class="s2">&quot;#FF6600 #33CCCC #CC9955 #AAAAFF #FF00BB&quot;</span><span class="p">,</span>
+    <span class="n">barChartLabel</span><span class="o">=</span><span class="s2">&quot;Tissues&quot;</span><span class="p">,</span>
+    <span class="n">barChartMetric</span><span class="o">=</span><span class="s2">&quot;median&quot;</span><span class="p">,</span>
+    <span class="n">barChartUnit</span><span class="o">=</span><span class="s2">&quot;RPKM&quot;</span><span class="p">,</span>
+    <span class="n">bigDataUrl</span><span class="o">=</span><span class="s2">&quot;http://genome.ucsc.edu/goldenPath/help/examples/barChart/hg38.gtexTranscripts.bb&quot;</span><span class="p">,</span>
+    <span class="n">barChartMatrixUrl</span><span class="o">=</span><span class="s2">&quot;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleMatrix.txt&quot;</span><span class="p">,</span>
+    <span class="n">barChartSampleUrl</span><span class="o">=</span><span class="s2">&quot;http://genome.ucsc.edu/goldenPath/help/examples/barChart/exampleSampleData.txt&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_bigBarChart_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s2">&quot;example_hubs/example_bigBarChart_hub&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>

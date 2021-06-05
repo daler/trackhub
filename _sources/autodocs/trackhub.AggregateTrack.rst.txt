@@ -22,6 +22,7 @@
         ~AggregateTrack.add_subgroups
         ~AggregateTrack.add_subtrack
         ~AggregateTrack.add_trackdb
+        ~AggregateTrack.add_tracks
         ~AggregateTrack.leaves
         ~AggregateTrack.makedirs
         ~AggregateTrack.remove_params

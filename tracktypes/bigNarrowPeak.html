@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>bigNarrowPeak example &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -181,7 +185,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bignarrowpeak-example">
+  <section id="bignarrowpeak-example">
 <span id="bignarrowpeak"></span><h1>bigNarrowPeak example<a class="headerlink" href="#bignarrowpeak-example" title="Permalink to this headline">¶</a></h1>
 <p>You can read more about preparing the files necessary for a bigGenePred track
 on <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/bigNarrowPeak.html">UCSC’s bigInteract help page</a>. The following code
@@ -196,21 +200,25 @@ view the live hub using <a class="reference external" href="http://genome.ucsc.e
     <span class="n">short_label</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
     <span class="n">long_label</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
     <span class="n">genome</span><span class="o">=</span><span class="s2">&quot;hg38&quot;</span><span class="p">,</span>
-    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">)</span>
+    <span class="n">email</span><span class="o">=</span><span class="s2">&quot;eva.jason@nih.gov&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">track</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
-    <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span>
-    <span class="n">bigDataUrl</span><span class="o">=</span><span class="s1">&#39;http://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.bb&#39;</span><span class="p">,</span>
-    <span class="n">shortLabel</span><span class="o">=</span><span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span>
-    <span class="n">longLabel</span><span class="o">=</span><span class="s1">&#39;bigNarrowPeak&#39;</span><span class="p">,</span>
-    <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+    <span class="n">tracktype</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
+    <span class="n">bigDataUrl</span><span class="o">=</span><span class="s2">&quot;http://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.bb&quot;</span><span class="p">,</span>
+    <span class="n">shortLabel</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
+    <span class="n">longLabel</span><span class="o">=</span><span class="s2">&quot;bigNarrowPeak&quot;</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">trackdb</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
 
-<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;example_hubs/example_bigNarrowPeak_hub&#39;</span><span class="p">)</span>
+<span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">upload_hub</span><span class="p">(</span>
+    <span class="n">hub</span><span class="o">=</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="s2">&quot;example_hubs/example_bigNarrowPeak_hub&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>

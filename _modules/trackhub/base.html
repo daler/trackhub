@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -192,12 +195,12 @@
     <span class="k">return</span> <span class="n">source</span><span class="p">,</span> <span class="n">filename</span>
 
 
-<div class="viewcode-block" id="HubComponent"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent">[docs]</a><span class="k">class</span> <span class="nc">HubComponent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent">[docs]</a><span class="k">class</span> <span class="nc">HubComponent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for various track hub components.  Several methods must be</span>
 <span class="sd">    overridden by subclasses.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="HubComponent.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span></div>
 
@@ -211,7 +214,7 @@
             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: subclasses must define their own _render() method&quot;</span>
             <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
-<div class="viewcode-block" id="HubComponent.validate"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.validate"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs validation, raising exceptions as needed.  Must be overridden by</span>
 <span class="sd">        subclass.</span>
@@ -220,7 +223,7 @@
             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: subclasses must define their own validate() method&quot;</span>
             <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HubComponent.add_child"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.add_child">[docs]</a>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.add_child"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.add_child">[docs]</a>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds self as parent to child, and then adds child.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -228,7 +231,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">child</span></div>
 
-<div class="viewcode-block" id="HubComponent.add_parent"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.add_parent">[docs]</a>    <span class="k">def</span> <span class="nf">add_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.add_parent"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.add_parent">[docs]</a>    <span class="k">def</span> <span class="nf">add_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds self as child of parent, then adds parent.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -236,7 +239,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="k">return</span> <span class="n">parent</span></div>
 
-<div class="viewcode-block" id="HubComponent.root"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.root">[docs]</a>    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.root"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.root">[docs]</a>    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the top-most HubComponent in the hierarchy.</span>
 
@@ -259,7 +262,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HubComponent.leaves"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.leaves">[docs]</a>    <span class="k">def</span> <span class="nf">leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">intermediate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.leaves"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.leaves">[docs]</a>    <span class="k">def</span> <span class="nf">leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">intermediate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an iterator of the HubComponent leaves that are of class `cls`.</span>
 
@@ -281,7 +284,7 @@
             <span class="p">):</span>
                     <span class="k">yield</span> <span class="n">leaf</span><span class="p">,</span> <span class="n">_level</span></div>
 
-<div class="viewcode-block" id="HubComponent.render"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.HubComponent.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="HubComponent.render"><a class="viewcode-back" href="../../autodocs/trackhub.base.HubComponent.html#trackhub.base.HubComponent.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Renders the object to file, returning a list of created files.</span>
 

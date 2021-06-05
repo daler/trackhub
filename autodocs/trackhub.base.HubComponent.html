@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>trackhub.base.HubComponent &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -191,7 +195,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="trackhub-base-hubcomponent">
+  <section id="trackhub-base-hubcomponent">
 <h1>trackhub.base.HubComponent<a class="headerlink" href="#trackhub-base-hubcomponent" title="Permalink to this headline">¶</a></h1>
 digraph inheritancef245ed092d {
 bgcolor=transparent;
@@ -200,8 +204,8 @@ size=&quot;8.0, 12.0&quot;;
   &quot;trackhub.base.HubComponent&quot; [URL=&quot;#trackhub.base.HubComponent&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
 }
 <dl class="py class">
-<dt id="trackhub.base.HubComponent">
-<em class="property">class </em><code class="sig-prename descclassname">trackhub.base.</code><code class="sig-name descname">HubComponent</code><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">trackhub.base.</span></span><span class="sig-name descname"><span class="pre">HubComponent</span></span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class for various track hub components.  Several methods must be
 overridden by subclasses.</p>
@@ -239,42 +243,42 @@ overridden by subclasses.</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.add_child">
-<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.add_child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.add_child" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.add_child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as parent to child, and then adds child.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.add_parent">
-<code class="sig-name descname">add_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.add_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.add_parent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.add_parent">
+<span class="sig-name descname"><span class="pre">add_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.add_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.add_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.leaves">
-<code class="sig-name descname">leaves</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">intermediate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.leaves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.leaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.leaves">
+<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.leaves"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.leaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.render">
-<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">staging</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.render" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
 <a class="reference internal" href="#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code></a>, the rendering is recursive.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.root">
-<code class="sig-name descname">root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.root" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.root">
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the top-most HubComponent in the hierarchy.</p>
 <p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
 that is an instance of class <cite>cls</cite>.</p>
@@ -283,15 +287,15 @@ a a Hub object for every component in the hierarchy.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.base.HubComponent.validate">
-<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.base.HubComponent.validate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.base.HubComponent.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/base.html#HubComponent.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.base.HubComponent.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs validation, raising exceptions as needed.  Must be overridden by
 subclass.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

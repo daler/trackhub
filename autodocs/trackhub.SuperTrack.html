@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>trackhub.SuperTrack &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -191,27 +195,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="trackhub-supertrack">
+  <section id="trackhub-supertrack">
 <h1>trackhub.SuperTrack<a class="headerlink" href="#trackhub-supertrack" title="Permalink to this headline">¶</a></h1>
 digraph inheritance45a2de254f {
 bgcolor=transparent;
 rankdir=LR;
 size=&quot;8.0, 12.0&quot;;
   &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
-  &quot;trackhub.track.BaseTrack&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
+  &quot;trackhub.track.BaseTrack&quot; [URL=&quot;trackhub.BaseTrack.html#trackhub.BaseTrack&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;];
   &quot;trackhub.base.HubComponent&quot; -&gt; &quot;trackhub.track.BaseTrack&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
-  &quot;trackhub.track.SuperTrack&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
+  &quot;trackhub.track.SuperTrack&quot; [URL=&quot;#trackhub.SuperTrack&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;];
   &quot;trackhub.track.BaseTrack&quot; -&gt; &quot;trackhub.track.SuperTrack&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
 }
 <dl class="py class">
-<dt id="trackhub.SuperTrack">
-<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">SuperTrack</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.SuperTrack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.track.BaseTrack</span></code></p>
+<dt class="sig sig-object py" id="trackhub.SuperTrack">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">trackhub.</span></span><span class="sig-name descname"><span class="pre">SuperTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.SuperTrack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.track.BaseTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.track.BaseTrack</span></code></a></p>
 <p>Represents a Super track. Subclasses <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>, and adds some
 extras.</p>
-<p>Super tracks are container tracks (Folders) that group tracks. They are
+<p>Super tracks are container tracks (folders) that group tracks. They are
 used to control visualization of a set of related data.</p>
-<p>Eventually, you’ll need to make a <code class="xref py py-class docutils literal notranslate"><span class="pre">trackdb.TrackDb</span></code> instance and
+<p>Eventually, you’ll need to make a <a class="reference internal" href="trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.trackdb.TrackDb"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackdb.TrackDb</span></code></a> instance and
 add this supertrack to it with that instance’s <a class="reference internal" href="#trackhub.SuperTrack.add_tracks" title="trackhub.SuperTrack.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_tracks()</span></code></a>
 method.</p>
 <p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTrack</span></code></a> for details on arguments.</p>
@@ -240,7 +244,7 @@ method.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#trackhub.SuperTrack.add_trackdb" title="trackhub.SuperTrack.add_trackdb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_trackdb</span></code></a>(trackdb)</p></td>
 <td><p>Attach this track to a parent TrackDb object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.SuperTrack.add_tracks" title="trackhub.SuperTrack.add_tracks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_tracks</span></code></a>(subtracks)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.SuperTrack.add_tracks" title="trackhub.SuperTrack.add_tracks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_tracks</span></code></a>(*args)</p></td>
 <td><p>Add one or more tracks.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#trackhub.SuperTrack.leaves" title="trackhub.SuperTrack.leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaves</span></code></a>(cls[, level, intermediate])</p></td>
@@ -264,27 +268,27 @@ method.</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="trackhub.SuperTrack.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.SuperTrack.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.SuperTrack.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a Super track. Subclasses <a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a>, and adds some
 extras.</p>
-<p>Super tracks are container tracks (Folders) that group tracks. They are
+<p>Super tracks are container tracks (folders) that group tracks. They are
 used to control visualization of a set of related data.</p>
-<p>Eventually, you’ll need to make a <code class="xref py py-class docutils literal notranslate"><span class="pre">trackdb.TrackDb</span></code> instance and
+<p>Eventually, you’ll need to make a <a class="reference internal" href="trackhub.TrackDb.html#trackhub.TrackDb" title="trackhub.trackdb.TrackDb"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackdb.TrackDb</span></code></a> instance and
 add this supertrack to it with that instance’s <a class="reference internal" href="#trackhub.SuperTrack.add_tracks" title="trackhub.SuperTrack.add_tracks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_tracks()</span></code></a>
 method.</p>
 <p>See <a class="reference internal" href="trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseTrack</span></code></a> for details on arguments.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_child">
-<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_child" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as parent to child, and then adds child.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_params">
-<code class="sig-name descname">add_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kw</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_params">
+<span class="sig-name descname"><span class="pre">add_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add [possibly many] parameters to the track.</p>
 <p>Parameters will be checked against known UCSC parameters and their
 supported formats.</p>
@@ -295,14 +299,14 @@ supported formats.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_parent">
-<code class="sig-name descname">add_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_parent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_parent">
+<span class="sig-name descname"><span class="pre">add_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_subgroups">
-<code class="sig-name descname">add_subgroups</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subgroups</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_subgroups" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_subgroups">
+<span class="sig-name descname"><span class="pre">add_subgroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subgroups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_subgroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the subgroups for this track.</p>
 <p>Note that in contrast to <a class="reference internal" href="trackhub.CompositeTrack.html#trackhub.CompositeTrack" title="trackhub.CompositeTrack"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CompositeTrack()</span></code></a>, which takes a list of
 <a class="reference internal" href="trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition" title="trackhub.SubGroupDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubGroupDefinition</span></code></a> objects representing the allowed subgroups,
@@ -319,29 +323,33 @@ SubGroupDefinition.mapping dictionary.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_trackdb">
-<code class="sig-name descname">add_trackdb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trackdb</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_trackdb" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_trackdb">
+<span class="sig-name descname"><span class="pre">add_trackdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trackdb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.add_trackdb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attach this track to a parent TrackDb object.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.add_tracks">
-<code class="sig-name descname">add_tracks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subtracks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack.add_tracks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.SuperTrack.add_tracks" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.add_tracks">
+<span class="sig-name descname"><span class="pre">add_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/track.html#SuperTrack.add_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.SuperTrack.add_tracks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more tracks.</p>
-<p>subtrack : Track or iterable of Tracks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<a class="reference internal" href="trackhub.Track.html#trackhub.Track" title="trackhub.Track"><em>Track</em></a><em> or </em><em>iterable of Tracks</em>) – </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.leaves">
-<code class="sig-name descname">leaves</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">intermediate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.leaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.leaves">
+<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.leaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.remove_params">
-<code class="sig-name descname">remove_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.remove_params" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.remove_params">
+<span class="sig-name descname"><span class="pre">remove_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.remove_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove [possibly many] parameters from the track.</p>
 <p>E.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">remove_params</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;visibility&#39;</span><span class="p">)</span>
@@ -350,16 +358,16 @@ well.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.render">
-<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">staging</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.render" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.root">
-<code class="sig-name descname">root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.root" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.root">
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the top-most HubComponent in the hierarchy.</p>
 <p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
 that is an instance of class <cite>cls</cite>.</p>
@@ -368,15 +376,15 @@ a a Hub object for every component in the hierarchy.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.SuperTrack.validate">
-<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.validate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.SuperTrack.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.SuperTrack.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs validation, raising exceptions as needed.  Must be overridden by
 subclass.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>trackhub.Hub &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -191,19 +195,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="trackhub-hub">
+  <section id="trackhub-hub">
 <h1>trackhub.Hub<a class="headerlink" href="#trackhub-hub" title="Permalink to this headline">¶</a></h1>
 digraph inheritance88b4433c18 {
 bgcolor=transparent;
 rankdir=LR;
 size=&quot;8.0, 12.0&quot;;
   &quot;trackhub.base.HubComponent&quot; [URL=&quot;trackhub.base.HubComponent.html#trackhub.base.HubComponent&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;,tooltip=&quot;Base class for various track hub components.  Several methods must be&quot;];
-  &quot;trackhub.hub.Hub&quot; [fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;];
+  &quot;trackhub.hub.Hub&quot; [URL=&quot;#trackhub.Hub&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;];
   &quot;trackhub.base.HubComponent&quot; -&gt; &quot;trackhub.hub.Hub&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
 }
 <dl class="py class">
-<dt id="trackhub.Hub">
-<em class="property">class </em><code class="sig-prename descclassname">trackhub.</code><code class="sig-name descname">Hub</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hub</span></em>, <em class="sig-param"><span class="n">short_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">long_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genomes_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genomes_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">email</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">trackhub.</span></span><span class="sig-name descname"><span class="pre">Hub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genomes_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genomes_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.Hub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
 <p>Represents a top-level track hub container.</p>
 <dl class="simple">
@@ -263,8 +267,8 @@ uploaded, the filename is relative to the uploaded location.</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="trackhub.Hub.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hub</span></em>, <em class="sig-param"><span class="n">short_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">long_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genomes_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">genomes_filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">email</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genomes_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genomes_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.Hub.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a top-level track hub container.</p>
 <dl class="simple">
 <dt>hub<span class="classifier">str</span></dt><dd><p>Top-level name of the hub.</p>
@@ -289,43 +293,43 @@ uploaded, the filename is relative to the uploaded location.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.add_child">
-<code class="sig-name descname">add_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.add_child" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as parent to child, and then adds child.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.add_genomes_file">
-<code class="sig-name descname">add_genomes_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genomes_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.add_genomes_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub.add_genomes_file" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.add_genomes_file">
+<span class="sig-name descname"><span class="pre">add_genomes_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">genomes_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.add_genomes_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.Hub.add_genomes_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>If a GenomesFile object was not provided upon instantiating this
 object, attach one now</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.add_parent">
-<code class="sig-name descname">add_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.add_parent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.add_parent">
+<span class="sig-name descname"><span class="pre">add_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.add_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.leaves">
-<code class="sig-name descname">leaves</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">intermediate</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.leaves" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.leaves">
+<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.leaves" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.render">
-<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">staging</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.render" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.root">
-<code class="sig-name descname">root</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.root" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.root">
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.Hub.root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the top-most HubComponent in the hierarchy.</p>
 <p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
 that is an instance of class <cite>cls</cite>.</p>
@@ -334,15 +338,15 @@ a a Hub object for every component in the hierarchy.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="trackhub.Hub.validate">
-<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackhub.Hub.validate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="trackhub.Hub.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/hub.html#Hub.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.Hub.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs validation, raising exceptions as needed.  Must be overridden by
 subclass.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

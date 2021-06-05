@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Quickstart &mdash; trackhub 0.2.4 documentation</title>
@@ -13,6 +14,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -171,9 +175,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="quickstart">
+  <section id="quickstart">
 <span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="preliminaries">
+<section id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
 <p>If you’ve never created a track hub before, it’s important to read the <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html">track
 hub help</a> so you
@@ -192,8 +196,8 @@ found in <a class="reference internal" href="assembly_example.html#assembly-exam
 <li><p><a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">load the grouping example on UCSC</a></p></li>
 <li><p><a class="reference external" href="https://github.com/daler/trackhub-demo/tree/master/quickstart">files in GitHub</a></p></li>
 </ul>
-</div>
-<div class="section" id="create-hub-components">
+</section>
+<section id="create-hub-components">
 <h2>Create hub components<a class="headerlink" href="#create-hub-components" title="Permalink to this headline">¶</a></h2>
 <p>A track hub consists of connected components of files that point to each other.
 The hub file points to a genomes file, which points to a trackDb file, which
@@ -242,8 +246,8 @@ trackDb hg38/trackDb.txt
 <span class="gr">ValueError</span>: <span class="n">No Track objects specified</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="adding-tracks">
+</section>
+<section id="adding-tracks">
 <h2>Adding tracks<a class="headerlink" href="#adding-tracks" title="Permalink to this headline">¶</a></h2>
 <p>In this example, we are adding tracks one at a time. This is not much easier
 than just writing the trackDb file in a text editor. However, creating tracks
@@ -311,8 +315,8 @@ viewLimits -2:2
 visibility full
 </pre></div>
 </div>
-</div>
-<div class="section" id="render-stage-the-hub">
+</section>
+<section id="render-stage-the-hub">
 <h2>Render (stage) the hub<a class="headerlink" href="#render-stage-the-hub" title="Permalink to this headline">¶</a></h2>
 <p>To get ready for uploading, <cite>trackhub</cite> renders the hub files and symlinks all
 the track source files into a local directory. This allows us to inspect the
@@ -348,8 +352,8 @@ directory into the repo:</p>
 <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -126,8 +126,8 @@ see other config options. Here are some screenshots:
         short_label='Regions')
 
     # These need to be added to the composite.
-    composite.add_view(signal_view)
-    composite.add_view(regions_view)
+    composite.add_tracks(signal_view)
+    composite.add_tracks(regions_view)
 
     # Next we will build a multiWig overlay track which will show an example of
     # the signal as multiple bigWigs overlaying each other.

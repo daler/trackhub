@@ -12,7 +12,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
 .. code-block:: python
 
     import trackhub
-    
+
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
          hub_name="groupAutoScale",
          short_label="groupAutoScale",
@@ -25,7 +25,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
          short_label='Group AutoScale',
          tracktype='bigWig',
          visibility='full')
-    
+
     trackdb.add_tracks(composite)
 
     signal_view = trackhub.ViewTrack(
@@ -34,7 +34,7 @@ view the live hub using `this link <http://genome.ucsc.edu/cgi-bin/hgTracks?db=h
          visibility='full',
          tracktype='bigWig',
          short_label='Signal')
-    composite.add_view(signal_view)
+    composite.add_tracks(signal_view)
 
     track_1 = trackhub.Track(
          tracktype='bigWig',
