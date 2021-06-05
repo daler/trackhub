@@ -1,6 +1,44 @@
 Changelog
 =========
 
+Version 0.3
+-----------
+
+Testing infrastructure overhaul
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+See :ref:`tests` for details.
+
+Documentation updates
+~~~~~~~~~~~~~~~~~~~~~
+
+- Examples have been added for all of the available track types. See
+  :ref:`tracktypes` for details.
+- New section that details how validation works (see :ref:`validation`).
+
+Other changes
+~~~~~~~~~~~~~
+- `defaultPos` can now be set when using the `default_hub` helper function
+
+- Support for all track types supported in track hubs (see :ref:`tracktypes`)
+
+
+- There is now one naming convention, `add_tracks`, rather than multiple
+  methods names that perform this for different track types. `add_view` and
+  `add_subtracks` can now simply be replaced with `add_tracks`. These methods
+  will accept track objects, a list of track object, or a combination of the
+  two. The older method names are retained for backwards compatibility, but all
+  documentation has been updated to reflect this change.
+
+- dramatically improved semi-automatic updating mechanism for making sure
+  parameters are up-to-date with the main UCSC instance (see
+  ``trackhub/parse.py`` and ``trackhub/parsed_params.py``).
+
+- fixed indentation when super tracks, composite tracks, and view tracks are
+  nested.
+
+- improved handling of rsync and handling symlink modification times
+
 Version 0.2.4 (Dec 2017)
 ------------------------
 
