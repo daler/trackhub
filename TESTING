@@ -1,0 +1,5 @@
+# builds the examples, puts them in example_hubs/
+ci/build_examples.py
+
+# check just the hic hub
+ci/hubCheck example_hubs/example_hic_hub/hic.hub.txt
