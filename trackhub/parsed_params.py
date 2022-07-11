@@ -834,6 +834,12 @@ param_defs = [
         types=['bam'],
         required=False,
         validator=int),
+    Param(
+        name="speciesOrder",
+        fmt=['speciesOrder <#>'],
+        types=['bigMaf'],
+        required=False,
+        validator=str),
 
     # NOTE in the spec there is "parent_container", "parent_supertrack", and
     # "parent". The reason appears to be so that there are unique div

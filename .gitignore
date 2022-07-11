@@ -16,3 +16,12 @@ ci/trackhub-demo/
 dist/
 ci/hubCheck
 build
+figure_4_paper/
+env/
+*xlsx
+hubCheck
+*/staging/*
+*bb
+*bed
+all_tracks/
+*/*staging/*
