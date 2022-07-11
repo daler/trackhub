@@ -25,3 +25,6 @@ hubCheck
 *bed
 all_tracks/
 */*staging/*
+*bigWig
+*bw
+example_hubs/
