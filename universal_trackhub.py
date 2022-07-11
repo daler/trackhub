@@ -8,10 +8,10 @@ from openpyxl import load_workbook
 import xlrd
 import sys
 
-# file = sys.argv[1]
+file = sys.argv[1]
 # destination = sys.argv[2]
 
-file = "universal_trackhub.xlsx"
+#file = "universal_trackhub.xlsx"
 
 # Get the sheet names from the Excel Workbook
 sheets = xlrd.open_workbook(file, on_demand=True).sheet_names()
@@ -233,5 +233,3 @@ for composite, subgroup_options in composite_to_subgroups_dict.items():
 
         subgroups.append(s)
     all_composite_tracks[composite].add_subgroups(subgroups)
-
-# trackhub.upload.upload_hub(hub=hub, host="helix.nih.gov", remote_dir=destination, staging=s)
