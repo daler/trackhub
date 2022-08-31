@@ -161,7 +161,7 @@ jobs:
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
         git checkout -B $BRANCH
-        git rm -rfv ./*
+        git rm -rf ./*
 
         # Note -L to follow links
         cp -rLv $here/example_hubs/* /tmp/trackhub-demo
