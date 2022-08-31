@@ -169,6 +169,7 @@ jobs:
         # It's possible that the $BRANCH here in the trackhub repo does not yet
         # exist over in the trackhub-demo repo. In that case, we should be good
         # to push.
+        set -x
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
           echo "remote branch $BRANCH does not exist -- pushing"
           git commit -m 'update hub'
@@ -184,6 +185,7 @@ jobs:
           git commit -m 'update hub'
           git push origin $BRANCH --force
         fi
+        set +x
 
     - name: hubChecks
       # Check hubs
