@@ -161,10 +161,10 @@ jobs:
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
         git checkout -B $BRANCH
-        git rm -rf ./*
+        git rm -rfv ./*
 
         # Note -L to follow links
-        cp -rL $here/example_hubs/* /tmp/trackhub-demo
+        cp -rLv $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
         ls
         git status
@@ -173,10 +173,14 @@ jobs:
         # exist over in the trackhub-demo repo. In that case, we should be good
         # to push.
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
-          echo "remote branch $BRANCH does not exist -- pushing"
-          git commit -m 'update hub' 
-          git push origin $BRANCH --force
-          exit 0
+          echo "remote branch $BRANCH does not exist"
+          if git diff origin/$BRANCH --quiet; then
+            echo "no changes to pus to branch $BRANCH!";
+          else
+            git commit -m 'update hub' 
+            git push origin $BRANCH --force
+            exit 0
+          fi
         fi
 
         # Otherwise, only push if there are changes.
