@@ -1,7 +1,7 @@
 import numpy as np
 import trackhub
 from collections import defaultdict
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 
 
 def sheet_to_dict(workbook, sheet_name):
@@ -119,7 +119,7 @@ def make_assembly(wb, d):
     Parameters
     ----------
 
-    wb : openpyxl Workbook
+    wb : openpyxl.Workbook
         This is the Excel imported by openpyxl
 
     d : dict
@@ -478,6 +478,117 @@ def add_subgroups_to_composite(composite_to_subgroups_dict, d):
     return d
 
 
+def append_row(wb, sheet_name, field_list):
+    """
+    Creates a named sheet and makes the fields the first row
+
+    Parameters
+    ----------
+
+    wb : openpyxl.Workbook
+        Excel file being written for the template
+
+    sheet_name : str
+        Name for the sheet
+
+    field_list : list
+        List of fields to append to the sheet
+
+    Return
+    ------
+
+    wb : openpyxl.Workbook
+        Excel file being written for the template with new sheet
+    """
+    tracks = wb.create_sheet(sheet_name)
+    tracks.append(field_list)
+    return wb
+
+
+def make_template(template):
+    """
+    Makes an Excel file template
+
+    Return
+    ------
+
+    Excel workbook file called 'template.xlsx' with hub, genome, container
+    config, and tracks sheets with field necessary and common fields
+    """
+    wb = Workbook()
+
+    # Workbooks are automatically made with a worksheet which is the active
+    # worksheet.
+    hub = wb.active
+    hub.title = "hub"
+
+    # hub and genome sheets have a 2-column (field, value) format. openpyxl
+    # iterates rowwise (and is 1-indexed) so to insert a column, the row has to
+    # manually be incremented.
+    hub_fields = ["hub_name", "short_label", "long_label", "email", "genome"]
+    for r, field in enumerate(hub_fields):
+        hub.cell(row=r + 1, column=1).value = field
+
+    genome = wb.create_sheet("genome")
+    genome_fields = [
+        "genome",
+        "twobit_file",
+        "organism",
+        "defaultPos",
+        "scientificName",
+        "description",
+        "html_string",
+        "orderKey",
+    ]
+    for r, field in enumerate(genome_fields):
+        genome.cell(row=r + 1, column=1).value = field
+
+    # Other sheets have fields as column names, which are more straightforward
+    # to add.
+    wb = append_row(wb, "super_config", ["name", "short_label", "long_label"])
+    wb = append_row(
+        wb,
+        "composite_config",
+        ["name", "short_label", "long_label", "tracktype", "super"],
+    )
+    wb = append_row(
+        wb,
+        "view_config",
+        ["name", "short_label", "long_label", "tracktype", "composite"],
+    )
+    wb = append_row(
+        wb,
+        "aggregate_config",
+        [
+            "name",
+            "tracktype",
+            "aggregate",
+            "visibility",
+            "color",
+            "container",
+            "container_type",
+        ],
+    )
+
+    wb = append_row(
+        wb,
+        "tracks",
+        [
+            "name",
+            "long_label",
+            "short_label",
+            "tracktype",
+            "visibility",
+            "color",
+            "subgroup_",
+            "container",
+            "container_type",
+        ],
+    )
+
+    return wb.save(template)
+
+
 def main(filename, staging):
     wb = load_workbook(filename, data_only=True)
 
@@ -541,18 +652,34 @@ def main(filename, staging):
 
 if __name__ == "__main__":
     import argparse
+    import sys
 
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "excel_file",
+        "--excel_file",
         help="Location of Excel file. See documentation for required formatting",
+        default=None,
     )
     ap.add_argument(
         "--staging",
         help="Name of staging directory. Default is %(default)s",
         default="staging",
     )
-    ap.add_argument("--verbose", help="verbose mode", action="store_true")
+    ap.add_argument(
+        "--template",
+        help="Makes a template Excel file with given name or defaults to %(const)s",
+        const="template.xlsx",
+        nargs='?',
+    )
     args = ap.parse_args()
 
-    main(filename=args.excel_file, staging=args.staging)
+    if len(sys.argv) == 1:
+        ap.print_help()
+        sys.exit(0)
+
+    if args.excel_file:
+        main(filename=args.excel_file, staging=args.staging)
+        print(f"Created staging directory called {args.staging} using {args.excel_file}", file=sys.stderr)
+    else:
+        make_template(template=args.template)
+        print(f"Created template called {args.template}", file=sys.stderr)
