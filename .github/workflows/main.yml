@@ -166,6 +166,8 @@ jobs:
         # Note -L to follow links
         cp -rL $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
+        ls
+        git status
 
         # It's possible that the $BRANCH here in the trackhub repo does not yet
         # exist over in the trackhub-demo repo. In that case, we should be good
