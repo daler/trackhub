@@ -176,6 +176,7 @@ jobs:
           echo "remote branch $BRANCH does not exist"
           if git diff --quiet; then
             echo "no changes to push to branch $BRANCH!";
+            exit 0
           else
             git commit -m 'update hub' 
             git push origin $BRANCH --force
