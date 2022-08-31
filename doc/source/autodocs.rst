@@ -21,7 +21,7 @@ API documentation
     trackhub.SuperTrack
     trackhub.AggregateTrack
     trackhub.SubGroupDefinition
-    trackhub.params.Parameter
+    trackhub.parsed_params.Param
 
 .. rubric:: Classes specific to assembly hubs:
 
