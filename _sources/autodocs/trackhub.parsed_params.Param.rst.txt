@@ -1,0 +1,21 @@
+﻿trackhub.parsed_params.Param
+============================
+
+.. currentmodule:: trackhub.parsed_params
+
+.. inheritance-diagram:: Param
+
+.. autoclass:: Param
+    :inherited-members:
+    :show-inheritance:
+    :members:
+
+    
+    .. rubric:: Methods
+    
+    .. autosummary::
+    
+        ~Param.__init__
+        ~Param.validate
+    
+    .. automethod:: __init__ 

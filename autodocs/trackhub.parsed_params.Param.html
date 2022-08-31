@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trackhub.parsed_params.Param &mdash; trackhub 0.2.4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="trackhub.GroupsFile" href="trackhub.GroupsFile.html" />
+    <link rel="prev" title="trackhub.SubGroupDefinition" href="trackhub.SubGroupDefinition.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> trackhub
+          </a>
+              <div class="version">
+                0.2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Hub.html">trackhub.Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GenomesFile.html">trackhub.GenomesFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Genome.html">trackhub.Genome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.TrackDb.html">trackhub.TrackDb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.BaseTrack.html">trackhub.BaseTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Track.html">trackhub.Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.CompositeTrack.html">trackhub.CompositeTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.ViewTrack.html">trackhub.ViewTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.parsed_params.Param</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GroupsFile.html">trackhub.GroupsFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.Assembly.html">trackhub.Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.stage_hub.html">trackhub.upload.stage_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.upload.upload_hub.html">trackhub.upload.upload_hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.dimensions_from_subgroups.html">trackhub.helpers.dimensions_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.filter_composite_from_subgroups.html">trackhub.helpers.filter_composite_from_subgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.hex2rgb.html">trackhub.helpers.hex2rgb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.sanitize.html">trackhub.helpers.sanitize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.helpers.data_dir.html">trackhub.helpers.data_dir</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">trackhub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../autodocs.html">API documentation</a> &raquo;</li>
+      <li>trackhub.parsed_params.Param</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodocs/trackhub.parsed_params.Param.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="trackhub-parsed-params-param">
+<h1>trackhub.parsed_params.Param<a class="headerlink" href="#trackhub-parsed-params-param" title="Permalink to this heading"></a></h1>
+digraph inheritancecc27fbbc05 {
+bgcolor=transparent;
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;trackhub.validate.Param&quot; [URL=&quot;#trackhub.parsed_params.Param&quot;,fillcolor=white,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,fontsize=10,height=0.25,shape=box,style=&quot;setlinewidth(0.5),filled&quot;,target=&quot;_top&quot;];
+}
+<dl class="py class">
+<dt class="sig sig-object py" id="trackhub.parsed_params.Param">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">trackhub.parsed_params.</span></span><span class="sig-name descname"><span class="pre">Param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_bed_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/validate.html#Param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.parsed_params.Param" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the parameter</p></li>
+<li><p><strong>fmt</strong> (<em>list</em>) – List of strings parsed from the “format” section of the spec from
+UCSC. Mostly used as an informal guide to the format.</p></li>
+<li><p><strong>types</strong> (<em>list</em>) – List of track types this parameter applies to</p></li>
+<li><p><strong>required</strong> (<em>bool</em><em> or </em><em>list</em>) – If True, all tracks must have it. If list, only those types must
+have it.</p></li>
+<li><p><strong>validator</strong> (<em>callable</em><em>, </em><em>set</em><em>, or </em><em>type</em>) – Validation to run on user-provided values. If callable, must return
+True if the value passes. If set, validation will pass if the value
+is in the provided set.</p></li>
+<li><p><strong>min_bed_fields</strong> (<em>int</em>) – Some parameters only work for a certain number of BED fields.
+Specify that here.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s1">&#39;999&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#trackhub.parsed_params.Param.__init__" title="trackhub.parsed_params.Param.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(name, fmt, types, required, validator)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param name</dt>
+<dd class="field-odd"><p>Name of the parameter</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate</span></code>(value)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="trackhub.parsed_params.Param.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_bed_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/validate.html#Param.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.parsed_params.Param.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the parameter</p></li>
+<li><p><strong>fmt</strong> (<em>list</em>) – List of strings parsed from the “format” section of the spec from
+UCSC. Mostly used as an informal guide to the format.</p></li>
+<li><p><strong>types</strong> (<em>list</em>) – List of track types this parameter applies to</p></li>
+<li><p><strong>required</strong> (<em>bool</em><em> or </em><em>list</em>) – If True, all tracks must have it. If list, only those types must
+have it.</p></li>
+<li><p><strong>validator</strong> (<em>callable</em><em>, </em><em>set</em><em>, or </em><em>type</em>) – Validation to run on user-provided values. If callable, must return
+True if the value passes. If set, validation will pass if the value
+is in the provided set.</p></li>
+<li><p><strong>min_bed_fields</strong> (<em>int</em>) – Some parameters only work for a certain number of BED fields.
+Specify that here.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s1">&#39;999&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test &lt;#&gt;&#39;</span><span class="p">],</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bigBed&#39;</span><span class="p">],</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="trackhub.SubGroupDefinition.html" class="btn btn-neutral float-left" title="trackhub.SubGroupDefinition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="trackhub.GroupsFile.html" class="btn btn-neutral float-right" title="trackhub.GroupsFile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012, Ryan Dale.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

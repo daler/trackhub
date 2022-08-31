@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trackhub.validate &mdash; trackhub 0.2.4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> trackhub
+          </a>
+              <div class="version">
+                0.2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../validation.html">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../grouping.html">Organizing larger track hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../html_doc.html">Documenting tracks in hubs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autodocs.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">trackhub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>trackhub.validate</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for trackhub.validate</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains functions that are used as validators for parameters. Each</span>
+<span class="sd">is decorated with the @validator decorator, which accepts an arbitrary number</span>
+<span class="sd">of examples that should correctly validate.</span>
+
+<span class="sd">For example, here&#39;s a validator that would be used to ensure a string has</span>
+<span class="sd">exactly one string character:</span>
+
+<span class="sd">    @validator(&quot;a&quot;, &quot;1&quot;)</span>
+<span class="sd">    def one_char(v):</span>
+<span class="sd">        return isinstance(v, string_types) and len(v) == 1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">.compatibility</span> <span class="kn">import</span> <span class="n">string_types</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">settings</span>
+
+
+<span class="k">class</span> <span class="nc">ValidationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">validator</span><span class="p">(</span><span class="o">*</span><span class="n">example</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator that runs a self-test on the validator it decorates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+        <span class="c1"># Try running validation on the function&#39;s own example . . . it better</span>
+        <span class="c1"># work!</span>
+        <span class="n">example_string</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
+                <span class="n">func</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+                <span class="n">example_string</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+            <span class="n">example_string</span> <span class="o">=</span> <span class="s1">&#39;Example value(s): </span><span class="si">%s</span><span class="s1">&#39;</span> \
+                <span class="o">%</span> <span class="p">(</span><span class="s2">&quot; or &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">example_string</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Error validating example (func=</span><span class="si">%s</span><span class="s1">, example=</span><span class="si">%r</span><span class="s1">)! &#39;</span>
+                <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Original error:</span><span class="se">\n\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+
+        <span class="k">class</span> <span class="nc">Validator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Class to wrap a function and display an example value.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">_func</span> <span class="o">=</span> <span class="n">func</span>
+
+            <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span>
+                        <span class="s1">&#39;Value </span><span class="si">{0}</span><span class="s1"> failed </span><span class="si">{1}</span><span class="s1"> validation; </span><span class="si">{2}</span><span class="s1">&#39;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">example_string</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+            <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;&lt;Validator [</span><span class="si">%s</span><span class="s2">] at </span><span class="si">%s</span><span class="s2">&gt; sample: </span><span class="si">%s</span><span class="s2">&quot;</span> \
+                    <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="n">example</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Validator</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+<div class="viewcode-block" id="Param"><a class="viewcode-back" href="../../autodocs/trackhub.parsed_params.Param.html#trackhub.parsed_params.Param">[docs]</a><span class="k">class</span> <span class="nc">Param</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Param.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.parsed_params.Param.html#trackhub.parsed_params.Param.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">required</span><span class="p">,</span> <span class="n">validator</span><span class="p">,</span>
+                 <span class="n">min_bed_fields</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the parameter</span>
+
+<span class="sd">        fmt : list</span>
+<span class="sd">            List of strings parsed from the &quot;format&quot; section of the spec from</span>
+<span class="sd">            UCSC. Mostly used as an informal guide to the format.</span>
+
+<span class="sd">        types : list</span>
+<span class="sd">            List of track types this parameter applies to</span>
+
+<span class="sd">        required : bool or list</span>
+<span class="sd">            If True, all tracks must have it. If list, only those types must</span>
+<span class="sd">            have it.</span>
+
+<span class="sd">        validator : callable, set, or type</span>
+<span class="sd">            Validation to run on user-provided values. If callable, must return</span>
+<span class="sd">            True if the value passes. If set, validation will pass if the value</span>
+<span class="sd">            is in the provided set.</span>
+
+<span class="sd">        min_bed_fields : int</span>
+<span class="sd">            Some parameters only work for a certain number of BED fields.</span>
+<span class="sd">            Specify that here.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        &gt;&gt;&gt; Param(name=&#39;test&#39;, fmt=[&#39;test &lt;#&gt;&#39;], types=[&#39;bigBed&#39;], required=False, validator=int).validate(999)</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; Param(name=&#39;test&#39;, fmt=[&#39;test &lt;#&gt;&#39;], types=[&#39;bigBed&#39;], required=False, validator=int).validate(&#39;999&#39;)</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; Param(name=&#39;test&#39;, fmt=[&#39;test &lt;#&gt;&#39;], types=[&#39;bigBed&#39;], required=False, validator=int).validate(0)</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="n">types</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="n">required</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validator</span> <span class="o">=</span> <span class="n">validator</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> &quot;</span><span class="si">%s</span><span class="s1">&quot; at </span><span class="si">%s</span><span class="s1">&gt;&#39;</span> \
+            <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Otherwise, allow any exceptions to propagate up.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;tag=value&quot;</span><span class="p">,</span> <span class="s2">&quot;tag1=val1 tag2=val2&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">key_val</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">v</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ValidationError</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a,b,c&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">CSV</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="c1"># TODO: is a one-item list &quot;chr1,&quot; or &quot;chr1&quot;?</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">raise</span> <span class="n">ValidationError</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a:b:c&quot;</span><span class="p">,</span> <span class="s2">&quot;0:10:100&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ColSV3</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">nvalues</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not a string&#39;</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="o">==</span> <span class="n">nvalues</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;a:b&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ColSV2</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">nvalues</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;not a string&#39;</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="o">==</span> <span class="n">nvalues</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;1:5&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ColSV2_numbers_or_single_number</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vs</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vs</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> in parameter </span><span class="si">{1}</span><span class="s2"> cannot be converted &quot;</span>
+                <span class="s2">&quot;into a number&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;128,0,255&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">RGB</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Space in RGB tuple&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;.&quot; in RGB tuple&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">),</span> <span class="s2">&quot;RGB tuple is not a string&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;,&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;no commas in RGB tuple&quot;</span><span class="p">)</span>
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;RGB tuple does not have 3 values&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">rgb</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;RGB tuple does not contain ints&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rgb</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;128,0,0 90,90,5&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">RGBList</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">rgbs</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rgbs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;RGBList not a space-separated list of RGB tuples&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rgbs</span><span class="p">:</span>
+        <span class="n">RGB</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">off_or_int</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;off&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">raise</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;chr21:33031596-33033258&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ucsc_position</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">chrom</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;UCSC position string is formatted incorrectly&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;start position must be a positive integer&quot;</span>
+    <span class="k">assert</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;end position must be a positive integer&quot;</span>
+    <span class="k">assert</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">,</span> <span class="s2">&quot;start must be less than end&quot;</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;asdf1234_33&#39;</span><span class="p">,</span> <span class="s1">&#39;AZ90&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">alphanumeric_</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="s1">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
+    <span class="n">valid</span> <span class="o">+=</span> <span class="s1">&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
+    <span class="n">valid</span> <span class="o">+=</span> <span class="s1">&#39;01234556789&#39;</span>
+    <span class="n">valid</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;one two three&#39;</span><span class="p">,</span> <span class="s1">&#39;aaaaaaaaaaaaaaaaa&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">short_label</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">17</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;shortLabel is limited to 17 characters &quot;</span>
+            <span class="s2">&quot;in the browser, some characters will be truncated&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;a&#39;</span> <span class="o">*</span> <span class="mi">76</span><span class="p">,</span> <span class="s1">&#39;four five six&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">long_label</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">76</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;longLabel is limited to 76 characters &quot;</span>
+            <span class="s2">&quot;in the browser, some characters will be truncated&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;https://example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/a.html&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">full_or_local_url</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;https://example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/a.html&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">full_url</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;500&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">int_like</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;5.556&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">float_like</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;maroon&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hex_or_named</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="s1">&#39;0123456789ABCDEF&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">upper</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">==</span> <span class="mi">6</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">assert</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">valid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">([</span>
+                <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;silver&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;maroon&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fuchsia&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="s1">&#39;olive&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="s1">&#39;aqua&#39;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;bigBed&#39;</span><span class="p">,</span> <span class="s1">&#39;bigBed 6+3&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">tracktypes</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012, Ryan Dale.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

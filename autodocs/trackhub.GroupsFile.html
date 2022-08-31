@@ -1,79 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>trackhub.GroupsFile &mdash; trackhub 0.2.4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="trackhub.GroupDefinition" href="trackhub.GroupDefinition.html" />
-    <link rel="prev" title="trackhub.SubGroupDefinition" href="trackhub.SubGroupDefinition.html" /> 
+    <link rel="prev" title="trackhub.parsed_params.Param" href="trackhub.parsed_params.Param.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> trackhub
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.2.4
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -81,18 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
@@ -113,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SuperTrack.html">trackhub.SuperTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.AggregateTrack.html">trackhub.AggregateTrack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.SubGroupDefinition.html">trackhub.SubGroupDefinition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trackhub.parsed_params.Param.html">trackhub.parsed_params.Param</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.GroupsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GroupDefinition.html">trackhub.GroupDefinition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.Assembly.html">trackhub.Assembly</a></li>
@@ -128,75 +77,33 @@
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">trackhub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../autodocs.html">API documentation</a> &raquo;</li>
-        
       <li>trackhub.GroupsFile</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/autodocs/trackhub.GroupsFile.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <section id="trackhub-groupsfile">
-<h1>trackhub.GroupsFile<a class="headerlink" href="#trackhub-groupsfile" title="Permalink to this headline">¶</a></h1>
+             
+  <div class="section" id="trackhub-groupsfile">
+<h1>trackhub.GroupsFile<a class="headerlink" href="#trackhub-groupsfile" title="Permalink to this heading"></a></h1>
 digraph inheritanced2db589814 {
 bgcolor=transparent;
 rankdir=LR;
@@ -207,8 +114,8 @@ size=&quot;8.0, 12.0&quot;;
 }
 <dl class="py class">
 <dt class="sig sig-object py" id="trackhub.GroupsFile">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">trackhub.</span></span><span class="sig-name descname"><span class="pre">GroupsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.base.HubComponent</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">trackhub.</span></span><span class="sig-name descname"><span class="pre">GroupsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="trackhub.base.HubComponent.html#trackhub.base.HubComponent" title="trackhub.base.HubComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code></a></p>
 <p>Represents the groups file on disk, used for assembly hubs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -220,7 +127,7 @@ to use “&lt;genome&gt;/groups.txt”</p></li>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -257,7 +164,7 @@ to use “&lt;genome&gt;/groups.txt”</p></li>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Represents the groups file on disk, used for assembly hubs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -272,13 +179,13 @@ to use “&lt;genome&gt;/groups.txt”</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.add_child" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.add_child" title="Permalink to this definition"></a></dt>
 <dd><p>Adds self as parent to child, and then adds child.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.add_groups">
-<span class="sig-name descname"><span class="pre">add_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.add_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.add_groups" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.add_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.add_groups" title="Permalink to this definition"></a></dt>
 <dd><p>Add a list of GroupDefinition objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -289,13 +196,13 @@ to use “&lt;genome&gt;/groups.txt”</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.add_parent">
-<span class="sig-name descname"><span class="pre">add_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.add_parent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.add_parent" title="Permalink to this definition"></a></dt>
 <dd><p>Adds self as child of parent, then adds parent.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.leaves">
-<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.leaves" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.leaves" title="Permalink to this definition"></a></dt>
 <dd><p>Returns an iterator of the HubComponent leaves that are of class <cite>cls</cite>.</p>
 <p>If <cite>intermediate</cite> is True, then return any intermediate classes as
 well.</p>
@@ -303,7 +210,7 @@ well.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.render">
-<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.render" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.render" title="Permalink to this definition"></a></dt>
 <dd><p>Renders the object to file, returning a list of created files.</p>
 <p>Calls validation code, and, as long as each child is also a subclass of
 <code class="xref py py-class docutils literal notranslate"><span class="pre">HubComponent</span></code>, the rendering is recursive.</p>
@@ -311,7 +218,7 @@ well.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.root">
-<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.root" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#trackhub.GroupsFile.root" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the top-most HubComponent in the hierarchy.</p>
 <p>If <cite>cls</cite> is not None, then return the top-most attribute HubComponent
 that is an instance of class <cite>cls</cite>.</p>
@@ -321,61 +228,44 @@ a a Hub object for every component in the hierarchy.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="trackhub.GroupsFile.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.validate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/trackhub/groups.html#GroupsFile.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#trackhub.GroupsFile.validate" title="Permalink to this definition"></a></dt>
 <dd><p>Runs validation, raising exceptions as needed.  Must be overridden by
 subclass.</p>
 </dd></dl>
 
 </dd></dl>
 
-</section>
+</div>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="trackhub.parsed_params.Param.html" class="btn btn-neutral float-left" title="trackhub.parsed_params.Param" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="trackhub.GroupDefinition.html" class="btn btn-neutral float-right" title="trackhub.GroupDefinition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="trackhub.SubGroupDefinition.html" class="btn btn-neutral float-left" title="trackhub.SubGroupDefinition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2012, Ryan Dale.
-
-    </p>
+    <p>&#169; Copyright 2012, Ryan Dale.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
