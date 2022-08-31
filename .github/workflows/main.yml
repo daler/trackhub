@@ -174,7 +174,7 @@ jobs:
         # to push.
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
           echo "remote branch $BRANCH does not exist"
-          if git diff origin/$BRANCH --quiet; then
+          if git diff --quiet; then
             echo "no changes to push to branch $BRANCH!";
           else
             git commit -m 'update hub' 
