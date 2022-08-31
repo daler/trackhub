@@ -156,6 +156,7 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
+        set -x
         here=$(pwd)
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
@@ -169,10 +170,9 @@ jobs:
         # It's possible that the $BRANCH here in the trackhub repo does not yet
         # exist over in the trackhub-demo repo. In that case, we should be good
         # to push.
-        set -x
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
           echo "remote branch $BRANCH does not exist -- pushing"
-          git commit -m 'update hub'
+          git commit -m 'update hub' 
           git push origin $BRANCH --force
           exit 0
         fi
