@@ -3,9 +3,8 @@
 .. _excelinstructions:
 
 Track hub from Excel
---------------------
-Usage
-~~~~~
+====================
+
 If you are an avid user of the UCSC Genome Browser and the *trackhub* package,
 you might find it tedious to write a script for every single hub you create.
 The command-line tool uses this package to further automate the trak hub making
@@ -15,7 +14,7 @@ and how to fill out an Excel workbook to make any simple or complex
 visualization on the UCSC Genome Browser. 
 
 1. Create a template
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 The Excel file must have a specific format to be parsed correctly. 
 
@@ -27,8 +26,8 @@ Optionally, you can provide a name for your Excel file:
 
 ``python trackhub_from_excel.py --template RNAseq_experiment.xlsx``
 
-2. Fill out the Excel Workbook
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Fill out the Excel workbook
+------------------------------
 
 Using the template just created, fill out the sheets with the data you'd like
 to visualize.
@@ -42,8 +41,8 @@ defines the hub name and labels and genome.
 **genome** – This sheet is only necessary when using a genome assembly. It
 points the 2bit file and gives the genome a name and labels.
 
-Container Tracks
-~~~~~~~~~~~~~~~~
+Container track sheets
+~~~~~~~~~~~~~~~~~~~~~~
 
 Container tracks must be configured in their own sheet.
 
@@ -94,7 +93,7 @@ To use container tracks, be sure to define the container and use the “containe
 For example, to place a track in a view track you need first add a row for the view in the view_config. In another sheet, fill out a row for the track including the “container_type” and “container” fields. For column labeled “container_type” fill in “view” and for the column labeled “container” fill in the same name that is in the view_config sheet.
 
 3. Run the script
-~~~~~~~~~~~~~~~~~
+-----------------
 
 This will default to naming the track hub directory as “staging”
 
