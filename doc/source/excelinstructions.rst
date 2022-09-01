@@ -44,6 +44,22 @@ defines the hub name and labels and genome.
 ``genome`` – This sheet is only necessary when using a genome assembly. It
 points to the 2bit file and gives the genome a name and label.
 
+Example ``hub`` sheet
+`````````````````````
+
+.. list-table::
+
+    * - hub
+      - examplehub
+    * - short_label
+      - Example hub
+    * - long_label
+      - Example track hub from Excel
+    * - email
+      - user@example.com
+    * - genome
+      - hg38
+
 
 Container track sheets
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -87,6 +103,69 @@ Super tracks are within the track hub and therefore do not need special fields.
     section below for details.
 
 
+Example ``view_config`` sheet
+````````````````````````````
+
+.. list-table::
+    :header-rows: 1
+
+    * - name
+      - view
+      - short_label
+      - long_label
+      - visibility
+      - tracktype
+      - composite
+    * - signal
+      - signalview
+      - Genomic signal
+      - Genomic signal (CPM)
+      - full
+      - bigWig
+      - experiment1
+    * - peaks
+      - peaksview
+      - Peaks
+      - Called peaks (macs2)
+      - dense
+      - bigBed
+      - experiment1
+
+Example ``composite_config`` sheet
+``````````````````````````````````
+
+.. list-table:: 
+    :header-rows: 1
+
+    * - name
+      - short_label
+      - long_label
+      - tracktype
+      - super
+    * - experiment1
+      - experiment 1
+      - Experiment 1
+      - bigWig
+      - supertrack1
+    * - experiment2
+      - experiment 2
+      - Experiment 2
+      - bigWig
+      - 
+
+Example ``super_config`` sheet
+``````````````````````````````
+
+.. list-table::
+    :header-rows: 1
+
+    * - name
+      - short_label
+      - long_label
+    * - supertrack1
+      - Super track
+      - Super track
+
 Tracks
 ~~~~~~
 
@@ -124,6 +203,48 @@ For example, to make subgroups based on genotype, you might label the column
 ``subgroup_genotype`` and fill in the rows with "WT" or "KO". You can make
 as many subgroups as you need.
 
+Example ``tracks`` sheet
+````````````````````````
+
+.. list-table::
+    :header-rows: 1
+
+    * - name
+      - short_label
+      - long_label
+      - tracktype
+      - source
+      - visibility
+      - color
+      - container
+      - container_type
+      - dimensions
+      - subgroup_celltype
+      - subgroup_genotype
+    * - k562_wt
+      - K562 WT signal
+      - K562 cells, WT signal
+      - bigWig
+      - data/kwt.bigwig
+      - full
+      - 120,51,154
+      - signalview
+      - view
+      - dimX=genotype dimY=celltype
+      - k562
+      - wt
+    * - k562_wt_pk
+      - K562 WT peaks
+      - K562 cells, WT peaks
+      - bigBed
+      - data/kwt.bigbed
+      - dense
+      - 120,51,154
+      - peakview
+      - view
+      - dimX=genotype dimY=celltype
+      - k562
+      - wt
 
 
 
