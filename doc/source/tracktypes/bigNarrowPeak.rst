@@ -2,8 +2,8 @@
 
 bigNarrowPeak example
 ---------------------
-You can read more about preparing the files necessary for a bigGenePred track
-on `UCSC's bigInteract help page
+You can read more about preparing the files necessary for a bigNarrowPeak track
+on `UCSC's bigNarrowPeak help page
 <https://genome.ucsc.edu/goldenPath/help/bigNarrowPeak.html>`_. The following code
 uses the example files provided by UCSC.
 

@@ -3,7 +3,7 @@
 bigInteract example
 -------------------
 You can read more about preparing the files necessary for a bigInteract track
-on `UCSC"s bigInteract help page
+on `UCSC's bigInteract help page
 <https://genome.ucsc.edu/goldenPath/help/bigInteract.html>`_. The following code
 uses the example files provided by UCSC.
 
