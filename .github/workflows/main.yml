@@ -156,6 +156,7 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
+        set -x
         here=$(pwd)
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
@@ -163,14 +164,16 @@ jobs:
         git rm -rf ./*
 
         # Note -L to follow links
-        cp -rL $here/example_hubs/* /tmp/trackhub-demo
+        cp -rLv $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
+        ls
+        git status
 
         # It's possible that the $BRANCH here in the trackhub repo does not yet
         # exist over in the trackhub-demo repo. In that case, we should be good
         # to push.
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
-          echo "remote branch $BRANCH does not exist -- pushing"
+          echo "remote branch $BRANCH does not exist"
           git commit -m 'update hub'
           git push origin $BRANCH --force
           exit 0
@@ -184,6 +187,7 @@ jobs:
           git commit -m 'update hub'
           git push origin $BRANCH --force
         fi
+        set +x
 
     - name: hubChecks
       # Check hubs
