@@ -598,7 +598,7 @@ def create_example(filename):
     This uses the example file that is shipped with the trackhub package, and
     adds two new sheets to include absolute paths to the example data.
     """
-    with importlib.resources.path("trackhub", "test") as resource_path:
+    with importlib.resources.files("trackhub") / "test" as resource_path:
         data = resource_path / "data"
 
     wb = load_workbook(data / "example.xlsx", data_only=True)
