@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+import importlib.resources
 import numpy as np
 import trackhub
 from collections import defaultdict
@@ -588,6 +591,28 @@ def make_template(template):
 
     return wb.save(template)
 
+def create_example(filename):
+    """
+    Create an example filled-in Excel file.
+
+    This uses the example file that is shipped with the trackhub package, and
+    adds two new sheets to include absolute paths to the example data.
+    """
+    with importlib.resources.path("trackhub", "test") as resource_path:
+        data = resource_path / "data"
+
+    wb = load_workbook(data / "example.xlsx", data_only=True)
+
+    bigbeds = wb.create_sheet("bigbeds")
+    bigbeds.append(["name", "tracktype", "denseCoverage", "visibility", "color", "container", "container_type", "source"])
+    bigbeds.append(["random_bb", "bigBed", 40, "squish", "38,140,34", "experiment1", "composite", str(data /"random-hg38-0.bigBed")])
+
+    bigwigs = wb.create_sheet("bigwigs2")
+    bigwigs.append(["name", "tracktype", "visibility", "color", "autoScale", "container", "container_type", "source"])
+    bigwigs.append(["one_track", "bigWig", "full", "120,51,154", "group", "agg_track", "aggregate", str(data / "sine-hg38-0.bedgraph.bw")])
+    bigwigs.append(["another_track", "bigWig", "full", "120,51,154", "group", "agg_track", "aggregate", str(data / "sine-hg38-1.bedgraph.bw")])
+
+    wb.save(filename)
 
 def main(filename, staging):
     wb = load_workbook(filename, data_only=True)
@@ -595,9 +620,9 @@ def main(filename, staging):
     # Get the sheet names from the Excel Workbook
     sheets = load_workbook(filename).sheetnames
 
-    # This dictionary holds all of the containter tracks and hub and trackdb.
-    # It is keyed by the name of the type of container and the value is
-    # a dictionary of the container objects keyed by name with values as the
+    # The dictionary `d` holds all of the containter tracks and hub and
+    # trackdb. It is keyed by the name of the type of container and the value
+    # is a dictionary of the container objects keyed by name with values as the
     # container objects. Note that individual Tracks are not included in this
     # dictionary; they are added directly to their configured parent container
     # (e.g., composite or trackdb or whatever).
@@ -656,7 +681,7 @@ if __name__ == "__main__":
 
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "--excel_file",
+        "--excel-file",
         help="Location of Excel file. See documentation for required formatting",
         default=None,
     )
@@ -671,10 +696,24 @@ if __name__ == "__main__":
         const="template.xlsx",
         nargs='?',
     )
+    ap.add_argument(
+        "--create-example",
+        help="Write an example filled-in Excel file with given name, or defaults to %(const)s",
+        const="example.xlsx",
+        nargs="?",
+    )
     args = ap.parse_args()
 
     if len(sys.argv) == 1:
         ap.print_help()
+        sys.exit(0)
+
+    if args.template and args.create_example:
+        print("Please provide only one of --template or --example")
+        sys.exit(1)
+
+    if args.create_example:
+        create_example(args.create_example)
         sys.exit(0)
 
     if args.excel_file:
