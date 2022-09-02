@@ -61,6 +61,27 @@ jobs:
         make doctest html
         conda deactivate
 
+    - name: test command-line script
+      # Ensure that the installed command-line script can be run and creates
+      # the correct files
+      run: |
+        eval "$(conda shell.bash hook)"
+        source activate /tmp/test-env
+        trackhub_from_excel --template
+        trackhub_from_excel --create-example a.xlsx
+        trackhub_from_excel --excel-file a.xlsx
+        err=0
+        for f in template.xlsx a.xlsx staging staging/test_excel_to_trackhub.hub.txt; do
+          if [ ! -e $f ]; then
+            echo "file $f not present!"
+            err=1
+          fi
+        done
+        if [ err == 1 ]; then
+          exit 1
+        fi
+
+
     - name: upload the just-built docs as an artifact
       # The built docs will be uploaded as a zip file (called docs.zip).
       #   This file will be available on the Actions page and can be used to
