@@ -14,4 +14,5 @@ Contents:
     groupAutoScale
     tracktypes
     autodocs
+    tests
     changelog
