@@ -591,6 +591,7 @@ def make_template(template):
 
     return wb.save(template)
 
+
 def create_example(filename):
     """
     Create an example filled-in Excel file.
@@ -604,15 +605,71 @@ def create_example(filename):
     wb = load_workbook(data / "example.xlsx", data_only=True)
 
     bigbeds = wb.create_sheet("bigbeds")
-    bigbeds.append(["name", "tracktype", "denseCoverage", "visibility", "color", "container", "container_type", "source"])
-    bigbeds.append(["random_bb", "bigBed", 40, "squish", "38,140,34", "experiment1", "composite", str(data /"random-hg38-0.bigBed")])
+    bigbeds.append(
+        [
+            "name",
+            "tracktype",
+            "denseCoverage",
+            "visibility",
+            "color",
+            "container",
+            "container_type",
+            "source",
+        ]
+    )
+    bigbeds.append(
+        [
+            "random_bb",
+            "bigBed",
+            40,
+            "squish",
+            "38,140,34",
+            "experiment1",
+            "composite",
+            str(data / "random-hg38-0.bigBed"),
+        ]
+    )
 
     bigwigs = wb.create_sheet("bigwigs2")
-    bigwigs.append(["name", "tracktype", "visibility", "color", "autoScale", "container", "container_type", "source"])
-    bigwigs.append(["one_track", "bigWig", "full", "120,51,154", "group", "agg_track", "aggregate", str(data / "sine-hg38-0.bedgraph.bw")])
-    bigwigs.append(["another_track", "bigWig", "full", "120,51,154", "group", "agg_track", "aggregate", str(data / "sine-hg38-1.bedgraph.bw")])
+    bigwigs.append(
+        [
+            "name",
+            "tracktype",
+            "visibility",
+            "color",
+            "autoScale",
+            "container",
+            "container_type",
+            "source",
+        ]
+    )
+    bigwigs.append(
+        [
+            "one_track",
+            "bigWig",
+            "full",
+            "120,51,154",
+            "group",
+            "agg_track",
+            "aggregate",
+            str(data / "sine-hg38-0.bedgraph.bw"),
+        ]
+    )
+    bigwigs.append(
+        [
+            "another_track",
+            "bigWig",
+            "full",
+            "120,51,154",
+            "group",
+            "agg_track",
+            "aggregate",
+            str(data / "sine-hg38-1.bedgraph.bw"),
+        ]
+    )
 
     wb.save(filename)
+
 
 def main(filename, staging):
     wb = load_workbook(filename, data_only=True)
@@ -694,7 +751,7 @@ if __name__ == "__main__":
         "--template",
         help="Makes a template Excel file with given name or defaults to %(const)s",
         const="template.xlsx",
-        nargs='?',
+        nargs="?",
     )
     ap.add_argument(
         "--create-example",
@@ -718,7 +775,10 @@ if __name__ == "__main__":
 
     if args.excel_file:
         main(filename=args.excel_file, staging=args.staging)
-        print(f"Created staging directory called {args.staging} using {args.excel_file}", file=sys.stderr)
+        print(
+            f"Created staging directory called {args.staging} using {args.excel_file}",
+            file=sys.stderr,
+        )
     else:
         make_template(template=args.template)
         print(f"Created template called {args.template}", file=sys.stderr)
