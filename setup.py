@@ -21,8 +21,10 @@ setup(
     description=long_description,
     long_description=long_description,
     url="http://github.com/daler/trackhub",
+    include_package_data=True,
     package_data = {'trackhub':["test/data/*"]},
     package_dir = {"trackhub": "trackhub"},
+    scripts=["trackhub/trackhub_from_excel"],
     license = 'MIT',
     author_email="dalerr@niddk.nih.gov",
     classifiers=[
