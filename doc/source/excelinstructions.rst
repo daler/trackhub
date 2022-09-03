@@ -20,11 +20,14 @@ The Excel file must have a specific format to be parsed correctly.
 
 To create a template, run::
 
-    python trackhub_from_excel.py --template
+    trackhub_from_excel --template
 
-Optionally, you can provide a name for your Excel file::
+This will create a file ``template.xlsx`` in the current directory, with the
+correct sheets that you can fill out with the instructions below.
 
-    python trackhub_from_excel.py --template RNAseq_experiment.xlsx
+Alternatively, you can get a working example to study and test::
+
+    trackhub_from_excel --create-example my_example.xlsx
 
 2. Fill out the Excel workbook
 ------------------------------
