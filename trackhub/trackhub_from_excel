@@ -229,13 +229,13 @@ def make_composite_tracks(wb, d):
         d["composite"][composite_dict["name"]] = compositetrack_object
 
         # if there is no super track add the composite directly to the trackdb
-        if not super_track:
-            d["trackdb"].add_tracks(compositetrack_object)
+        if super_track:
+            d["super"][super_track].add_tracks(compositetrack_object)
 
         # Otherwise add the composite to the supertrack; we assume that the
         # supertrack has already been added to the trackdb.
         else:
-            d["super"][super_track].add_tracks(compositetrack_object)
+            d["trackdb"].add_tracks(compositetrack_object)
 
     return d
 
@@ -310,10 +310,10 @@ def make_aggregate_tracks(wb, d):
 
         agg_track_object = trackhub.AggregateTrack(**agg_dict)
 
-        if not container_type:
-            d["trackdb"].add_tracks(agg_track_object)
-        else:
+        if container_type:
             d[container_type][container].add_tracks(agg_track_object)
+        else:
+            d["trackdb"].add_tracks(agg_track_object)
 
         d["aggregate"][agg_dict["name"]] = agg_track_object
 
@@ -406,10 +406,10 @@ def add_tracks_and_make_subgroups(wb, d, sheets):
             track_dict = prepare_track_dict(track_dict)
             track = trackhub.Track(**track_dict)
 
-            if not container_type:
-                d["trackdb"].add_tracks(track)
-            else:
+            if container_type:
                 d[container_type][container].add_tracks(track)
+            else:
+                d["trackdb"].add_tracks(track)
 
     return d, composite_to_subgroups_dict
 
