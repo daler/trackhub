@@ -762,7 +762,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.create_example:
-        create_example(args.create_example, args.validation)
+        create_example(args.create_example)
         sys.exit(0)
 
     if args.excel_file:
