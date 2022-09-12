@@ -2,6 +2,7 @@
 
 import importlib.resources
 import trackhub
+#from trackhub import settings
 from collections import defaultdict
 from openpyxl import load_workbook, Workbook
 
@@ -46,7 +47,7 @@ def worksheet_iterator(ws):
         yield dict(zip(header, value))
 
 
-def prepare_track_dict(track_dictionary):
+def prepare_track_dict(track_dictionary, validation):
     """
     For user configuration convenience, the Excel spreadsheet allows parameters
     that are not valid for Track objects.
@@ -89,8 +90,10 @@ def prepare_track_dict(track_dictionary):
     # subgroups is also allowed
     parameters += ["subgroups"]
 
-    track_dict_new = {k: v for k, v in new_dict.items() if k in parameters}
-
+    if validation:
+        track_dict_new = {k: v for k, v in new_dict.items() if k in parameters}
+    else:
+        track_dict_new = {k: v for k, v in new_dict.items() if k not in ["super", "container_type", "container", "composite", "subgroups"]}
     return track_dict_new
 
 def make_assembly(wb, d):
@@ -320,7 +323,7 @@ def make_aggregate_tracks(wb, d):
     return d
 
 
-def add_tracks_and_make_subgroups(wb, d, sheets):
+def add_tracks_and_make_subgroups(wb, d, sheets, validation):
     """
     Adds the tracks to contianers. Also adds subgroups for each track and
     creates a dictionary of composite name to full set of subgroups
@@ -403,7 +406,7 @@ def add_tracks_and_make_subgroups(wb, d, sheets):
                     track_dict["subgroups"] = subgroup_dict
 
             # Validate track items, so that only valid Track arguments remain.
-            track_dict = prepare_track_dict(track_dict)
+            track_dict = prepare_track_dict(track_dict, validation)
             track = trackhub.Track(**track_dict)
 
             if container_type:
@@ -649,7 +652,7 @@ def create_example(filename):
     wb.save(filename)
 
 
-def main(filename, staging):
+def main(filename, staging, validation):
     wb = load_workbook(filename, data_only=True)
 
     # Get the sheet names from the Excel Workbook
@@ -677,6 +680,11 @@ def main(filename, staging):
     #       },
     #       ...
     #   }
+    if validation =="off":
+        trackhub.settings.VALIDATE = False
+    else:
+        trackhub.settings.VALIDATE = True
+
     d = defaultdict(lambda: defaultdict(dict))
 
     if "genome" in sheets:
@@ -698,7 +706,7 @@ def main(filename, staging):
 
     # Now that all the container tracks are made, the tracks can be added
     # We also keep track of which subgroups belong to which composite tracks
-    d, comp2subgroup = add_tracks_and_make_subgroups(wb, d, sheets)
+    d, comp2subgroup = add_tracks_and_make_subgroups(wb, d, sheets, trackhub.settings.VALIDATE)
 
     # Add the subgroups to the respective composite tracks
     d = add_subgroups_to_composite(comp2subgroup, d)
@@ -737,6 +745,12 @@ if __name__ == "__main__":
         const="example.xlsx",
         nargs="?",
     )
+
+    ap.add_argument(
+        "--validation",
+        help="Turn off validation for track parameters. Defaults to %(default)s",
+        default="on",
+    )
     args = ap.parse_args()
 
     if len(sys.argv) == 1:
@@ -748,11 +762,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.create_example:
-        create_example(args.create_example)
+        create_example(args.create_example, args.validation)
         sys.exit(0)
 
     if args.excel_file:
-        main(filename=args.excel_file, staging=args.staging)
+        main(filename=args.excel_file, staging=args.staging, validation=args.validation)
         print(
             f"Created staging directory called {args.staging} using {args.excel_file}",
             file=sys.stderr,
