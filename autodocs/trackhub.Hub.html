@@ -16,6 +16,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -43,14 +44,29 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../excelinstructions.html">Track hub from Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tracktypes.html">Examples of hubs using various supported track types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../autodocs.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.Hub</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">trackhub.Hub</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trackhub.Hub"><code class="docutils literal notranslate"><span class="pre">Hub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.__init__"><code class="docutils literal notranslate"><span class="pre">Hub.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.add_child"><code class="docutils literal notranslate"><span class="pre">Hub.add_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.add_genomes_file"><code class="docutils literal notranslate"><span class="pre">Hub.add_genomes_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.add_parent"><code class="docutils literal notranslate"><span class="pre">Hub.add_parent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.leaves"><code class="docutils literal notranslate"><span class="pre">Hub.leaves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.render"><code class="docutils literal notranslate"><span class="pre">Hub.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.root"><code class="docutils literal notranslate"><span class="pre">Hub.root()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trackhub.Hub.validate"><code class="docutils literal notranslate"><span class="pre">Hub.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.GenomesFile.html">trackhub.GenomesFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.Genome.html">trackhub.Genome</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trackhub.TrackDb.html">trackhub.TrackDb</a></li>

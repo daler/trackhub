@@ -16,11 +16,12 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Organizing larger track hubs" href="grouping.html" />
-    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+    <link rel="prev" title="Track hub from Excel" href="excelinstructions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,6 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="excelinstructions.html">Track hub from Excel</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Validation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#updating-parameters">Updating parameters</a></li>
 </ul>
@@ -50,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -85,7 +88,7 @@
 time rather than upload time.</p>
 <p>In this example, we set <cite>fake_param</cite>. Note that track object is created with no
 errors…</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
@@ -104,7 +107,7 @@ errors…</p>
 </div>
 <p>…but when we render the track either by printing it directly, or indirectly
 by rendering any of its parents, we get validation errors:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Traceback (most recent call last):
@@ -114,7 +117,7 @@ trackhub.track.ParameterError: The following parameters are unknown for track ty
 <p>If we specify a correct parameter name, but the value is incorrect, we get
 a ValidationError (<cite>maxHeightPixels</cite> should be a colon-separated values, not an
 integer):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
     <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
     <span class="n">maxHeightPixels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
@@ -132,7 +135,7 @@ trackhub.validate.ValidationError: Value 15 failed ColSV3 validation; Example va
 of the Genome Browser with additional features that trackhub does not yet know
 about. In that case, we can disable the validation by setting
 <cite>settings.VALIDATE</cite> to False:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">VALIDATE</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -174,7 +177,7 @@ a pull request on <a class="reference external" href="https://github.com/daler/t
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="excelinstructions.html" class="btn btn-neutral float-left" title="Track hub from Excel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="grouping.html" class="btn btn-neutral float-right" title="Organizing larger track hubs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

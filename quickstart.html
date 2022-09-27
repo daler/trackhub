@@ -16,10 +16,11 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Validation" href="validation.html" />
+    <link rel="next" title="Track hub from Excel" href="excelinstructions.html" />
     <link rel="prev" title="trackhub" href="index.html" /> 
 </head>
 
@@ -49,10 +50,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#render-stage-the-hub">Render (stage) the hub</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="excelinstructions.html">Track hub from Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grouping.html">Organizing larger track hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -114,7 +117,7 @@ is the parent of the genomes file, which is the parent of the trackDb file, and
 so on. In this quickstart, we use the <code class="xref py py-func docutils literal notranslate"><span class="pre">default_hub()</span></code> function to get all of
 these components already connected. See <a class="reference internal" href="assembly_example.html#assembly-example"><span class="std std-ref">Assembly example</span></a> for connecting
 them one-by-one or for more control over filenames.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">trackhub</span>
 
 <span class="n">hub</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">trackdb</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">default_hub</span><span class="p">(</span>
@@ -126,7 +129,7 @@ them one-by-one or for more control over filenames.</p>
 <p>We can indvidually print each object to see the contents of the text file that
 will be created. Note that until a hub is “rendered” (see below), the files
 won’t actually exist.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hub</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>hub hub
@@ -139,7 +142,7 @@ email you@email.com
 <p>Note that we could have specified the short_label and long_label kwargs, but by
 default the hub name is carried over to the shortLabel and longLabel lines.
 Furthermore, the genomes.txt file’s name is prefixed by the hub name.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>genome hg38
@@ -147,7 +150,7 @@ trackDb hg38/trackDb.txt
 </pre></div>
 </div>
 <p>So far, the <cite>trackdb</cite> object has no tracks added:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
   <span class="c">...</span>
 <span class="gr">ValueError</span>: <span class="n">No Track objects specified</span>
@@ -173,7 +176,7 @@ the example data shipped with trackhub. In practice, these paths would be
 inside your analysis directories.</p>
 <p>First, the simplest track to add: a name, source, and type. Note that we add it
 to the <cite>trackdb</cite> as well:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">track1</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;signal1&quot;</span><span class="p">,</span>
     <span class="n">source</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trackhub</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">data_dir</span><span class="p">(),</span> <span class="s1">&#39;sine-hg38-0.bedgraph.bw&#39;</span><span class="p">),</span>
     <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig -2 2&#39;</span><span class="p">,</span>
@@ -186,7 +189,7 @@ to the <cite>trackdb</cite> as well:</p>
 color, and view limits as well as sets nicer labels. See the <a class="reference external" href="https://genome.ucsc.edu/goldenpath/help/trackDb/trackDbHub.html">Track Database
 Definition</a>
 page for more details as well as all the other settings that are possible.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">track2</span> <span class="o">=</span> <span class="n">trackhub</span><span class="o">.</span><span class="n">Track</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signal2&#39;</span><span class="p">,</span>
     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal 2&#39;</span><span class="p">,</span>
     <span class="n">long_label</span><span class="o">=</span><span class="s1">&#39;Signal track for sample 2&#39;</span><span class="p">,</span>
@@ -202,7 +205,7 @@ page for more details as well as all the other settings that are possible.</p>
 </pre></div>
 </div>
 <p>Now that we have added tracks to the <cite>trackdb</cite> object, printing it should show the updates:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>track signal1
@@ -230,7 +233,7 @@ the track source files into a local directory. This allows us to inspect the
 hub before uploading.</p>
 <p>By default the staging directory is a temporary directory, but here to be more
 explicit we will set <code class="docutils literal notranslate"><span class="pre">staging=&quot;quickstart-staging&quot;</span></code></p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;quickstart-staging&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trackhub</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;quickstart-staging&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <cite>quickstart-staging</cite> should have these contents:</p>
@@ -267,7 +270,7 @@ directory into the repo:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="trackhub" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="validation.html" class="btn btn-neutral float-right" title="Validation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="excelinstructions.html" class="btn btn-neutral float-right" title="Track hub from Excel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
