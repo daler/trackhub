@@ -1,7 +1,7 @@
 .. _groupAutoScale:
 
 groupAutoScale example
-----------------
+----------------------
 You can read more about preparing the files necessary for a track that auto scales as a group
 on `UCSC's Configuring graph based-tracks help page <https://genome.ucsc.edu/goldenPath/help/hgWiggleTrackHelp.html>`_.
 

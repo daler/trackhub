@@ -61,6 +61,27 @@ jobs:
         make doctest html
         conda deactivate
 
+    - name: test command-line script
+      # Ensure that the installed command-line script can be run and creates
+      # the correct files
+      run: |
+        eval "$(conda shell.bash hook)"
+        source activate /tmp/test-env
+        trackhub_from_excel --template
+        trackhub_from_excel --create-example a.xlsx
+        trackhub_from_excel --excel-file a.xlsx
+        err=0
+        for f in template.xlsx a.xlsx staging staging/test_excel_to_trackhub.hub.txt; do
+          if [ ! -e $f ]; then
+            echo "file $f not present!"
+            err=1
+          fi
+        done
+        if [ err == 1 ]; then
+          exit 1
+        fi
+
+
     - name: upload the just-built docs as an artifact
       # The built docs will be uploaded as a zip file (called docs.zip).
       #   This file will be available on the Actions page and can be used to
@@ -156,6 +177,7 @@ jobs:
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
+        set -x
         here=$(pwd)
         git clone git@github.com:daler/trackhub-demo.git /tmp/trackhub-demo
         cd /tmp/trackhub-demo
@@ -163,14 +185,16 @@ jobs:
         git rm -rf ./*
 
         # Note -L to follow links
-        cp -rL $here/example_hubs/* /tmp/trackhub-demo
+        cp -rLv $here/example_hubs/* /tmp/trackhub-demo
         git add -f .
+        ls
+        git status
 
         # It's possible that the $BRANCH here in the trackhub repo does not yet
         # exist over in the trackhub-demo repo. In that case, we should be good
         # to push.
         if [[ -z $(git ls-remote --heads origin $BRANCH) ]]; then
-          echo "remote branch $BRANCH does not exist -- pushing"
+          echo "remote branch $BRANCH does not exist"
           git commit -m 'update hub'
           git push origin $BRANCH --force
           exit 0
@@ -184,6 +208,7 @@ jobs:
           git commit -m 'update hub'
           git push origin $BRANCH --force
         fi
+        set +x
 
     - name: hubChecks
       # Check hubs

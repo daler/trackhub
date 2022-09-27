@@ -9,6 +9,8 @@ param_dict = {i.name: i for i in param_defs}
 
 # These should at least be first...
 initial_params = ['track', 'bigDataUrl', 'shortLabel', 'longLabel', 'type']
+trackhub_specific = ["source", "tracktype", "name"]
+
 
 track_fields = {i: initial_params[:] for i in TRACKTYPES}
 
