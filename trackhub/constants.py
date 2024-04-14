@@ -8,7 +8,7 @@ from .parsed_params import param_defs, TRACKTYPES
 param_dict = {i.name: i for i in param_defs}
 
 # These should at least be first...
-initial_params = ['track', 'bigDataUrl', 'shortLabel', 'longLabel', 'type']
+initial_params = ["track", "bigDataUrl", "shortLabel", "longLabel", "type"]
 trackhub_specific = ["source", "tracktype", "name"]
 
 
@@ -24,4 +24,4 @@ for tracktype in observed_types:
         if tracktype in param.types:
             lst.append(param.name)
 
-INDENT = '    '
+INDENT = "    "

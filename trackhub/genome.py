@@ -35,7 +35,7 @@ class Genome(HubComponent):
         self._orig_kwargs = kwargs
 
         self.track_field_order = []
-        self.track_field_order.extend(constants.track_fields['genome'])
+        self.track_field_order.extend(constants.track_fields["genome"])
 
         self.add_params(**kwargs)
 
@@ -62,8 +62,7 @@ class Genome(HubComponent):
             if k not in self.track_field_order:
                 raise ParameterError(
                     '"{0}" is not a valid parameter for {1} with '
-                    'tracktype {2}'
-                    .format(k, self.__class__.__name__, self.tracktype)
+                    "tracktype {2}".format(k, self.__class__.__name__, self.tracktype)
                 )
             constants.param_dict[k].validate(v)
 
@@ -88,12 +87,11 @@ class Genome(HubComponent):
         except ValidationError:
             return "Unconfigured <Genome> object"
         s = []
-        s.append('genome %s' % self.genome)
+        s.append("genome %s" % self.genome)
         s.append(
-            'trackDb %s'
+            "trackDb %s"
             % os.path.relpath(
-                self.trackdb.filename,
-                os.path.dirname(self.genome_file_obj.filename)
+                self.trackdb.filename, os.path.dirname(self.genome_file_obj.filename)
             )
         )
 
@@ -105,16 +103,15 @@ class Genome(HubComponent):
 
         self.kwargs = self._orig_kwargs.copy()
 
-        return '\n'.join(s) + '\n'
+        return "\n".join(s) + "\n"
 
     def validate(self):
         if len(self.children) == 0:
-            raise ValidationError(
-                "No TrackDb objects provided")
+            raise ValidationError("No TrackDb objects provided")
         if self.trackdb is None:
             raise ValidationError("No TrackDb objects provided")
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         """
         No file is created from a Genome object -- only from its parent
         GenomesFile object.

@@ -8,7 +8,6 @@ from .genomes_file import GenomesFile
 
 
 class GroupDefinition(object):
-
     def __init__(self, name, label=None, priority=1, default_is_closed=0):
         """
         Represents a group of tracks in a trackhub.
@@ -43,12 +42,12 @@ class GroupDefinition(object):
 
     def __str__(self):
         s = [
-            'name %s' % self.name,
-            'label %s' % self.label,
-            'priority %s' % self.priority,
-            'defaultIsClosed %d' % self.default_is_closed
+            "name %s" % self.name,
+            "label %s" % self.label,
+            "priority %s" % self.priority,
+            "defaultIsClosed %d" % self.default_is_closed,
         ]
-        return '\n'.join(s) + '\n'
+        return "\n".join(s) + "\n"
 
 
 class GroupsFile(HubComponent):
@@ -85,7 +84,7 @@ class GroupsFile(HubComponent):
         """
         Render groups.txt file.
         """
-        return '\n'.join(g.__str__() for g in self.groups)
+        return "\n".join(g.__str__() for g in self.groups)
 
     @property
     def genomes_file(self):
@@ -102,7 +101,7 @@ class GroupsFile(HubComponent):
         if level is None:
             return None
         if level != -1:
-            raise ValueError('Genome is level %s, not -1' % level)
+            raise ValueError("Genome is level %s, not -1" % level)
         return genome
 
     @property
@@ -117,8 +116,11 @@ class GroupsFile(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.filename),
-                                self.genome.genome, 'groups.txt')
+            return os.path.join(
+                os.path.dirname(self.genomes_file.filename),
+                self.genome.genome,
+                "groups.txt",
+            )
 
     @filename.setter
     def filename(self, fn):
@@ -128,16 +130,17 @@ class GroupsFile(HubComponent):
         if self.genome is None:
             raise ValidationError(
                 "GroupsFile object must be attached to an Genome instance "
-                "or subclass")
+                "or subclass"
+            )
         pass
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         """
         Renders the children GroupDefinition objects to file
         """
         rendered_filename = os.path.join(staging, self.filename)
         self.makedirs(rendered_filename)
-        fout = open(rendered_filename, 'w')
+        fout = open(rendered_filename, "w")
         fout.write(str(self))
         fout.close()
         return fout.name

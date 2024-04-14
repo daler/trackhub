@@ -13,7 +13,7 @@ from . import compatibility
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-RSYNC_OPTIONS = '--progress -rvL'
+RSYNC_OPTIONS = "--progress -rvL"
 
 
 def run(cmds, **kwargs):
@@ -22,8 +22,13 @@ def run(cmds, **kwargs):
 
     Additional kwargs are passed to subprocess.run.
     """
-    proc = sp.Popen(cmds, bufsize=-1, stdout=sp.PIPE, stderr=sp.STDOUT,
-                    close_fds=sys.platform != 'win32')
+    proc = sp.Popen(
+        cmds,
+        bufsize=-1,
+        stdout=sp.PIPE,
+        stderr=sp.STDOUT,
+        close_fds=sys.platform != "win32",
+    )
     for line in proc.stdout:
         print(line[:-1].decode())
     retcode = proc.wait()
@@ -93,19 +98,19 @@ def upload(host, user, local_dir, remote_dir, rsync_options=RSYNC_OPTIONS):
         user = ""
     else:
         user = user + "@"
-    if host is None or host == 'localhost':
+    if host is None or host == "localhost":
         host = ""
     else:
         host = host + ":"
 
-    if not local_dir.endswith('/'):
-        local_dir = local_dir + '/'
+    if not local_dir.endswith("/"):
+        local_dir = local_dir + "/"
 
-    if not remote_dir.endswith('/'):
-        remote_dir = remote_dir + '/'
+    if not remote_dir.endswith("/"):
+        remote_dir = remote_dir + "/"
 
-    remote_string = '{user}{host}{remote_dir}'.format(**locals())
-    cmds = ['rsync']
+    remote_string = "{user}{host}{remote_dir}".format(**locals())
+    cmds = ["rsync"]
     cmds += shlex.split(rsync_options)
     cmds += [local_dir, remote_string]
     run(cmds)
@@ -167,35 +172,33 @@ def stage(x, staging):
     # Track objects don't represent files, but their documentation does
     linknames.append(x.render(staging))
 
-    if hasattr(x, 'source') and hasattr(x, 'filename'):
-        def _stg(x, ext=''):
+    if hasattr(x, "source") and hasattr(x, "filename"):
+
+        def _stg(x, ext=""):
             # A remote track hosted elsewhere does not need staging. This is
             # defined by a track with a url, but no source or filename.
             if (
                 x.source is None
                 and x.filename is None
-                and getattr(x, 'url', None) is not None
+                and getattr(x, "url", None) is not None
             ):
                 return
 
-            linknames.append(
-                local_link(x.source + ext, x.filename + ext, staging)
-            )
+            linknames.append(local_link(x.source + ext, x.filename + ext, staging))
 
         _stg(x)
 
         if isinstance(x, track.Track):
-            if x.tracktype == 'bam':
-                _stg(x, ext='.bai')
-            if x.tracktype == 'vcfTabix':
-                _stg(x, ext='.tbi')
+            if x.tracktype == "bam":
+                _stg(x, ext=".bai")
+            if x.tracktype == "vcfTabix":
+                _stg(x, ext=".tbi")
 
         if isinstance(x, track.CompositeTrack):
             if x._html:
                 _stg(x._html)
 
     return linknames
-
 
 
 def stage_hub(hub, staging=None):
@@ -211,7 +214,9 @@ def stage_hub(hub, staging=None):
     return staging, linknames
 
 
-def upload_hub(hub, host, remote_dir, user=None, port=22, rsync_options=RSYNC_OPTIONS, staging=None):
+def upload_hub(
+    hub, host, remote_dir, user=None, port=22, rsync_options=RSYNC_OPTIONS, staging=None
+):
     """
     Renders, stages, and uploads a hub.
     """
@@ -220,5 +225,11 @@ def upload_hub(hub, host, remote_dir, user=None, port=22, rsync_options=RSYNC_OP
         staging = tempfile.mkdtemp()
     staging, linknames = stage_hub(hub, staging=staging)
     local_dir = os.path.join(staging)
-    upload(host, user, local_dir=local_dir, remote_dir=remote_dir, rsync_options=rsync_options)
+    upload(
+        host,
+        user,
+        local_dir=local_dir,
+        remote_dir=remote_dir,
+        rsync_options=rsync_options,
+    )
     return linknames

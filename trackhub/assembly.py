@@ -53,7 +53,8 @@ class TwoBitFile(HubComponent):
         return os.path.join(
             os.path.dirname(self.assembly.genomes_file.filename),
             self.assembly.genome,
-            self.assembly.genome + '.2bit')
+            self.assembly.genome + ".2bit",
+        )
 
     def validate(self):
         if not os.path.exists(self.source):
@@ -63,20 +64,22 @@ class TwoBitFile(HubComponent):
     def filename(self, fn):
         self._filename = fn
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         pass
 
 
 class Assembly(Genome):
-    def __init__(self,
-                 genome,
-                 twobit_file=None,
-                 groups=None,
-                 trackdb=None,
-                 genome_file_obj=None,
-                 html_string=None,
-                 html_string_format='rst',
-                 **kwargs):
+    def __init__(
+        self,
+        genome,
+        twobit_file=None,
+        groups=None,
+        trackdb=None,
+        genome_file_obj=None,
+        html_string=None,
+        html_string_format="rst",
+        **kwargs
+    ):
         """
         Represents a genome stanza within a "genomes.txt" file for a non-UCSC genome.
 
@@ -106,8 +109,8 @@ class Assembly(Genome):
         self._orig_kwargs = kwargs
 
         self.track_field_order = []
-        self.track_field_order.extend(constants.track_fields['assembly'])
-        self.track_field_order.extend(constants.track_fields['all'])
+        self.track_field_order.extend(constants.track_fields["assembly"])
+        self.track_field_order.extend(constants.track_fields["all"])
 
         self.add_params(**kwargs)
 
@@ -145,8 +148,9 @@ class Assembly(Genome):
         for k, v in kw.items():
             if k not in self.track_field_order:
                 raise ParameterError(
-                    '"{0}" is not a valid parameter for {1}'
-                    .format(k, self.__class__.__name__)
+                    '"{0}" is not a valid parameter for {1}'.format(
+                        k, self.__class__.__name__
+                    )
                 )
             constants.param_dict[k].validate(v)
 
@@ -181,11 +185,11 @@ class Assembly(Genome):
 
         s = []
 
-        s.append('genome %s' % self.genome)
-        s.append('trackDb %s' % self.trackdb.filename)
-        s.append('twoBitPath %s' % self.twobit.filename)
+        s.append("genome %s" % self.genome)
+        s.append("trackDb %s" % self.trackdb.filename)
+        s.append("twoBitPath %s" % self.twobit.filename)
         if self.groups is not None:
-            s.append('groups %s' % self.groups.filename)
+            s.append("groups %s" % self.groups.filename)
 
         for name in self.track_field_order:
             value = self.kwargs.pop(name, None)
@@ -194,10 +198,10 @@ class Assembly(Genome):
                     s.append("%s %s" % (name, value))
 
         if self._html is not None:
-            s.append('htmlDocumentation %s' % self._html.filename)
+            s.append("htmlDocumentation %s" % self._html.filename)
 
         self.kwargs = self._orig_kwargs.copy()
-        return '\n'.join(s) + '\n'
+        return "\n".join(s) + "\n"
 
     def validate(self):
         Genome.validate(self)
@@ -213,7 +217,8 @@ class AssemblyHTMLDoc(HTMLDoc):
         return os.path.join(
             os.path.dirname(self.genomes_file.filename),
             self.genome.genome,
-            '%s_info.html' % self.genome.genome)
+            "%s_info.html" % self.genome.genome,
+        )
 
     @property
     def genomes_file(self):
@@ -235,6 +240,7 @@ class AssemblyHTMLDoc(HTMLDoc):
 
     def validate(self):
         if not self.genome:
-            raise ValueError("HTMLDoc object must be connected to an"
-                             "Assembly subclass instance")
+            raise ValueError(
+                "HTMLDoc object must be connected to an" "Assembly subclass instance"
+            )
         return True
