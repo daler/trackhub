@@ -10,8 +10,9 @@ from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
 
 d = data_dir()
 
-class TestUpload(object):
-    def setup(self):
+
+class Upload(object):
+    def __init__(self):
         with pytest.warns(DeprecationWarning):
             self.hub = Hub(
                 hub='example_hub',
@@ -41,40 +42,50 @@ class TestUpload(object):
             self.genome.add_trackdb(self.trackdb)
             self.trackdb.add_tracks(self.tracks)
 
-    def test_staging(self):
-        staging_dir, linknames = upload.stage_hub(self.hub)
 
-        assert open(os.path.join(staging_dir, 'example_hub.genomes.txt')).read() == dedent(
-            """\
-            genome dm3
-            trackDb dm3/trackDb.txt
+@pytest.fixture
+def upload_obj():
+    return Upload()
 
-            """)
 
-        assert open(os.path.join(staging_dir, 'example_hub.hub.txt')).read() == dedent(
-            """\
-            hub hub
-            shortLabel example hub
-            longLabel an example hub for testing
-            genomesFile example_hub.genomes.txt
-            email none@example.com""")
+def test_staging(upload_obj):
+    staging_dir, linknames = upload.stage_hub(upload_obj.hub)
 
-        print(staging_dir)
+    assert open(os.path.join(staging_dir, "example_hub.genomes.txt")).read() == dedent(
+        """\
+        genome dm3
+        trackDb dm3/trackDb.txt
 
-    #@unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
-    def test_upload(self):
-        d = tempfile.mkdtemp()
-        upload.upload_hub(
-            hub=self.hub,
-            remote_dir=d,
-            user=None,
-            host=None,
-        )
+        """
+    )
 
-    def test_render(self):
-        trackdb = str(self.trackdb)
-        print(self.trackdb)
-        # make sure some of the trackdb rendered correctly
-        assert 'track track1' in trackdb
-        assert 'bigDataUrl ../1.bigbed' in trackdb
-        assert 'bigDataUrl ../2.bw' in trackdb
+    assert open(os.path.join(staging_dir, "example_hub.hub.txt")).read() == dedent(
+        """\
+        hub hub
+        shortLabel example hub
+        longLabel an example hub for testing
+        genomesFile example_hub.genomes.txt
+        email none@example.com"""
+    )
+
+    print(staging_dir)
+
+
+# @unittest.skipUnless(os.path.exists('data/track1.bam'), 'No test data')
+def test_upload(upload_obj):
+    d = tempfile.mkdtemp()
+    upload.upload_hub(
+        hub=upload_obj.hub,
+        remote_dir=d,
+        user=None,
+        host=None,
+    )
+
+
+def test_render(upload_obj):
+    trackdb = str(upload_obj.trackdb)
+    print(upload_obj.trackdb)
+    # make sure some of the trackdb rendered correctly
+    assert "track track1" in trackdb
+    assert "bigDataUrl ../1.bigbed" in trackdb
+    assert "bigDataUrl ../2.bw" in trackdb
