@@ -229,6 +229,7 @@ def parse_divs(soup, supported_types):
         if _id in ["view", "subGroupN", "parent_view"]:
             continue
 
+
         spec = {
             "format": formats,
             "types": sorted(types),
@@ -260,6 +261,8 @@ def print_parsed(specs):
     specs : dict
         Returned dictionary from parse_divs()
     """
+
+
     observed_types = set()
     for i in specs.values():
         observed_types.update(i["types"])
@@ -268,7 +271,7 @@ def print_parsed(specs):
     s = ["# Observed types from the parsed document"]
     s.append("TRACKTYPES = [")
     for i in observed_types:
-        s.append("    '{}',".format(i))
+        s.append('    "{}",'.format(i))
     s.append("]")
     print("\n".join(s) + "\n")
 
@@ -277,23 +280,32 @@ def print_parsed(specs):
     s = ["# Tracks for which the definition specifies bigDataUrl"]
     s.append("DATA_TRACKTYPES = [")
     for i in data_types:
-        s.append("    '{}',".format(i))
+        s.append('    "{}",'.format(i))
     s.append("]")
     print("\n".join(s) + "\n")
     print("param_defs = [")
     print()
+
+    def _quote(x):
+        """
+        Python __repr__ uses single quotes, but we're aiming for a pep8
+        format with double quotes. Fix that here.
+        """
+        s = str(x)
+        if '"' in s:
+            return s
+        return s.replace("'", '"')
+
     for k, v in sorted(specs.items()):
         print(
             (
-                """
+                f"""
     Param(
         name="{k}",
-        fmt={v[format]},
-        types={v[types]},
-        required={v[required]},
-        validator=str),""".format(
-                    **locals()
-                )
+        fmt={_quote(v['format'])},
+        types={_quote(v['types'])},
+        required={_quote(v['required'])},
+        validator=str),"""
             )
         )
 
