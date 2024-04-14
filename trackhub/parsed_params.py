@@ -132,7 +132,21 @@ param_defs = [
         fmt=['bamSkipPrintQualScore .'],
         types=['bam'],
         required=False,
-        validator=set(['.'])),
+        validator=str),
+
+    Param(
+        name="barChartBarMinPadding",
+        fmt=['barChartBarMinPadding <num>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="barChartBarMinWidth",
+        fmt=['barChartBarMinWidth <num>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
     Param(
         name="barChartBars",
@@ -156,6 +170,13 @@ param_defs = [
         validator=str),
 
     Param(
+        name="barChartFacets",
+        fmt=['barChartFacets <column1,column2,...columnN>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
         name="barChartLabel",
         fmt=['barChartLabel <label>'],
         types=['bigBarChart'],
@@ -174,7 +195,14 @@ param_defs = [
         fmt=['barChartMaxSize <small/medium/large>'],
         types=['bigBarChart'],
         required=False,
-        validator=['small', 'medium', 'large']),
+        validator=str),
+
+    Param(
+        name="barChartMerge",
+        fmt=['barChartMerge on'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
 
     Param(
         name="barChartMetric",
@@ -193,6 +221,20 @@ param_defs = [
     Param(
         name="barChartSizeWindows",
         fmt=['barChartSizeWindows <largeMax> <smallMin>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="barChartStatsUrl",
+        fmt=['barChartStatsUrl <url>'],
+        types=['bigBarChart'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="barChartStretchToItem",
+        fmt=['barChartStretchToItem on'],
         types=['bigBarChart'],
         required=False,
         validator=str),
@@ -334,6 +376,13 @@ param_defs = [
         validator=str),
 
     Param(
+        name="decorator",
+        fmt=['decorator.default.*'],
+        types=['bigBed', 'bigGenePred', 'bigPsl'],
+        required=False,
+        validator=str),
+
+    Param(
         name="defaultLabelFields",
         fmt=['defaultLabelFields <fieldName[,fieldName]>'],
         types=['bigBarChart', 'bigBed', 'bigGenePred', 'bigNarrowPeak', 'bigPsl'],
@@ -345,7 +394,21 @@ param_defs = [
         fmt=['denseCoverage <maxVal>'],
         types=['bigBed'],
         required=False,
-        validator=float),
+        validator=str),
+
+    Param(
+        name="detailsDynamicTable",
+        fmt=['detailsDynamicTable <fieldName1|table title,fieldName2|table title,...>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="detailsStaticTable",
+        fmt=['detailsStaticTable <url/relativePath>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
 
     Param(
         name="dimensionAchecked",
@@ -380,7 +443,14 @@ param_defs = [
         fmt=['doWiggle on'],
         types=['bam'],
         required=False,
-        validator=set(['on'])),
+        validator=str),
+
+    Param(
+        name="downloadUrl",
+        fmt=['downloadUrl <label> <URL>'],
+        types=['all'],
+        required=False,
+        validator=str),
 
     Param(
         name="dragAndDrop",
@@ -400,6 +470,20 @@ param_defs = [
         name="exonNumbers",
         fmt=['exonNumbers <on/off>'],
         types=['bigBed', 'bigGenePred'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="extraDetailsTable",
+        fmt=['extraDetailsTable <url/relativePath>'],
+        types=['bigBed'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="extraTableFields",
+        fmt=['extraTableFields <fieldName1|table title,fieldName2|table title,...>'],
+        types=['bigBed'],
         required=False,
         validator=str),
 
@@ -520,6 +604,20 @@ param_defs = [
         name="gridDefault",
         fmt=['yLineMark <#>', 'yLineOnOff <off/on>', 'gridDefault   on'],
         types=['bigWig'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="hicDistanceMax",
+        fmt=['hicDistanceMax <integer>'],
+        types=['hic'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="hicDistanceMin",
+        fmt=['hicDistanceMin <integer>'],
+        types=['hic'],
         required=False,
         validator=str),
 
@@ -666,6 +764,13 @@ param_defs = [
         validator=str),
 
     Param(
+        name="logo",
+        fmt=['logo on'],
+        types=['bigWig'],
+        required=False,
+        validator=str),
+
+    Param(
         name="lollyField",
         fmt=['lollyField <integer>'],
         types=['bigLolly'],
@@ -713,7 +818,14 @@ param_defs = [
         fmt=['maxLimit<#>'],
         types=['bigBarChart'],
         required=False,
-        validator=int),
+        validator=str),
+
+    Param(
+        name="maxWindowCoverage",
+        fmt=['maxWindowCoverage <integer>'],
+        types=['bam', 'bigWig'],
+        required=False,
+        validator=str),
 
     Param(
         name="maxWindowToDraw",
@@ -772,6 +884,20 @@ param_defs = [
         validator=str),
 
     Param(
+        name="mouseOverFunction",
+        fmt=['mouseOverFunction <noAverage>'],
+        types=['bigWig'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="multiRegionsBedUrl",
+        fmt=['multiRegionsBedUrl <url/relativePath>'],
+        types=['all'],
+        required=False,
+        validator=str),
+
+    Param(
         name="negateValues",
         fmt=['negateValues <on>'],
         types=['bigWig'],
@@ -818,6 +944,13 @@ param_defs = [
         name="otherSpecies",
         fmt=['otherSpecies <otherSpecies>'],
         types=['all'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="otherTwoBitUrl",
+        fmt=['otherTwoBitUrl <url/relativePath>'],
+        types=['bigChain', 'bigPsl'],
         required=False,
         validator=str),
 
@@ -968,7 +1101,14 @@ param_defs = [
         fmt=['showDiffBasesAllScales on'],
         types=['all'],
         required=False,
-        validator=set(['on'])),
+        validator=str),
+
+    Param(
+        name="showDiffBasesMaxZoom",
+        fmt=['showDiffBasesMaxZoom <basesPerPixel>'],
+        types=['all'],
+        required=False,
+        validator=str),
 
     Param(
         name="showNames",
@@ -1109,6 +1249,27 @@ param_defs = [
         name="vcfChildSample",
         fmt=['vcfChildSample <sampleName|altName>'],
         types=['vcfPhasedTrio'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="vcfDoFilter",
+        fmt=['vcfDoFilter <on/off>'],
+        types=['vcfPhasedTrio', 'vcfTabix'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="vcfDoMaf",
+        fmt=['vcfDoMaf <on/off>'],
+        types=['vcfPhasedTrio', 'vcfTabix'],
+        required=False,
+        validator=str),
+
+    Param(
+        name="vcfDoQual",
+        fmt=['vcfDoQual <on/off>'],
+        types=['vcfPhasedTrio', 'vcfTabix'],
         required=False,
         validator=str),
 
