@@ -8,7 +8,8 @@ hub = trackhub.Hub(
     "assembly_hub",
     short_label="assembly_hub",
     long_label="an example of an assembly hub",
-    email="none@example.com")
+    email="none@example.com",
+)
 
 genome = trackhub.Assembly(
     genome="newOrg1",
@@ -18,7 +19,7 @@ genome = trackhub.Assembly(
     scientificName="Biggus Footus",
     description="BigFoot V4",
     html_string="BIGFOOT V4 INFO\n",
-    orderKey=4800
+    orderKey=4800,
 )
 
 genomes_file = trackhub.GenomesFile()
@@ -34,9 +35,9 @@ for bw in glob.glob(os.path.join(trackhub.helpers.data_dir(), "*no1*.bw")):
     track = trackhub.Track(
         name=trackhub.helpers.sanitize(name),
         source=bw,
-        tracktype='bigWig',
-        autoScale="on")
+        tracktype="bigWig",
+        autoScale="on",
+    )
     trackdb.add_tracks(track)
 
 trackhub.upload.stage_hub(hub)
-
