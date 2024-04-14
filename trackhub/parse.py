@@ -161,6 +161,12 @@ def parse_divs(soup, supported_types):
     for i in d:
 
         div = i.parent
+
+        # 2024-04-13: maxWindowCoverage appears to be wrapped in an
+        # additional <code>, so we need to get *it's* parent.
+        if div.name == 'code':  # not 'div'...
+            div = div.parent
+
         _id = div.attrs['class']
         assert len(_id) == 1
         _id = _id[0]
