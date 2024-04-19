@@ -39,6 +39,7 @@ jobs:
         # .rst files. Note if we're on master branch then this is a no-op.
         eval "$(conda shell.bash hook)"
         conda activate ./env
+        conda env export
         (
           cd doc
           find . -name "*.rst" | xargs sed -i "s|trackhub-demo/master|trackhub-demo/$BRANCH|g"
