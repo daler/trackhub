@@ -107,7 +107,7 @@ Super tracks are within the track hub and therefore do not need special fields.
 
 
 Example ``view_config`` sheet
-````````````````````````````
+`````````````````````````````
 
 .. list-table::
     :header-rows: 1

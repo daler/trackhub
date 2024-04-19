@@ -5,6 +5,7 @@ pybedtools
 pytest
 sphinx>4
 pygments
+sphinx_rtd_theme
 ucsc-bedgraphtobigwig
 ucsc-fatotwobit
 ucsc-bedtobigbed
