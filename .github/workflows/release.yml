@@ -11,6 +11,7 @@ jobs:
     steps:
     - name: Build
       run: |
+        pip install build
         python -m build
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
