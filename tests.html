@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples of hubs using various supported track types &mdash; trackhub 1.0 documentation</title>
+  <title>Testing infrastructure &mdash; trackhub 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="bigWig example" href="tracktypes/bigWig.html" />
-    <link rel="prev" title="groupAutoScale example" href="groupAutoScale.html" /> 
+    <link rel="next" title="API documentation" href="autodocs.html" />
+    <link rel="prev" title="Hi-C example" href="tracktypes/hic.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,22 +56,8 @@
 <li class="toctree-l1"><a class="reference internal" href="html_doc.html">Documenting tracks in hubs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples of hubs using various supported track types</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigWig.html">bigWig example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigGenePred.html">bigGenePred example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigMaf.html">bigMaf example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigNarrowPeak.html">bigNarrowPeak example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigPsl.html">bigPsl example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigChain.html">bigChain example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/vcfTabix.html">vcfTabix example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigLolly.html">bigLolly example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigInteract.html">bigInteract example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bigBarChart.html">bigBarChart example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/bam.html">bam example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tracktypes/hic.html">Hi-C example</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -90,9 +76,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Examples of hubs using various supported track types</li>
+      <li class="breadcrumb-item active">Testing infrastructure</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/tracktypes.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/tests.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -100,32 +86,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="examples-of-hubs-using-various-supported-track-types">
-<span id="tracktypes"></span><h1>Examples of hubs using various supported track types<a class="headerlink" href="#examples-of-hubs-using-various-supported-track-types" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigWig.html">bigWig example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigGenePred.html">bigGenePred example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigMaf.html">bigMaf example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigNarrowPeak.html">bigNarrowPeak example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigPsl.html">bigPsl example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigChain.html">bigChain example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/vcfTabix.html">vcfTabix example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigLolly.html">bigLolly example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigInteract.html">bigInteract example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bigBarChart.html">bigBarChart example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/bam.html">bam example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracktypes/hic.html">Hi-C example</a></li>
+  <section id="testing-infrastructure">
+<span id="tests"></span><h1>Testing infrastructure<a class="headerlink" href="#testing-infrastructure" title="Link to this heading"></a></h1>
+<p>Tests are run on GitHub Actions, configured in <code class="docutils literal notranslate"><span class="pre">.github/workflows/main.yml</span></code>.</p>
+<p>In addition to unit tests, now any code in the documentation that shows how to
+build example track hubs is handled like this:</p>
+<ul class="simple">
+<li><p>extract code from documentation (see <code class="docutils literal notranslate"><span class="pre">ci/example_hubs.tsv</span></code> for the list of
+files from which code is extracted)</p></li>
+<li><p>execute code to build track hub (see <code class="docutils literal notranslate"><span class="pre">ci//build_examples.py</span></code>)</p></li>
+<li><p>upload code and built track hub (and data, if relevant) to the <a class="reference external" href="https://github.com/daler/trackhub-demo">trackhub-demo</a> repository</p></li>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">hubCheck</span></code> on the just-uploaded hubs (see <code class="docutils literal notranslate"><span class="pre">ci/check_hubs.py</span></code>)</p></li>
 </ul>
-</div>
+<p>The just-built track hubs are then live, and linked to from within the
+documentation.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="groupAutoScale.html" class="btn btn-neutral float-left" title="groupAutoScale example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tracktypes/bigWig.html" class="btn btn-neutral float-right" title="bigWig example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tracktypes/hic.html" class="btn btn-neutral float-left" title="Hi-C example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autodocs.html" class="btn btn-neutral float-right" title="API documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

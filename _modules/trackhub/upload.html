@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>trackhub.upload &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>trackhub.upload &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -27,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -49,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 </ul>
@@ -66,9 +72,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>trackhub.upload</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">trackhub.upload</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -93,17 +99,22 @@
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">RSYNC_OPTIONS</span> <span class="o">=</span> <span class="s1">&#39;--progress -rvL&#39;</span>
+<span class="n">RSYNC_OPTIONS</span> <span class="o">=</span> <span class="s2">&quot;--progress -rvL&quot;</span>
 
 
 <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cmds</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper around subprocess.run, with unicode decoding of output.</span>
 
 <span class="sd">    Additional kwargs are passed to subprocess.run.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">proc</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmds</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
-                    <span class="n">close_fds</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">!=</span> <span class="s1">&#39;win32&#39;</span><span class="p">)</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="n">cmds</span><span class="p">,</span>
+        <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+        <span class="n">stderr</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
+        <span class="n">close_fds</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">!=</span> <span class="s2">&quot;win32&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
     <span class="n">retcode</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
@@ -112,7 +123,7 @@
 
 
 <span class="k">def</span> <span class="nf">symlink</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">linkname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a symlink to `target` called `linkname`.</span>
 
 <span class="sd">    Converts `target` and `linkname` to absolute paths; creates</span>
@@ -152,7 +163,7 @@
 
 
 <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_dir</span><span class="p">,</span> <span class="n">rsync_options</span><span class="o">=</span><span class="n">RSYNC_OPTIONS</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Upload a file or directory via rsync.</span>
 
 <span class="sd">    Parameters</span>
@@ -173,19 +184,19 @@
         <span class="n">user</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="o">+</span> <span class="s2">&quot;@&quot;</span>
-    <span class="k">if</span> <span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">host</span> <span class="o">==</span> <span class="s1">&#39;localhost&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">host</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">host</span> <span class="o">==</span> <span class="s2">&quot;localhost&quot;</span><span class="p">:</span>
         <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">host</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">local_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
-        <span class="n">local_dir</span> <span class="o">=</span> <span class="n">local_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">local_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="n">local_dir</span> <span class="o">=</span> <span class="n">local_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
-        <span class="n">remote_dir</span> <span class="o">=</span> <span class="n">remote_dir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="n">remote_dir</span> <span class="o">=</span> <span class="n">remote_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
 
-    <span class="n">remote_string</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{user}{host}{remote_dir}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rsync&#39;</span><span class="p">]</span>
+    <span class="n">remote_string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{user}{host}{remote_dir}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rsync&quot;</span><span class="p">]</span>
     <span class="n">cmds</span> <span class="o">+=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rsync_options</span><span class="p">)</span>
     <span class="n">cmds</span> <span class="o">+=</span> <span class="p">[</span><span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_string</span><span class="p">]</span>
     <span class="n">run</span><span class="p">(</span><span class="n">cmds</span><span class="p">)</span>
@@ -193,7 +204,7 @@
 
 
 <span class="k">def</span> <span class="nf">local_link</span><span class="p">(</span><span class="n">local_fn</span><span class="p">,</span> <span class="n">remote_fn</span><span class="p">,</span> <span class="n">staging</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a symlink to a local staging area.</span>
 
 <span class="sd">    The link name is built from `remote_fn`, but the absolute path is put</span>
@@ -221,7 +232,7 @@
 
 
 <span class="k">def</span> <span class="nf">stage</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">staging</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stage an object to the `staging` directory.</span>
 
 <span class="sd">    If the object is a Track and is one of the types that needs an index file</span>
@@ -247,28 +258,27 @@
     <span class="c1"># Track objects don&#39;t represent files, but their documentation does</span>
     <span class="n">linknames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">staging</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
             <span class="c1"># A remote track hosted elsewhere does not need staging. This is</span>
             <span class="c1"># defined by a track with a url, but no source or filename.</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">x</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span>
                 <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span>
-                <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">):</span>
                 <span class="k">return</span>
 
-            <span class="n">linknames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">local_link</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">source</span> <span class="o">+</span> <span class="n">ext</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">filename</span> <span class="o">+</span> <span class="n">ext</span><span class="p">,</span> <span class="n">staging</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">linknames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">local_link</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">source</span> <span class="o">+</span> <span class="n">ext</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">filename</span> <span class="o">+</span> <span class="n">ext</span><span class="p">,</span> <span class="n">staging</span><span class="p">))</span>
 
         <span class="n">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">Track</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">==</span> <span class="s1">&#39;bam&#39;</span><span class="p">:</span>
-                <span class="n">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;.bai&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">==</span> <span class="s1">&#39;vcfTabix&#39;</span><span class="p">:</span>
-                <span class="n">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;.tbi&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">==</span> <span class="s2">&quot;bam&quot;</span><span class="p">:</span>
+                <span class="n">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s2">&quot;.bai&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">tracktype</span> <span class="o">==</span> <span class="s2">&quot;vcfTabix&quot;</span><span class="p">:</span>
+                <span class="n">_stg</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s2">&quot;.tbi&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">CompositeTrack</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">_html</span><span class="p">:</span>
@@ -277,9 +287,10 @@
     <span class="k">return</span> <span class="n">linknames</span>
 
 
-
-<div class="viewcode-block" id="stage_hub"><a class="viewcode-back" href="../../autodocs/trackhub.upload.stage_hub.html#trackhub.upload.stage_hub">[docs]</a><span class="k">def</span> <span class="nf">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="stage_hub">
+<a class="viewcode-back" href="../../autodocs/trackhub.upload.stage_hub.html#trackhub.upload.stage_hub">[docs]</a>
+<span class="k">def</span> <span class="nf">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stage a hub by symlinking all its connected files to a local directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">linknames</span> <span class="o">=</span> <span class="p">[]</span>
@@ -291,8 +302,13 @@
     <span class="k">return</span> <span class="n">staging</span><span class="p">,</span> <span class="n">linknames</span></div>
 
 
-<div class="viewcode-block" id="upload_hub"><a class="viewcode-back" href="../../autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub">[docs]</a><span class="k">def</span> <span class="nf">upload_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">remote_dir</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">rsync_options</span><span class="o">=</span><span class="n">RSYNC_OPTIONS</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="upload_hub">
+<a class="viewcode-back" href="../../autodocs/trackhub.upload.upload_hub.html#trackhub.upload.upload_hub">[docs]</a>
+<span class="k">def</span> <span class="nf">upload_hub</span><span class="p">(</span>
+    <span class="n">hub</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">remote_dir</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">rsync_options</span><span class="o">=</span><span class="n">RSYNC_OPTIONS</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Renders, stages, and uploads a hub.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">hub</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
@@ -300,8 +316,15 @@
         <span class="n">staging</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
     <span class="n">staging</span><span class="p">,</span> <span class="n">linknames</span> <span class="o">=</span> <span class="n">stage_hub</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="n">staging</span><span class="p">)</span>
     <span class="n">local_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">staging</span><span class="p">)</span>
-    <span class="n">upload</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">local_dir</span><span class="o">=</span><span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_dir</span><span class="o">=</span><span class="n">remote_dir</span><span class="p">,</span> <span class="n">rsync_options</span><span class="o">=</span><span class="n">rsync_options</span><span class="p">)</span>
+    <span class="n">upload</span><span class="p">(</span>
+        <span class="n">host</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">,</span>
+        <span class="n">local_dir</span><span class="o">=</span><span class="n">local_dir</span><span class="p">,</span>
+        <span class="n">remote_dir</span><span class="o">=</span><span class="n">remote_dir</span><span class="p">,</span>
+        <span class="n">rsync_options</span><span class="o">=</span><span class="n">rsync_options</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">linknames</span></div>
+
 </pre></div>
 
            </div>

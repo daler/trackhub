@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documenting tracks in hubs &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>Documenting tracks in hubs &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -68,8 +75,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Documenting tracks in hubs</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documenting tracks in hubs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/html_doc.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="documenting-tracks-in-hubs">
-<span id="htmldoc-example"></span><h1>Documenting tracks in hubs<a class="headerlink" href="#documenting-tracks-in-hubs" title="Permalink to this heading"></a></h1>
+  <section id="documenting-tracks-in-hubs">
+<span id="htmldoc-example"></span><h1>Documenting tracks in hubs<a class="headerlink" href="#documenting-tracks-in-hubs" title="Link to this heading"></a></h1>
 <p><cite>trackhub</cite> supports documentation written in <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">ReStructured Text</a> that is
 automatically converted to HTML. Here we show examples of how this works.</p>
 <ul class="simple">
@@ -89,9 +96,9 @@ automatically converted to HTML. Here we show examples of how this works.</p>
 </ul>
 <p>The composite track’s documentation as created below will look like this in the
 Genome Browser:</p>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/htmldoc.png"><img alt="_images/htmldoc.png" src="_images/htmldoc.png" style="width: 500px;" /></a>
-</div>
+</figure>
 <p>The UCSC Genome Browser shows the HTML documentation <strong>only</strong> for the top-level
 track-like object and ignores lower-level documentation. For example, if you
 have documentation for a track, and add it directly to the TrackDb, the track
@@ -125,7 +132,7 @@ want to look at that first.</p>
     <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
     <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
     <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Composite track</span>
 <span class="sd">    ---------------</span>
 
@@ -185,7 +192,7 @@ want to look at that first.</p>
     <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigWig&#39;</span><span class="p">,</span>
     <span class="n">short_label</span><span class="o">=</span><span class="s1">&#39;Signal&#39;</span><span class="p">,</span>
     <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Signal view docs</span>
 <span class="sd">    ----------------</span>
 <span class="sd">    While a file for this HTML documentation is created and uploaded, it</span>
@@ -206,7 +213,7 @@ want to look at that first.</p>
     <span class="n">showSubtrackColorOnUi</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;agg&#39;</span><span class="p">,</span>
     <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Overlay</span>
 <span class="sd">    -------</span>
 <span class="sd">    This is a transparent overlay aggregate track. Over in the `grouping</span>
@@ -231,7 +238,7 @@ want to look at that first.</p>
         <span class="n">viewLimits</span><span class="o">=</span><span class="s1">&#39;-2:2&#39;</span><span class="p">,</span>
         <span class="n">maxHeightPixels</span><span class="o">=</span><span class="s1">&#39;8:50:128&#39;</span><span class="p">,</span>
         <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Track as part of composite</span>
 <span class="sd">        --------------------------</span>
 <span class="sd">        While the HTML file is uploaded for this track, UCSC currently</span>
@@ -264,7 +271,7 @@ want to look at that first.</p>
     <span class="n">visibility</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">,</span>
     <span class="n">tracktype</span><span class="o">=</span><span class="s1">&#39;bigBed&#39;</span><span class="p">,</span>
     <span class="n">html_string</span><span class="o">=</span><span class="n">dedent</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Track docs</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Documentation for a single track. Since this track is added directly to</span>
@@ -282,7 +289,7 @@ want to look at that first.</p>
         <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>

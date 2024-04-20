@@ -1,27 +1,50 @@
 Changelog
 =========
 
-Version 0.3
------------
+Version 1.0 (April 2024)
+------------------------
+
+This major release is backwards-compatible but adds many new features and tests.
 
 Testing infrastructure overhaul
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-See :ref:`tests` for details.
+Extensive example hubs that demonstrate the various track types and
+configuration options. These use data provided by UCSC and are built as part of
+the testing framework. Thanks to Eva Jason (@evajason).
 
-Documentation updates
-~~~~~~~~~~~~~~~~~~~~~
+See :ref:`tests` and :ref:`tracktypes` for details.
 
-- Examples have been added for all of the available track types. See
-  :ref:`tracktypes` for details.
-- New section that details how validation works (see :ref:`validation`).
+Build a trackhub configured in Excel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Build a trackhub using only a command-line tool and configuration in Excel.
+This new tool, ``trackhub_from_excel``, can write out a template you can use to
+fill in details on what tracks should be included, how to organize them, and
+configuration options like color, visibility, etc.
+
+Running the tool on your filled-out Excel file will build a trackhub ready to
+be uploaded.
+
+Thanks Eva Jason (@evajason) for this new feature.
+
+Semi-automated updating of validated parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Dramatically improved semi-automatic updating mechanism for making sure
+parameters are up-to-date with the main UCSC instance (see
+``trackhub/parse.py`` and ``trackhub/parsed_params.py``). These scrape the UCSC
+database document HTML to identify parameters, and writes this out to Python
+module that can be diffed against the existing ``parsed_params.py`` module. In
+addition to supporting validation, this highlights what has changed in the UCSC
+Genome Browser since the last trackhub Python package update.
 
 Other changes
 ~~~~~~~~~~~~~
+- New section that details how validation works (see :ref:`validation`).
+
 - `defaultPos` can now be set when using the `default_hub` helper function
 
 - Support for all track types supported in track hubs (see :ref:`tracktypes`)
-
 
 - There is now one naming convention, `add_tracks`, rather than multiple
   methods names that perform this for different track types. `add_view` and
@@ -30,14 +53,14 @@ Other changes
   two. The older method names are retained for backwards compatibility, but all
   documentation has been updated to reflect this change.
 
-- dramatically improved semi-automatic updating mechanism for making sure
-  parameters are up-to-date with the main UCSC instance (see
-  ``trackhub/parse.py`` and ``trackhub/parsed_params.py``).
-
 - fixed indentation when super tracks, composite tracks, and view tracks are
   nested.
 
 - improved handling of rsync and handling symlink modification times
+
+- Dropped support for Python 2.7
+
+- Migrated tests from Travis CI to GitHub Actions and to use pytest fixtures.
 
 Version 0.2.4 (Dec 2017)
 ------------------------

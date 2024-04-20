@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>trackhub &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>trackhub &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="#" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -50,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -67,8 +74,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>trackhub</li>
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">trackhub</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -78,8 +85,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="trackhub">
-<h1>trackhub<a class="headerlink" href="#trackhub" title="Permalink to this heading"></a></h1>
+  <section id="trackhub">
+<h1>trackhub<a class="headerlink" href="#trackhub" title="Link to this heading"></a></h1>
 <a class="reference external image-reference" href="https://github.com/daler/trackhub/actions?query=workflow%3Amain"><img alt="https://github.com/daler/trackhub/workflows/main/badge.svg" src="https://github.com/daler/trackhub/workflows/main/badge.svg" /></a>
 <p>See the documentation at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a> for more details.</p>
 <p>Data visualization is critical at all steps of genomic data analysis, from QC
@@ -99,51 +106,51 @@ itself, the common Python package <cite>docutils</cite>, and the availability of
 (a standard Unix command-line tool for remotely transferring files). It is
 availabe on PyPI, bioconda, and GitHub; an automated test suite and tested
 documentation ensure high-quality code and help.</p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <p>Using pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">trackhub</span></code></p>
 <p>Using <a class="reference external" href="https://bioconda.github.io">bioconda</a>: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">trackhub</span></code></p>
-</div>
-<div class="section" id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
-<div class="section" id="validation">
-<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this heading"></a></h3>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<section id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h3>
 <p><cite>trackhub</cite> validates parameters against UCSC’s documented options, so errors
 are caught early and less time is spent debugging in the Genome Browser.</p>
-</div>
-<div class="section" id="filename-handling">
-<h3>Filename handling<a class="headerlink" href="#filename-handling" title="Permalink to this heading"></a></h3>
+</section>
+<section id="filename-handling">
+<h3>Filename handling<a class="headerlink" href="#filename-handling" title="Link to this heading"></a></h3>
 <p>The directory structure of an analysis rarely matches the organization you want
 for a track hub.  <cite>trackhub</cite> symlinks track files to a staging area so the hub
 can be inspected locally before being uploaded, e.g., with <code class="docutils literal notranslate"><span class="pre">rsync</span></code>. Staging
 also enables rapid deployment and updating since only files that have changed
 will be uploaded on subsequent calls.</p>
-</div>
-<div class="section" id="flexibility">
-<h3>Flexibility<a class="headerlink" href="#flexibility" title="Permalink to this heading"></a></h3>
+</section>
+<section id="flexibility">
+<h3>Flexibility<a class="headerlink" href="#flexibility" title="Link to this heading"></a></h3>
 <p>Sensible defaults make it easy to build a functioning track hub. However, these
 defaults can always be overridden for complex configurations or when more
 precise control is needed. For example, by default a track’s <cite>name</cite> also
 becomes the <cite>shortLabel</cite>, <cite>longLabel</cite> and <cite>filename</cite> of the track in the hub
 unless any of these are overridden by the user.</p>
-</div>
-<div class="section" id="easy-track-documentation">
-<h3>Easy track documentation<a class="headerlink" href="#easy-track-documentation" title="Permalink to this heading"></a></h3>
+</section>
+<section id="easy-track-documentation">
+<h3>Easy track documentation<a class="headerlink" href="#easy-track-documentation" title="Link to this heading"></a></h3>
 <p>Write track hub documentation in ReStructured Text, and it is converted to
 HTML, connected to the track and uploaded with the rest of the hub. This allows
 for programmatically including content without the tedium of writing HTML by
 hand.</p>
-</div>
-<div class="section" id="extensible">
-<h3>Extensible<a class="headerlink" href="#extensible" title="Permalink to this heading"></a></h3>
+</section>
+<section id="extensible">
+<h3>Extensible<a class="headerlink" href="#extensible" title="Link to this heading"></a></h3>
 <p>The framework provided by <cite>trackhub</cite> can be extended as new hub functionality is
 added to the UCSC Genome Browser.</p>
 <p>Full documentation can be found at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a>. The code
 in the documentation is run as part of the test suite to guarantee correctness.</p>
-</div>
-</div>
-<div class="section" id="basic-example">
-<span id="id1"></span><h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+<section id="basic-example">
+<span id="id1"></span><h2>Basic example<a class="headerlink" href="#basic-example" title="Link to this heading"></a></h2>
 <p>The following code demonstrates a track hub built out of all bigWig files found
 in a directory. It is relatively simple; see these other examples from the
 documentation for complex usage.</p>
@@ -247,6 +254,7 @@ directly into UCSC to see what it looks like.</p>
 <li class="toctree-l2"><a class="reference internal" href="tracktypes/hic.html">Hi-C example</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.base.HubComponent.html">trackhub.base.HubComponent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autodocs/trackhub.Hub.html">trackhub.Hub</a></li>
@@ -274,7 +282,7 @@ directly into UCSC to see what it looks like.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-3">Version 0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-1-0-april-2024">Version 1.0 (April 2024)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-2-4-dec-2017">Version 0.2.4 (Dec 2017)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1-3-nov-2015">Version 0.1.3 (Nov 2015)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1-2-jan-2-2015">Version 0.1.2 (Jan 2 2015)</a></li>
@@ -284,8 +292,8 @@ directly into UCSC to see what it looks like.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>Changelog &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -50,11 +56,13 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#version-0-3">Version 0.3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-0-april-2024">Version 1.0 (April 2024)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#testing-infrastructure-overhaul">Testing infrastructure overhaul</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentation-updates">Documentation updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-a-trackhub-configured-in-excel">Build a trackhub configured in Excel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#semi-automated-updating-of-validated-parameters">Semi-automated updating of validated parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#other-changes">Other changes</a></li>
 </ul>
 </li>
@@ -86,8 +94,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Changelog</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Changelog</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,25 +105,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading"></a></h1>
-<div class="section" id="version-0-3">
-<h2>Version 0.3<a class="headerlink" href="#version-0-3" title="Permalink to this heading"></a></h2>
-<div class="section" id="testing-infrastructure-overhaul">
-<h3>Testing infrastructure overhaul<a class="headerlink" href="#testing-infrastructure-overhaul" title="Permalink to this heading"></a></h3>
-<p>See <span class="xref std std-ref">tests</span> for details.</p>
-</div>
-<div class="section" id="documentation-updates">
-<h3>Documentation updates<a class="headerlink" href="#documentation-updates" title="Permalink to this heading"></a></h3>
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<section id="version-1-0-april-2024">
+<h2>Version 1.0 (April 2024)<a class="headerlink" href="#version-1-0-april-2024" title="Link to this heading"></a></h2>
+<p>This major release is backwards-compatible but adds many new features and tests.</p>
+<section id="testing-infrastructure-overhaul">
+<h3>Testing infrastructure overhaul<a class="headerlink" href="#testing-infrastructure-overhaul" title="Link to this heading"></a></h3>
+<p>Extensive example hubs that demonstrate the various track types and
+configuration options. These use data provided by UCSC and are built as part of
+the testing framework. Thanks to Eva Jason (&#64;evajason).</p>
+<p>See <a class="reference internal" href="tests.html#tests"><span class="std std-ref">Testing infrastructure</span></a> and <a class="reference internal" href="tracktypes.html#tracktypes"><span class="std std-ref">Examples of hubs using various supported track types</span></a> for details.</p>
+</section>
+<section id="build-a-trackhub-configured-in-excel">
+<h3>Build a trackhub configured in Excel<a class="headerlink" href="#build-a-trackhub-configured-in-excel" title="Link to this heading"></a></h3>
+<p>Build a trackhub using only a command-line tool and configuration in Excel.
+This new tool, <code class="docutils literal notranslate"><span class="pre">trackhub_from_excel</span></code>, can write out a template you can use to
+fill in details on what tracks should be included, how to organize them, and
+configuration options like color, visibility, etc.</p>
+<p>Running the tool on your filled-out Excel file will build a trackhub ready to
+be uploaded.</p>
+<p>Thanks Eva Jason (&#64;evajason) for this new feature.</p>
+</section>
+<section id="semi-automated-updating-of-validated-parameters">
+<h3>Semi-automated updating of validated parameters<a class="headerlink" href="#semi-automated-updating-of-validated-parameters" title="Link to this heading"></a></h3>
+<p>Dramatically improved semi-automatic updating mechanism for making sure
+parameters are up-to-date with the main UCSC instance (see
+<code class="docutils literal notranslate"><span class="pre">trackhub/parse.py</span></code> and <code class="docutils literal notranslate"><span class="pre">trackhub/parsed_params.py</span></code>). These scrape the UCSC
+database document HTML to identify parameters, and writes this out to Python
+module that can be diffed against the existing <code class="docutils literal notranslate"><span class="pre">parsed_params.py</span></code> module. In
+addition to supporting validation, this highlights what has changed in the UCSC
+Genome Browser since the last trackhub Python package update.</p>
+</section>
+<section id="other-changes">
+<h3>Other changes<a class="headerlink" href="#other-changes" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Examples have been added for all of the available track types. See
-<a class="reference internal" href="tracktypes.html#tracktypes"><span class="std std-ref">Examples of hubs using various supported track types</span></a> for details.</p></li>
 <li><p>New section that details how validation works (see <a class="reference internal" href="validation.html#validation"><span class="std std-ref">Validation</span></a>).</p></li>
-</ul>
-</div>
-<div class="section" id="other-changes">
-<h3>Other changes<a class="headerlink" href="#other-changes" title="Permalink to this heading"></a></h3>
-<ul class="simple">
 <li><p><cite>defaultPos</cite> can now be set when using the <cite>default_hub</cite> helper function</p></li>
 <li><p>Support for all track types supported in track hubs (see <a class="reference internal" href="tracktypes.html#tracktypes"><span class="std std-ref">Examples of hubs using various supported track types</span></a>)</p></li>
 <li><p>There is now one naming convention, <cite>add_tracks</cite>, rather than multiple
@@ -124,28 +149,28 @@ methods names that perform this for different track types. <cite>add_view</cite>
 will accept track objects, a list of track object, or a combination of the
 two. The older method names are retained for backwards compatibility, but all
 documentation has been updated to reflect this change.</p></li>
-<li><p>dramatically improved semi-automatic updating mechanism for making sure
-parameters are up-to-date with the main UCSC instance (see
-<code class="docutils literal notranslate"><span class="pre">trackhub/parse.py</span></code> and <code class="docutils literal notranslate"><span class="pre">trackhub/parsed_params.py</span></code>).</p></li>
 <li><p>fixed indentation when super tracks, composite tracks, and view tracks are
 nested.</p></li>
 <li><p>improved handling of rsync and handling symlink modification times</p></li>
+<li><p>Dropped support for Python 2.7</p></li>
+<li><p>Migrated tests from Travis CI to GitHub Actions and to use pytest fixtures.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="version-0-2-4-dec-2017">
-<h2>Version 0.2.4 (Dec 2017)<a class="headerlink" href="#version-0-2-4-dec-2017" title="Permalink to this heading"></a></h2>
-<div class="section" id="improved-file-uploading">
-<h3>Improved file uploading<a class="headerlink" href="#improved-file-uploading" title="Permalink to this heading"></a></h3>
+</section>
+</section>
+<section id="version-0-2-4-dec-2017">
+<h2>Version 0.2.4 (Dec 2017)<a class="headerlink" href="#version-0-2-4-dec-2017" title="Link to this heading"></a></h2>
+<section id="improved-file-uploading">
+<h3>Improved file uploading<a class="headerlink" href="#improved-file-uploading" title="Link to this heading"></a></h3>
 <p>Instead of uploading files one-by-one, first the hub is rendered to a local
 “staging” directory and tracks are symlinked over to this directory. BAM and
 VCF indexes are also symlinked if needed, and any HTML documentation is also
 rendered to the staging directory.  This allows for inspecting the hub locally
 before uploading.  The entire directory can then be uploaded with <code class="docutils literal notranslate"><span class="pre">rsync</span></code>
 using the <code class="docutils literal notranslate"><span class="pre">-L</span></code> option to follow symlinks.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="_images/upload_strategy.png" src="_images/upload_strategy.png" />
-<p class="caption"><span class="caption-text">Diagram illustrating the changes in uploading strategies.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+<figcaption>
+<p><span class="caption-text">Diagram illustrating the changes in uploading strategies.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 <div class="legend">
 <p><em>Using the old method, the hub, genomes, and trackdb files were rendered in
 the working directory, cluttering it. Each file was then individually
@@ -154,10 +179,11 @@ files to a staging directory, and the hub, genomes, and trackdb files are
 rendered directly in that staging directory. The entire directory is then
 rsynced with a single call.</em></p>
 </div>
-</div>
-</div>
-<div class="section" id="local-fn-argument-is-now-replaced-by-source">
-<h3><cite>local_fn</cite> argument is now replaced by <cite>source</cite><a class="headerlink" href="#local-fn-argument-is-now-replaced-by-source" title="Permalink to this heading"></a></h3>
+</figcaption>
+</figure>
+</section>
+<section id="local-fn-argument-is-now-replaced-by-source">
+<h3><cite>local_fn</cite> argument is now replaced by <cite>source</cite><a class="headerlink" href="#local-fn-argument-is-now-replaced-by-source" title="Link to this heading"></a></h3>
 <p>To better align the semantics of keyword arguments with this new uploading
 strategy, <cite>local_fn</cite> and <cite>remote_fn</cite> are deprecated as arguments to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code> objects. With the new uploading strategy described aboved,
@@ -176,9 +202,9 @@ external tracks from ENCODE can be incorporated into a hub in this manner). Use
 the <cite>url</cite> argument instead of <cite>source</cite> for incorporating such tracks.</p>
 <p>Please see the documentation for <a class="reference internal" href="autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack" title="trackhub.BaseTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">trackhub.BaseTrack</span></code></a> for details on
 <cite>source</cite>, <cite>filename</cite>, and <cite>url</cite>.</p>
-</div>
-<div class="section" id="improved-documentation">
-<h3>Improved documentation<a class="headerlink" href="#improved-documentation" title="Permalink to this heading"></a></h3>
+</section>
+<section id="improved-documentation">
+<h3>Improved documentation<a class="headerlink" href="#improved-documentation" title="Link to this heading"></a></h3>
 <p>The documentation at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a> has been rewritten, and
 now includes example code for progressively more complex trackhubs that
 demonstrate different features of the package and track hubs in general.</p>
@@ -198,24 +224,24 @@ the Genome Browser:</p>
 </pre></div>
 </div>
 <p>Or the hub can be loaded directly into UCSC with the following URL: <a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000</a></p>
-</div>
-<div class="section" id="python-2-and-3-support">
-<h3>Python 2 and 3 support<a class="headerlink" href="#python-2-and-3-support" title="Permalink to this heading"></a></h3>
+</section>
+<section id="python-2-and-3-support">
+<h3>Python 2 and 3 support<a class="headerlink" href="#python-2-and-3-support" title="Link to this heading"></a></h3>
 <p>Since we are no longer using <cite>fabric</cite> as a dependency (which is only available
 under Python 2), <cite>trackhub</cite> now supports Python 2 and Python 3 and is tested on
 both versions.</p>
-</div>
-</div>
-<div class="section" id="version-0-1-3-nov-2015">
-<h2>Version 0.1.3 (Nov 2015)<a class="headerlink" href="#version-0-1-3-nov-2015" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+<section id="version-0-1-3-nov-2015">
+<h2>Version 0.1.3 (Nov 2015)<a class="headerlink" href="#version-0-1-3-nov-2015" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>fixed bug where local rsync operations were not using the provided rsync options</p></li>
 <li><p>docs now at <a class="reference external" href="https://daler.github.io/trackhub">https://daler.github.io/trackhub</a></p></li>
 <li><p>tests now on travis-ci using Docker</p></li>
 </ul>
-</div>
-<div class="section" id="version-0-1-2-jan-2-2015">
-<h2>Version 0.1.2 (Jan 2 2015)<a class="headerlink" href="#version-0-1-2-jan-2-2015" title="Permalink to this heading"></a></h2>
+</section>
+<section id="version-0-1-2-jan-2-2015">
+<h2>Version 0.1.2 (Jan 2 2015)<a class="headerlink" href="#version-0-1-2-jan-2-2015" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>always use the remote filename of a BAM when uploading the corresponding .bai</p></li>
 <li><p>add support for BAM parameters <cite>baseColorUseSequence</cite>, <cite>baseColorDefault</cite>,
@@ -225,9 +251,9 @@ and <cite>showDiffBasesAllScales</cite></p></li>
 <li><p>use local path of trackdb to be relative to the hub local filename (thanks
 Jakob Goldman)</p></li>
 </ul>
-</div>
-<div class="section" id="version-0-1-1-dec-19-2012">
-<h2>Version 0.1.1 (Dec 19 2012)<a class="headerlink" href="#version-0-1-1-dec-19-2012" title="Permalink to this heading"></a></h2>
+</section>
+<section id="version-0-1-1-dec-19-2012">
+<h2>Version 0.1.1 (Dec 19 2012)<a class="headerlink" href="#version-0-1-1-dec-19-2012" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Initial support for SuperTracks (Venkat Malladi)</p></li>
 <li><p>Support for vcfTabix format (Venkat Malladi)</p></li>
@@ -241,12 +267,12 @@ Jakob Goldman)</p></li>
 <li><p>better support for adding single tracks</p></li>
 <li><p>subgroups incrementally updated rather than replaced</p></li>
 </ul>
-</div>
-<div class="section" id="version-0-1-oct-30-2012">
-<h2>Version 0.1 (Oct 30 2012)<a class="headerlink" href="#version-0-1-oct-30-2012" title="Permalink to this heading"></a></h2>
+</section>
+<section id="version-0-1-oct-30-2012">
+<h2>Version 0.1 (Oct 30 2012)<a class="headerlink" href="#version-0-1-oct-30-2012" title="Link to this heading"></a></h2>
 <p>Initial release</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

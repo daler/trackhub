@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>trackhub.hub &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>trackhub.hub &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -27,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -49,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 </ul>
@@ -66,9 +72,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>trackhub.hub</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">trackhub.hub</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,14 +92,26 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">HubComponent</span>
 
 
-<div class="viewcode-block" id="Hub"><a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub">[docs]</a><span class="k">class</span> <span class="nc">Hub</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="Hub">
+<a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub">[docs]</a>
+<span class="k">class</span> <span class="nc">Hub</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
     <span class="c1"># map proper track hub stanza field names to pythonic attribute names in</span>
     <span class="c1"># this class.</span>
 
-<div class="viewcode-block" id="Hub.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hub</span><span class="p">,</span> <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">genomes_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">genomes_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-                 <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Hub.__init__">
+<a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">hub</span><span class="p">,</span>
+        <span class="n">short_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">long_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">genomes_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">genomes_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">email</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a top-level track hub container.</span>
 
 <span class="sd">        hub : str</span>
@@ -124,8 +142,7 @@
         <span class="n">HubComponent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">DeprecationWarning</span><span class="p">(</span>
-                <span class="s1">&#39;url is no longer used for Hub objects&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">DeprecationWarning</span><span class="p">(</span><span class="s2">&quot;url is no longer used for Hub objects&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hub</span> <span class="o">=</span> <span class="n">hub</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">short_label</span><span class="p">:</span>
             <span class="n">short_label</span> <span class="o">=</span> <span class="n">hub</span>
@@ -140,22 +157,30 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_genomes_file</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">hub</span> <span class="o">+</span> <span class="s1">&#39;.hub.txt&#39;</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">hub</span> <span class="o">+</span> <span class="s2">&quot;.hub.txt&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span></div>
 
-<div class="viewcode-block" id="Hub.validate"><a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Hub.validate">
+<a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.validate">[docs]</a>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">genomes_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span>
-                <span class="s1">&#39;No GenomesFile attached to Hub (use add_genomes_file())&#39;</span><span class="p">)</span>
+                <span class="s2">&quot;No GenomesFile attached to Hub (use add_genomes_file())&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Hub.add_genomes_file"><a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.add_genomes_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_genomes_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Hub.add_genomes_file">
+<a class="viewcode-back" href="../../autodocs/trackhub.Hub.html#trackhub.Hub.add_genomes_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_genomes_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If a GenomesFile object was not provided upon instantiating this</span>
 <span class="sd">        object, attach one now</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genomes_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">genomes_file</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
@@ -163,26 +188,27 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">genomes_file</span><span class="p">:</span>
             <span class="n">genomes_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genomes_file</span><span class="o">.</span><span class="n">filename</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s1">&#39;hub&#39;</span><span class="p">,</span> <span class="s1">&#39;hub&#39;</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;shortLabel&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_label</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;longLabel&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">long_label</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;genomesFile&#39;</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;hub&quot;</span><span class="p">,</span> <span class="s2">&quot;hub&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;shortLabel&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_label</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;longLabel&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">long_label</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;genomesFile&quot;</span><span class="p">,</span> <span class="n">genomes_file</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">),</span>
         <span class="p">]:</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s1">&#39;staging&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">staging</span><span class="o">=</span><span class="s2">&quot;staging&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Render just this object, and not all the underlying GenomeFiles and</span>
 <span class="sd">        their TrackDb.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rendered_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">staging</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">rendered_filename</span><span class="p">)</span>
-        <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">rendered_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">rendered_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
         <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fout</span><span class="o">.</span><span class="n">name</span></div>
+
 </pre></div>
 
            </div>

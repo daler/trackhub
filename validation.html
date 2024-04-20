@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validation &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>Validation &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -54,6 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -71,8 +78,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Validation</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Validation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/validation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,8 +89,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="validation">
-<span id="id1"></span><h1>Validation<a class="headerlink" href="#validation" title="Permalink to this heading"></a></h1>
+  <section id="validation">
+<span id="id1"></span><h1>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h1>
 <p>By default, parameters for tracks are validated to catch errors at creation
 time rather than upload time.</p>
 <p>In this example, we set <cite>fake_param</cite>. Note that track object is created with no
@@ -154,13 +161,13 @@ type bigWig -2 2
 maxHeightPixels 15
 </pre></div>
 </div>
-<div class="section" id="updating-parameters">
-<h2>Updating parameters<a class="headerlink" href="#updating-parameters" title="Permalink to this heading"></a></h2>
+<section id="updating-parameters">
+<h2>Updating parameters<a class="headerlink" href="#updating-parameters" title="Link to this heading"></a></h2>
 <p>The track hub specification changes. In order to stay up-to-date with these
 changes, the <cite>trackhub.parse</cite> module can be used to parse the HTML of the Track
 Database Definition page and create the corresponding <cite>Param</cite> objects.</p>
 <p>The general workflow is to run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python trackhub/parse.py &gt; parsed_results.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>trackhub/parse.py<span class="w"> </span>&gt;<span class="w"> </span>parsed_results.py
 </pre></div>
 </div>
 <p>And then use a diff tool (<cite>meld</cite>, <cite>vim -d</cite>, etc) to manually evaluate the
@@ -170,8 +177,8 @@ be different, although there are some params that are not defined in the
 database documnet and had to be added manually.</p>
 <p>After making the necessary changes, please either open an issue or create
 a pull request on <a class="reference external" href="https://github.com/daler/trackhub">the GitHub repository</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

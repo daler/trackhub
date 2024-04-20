@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>Quickstart &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -57,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -74,8 +81,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Quickstart</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quickstart</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,10 +92,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="quickstart">
-<span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
-<div class="section" id="preliminaries">
-<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this heading"></a></h2>
+  <section id="quickstart">
+<span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h1>
+<section id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Link to this heading"></a></h2>
 <p>If you’ve never created a track hub before, it’s important to read the <a class="reference external" href="http://genome.ucsc.edu/goldenPath/help/hgTrackHubHelp.html">track
 hub help</a> so you
 know some of the terminology.</p>
@@ -106,9 +113,9 @@ found in <a class="reference internal" href="assembly_example.html#assembly-exam
 <li><p><a class="reference external" href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;hubUrl=https://raw.githubusercontent.com/daler/trackhub-demo/master/quickstart/quickstart.hub.txt&amp;position=chr1%3A1-5000">load the grouping example on UCSC</a></p></li>
 <li><p><a class="reference external" href="https://github.com/daler/trackhub-demo/tree/master/quickstart">files in GitHub</a></p></li>
 </ul>
-</div>
-<div class="section" id="create-hub-components">
-<h2>Create hub components<a class="headerlink" href="#create-hub-components" title="Permalink to this heading"></a></h2>
+</section>
+<section id="create-hub-components">
+<h2>Create hub components<a class="headerlink" href="#create-hub-components" title="Link to this heading"></a></h2>
 <p>A track hub consists of connected components of files that point to each other.
 The hub file points to a genomes file, which points to a trackDb file, which
 points to the various data tracks.</p>
@@ -152,13 +159,13 @@ trackDb hg38/trackDb.txt
 <p>So far, the <cite>trackdb</cite> object has no tracks added:</p>
 <div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
-  <span class="c">...</span>
+<span class="w">  </span><span class="c">...</span>
 <span class="gr">ValueError</span>: <span class="n">No Track objects specified</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="adding-tracks">
-<h2>Adding tracks<a class="headerlink" href="#adding-tracks" title="Permalink to this heading"></a></h2>
+</section>
+<section id="adding-tracks">
+<h2>Adding tracks<a class="headerlink" href="#adding-tracks" title="Link to this heading"></a></h2>
 <p>In this example, we are adding tracks one at a time. This is not much easier
 than just writing the trackDb file in a text editor. However, creating tracks
 in Python makes it easy to scale up to hundreds of tracks and unlocks all of
@@ -225,9 +232,9 @@ viewLimits -2:2
 visibility full
 </pre></div>
 </div>
-</div>
-<div class="section" id="render-stage-the-hub">
-<h2>Render (stage) the hub<a class="headerlink" href="#render-stage-the-hub" title="Permalink to this heading"></a></h2>
+</section>
+<section id="render-stage-the-hub">
+<h2>Render (stage) the hub<a class="headerlink" href="#render-stage-the-hub" title="Link to this heading"></a></h2>
 <p>To get ready for uploading, <cite>trackhub</cite> renders the hub files and symlinks all
 the track source files into a local directory. This allows us to inspect the
 hub before uploading.</p>
@@ -262,8 +269,8 @@ directory into the repo:</p>
 <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

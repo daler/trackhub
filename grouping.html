@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Organizing larger track hubs &mdash; trackhub 0.2.4 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <title>Organizing larger track hubs &mdash; trackhub 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> trackhub
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            trackhub
           </a>
               <div class="version">
-                0.2.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="assembly_example.html">Assembly example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="groupAutoScale.html">groupAutoScale example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracktypes.html">Examples of hubs using various supported track types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Testing infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autodocs.html">API documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -68,8 +75,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Organizing larger track hubs</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Organizing larger track hubs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/grouping.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,8 +86,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="organizing-larger-track-hubs">
-<span id="grouping-example"></span><h1>Organizing larger track hubs<a class="headerlink" href="#organizing-larger-track-hubs" title="Permalink to this heading"></a></h1>
+  <section id="organizing-larger-track-hubs">
+<span id="grouping-example"></span><h1>Organizing larger track hubs<a class="headerlink" href="#organizing-larger-track-hubs" title="Link to this heading"></a></h1>
 <p>This is a modified version of the example in the README which shows how to
 organize the data into multiple kinds of containers – multiWig,
 compositeTracks, and superTracks. See UCSC’s <a class="reference external" href="https://genome.ucsc.edu/goldenPath/help/hubQuickStartGroups.html">grouping quick start</a> for some
@@ -91,14 +98,18 @@ background.</p>
 </ul>
 <p>Access the config page for the composite track to view the checkbox matrix and
 see other config options. Here are some screenshots:</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="_images/screenshot.png"><img alt="_images/screenshot.png" src="_images/screenshot.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">Screenshot of the hub generated from <a class="reference internal" href="#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
-</div>
-<div class="figure align-default" id="id2">
+<figcaption>
+<p><span class="caption-text">Screenshot of the hub generated from <a class="reference internal" href="#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="_images/config-screenshot.png"><img alt="_images/config-screenshot.png" src="_images/config-screenshot.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">Screenshot of the configuration page generated by <a class="reference internal" href="#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Screenshot of the configuration page generated by <a class="reference internal" href="#grouping-example"><span class="std std-ref">Organizing larger track hubs</span></a></span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">trackhub</span>
 
@@ -234,7 +245,7 @@ see other config options. Here are some screenshots:</p>
 <span class="c1"># Next, some helper functions:</span>
 
 <span class="k">def</span> <span class="nf">subgroups_from_filename</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This functions figures out subgroups based on the number in the</span>
 <span class="sd">    filename.  Subgroups provided to the Track() constructor is</span>
 <span class="sd">    a dictionary where keys are `name` attributes from the subgroups added</span>
@@ -264,7 +275,7 @@ see other config options. Here are some screenshots:</p>
 
 
 <span class="k">def</span> <span class="nf">color_from_filename</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Figure out a nice color for a track, depending on its filename.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Due to how code is extracted from the docs and run during tests, we</span>
@@ -333,7 +344,7 @@ see other config options. Here are some screenshots:</p>
         <span class="n">remote_dir</span><span class="o">=</span><span class="s1">&#39;/var/www/example_hub&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>
