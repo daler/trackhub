@@ -2,7 +2,7 @@
 
 import sys
 import os
-import importlib.resources
+from pathlib import Path
 import trackhub
 from collections import defaultdict
 from openpyxl import load_workbook, Workbook
