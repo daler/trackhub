@@ -63,7 +63,7 @@ jobs:
             err=1
           fi
         done
-        if [ err == 1 ]; then
+        if [ $err == 1 ]; then
           exit 1
         fi
 
