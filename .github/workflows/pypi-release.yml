@@ -1,0 +1,18 @@
+on: workflow_dispatch
+jobs:
+  publish-pypi:
+    name: Upload release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/trackhub
+    permissions:
+      id-token: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: |
+        pip install build
+        python -m build --sdist
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
