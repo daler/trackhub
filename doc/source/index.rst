@@ -13,5 +13,6 @@ Contents:
     assembly_example
     groupAutoScale
     tracktypes
+    tests
     autodocs
     changelog
