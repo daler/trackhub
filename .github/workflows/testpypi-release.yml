@@ -1,4 +1,5 @@
 on: workflow_dispatch
+name: Publish to Test PyPI
 jobs:
   publish-testpypi:
     name: Upload release to Test PyPI
