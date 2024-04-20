@@ -591,8 +591,7 @@ def create_example(filename):
     # used here is agnostic to Python versions.
     example_file = os.path.join(
         os.path.dirname(sys.modules['trackhub'].__file__),
-        "example.xlsx"
-    )
+        "test", "data", "example.xlsx")
     wb = load_workbook(example_file, data_only=True)
 
     bigbeds = wb.create_sheet("bigbeds")
