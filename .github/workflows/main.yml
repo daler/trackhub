@@ -21,7 +21,8 @@ jobs:
     - name: build new conda env
       run: |
         eval "$(conda shell.bash hook)"
-        conda create -p ./env -y python=${{ matrix.python-version }} --file test-requirements.txt --channel conda-forge --channel bioconda
+        conda install -n base mamba -y --channel conda-forge
+        mamba create -p ./env -y python=${{ matrix.python-version }} --file test-requirements.txt --channel conda-forge --channel bioconda
         conda activate ./env
         pip install -e .
 

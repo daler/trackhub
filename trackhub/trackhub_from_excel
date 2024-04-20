@@ -590,7 +590,7 @@ def create_example(filename):
     # In Python >=3.9, importlib.resources.files would work, but the method
     # used here is agnostic to Python versions.
     example_file = os.path.join(
-        os.path.dirname(sys.modules['trackhub'].__file),
+        os.path.dirname(sys.modules['trackhub'].__file__),
         "example.xlsx"
     )
     wb = load_workbook(example_file, data_only=True)
