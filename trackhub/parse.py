@@ -12,8 +12,9 @@ def make_soup():
     # Initial workarounds chopped up the file and parsed individually, but the
     # most lenient html5lib parse seems to do the trick.
     response = requests.get(
-        'https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html')
-    soup = bs4.BeautifulSoup(response.text, 'html5lib')
+        "https://genome.ucsc.edu/goldenPath/help/trackDb/trackDbHub.html"
+    )
+    soup = bs4.BeautifulSoup(response.text, "html5lib")
     return soup
 
 
@@ -38,44 +39,44 @@ def get_supported_types(soup):
             </ul>
             <li> (don't care about this one since not in a ul)
     """
-    abam = soup.find('a', href=re.compile('#bam'))
+    abam = soup.find("a", href=re.compile("#bam"))
     ol = abam.parent.parent.parent.parent
     supported_types = []
-    for ul in ol.find_all('ul'):
-        for a in ul.find_all('a'):
-            ref = a['href'].replace('#', '')
+    for ul in ol.find_all("ul"):
+        for a in ul.find_all("a"):
+            ref = a["href"].replace("#", "")
 
             # some have text like "#bigMaf_-_Multiple_Alignments", so split on
             # the '_'
-            ref = ref.split('_')[0]
+            ref = ref.split("_")[0]
             supported_types.append(ref)
 
     # multiWig is not included in this table, but it's considered a type in the
     # divs.
-    supported_types.append('multiWig')
+    supported_types.append("multiWig")
 
     # If a setting pertains to all types, they are not all listed, rather, the
     # "all" type is specified.
-    supported_types.append('all')
+    supported_types.append("all")
 
     return supported_types
 
 
 def support_level(soup):
     # Another set of tables stores the support level
-    settings_tables = soup.find_all('table', class_='settingsTable')
+    settings_tables = soup.find_all("table", class_="settingsTable")
     support_levels = {}
     for t in settings_tables:
-        for td in t.find_all('td'):
-            if not td.has_attr('class'):
+        for td in t.find_all("td"):
+            if not td.has_attr("class"):
                 continue
-            key = td['class']
+            key = td["class"]
             assert len(key) == 1
             key = key[0]
-            code = td.find('code')
-            if not code or not code.has_attr('class'):
+            code = td.find("code")
+            if not code or not code.has_attr("class"):
                 continue
-            support = code['class']
+            support = code["class"]
             support_levels[key] = support
     return support_levels
 
@@ -141,16 +142,16 @@ def parse_divs(soup, supported_types):
         they're from. However some are examples that luckily are tagged as such
         (e.g., bed_example).
         """
-        if tag.name != 'span':
+        if tag.name != "span":
             return
-        if tag.parent.has_attr('class'):
-            for c in tag.parent['class']:
-                if 'example' in c:
+        if tag.parent.has_attr("class"):
+            for c in tag.parent["class"]:
+                if "example" in c:
                     return
 
-        if tag.has_attr('class'):
-            if 'types' in tag['class']:
-                if 'customTracks' not in tag['class']:
+        if tag.has_attr("class"):
+            if "types" in tag["class"]:
+                if "customTracks" not in tag["class"]:
                     return True
 
     d = soup.find_all(keep)
@@ -164,10 +165,10 @@ def parse_divs(soup, supported_types):
 
         # 2024-04-13: maxWindowCoverage appears to be wrapped in an
         # additional <code>, so we need to get *it's* parent.
-        if div.name == 'code':  # not 'div'...
+        if div.name == "code":  # not 'div'...
             div = div.parent
 
-        _id = div.attrs['class']
+        _id = div.attrs["class"]
         assert len(_id) == 1
         _id = _id[0]
 
@@ -176,26 +177,26 @@ def parse_divs(soup, supported_types):
         # though.
         debug[_id] = div
 
-        types = set(i.attrs['class']).intersection(supported_types)
+        types = set(i.attrs["class"]).intersection(supported_types)
 
         if len(types.intersection(supported_types)) == 0:
             continue
 
         types = list(types)
-        fmt = div.find_all(name='div', attrs='format')
+        fmt = div.find_all(name="div", attrs="format")
         assert len(fmt) == 1
         fmt = fmt[0]
 
-        required_p = div.find_all(name='p', attrs='isRequired')
+        required_p = div.find_all(name="p", attrs="isRequired")
         required = False
         if required_p:
             for i in required_p:
-                if 'yes' in i.text.lower() or 'for hubs' in i.text.lower():
+                if "yes" in i.text.lower() or "for hubs" in i.text.lower():
                     required = True
 
         # Some, like bamGrayMode, have several "sub names" like bamGrayMode,
         # aliQualRnage, baseQualRange. Handle those here.
-        formats = fmt.find_all('code')
+        formats = fmt.find_all("code")
         if formats is None:
             continue
         else:
@@ -204,37 +205,36 @@ def parse_divs(soup, supported_types):
         # Most non-hub-relevant settings are filtered out py the supported
         # types filter, but some sneak through (e.g. several only used by
         # ENCODE).
-        no_hub = div.find_all('p', string=re.compile('NOT FOR HUBS'))
+        no_hub = div.find_all("p", string=re.compile("NOT FOR HUBS"))
         if no_hub:
             continue
 
-        example = div.find('pre')
+        example = div.find("pre")
         if example is not None:
             example = str(example.string)
 
-        desc = div.find_all('p')
+        desc = div.find_all("p")
         if desc is not None:
-            desc = ' '.join([' '.join(''.join(i.strings).split()) for i in
-                             desc])
+            desc = " ".join([" ".join("".join(i.strings).split()) for i in desc])
         if _id in specs:
             raise ValueError("duplicate value for {}".format(_id))
 
         # We are only concerned with settings, not types. Types (bigBed, bam,
         # etc) have "type" in their format.
-        if any([i.split()[0] == 'type' for i in formats]):
+        if any([i.split()[0] == "type" for i in formats]):
             continue
 
         # Special cases
         #
-        if _id in ['view', 'subGroupN', 'parent_view']:
+        if _id in ["view", "subGroupN", "parent_view"]:
             continue
 
         spec = {
-            'format': formats,
-            'types': sorted(types),
-            'required': required,
-            'example': example,
-            'desc': desc,
+            "format": formats,
+            "types": sorted(types),
+            "required": required,
+            "example": example,
+            "desc": desc,
         }
         specs[_id] = spec
 
@@ -260,38 +260,50 @@ def print_parsed(specs):
     specs : dict
         Returned dictionary from parse_divs()
     """
+
     observed_types = set()
     for i in specs.values():
-        observed_types.update(i['types'])
+        observed_types.update(i["types"])
     observed_types = sorted(observed_types)
 
-    s = ['# Observed types from the parsed document']
-    s.append('TRACKTYPES = [')
+    s = ["# Observed types from the parsed document"]
+    s.append("TRACKTYPES = [")
     for i in observed_types:
-        s.append("    '{}',".format(i))
-    s.append(']')
-    print('\n'.join(s) + '\n')
+        s.append('    "{}",'.format(i))
+    s.append("]")
+    print("\n".join(s) + "\n")
 
-    data_types = specs['bigDataUrl']['types']
+    data_types = specs["bigDataUrl"]["types"]
 
-    s = ['# Tracks for which the definition specifies bigDataUrl']
-    s.append('DATA_TRACKTYPES = [')
+    s = ["# Tracks for which the definition specifies bigDataUrl"]
+    s.append("DATA_TRACKTYPES = [")
     for i in data_types:
-        s.append("    '{}',".format(i))
-    s.append(']')
-    print('\n'.join(s) + '\n')
-    print('param_defs = [')
+        s.append('    "{}",'.format(i))
+    s.append("]")
+    print("\n".join(s) + "\n")
+    print("param_defs = [")
     print()
+
+    def _quote(x):
+        """
+        Python __repr__ uses single quotes, but we're aiming for a pep8
+        format with double quotes. Fix that here.
+        """
+        s = str(x)
+        if '"' in s:
+            return s
+        return s.replace("'", '"')
+
     for k, v in sorted(specs.items()):
         print(
             (
-    '''
+                f"""
     Param(
         name="{k}",
-        fmt={v[format]},
-        types={v[types]},
-        required={v[required]},
-        validator=str),'''.format(**locals())
+        fmt={_quote(v['format'])},
+        types={_quote(v['types'])},
+        required={_quote(v['required'])},
+        validator=str),"""
             )
         )
 

@@ -18,9 +18,8 @@ def dimensions_from_subgroups(s):
     ----------
     s : list of SubGroup objects (or anything with a `name` attribute)
     """
-    letters = 'XYABCDEFGHIJKLMNOPQRSTUVWZ'
-    return ' '.join(['dim{0}={1}'.format(dim, sg.name)
-                     for dim, sg in zip(letters, s)])
+    letters = "XYABCDEFGHIJKLMNOPQRSTUVWZ"
+    return " ".join(["dim{0}={1}".format(dim, sg.name) for dim, sg in zip(letters, s)])
 
 
 def filter_composite_from_subgroups(s):
@@ -40,10 +39,10 @@ def filter_composite_from_subgroups(s):
         used, just the number of items.
     """
     dims = []
-    for letter, sg in zip('ABCDEFGHIJKLMNOPQRSTUVWZ', s[2:]):
-        dims.append('dim{0}'.format(letter))
+    for letter, sg in zip("ABCDEFGHIJKLMNOPQRSTUVWZ", s[2:]):
+        dims.append("dim{0}".format(letter))
     if dims:
-        return ' '.join(dims)
+        return " ".join(dims)
 
 
 def hex2rgb(h):
@@ -58,13 +57,18 @@ def hex2rgb(h):
     >>> hex2rgb("#ff0033")
     '255,0,51'
     """
-    if not h.startswith('#') or len(h) != 7:
+    if not h.startswith("#") or len(h) != 7:
         raise ValueError("Does not look like a hex color: '{0}'".format(h))
-    return ','.join(map(str, (
-        int(h[1:3], 16),
-        int(h[3:5], 16),
-        int(h[5:7], 16),
-    )))
+    return ",".join(
+        map(
+            str,
+            (
+                int(h[1:3], 16),
+                int(h[3:5], 16),
+                int(h[5:7], 16),
+            ),
+        )
+    )
 
 
 def sanitize(s, strict=True):
@@ -82,20 +86,20 @@ def sanitize(s, strict=True):
         If True, only alphanumeric characters are allowed. If False, a limited
         set of additional characters (-._) will be allowed.
     """
-    allowed = ''.join(
+    allowed = "".join(
         [
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            'abcdefghijklmnopqrstuvwxyz',
-            '0123456789',
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "abcdefghijklmnopqrstuvwxyz",
+            "0123456789",
         ]
     )
 
     if not strict:
-        allowed += '-_.'
+        allowed += "-_."
 
-    s = str(s).replace(' ', '_')
+    s = str(s).replace(" ", "_")
 
-    return ''.join([i for i in s if i in allowed])
+    return "".join([i for i in s if i in allowed])
 
 
 def auto_track_url(track):
@@ -112,7 +116,8 @@ def auto_track_url(track):
 
     if hub is None:
         raise ValueError(
-            "track is not fully connected because the root is %s" % repr(hub))
+            "track is not fully connected because the root is %s" % repr(hub)
+        )
     if hub.url is None:
         raise ValueError("hub.url is not set")
     if track.source is None:
@@ -139,11 +144,13 @@ def print_rendered_results(results_dict):
     Rendered results can be multiply-nested dictionaries; this uses JSON
     serialization to print a nice representation.
     """
+
     class _HubComponentEncoder(json.JSONEncoder):
         def default(self, o):
             if isinstance(o, base.HubComponent):
                 return repr(o)
             return json.JSONEncoder.default(self, o)
+
     formatted = json.dumps(results_dict, indent=4, cls=_HubComponentEncoder)
     # the returned string contains lines with trailing spaces, which causes
     # doctests to fail.  So fix that here.
@@ -156,7 +163,7 @@ def data_dir():
     Returns the data directory that contains example files for tests and
     documentation.
     """
-    return os.path.join(os.path.dirname(_here), 'test', 'data')
+    return os.path.join(os.path.dirname(_here), "test", "data")
 
 
 def example_bigbeds():
@@ -167,7 +174,7 @@ def example_bigbeds():
     d = data_dir()
     for fn in os.listdir(d):
         fn = os.path.join(d, fn)
-        if os.path.splitext(fn)[-1] == '.bigBed':
+        if os.path.splitext(fn)[-1] == ".bigBed":
             hits.append(os.path.abspath(fn))
     return hits
 
@@ -180,6 +187,6 @@ def example_bigwigs():
     d = data_dir()
     for fn in os.listdir(d):
         fn = os.path.join(d, fn)
-        if os.path.splitext(fn)[-1] == '.bw':
+        if os.path.splitext(fn)[-1] == ".bw":
             hits.append(os.path.abspath(fn))
     return hits

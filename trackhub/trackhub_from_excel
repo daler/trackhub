@@ -2,15 +2,14 @@
 
 import importlib.resources
 import trackhub
-#from trackhub import settings
 from collections import defaultdict
 from openpyxl import load_workbook, Workbook
 
 
 def sheet_to_dict(workbook, sheet_name):
     """
-    Read a two column sheet and make it into a dictionary with the first
-    column as keys and the second as the values of a dictionary
+    Convert a two-column spreadsheet into a dictionary. First column keys,
+    second column values.
 
     Parameters
     ----------
@@ -93,8 +92,14 @@ def prepare_track_dict(track_dictionary, validation):
     if validation:
         track_dict_new = {k: v for k, v in new_dict.items() if k in parameters}
     else:
-        track_dict_new = {k: v for k, v in new_dict.items() if k not in ["super", "container_type", "container", "composite", "subgroups"]}
+        track_dict_new = {
+            k: v
+            for k, v in new_dict.items()
+            if k
+            not in ["super", "container_type", "container", "composite", "subgroups"]
+        }
     return track_dict_new
+
 
 def make_assembly(wb, d):
     """
@@ -658,7 +663,7 @@ def main(filename, staging, validation):
     # Get the sheet names from the Excel Workbook
     sheets = load_workbook(filename).sheetnames
 
-    # The dictionary `d` holds all of the containter tracks and hub and
+    # The dictionary `d` holds all of the container tracks and hub and
     # trackdb. It is keyed by the name of the type of container and the value
     # is a dictionary of the container objects keyed by name with values as the
     # container objects. Note that individual Tracks are not included in this
@@ -680,7 +685,7 @@ def main(filename, staging, validation):
     #       },
     #       ...
     #   }
-    if validation =="off":
+    if validation == "off":
         trackhub.settings.VALIDATE = False
     else:
         trackhub.settings.VALIDATE = True
@@ -706,7 +711,9 @@ def main(filename, staging, validation):
 
     # Now that all the container tracks are made, the tracks can be added
     # We also keep track of which subgroups belong to which composite tracks
-    d, comp2subgroup = add_tracks_and_make_subgroups(wb, d, sheets, trackhub.settings.VALIDATE)
+    d, comp2subgroup = add_tracks_and_make_subgroups(
+        wb, d, sheets, trackhub.settings.VALIDATE
+    )
 
     # Add the subgroups to the respective composite tracks
     d = add_subgroups_to_composite(comp2subgroup, d)

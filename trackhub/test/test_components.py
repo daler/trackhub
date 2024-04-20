@@ -1,23 +1,33 @@
 import pytest
-from trackhub import Hub, GenomesFile, Genome, Track, CompositeTrack, \
-    TrackDb, ViewTrack, SuperTrack, AggregateTrack
+from trackhub import (
+    Hub,
+    GenomesFile,
+    Genome,
+    Track,
+    CompositeTrack,
+    TrackDb,
+    ViewTrack,
+    SuperTrack,
+    AggregateTrack,
+)
 import os
 
 
 class Components(object):
     def __init__(self):
         self.hub = Hub(
-            hub='example_hub',
-            short_label='example hub',
-            long_label='an example hub for testing',
-            email='none@example.com')
+            hub="example_hub",
+            short_label="example hub",
+            long_label="an example hub for testing",
+            email="none@example.com",
+        )
         self.genomes_file = GenomesFile()
-        self.genome = Genome('dm3')
+        self.genome = Genome("dm3")
         self.trackdb = TrackDb()
 
         self.tracks = [
-            Track(name='track1', tracktype='bam'),
-            Track(name='track2', tracktype='bigWig'),
+            Track(name="track1", tracktype="bam"),
+            Track(name="track2", tracktype="bigWig"),
         ]
 
     def CONNECT(self):
@@ -32,8 +42,8 @@ class Components(object):
 
     def DISCONNECT(self):
         """
-        Re-run the setup, which results in unconnected components. Run
-        CONNECT() to connect them up.
+        Re-run __init__ which results in unconnected components. Run CONNECT()
+        to connect them up.
         """
         self.__init__()
 
