@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>trackhub.track &mdash; trackhub 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
 
   
   <!--[if lt IE 9]>
@@ -15,9 +15,9 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=359c27e9"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -151,12 +151,8 @@
     <span class="k">return</span> <span class="n">beginning</span> <span class="o">+</span> <span class="n">end</span>
 
 
-<div class="viewcode-block" id="SubGroupDefinition">
-<a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition">[docs]</a>
-<span class="k">class</span> <span class="nc">SubGroupDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<div class="viewcode-block" id="SubGroupDefinition.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SubGroupDefinition"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition">[docs]</a><span class="k">class</span> <span class="nc">SubGroupDefinition</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="SubGroupDefinition.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SubGroupDefinition.html#trackhub.SubGroupDefinition.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a subgroup line in a composite track.</span>
 
@@ -201,7 +197,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">mapping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span></div>
 
-
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -210,13 +205,8 @@
         <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="BaseTrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack">[docs]</a>
-<span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
-<div class="viewcode-block" id="BaseTrack.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseTrack"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack">[docs]</a><span class="k">class</span> <span class="nc">BaseTrack</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">,</span>
         <span class="n">tracktype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -332,7 +322,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_string</span><span class="p">:</span>
@@ -405,18 +394,13 @@
         <span class="n">fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">track_fields</span><span class="p">[</span><span class="n">base_tracktype</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span> <span class="o">=</span> <span class="n">update_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">track_field_order</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseTrack.add_trackdb">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_trackdb">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_trackdb"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_trackdb">[docs]</a>    <span class="k">def</span> <span class="nf">add_trackdb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trackdb</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach this track to a parent TrackDb object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_parent</span><span class="p">(</span><span class="n">trackdb</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="BaseTrack.add_params">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_params">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_params"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_params">[docs]</a>    <span class="k">def</span> <span class="nf">add_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add [possibly many] parameters to the track.</span>
 
@@ -442,10 +426,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="BaseTrack.remove_params">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.remove_params">[docs]</a>
-    <span class="k">def</span> <span class="nf">remove_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.remove_params"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.remove_params">[docs]</a>    <span class="k">def</span> <span class="nf">remove_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove [possibly many] parameters from the track.</span>
 
@@ -457,10 +438,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="BaseTrack.add_subgroups">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_subgroups">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.add_subgroups"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.add_subgroups">[docs]</a>    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the subgroups for this track.</span>
 
@@ -482,7 +460,6 @@
             <span class="n">subgroups</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgroups</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subgroups</span><span class="p">)</span></div>
-
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
@@ -544,11 +521,8 @@
             <span class="o">%</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
         <span class="p">]</span>
 
-<div class="viewcode-block" id="BaseTrack.validate">
-<a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.validate">[docs]</a>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseTrack.validate"><a class="viewcode-back" href="../../autodocs/trackhub.BaseTrack.html#trackhub.BaseTrack.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">html_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -560,13 +534,8 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="Track">
-<a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track">[docs]</a>
-<span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="Track.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="Track.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.Track.html#trackhub.Track.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a single track stanza along with the file it describes.</span>
 
@@ -593,7 +562,6 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Track</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;bigDataUrl&quot;</span><span class="p">]</span></div>
 
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -609,13 +577,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">fn</span></div>
 
 
-
-<div class="viewcode-block" id="CompositeTrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack">[docs]</a>
-<span class="k">class</span> <span class="nc">CompositeTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="CompositeTrack.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack">[docs]</a><span class="k">class</span> <span class="nc">CompositeTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a composite track.  Subclasses :class:`BaseTrack`, and adds</span>
 <span class="sd">        some extras.</span>
@@ -644,10 +607,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">views</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-
-<div class="viewcode-block" id="CompositeTrack.add_subgroups">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subgroups">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.add_subgroups"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subgroups">[docs]</a>    <span class="k">def</span> <span class="nf">add_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgroups</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a list of SubGroupDefinition objects to this composite.</span>
 
@@ -667,10 +627,7 @@
             <span class="n">_subgroups</span><span class="p">[</span><span class="n">sg</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subgroups</span> <span class="o">=</span> <span class="n">_subgroups</span></div>
 
-
-<div class="viewcode-block" id="CompositeTrack.add_subtrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subtrack">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a child :class:`Track`.</span>
 
@@ -679,10 +636,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="CompositeTrack.add_view">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_view">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.add_view"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_view">[docs]</a>    <span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a ViewTrack object to this composite.</span>
 
@@ -694,10 +648,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">view</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="CompositeTrack.add_tracks">
-<a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_tracks">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="CompositeTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.CompositeTrack.html#trackhub.CompositeTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method allows for both view and subtracks to be added to</span>
 <span class="sd">        a composite at the same time. `args` can be arbitrary BaseTrack objects</span>
@@ -721,7 +672,6 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
-
 
     <span class="k">def</span> <span class="nf">_str_subgroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -765,13 +715,8 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="ViewTrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack">[docs]</a>
-<span class="k">class</span> <span class="nc">ViewTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="ViewTrack.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTrack"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack">[docs]</a><span class="k">class</span> <span class="nc">ViewTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a View track.  Subclasses :class:`BaseTrack`, and adds some</span>
 <span class="sd">        extras.</span>
@@ -802,10 +747,7 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-
-<div class="viewcode-block" id="ViewTrack.add_tracks">
-<a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.add_tracks">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="ViewTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.ViewTrack.html#trackhub.ViewTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add one or more tracks to this view.</span>
 
@@ -823,7 +765,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">ViewTrack</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span>
@@ -835,13 +776,8 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="SuperTrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack">[docs]</a>
-<span class="k">class</span> <span class="nc">SuperTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="SuperTrack.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack">[docs]</a><span class="k">class</span> <span class="nc">SuperTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents a Super track. Subclasses :class:`Track`, and adds some</span>
 <span class="sd">        extras.</span>
@@ -862,10 +798,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-
-<div class="viewcode-block" id="SuperTrack.add_tracks">
-<a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_tracks">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="SuperTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.SuperTrack.html#trackhub.SuperTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add one or more tracks.</span>
 
@@ -882,7 +815,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
@@ -897,13 +829,8 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="AggregateTrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack">[docs]</a>
-<span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
-<div class="viewcode-block" id="AggregateTrack.__init__">
-<a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack">[docs]</a><span class="k">class</span> <span class="nc">AggregateTrack</span><span class="p">(</span><span class="n">BaseTrack</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.__init__"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggregate</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Represents an Aggregate or Overlay track. Subclasses :class:`Track`,</span>
 <span class="sd">        adds some extras.</span>
@@ -936,19 +863,13 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-
-<div class="viewcode-block" id="AggregateTrack.add_subtrack">
-<a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_subtrack">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.add_subtrack"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_subtrack">[docs]</a>    <span class="k">def</span> <span class="nf">add_subtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtrack</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a child :class:`SubTrack` to this aggregate.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_tracks</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="AggregateTrack.add_tracks">
-<a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_tracks">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="AggregateTrack.add_tracks"><a class="viewcode-back" href="../../autodocs/trackhub.AggregateTrack.html#trackhub.AggregateTrack.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add one or more tracks.</span>
 
@@ -966,7 +887,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">subtracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
@@ -979,7 +899,6 @@
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
                 <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INDENT</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
-
 
 
 <span class="k">class</span> <span class="nc">HTMLDoc</span><span class="p">(</span><span class="n">HubComponent</span><span class="p">):</span>
