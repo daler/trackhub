@@ -72,7 +72,7 @@ jobs:
       if: ${{ matrix.python-version == '3.10' }} && github.event-name == 'pull_request'
       uses: actions/upload-artifact@v4
       with:
-        name: docs-${{ github.head_ref }}
+        name: docs-${{ github.run_id }}
         path: doc/build/html
         overwrite: true  # v4 requires unique names; this will delete existing before uploading
 
