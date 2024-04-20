@@ -51,7 +51,7 @@ def make_files():
     def sine(resolution=10, power=2):
         resolution = 10
         x = np.arange(0, 10000, resolution)
-        y = np.sin(x / resolution**power) + np.random.random(x.shape[0])
+        y = np.sin(x / resolution ** power) + np.random.random(x.shape[0])
         for xi, yi in zip(x, y):
             yield pybedtools.create_interval_from_list(
                 ["chr1", str(xi), str(xi + resolution), "{0:.3f}".format(yi)]

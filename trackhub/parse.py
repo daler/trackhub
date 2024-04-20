@@ -229,7 +229,6 @@ def parse_divs(soup, supported_types):
         if _id in ["view", "subGroupN", "parent_view"]:
             continue
 
-
         spec = {
             "format": formats,
             "types": sorted(types),
@@ -261,7 +260,6 @@ def print_parsed(specs):
     specs : dict
         Returned dictionary from parse_divs()
     """
-
 
     observed_types = set()
     for i in specs.values():
