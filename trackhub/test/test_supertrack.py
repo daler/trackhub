@@ -6,79 +6,75 @@ them all and test that the output is as expected.
 
 import trackhub
 
+
 def test_supertrack():
     hub, genomes_file, genome, trackdb = trackhub.default_hub(
         hub_name="supertrack",
-        short_label='example supertrack hub',
-        long_label='example supertrack hub',
+        short_label="example supertrack hub",
+        long_label="example supertrack hub",
         genome="hg38",
-        email="dalerr@nih.gov")
+        email="dalerr@nih.gov",
+    )
 
     trackdb.add_tracks(
         trackhub.Track(
-            url='https://google.com',
-            tracktype='bigWig',
-            name='top_level_track')
+            url="https://google.com", tracktype="bigWig", name="top_level_track"
+        )
     )
 
-    supertrack = trackhub.SuperTrack(
-        name='super',
-        short_label='Super track'
-    )
+    supertrack = trackhub.SuperTrack(name="super", short_label="Super track")
     trackdb.add_tracks(supertrack)
 
     supertrack.add_tracks(
         trackhub.Track(
-            url='https://google.com',
-            tracktype='bigWig',
-            name='under_supertrack')
+            url="https://google.com", tracktype="bigWig", name="under_supertrack"
+        )
     )
 
     overlay = trackhub.AggregateTrack(
-        aggregate='transparentOverlay',
-        visibility='full',
-        tracktype='bigWig',
-        viewLimits='-2:2',
-        maxHeightPixels='8:80:128',
-        showSubtrackColorOnUi='on',
-        name='agg_under_supertrack')
+        aggregate="transparentOverlay",
+        visibility="full",
+        tracktype="bigWig",
+        viewLimits="-2:2",
+        maxHeightPixels="8:80:128",
+        showSubtrackColorOnUi="on",
+        name="agg_under_supertrack",
+    )
     supertrack.add_tracks(overlay)
 
     overlay.add_subtrack(
         trackhub.Track(
-            url='https://google.com',
-            tracktype='bigWig',
-            name='track_under_agg_under_supertrack')
+            url="https://google.com",
+            tracktype="bigWig",
+            name="track_under_agg_under_supertrack",
+        )
     )
 
-    composite = trackhub.CompositeTrack(name='composite_under_supertrack', tracktype='bigWig')
-    view = trackhub.ViewTrack(name='view', view='viewtrack', tracktype='bigWig')
+    composite = trackhub.CompositeTrack(
+        name="composite_under_supertrack", tracktype="bigWig"
+    )
+    view = trackhub.ViewTrack(name="view", view="viewtrack", tracktype="bigWig")
 
     view.add_tracks(
         trackhub.Track(
-            url='https://google.com',
-            tracktype='bigWig',
-            name='track_under_view')
+            url="https://google.com", tracktype="bigWig", name="track_under_view"
+        )
     )
     composite.add_view(view)
 
-
     composite.add_subtrack(
         trackhub.Track(
-            url='https://google.com',
-            tracktype='bigWig',
-            name='track_under_composite')
+            url="https://google.com", tracktype="bigWig", name="track_under_composite"
+        )
     )
     supertrack.add_tracks(composite)
 
-
     orig_indent = trackhub.constants.INDENT
-    trackhub.constants.INDENT = '  '
+    trackhub.constants.INDENT = "  "
     results = str(trackdb)
     trackhub.constants.INDENT = orig_indent
 
-    expected = \
-"""track top_level_track
+    expected = """track top_level_track
 bigDataUrl https://google.com
 shortLabel top_level_track
 longLabel top_level_track
@@ -146,11 +142,10 @@ superTrack on
     type bigWig
     parent composite_under_supertrack
 """
-    with open('super.test.observed', 'w') as fout:
+    with open("super.test.observed", "w") as fout:
         fout.write(results)
 
-    with open('super.test.expected', 'w') as fout:
+    with open("super.test.expected", "w") as fout:
         fout.write(expected)
 
     assert results == expected
-

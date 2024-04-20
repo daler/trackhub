@@ -38,8 +38,8 @@ class GenomesFile(HubComponent):
         if self.hub is None:
             return None
         return os.path.join(
-            os.path.dirname(self.hub.filename),
-            self.hub.hub + '.genomes.txt')
+            os.path.dirname(self.hub.filename), self.hub.hub + ".genomes.txt"
+        )
 
     @filename.setter
     def filename(self, fn):
@@ -51,8 +51,7 @@ class GenomesFile(HubComponent):
         if level is None:
             return None
         if level != -1:
-            raise ValueError(
-                "Found a hub at %s levels away -- needs to be -1" % level)
+            raise ValueError("Found a hub at %s levels away -- needs to be -1" % level)
         return hub
 
     def add_genome(self, genome):
@@ -63,17 +62,16 @@ class GenomesFile(HubComponent):
         s = []
         for genome in self.genomes:
             s.append(str(genome))
-        return '\n'.join(s) + '\n'
+        return "\n".join(s) + "\n"
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         rendered_filename = os.path.join(staging, self.filename)
         self.makedirs(rendered_filename)
-        fout = open(rendered_filename, 'w')
+        fout = open(rendered_filename, "w")
         fout.write(str(self))
         fout.close()
         return fout.name
 
     def validate(self):
         if len(self.children) == 0:
-            raise ValueError(
-                "No defined Genome objects to use")
+            raise ValueError("No defined Genome objects to use")

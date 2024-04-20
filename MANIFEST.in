@@ -1,3 +1,4 @@
 include ez_setup.py
 include *.rst
 include *.txt
+recursive-include trackhub/test/data *

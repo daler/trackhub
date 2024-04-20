@@ -6,25 +6,28 @@ from collections import OrderedDict
 
 
 def deprecation_handler(source, filename, kwargs):
-    if 'local_fn' in kwargs:
+    if "local_fn" in kwargs:
         warnings.warn(
-            'Please use the argument "source" instead of "local_fn"',
-            DeprecationWarning)
+            'Please use the argument "source" instead of "local_fn"', DeprecationWarning
+        )
         if source is not None:
             raise ValueError(
                 'Both "source" and "local_fn" are specified. Please use '
-                'just "source"')
-        source = kwargs.pop('local_fn')
+                'just "source"'
+            )
+        source = kwargs.pop("local_fn")
 
-    if 'remote_fn' in kwargs:
+    if "remote_fn" in kwargs:
         warnings.warn(
             'Please use the argument "source" instead of "remote_fn"',
-            DeprecationWarning)
+            DeprecationWarning,
+        )
         if filename is not None:
             raise ValueError(
                 'Both "filename" and "remote_fn" are specified. Please use '
-                'just "filename"')
-        filename = kwargs.pop('remote_fn')
+                'just "filename"'
+            )
+        filename = kwargs.pop("remote_fn")
     return source, filename
 
 
@@ -33,11 +36,12 @@ class HubComponent(object):
     Base class for various track hub components.  Several methods must be
     overridden by subclasses.
     """
+
     def __init__(self):
         self.children = []
         self.parent = None
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         """
         Renders the object to file.  Must be overridden by subclass.
 
@@ -45,7 +49,8 @@ class HubComponent(object):
         """
         raise NotImplementedError(
             "%s: subclasses must define their own _render() method"
-            % self.__class__.__name__)
+            % self.__class__.__name__
+        )
 
     def validate(self):
         """
@@ -54,7 +59,8 @@ class HubComponent(object):
         """
         raise NotImplementedError(
             "%s: subclasses must define their own validate() method"
-            % self.__class__.__name__)
+            % self.__class__.__name__
+        )
 
     def add_child(self, child):
         """
@@ -112,10 +118,8 @@ class HubComponent(object):
                 raise StopIteration
 
         for child in self.children:
-            for leaf, _level in child.leaves(
-                cls, level + 1, intermediate=intermediate
-            ):
-                    yield leaf, _level
+            for leaf, _level in child.leaves(cls, level + 1, intermediate=intermediate):
+                yield leaf, _level
 
     def render(self, staging=None):
         """

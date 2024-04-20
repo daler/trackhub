@@ -35,7 +35,7 @@ if not Path(hubcheck).exists():
 
 for line in open(args.tsv):
     line = line.strip()
-    if line.startswith('#') or not line:
+    if line.startswith("#") or not line:
         continue
 
     # Dest in trackhub demo is the second column of TSV, without the initial directory
@@ -59,7 +59,15 @@ for line in open(args.tsv):
             # with "can't find database hg19 in hg.conf, should have a default
             # named "db"". When checking the hub in the Genome Browser it seems
             # fine. So allowing this as a "pass".
-            if line.startswith("can't find database") and "hic_hub" in str(dest):
+            #
+            # Some time later...
+            # hubCheck for those same tracks is now showing "can't find profile
+            # central in hg.conf" error. Aain the tracks look fine the browser,
+            # so we'll consider that OK as well.
+            if "hic_hub" in str(dest) and (
+                line.startswith("can't find database")
+                or line.startswith("can't find profile central in hg.conf")
+            ):
                 warnings = True
             elif not (line.startswith("Found") or line.startswith("warning:")):
                 error = True

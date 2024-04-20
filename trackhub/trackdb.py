@@ -50,7 +50,7 @@ class TrackDb(HubComponent):
         if level is None:
             return None
         if level != -1:
-            raise ValueError('Genome is level %s, not -1' % level)
+            raise ValueError("Genome is level %s, not -1" % level)
         return genome
 
     @property
@@ -65,8 +65,11 @@ class TrackDb(HubComponent):
             return None
 
         else:
-            return os.path.join(os.path.dirname(self.genomes_file.filename),
-                                self.genome.genome, 'trackDb.txt')
+            return os.path.join(
+                os.path.dirname(self.genomes_file.filename),
+                self.genome.genome,
+                "trackDb.txt",
+            )
 
     @filename.setter
     def filename(self, fn):
@@ -84,6 +87,7 @@ class TrackDb(HubComponent):
             object.
         """
         from trackhub import BaseTrack
+
         if isinstance(track, BaseTrack):
             self.add_child(track)
             self._tracks.append(track)
@@ -95,6 +99,7 @@ class TrackDb(HubComponent):
     @property
     def tracks(self):
         from trackhub import Track
+
         return [i for i, level in self.leaves(Track)]
 
     def add_genome(self, genome):
@@ -107,18 +112,18 @@ class TrackDb(HubComponent):
             for line in str(track).splitlines(False):
                 line = line.rstrip()
                 s.append(line)
-            s.append('')
+            s.append("")
 
-        return '\n'.join(s)
+        return "\n".join(s)
 
     def validate(self):
         if len(self.children) == 0:
             raise ValueError("No Track objects specified")
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         rendered_filename = os.path.join(staging, self.filename)
         self.makedirs(rendered_filename)
-        fout = open(rendered_filename, 'w')
+        fout = open(rendered_filename, "w")
         fout.write(str(self))
         fout.close()
         return fout.name

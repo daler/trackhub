@@ -1,0 +1,15 @@
+on: workflow_dispatch
+jobs:
+  publish-testpypi:
+    name: Upload release to Test PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://pypi.org/p/trackhub
+    permissions:
+      id-token: write
+    steps:
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy

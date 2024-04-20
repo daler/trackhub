@@ -10,9 +10,17 @@ class Hub(HubComponent):
     # map proper track hub stanza field names to pythonic attribute names in
     # this class.
 
-    def __init__(self, hub, short_label=None, long_label=None,
-                 genomes_file=None, genomes_filename=None, email="",
-                 url=None, filename=None):
+    def __init__(
+        self,
+        hub,
+        short_label=None,
+        long_label=None,
+        genomes_file=None,
+        genomes_filename=None,
+        email="",
+        url=None,
+        filename=None,
+    ):
         """
         Represents a top-level track hub container.
 
@@ -44,8 +52,7 @@ class Hub(HubComponent):
         HubComponent.__init__(self)
         if url is not None:
             self.url = url
-            warnings.DeprecationWarning(
-                'url is no longer used for Hub objects')
+            warnings.DeprecationWarning("url is no longer used for Hub objects")
         self.hub = hub
         if not short_label:
             short_label = hub
@@ -60,13 +67,14 @@ class Hub(HubComponent):
             self.add_genomes_file(genomes_file)
 
         if filename is None:
-            filename = hub + '.hub.txt'
+            filename = hub + ".hub.txt"
         self.filename = filename
 
     def validate(self):
         if self.genomes_file is None:
             raise ValidationError(
-                'No GenomesFile attached to Hub (use add_genomes_file())')
+                "No GenomesFile attached to Hub (use add_genomes_file())"
+            )
         self.genomes_file.validate()
         return True
 
@@ -83,23 +91,23 @@ class Hub(HubComponent):
         if self.genomes_file:
             genomes_file = self.genomes_file.filename
         for label, value in [
-            ('hub', 'hub'),
-            ('shortLabel', self.short_label),
-            ('longLabel', self.long_label),
-            ('genomesFile', genomes_file),
-            ('email', self.email),
+            ("hub", "hub"),
+            ("shortLabel", self.short_label),
+            ("longLabel", self.long_label),
+            ("genomesFile", genomes_file),
+            ("email", self.email),
         ]:
-            s.append('{0} {1}'.format(label, value))
-        return '\n'.join(s)
+            s.append("{0} {1}".format(label, value))
+        return "\n".join(s)
 
-    def _render(self, staging='staging'):
+    def _render(self, staging="staging"):
         """
         Render just this object, and not all the underlying GenomeFiles and
         their TrackDb.
         """
         rendered_filename = os.path.join(staging, self.filename)
         self.makedirs(rendered_filename)
-        fout = open(rendered_filename, 'w')
+        fout = open(rendered_filename, "w")
         fout.write(str(self))
         fout.close()
         return fout.name
