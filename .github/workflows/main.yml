@@ -73,6 +73,7 @@ jobs:
       with:
         name: docs
         path: doc/build/html
+        overwrite: true  # v4 requires unique names; this will delete existing before uploading
 
 
     - name: commit built docs to gh-pages
